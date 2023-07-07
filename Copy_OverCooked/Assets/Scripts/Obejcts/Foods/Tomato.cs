@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tomato : Food, Interactable
+public class Tomato : Food
 {
-    public void Interact(Player player)
+    public override void Interact(Player player)
     {
         Grab(player);
     }

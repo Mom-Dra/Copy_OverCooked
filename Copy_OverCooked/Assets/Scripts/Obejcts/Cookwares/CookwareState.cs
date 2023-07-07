@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum CookwareState{
-    Empty,
+    Idle,
     Progressing,
     Completed
 }

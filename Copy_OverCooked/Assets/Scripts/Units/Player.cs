@@ -8,8 +8,7 @@ public abstract class Player : Unit
     protected Vector3 _handPos;
     [SerializeField]
     public Object hand;
-    [SerializeField]
-    protected float Speed = 20f;
+    
     [SerializeField]
     protected float distance = 1f;
 

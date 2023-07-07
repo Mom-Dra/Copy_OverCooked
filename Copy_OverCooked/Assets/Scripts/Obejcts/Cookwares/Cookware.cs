@@ -2,9 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public abstract class Cookware : Object
+public abstract class Cookware : Object, Interactable
 {
+    private void Awake() {
+        _state = CookwareState.Idle;
+    }
     
     [SerializeField]
     protected Vector3 offset;
@@ -21,8 +25,7 @@ public abstract class Cookware : Object
     protected IEnumerator Keep(Player player, GameObject cookedPrefab){
         while(currProgressTime < totalProgressTime){
             RaycastHit hit;
-            int layerMask = 1 << LayerMask.NameToLayer("Player");
-            if(Physics.Raycast(transform.position, transform.forward, out hit, 1, layerMask)
+            if(Physics.Raycast(transform.position, transform.forward, out hit, 1, LayerMask.GetMask("Player"))
             && hit.transform.GetComponent<Player>().hand == null){
                 currProgressTime += 0.1f;
                 Debug.Log($"Progress: {currProgressTime} / {totalProgressTime}%");
@@ -54,6 +57,20 @@ public abstract class Cookware : Object
         }
     }
 
-
-
+    public void Interact(Player player){
+        switch(_state){
+            case CookwareState.Idle:
+                Idle(player);
+                break;
+            case CookwareState.Progressing:
+                Progressing(player);
+                break;
+            case CookwareState.Completed:
+                Completed(player);
+                break;
+        }
+    }
+    protected abstract void Idle(Player player);
+    protected abstract void Progressing(Player player);
+    protected abstract void Completed(Player player);
 }

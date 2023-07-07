@@ -6,4 +6,7 @@ public class Unit : MonoBehaviour
 {
     [SerializeField]
     protected int id;
+
+    [SerializeField]
+    protected float Speed = 20f;
 }
