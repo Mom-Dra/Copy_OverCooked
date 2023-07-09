@@ -7,20 +7,24 @@ public abstract class Player : Unit
     [SerializeField]
     protected Vector3 _handPos;
     [SerializeField]
-    public Object hand;
-    
+    public Entity hand;
+
     [SerializeField]
     protected float distance = 1f;
 
-    public void Hand(Object ob){
-        if(ob == null){
-            if(hand != null)
+    public void Hand(Entity ob)
+    {
+        if (ob == null)
+        {
+            if (hand != null)
                 hand.gameObject.layer = LayerMask.NameToLayer("Interactable");
             hand = null;
-        }else{
+        }
+        else
+        {
             hand = ob;
             hand.gameObject.layer = LayerMask.NameToLayer("Hand");
         }
-        
+
     }
 }

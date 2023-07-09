@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class Tomato : Food
 {
-    public override void Interact(Player player)
-    {
-        Grab(player);
-    }
+
 }

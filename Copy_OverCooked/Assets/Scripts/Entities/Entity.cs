@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Object : MonoBehaviour
+public abstract class Entity : MonoBehaviour
 {
-    [SerializeField]
-    public GameObject prefab;
-
-    protected void Grab(Player player){
+    protected void Grab(Player player)
+    {
         Debug.Log("Grab!");
         player.Hand(this);
     }

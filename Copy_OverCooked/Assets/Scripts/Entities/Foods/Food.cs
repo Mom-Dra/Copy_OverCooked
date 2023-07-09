@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Food : Object, Interactable
+public abstract class Food : Entity, Interactable
 {
     protected FoodState _state;
     [SerializeField]
@@ -10,5 +10,8 @@ public abstract class Food : Object, Interactable
     [SerializeField]
     public GameObject chopped;
 
-    public abstract void Interact(Player player);
+    public void Interact(Player player)
+    {
+        Grab(player);
+    }
 }

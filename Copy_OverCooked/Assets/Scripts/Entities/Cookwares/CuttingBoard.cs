@@ -2,21 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pot : Cookware
+public class CuttingBoard : Cookware
 {
     protected override void Idle(Player player)
     {
-        if(player.hand == null){
-            Grab(player);
-        }else{
+        if (player.hand != null && player.hand.tag == "Food")
+        {
             PutIn(player);
+            totalProgressTime = elements[0].GetComponent<Food>().chopDuration;
         }
-        _state = CookwareState.Progressing;
+    }
+
+    protected override bool ProgressCondition()
+    {
+        return elements.Count == maxElementCount;
     }
 
     protected override void Progressing(Player player)
     {
-        
+        StartCoroutine(Cook(player));
     }
 
     protected override void Completed(Player player)

@@ -396,8 +396,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eccf496f3c985b64abec1e7b79500675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5350805098027501781}
-  offset: {x: 0, y: 0, z: 0}
+  maxElementCount: 3
+  offsetY: 0.1
+  offsets2D:
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  cookedOffset: {x: 0, y: 0.1, z: 0}
 --- !u!1 &6430025013051586919
 GameObject:
   m_ObjectHideFlags: 0
