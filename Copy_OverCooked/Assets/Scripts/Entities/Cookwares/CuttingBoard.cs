@@ -27,4 +27,10 @@ public class CuttingBoard : Cookware
     {
         TakeOut(player);
     }
+
+    protected override CookingMethod GetCookingMethod()
+    {
+        return CookingMethod.Chop;
+    }
+
 }

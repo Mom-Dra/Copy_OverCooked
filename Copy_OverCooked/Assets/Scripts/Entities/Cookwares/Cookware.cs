@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,7 +20,7 @@ public abstract class Cookware : Entity, Interactable
     protected Vector3[] offsets;
     protected CookwareState _state;
     protected List<Food> elements;
-    protected GameObject cookedPrefab;
+    // protected GameObject cookedPrefab;
     protected Food cooked;
 
     protected float totalProgressTime;
@@ -56,6 +57,7 @@ public abstract class Cookware : Entity, Interactable
             else yield break;
         }
         DestroyAllElement();
+        GameObject cookedPrefab = CookManager.Instance.Cooking(1, GetCookingMethod());
         cooked = Instantiate(cookedPrefab, transform.position + cookedOffset, Quaternion.identity).GetComponent<Food>();
         if (cooked == null)
         {
@@ -133,4 +135,5 @@ public abstract class Cookware : Entity, Interactable
     protected abstract bool ProgressCondition();
     protected abstract void Progressing(Player player);
     protected abstract void Completed(Player player);
+    protected abstract CookingMethod GetCookingMethod();
 }

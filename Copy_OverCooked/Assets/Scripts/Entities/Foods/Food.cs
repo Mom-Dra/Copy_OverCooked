@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Food : Entity, Interactable
 {
+    private int id;
     protected FoodState _state;
     [SerializeField]
     public float chopDuration;
@@ -13,5 +14,10 @@ public abstract class Food : Entity, Interactable
     public void Interact(Player player)
     {
         Grab(player);
+    }
+
+    public int getId()
+    {
+        return id;
     }
 }
