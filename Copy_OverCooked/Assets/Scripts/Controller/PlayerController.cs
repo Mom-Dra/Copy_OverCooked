@@ -2,61 +2,63 @@ using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class PlayerController : Player
 {
     private Rigidbody rigid;
-    private void Awake() {
-        rigid=GetComponent<Rigidbody>();
-    }
+    private Vector3 moveDirection;
 
-    void Update()
+    [Header("Dash")]
+    [SerializeField]
+    private float dashSpeed;
+    private float applyDashSpeed;
+
+    // 몇도 동안 대쉬를 할 것인가
+    [SerializeField]
+    private float dashTime;
+    private WaitForSeconds dashTimeWaitForsecond;
+
+    // 대쉬 쿨타임
+    [SerializeField]
+    private float dashCoolDownTime;
+    private WaitForSeconds dashDelayWaitForSecond;
+
+    private bool canDash;
+
+    private void Awake()
     {
-        if(Input.GetKey(KeyCode.W))
-        {
-            transform.rotation = Quaternion.LookRotation(Vector3.forward);
-            rigid.MovePosition(transform.position + transform.forward * Time.deltaTime * Speed);
-        }
-        else if(Input.GetKey(KeyCode.S))
-        {
-            transform.rotation = Quaternion.LookRotation(Vector3.back);
-            rigid.MovePosition(transform.position + transform.forward * Time.deltaTime * Speed);
-        }
-        else if(Input.GetKey(KeyCode.A))
-        {
-            transform.rotation = Quaternion.LookRotation(Vector3.left);
-            rigid.MovePosition(transform.position + transform.forward * Time.deltaTime * Speed);
-        }
-        else if(Input.GetKey(KeyCode.D))
-        {
-            transform.rotation = Quaternion.LookRotation(Vector3.right);
-            rigid.MovePosition(transform.position + transform.forward * Time.deltaTime * Speed);
-        }
+        rigid = GetComponent<Rigidbody>();
 
-        if(Input.GetKeyDown(KeyCode.Space)){
-            GrabOrPut();
-        }else if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            if(hand == null)
-            {
+        applyDashSpeed = 1f;
 
-            }else if(hand != null)
-            {
-                Throw();
-            }
-        }
-        
+        dashTimeWaitForsecond = new WaitForSeconds(dashTime);
+
+        dashDelayWaitForSecond = new WaitForSeconds(dashCoolDownTime);
+
+        canDash = true;
     }
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         if(hand != null){
             hand.transform.position = transform.position + (transform.forward * 0.8f);
         }
+
+        rigid.MovePosition(rigid.position + moveDirection * speed * applyDashSpeed * Time.deltaTime);
+        Debug.Log(moveDirection.magnitude * applyDashSpeed);
     }
 
-    private void GrabOrPut()
+    public void OnMove(InputValue value)
     {
-        if(hand != null)
+        Vector2 input = value.Get<Vector2>();
+        moveDirection = new Vector3(input.x, 0f, input.y);
+    }
+
+    public void OnGrabAndPut()
+    {
+        if (hand != null)
         {
             // Put
         }
@@ -75,8 +77,34 @@ public class PlayerController : Player
         }
     }
 
-    private void Throw()
+    public void OnInteractAndThrow()
     {
+        Debug.Log("InteractAndThrow");
+    }
 
+    public void OnDash()
+    {
+        if (canDash)
+        {
+            canDash = false;
+            applyDashSpeed = dashSpeed;
+
+            StartCoroutine(ResetDashSpeedCoroutine());
+            StartCoroutine(CoolDownDash());
+        }
+    }
+
+    private IEnumerator ResetDashSpeedCoroutine()
+    {
+        yield return dashTimeWaitForsecond;
+
+        applyDashSpeed = 1f;
+    }
+
+    private IEnumerator CoolDownDash()
+    {
+        yield return dashDelayWaitForSecond;
+
+        canDash = true;
     }
 }

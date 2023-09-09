@@ -8,5 +8,5 @@ public class Unit : MonoBehaviour
     protected int id;
 
     [SerializeField]
-    protected float Speed = 20f;
+    protected float speed;
 }
