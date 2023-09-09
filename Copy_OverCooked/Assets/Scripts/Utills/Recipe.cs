@@ -1,46 +1,36 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
-public class Recipe
+[CreateAssetMenu(fileName = "Recipe", menuName = "Recipe")]
+public class Recipe : ScriptableObject, IComparable<Recipe>
 {
-    List<int> raws = new List<int>();
-    List<int> chopRecipe = new List<int>();
-    List<int> roastRecipe = new List<int>();
-    List<int> boilRecipe = new List<int>();
-    List<int> fryRecipe = new List<int>();
+    [SerializeField]
+    private CookingMethod cookingMethod;
 
-    private List<int> getRecipe(CookingMethod cookingMethod)
+    [SerializeField]
+    private List<string> foods = new List<string>();
+
+    [SerializeField]
+    private string cookedFood;
+
+    public string getCookedFood()
     {
-        switch (cookingMethod)
+        return cookedFood;
+    }
+
+    public int CompareTo(Recipe other)
+    {
+        if(cookingMethod == other.cookingMethod)
         {
-            case CookingMethod.Chop:
-                return chopRecipe;
-            case CookingMethod.Boil:
-                return boilRecipe;
-            case CookingMethod.Fry:
-                return fryRecipe;
-            case CookingMethod.Roast:
-                return roastRecipe;
+            if(foods.Count == other.foods.Count)
+            {
+                if(Enumerable.SequenceEqual(foods, other.foods)) return 0;
+            }
         }
-        return null;
+        return 1;
     }
-
-    public void addRecipe(CookingMethod cookingMethod, Food food)
-    {
-
-    }
-
-    public Food search(int id, CookingMethod cookingMethod)
-    {
-        List<int> recipe = getRecipe(cookingMethod);
-        return FoodDictionary.search(recipe[id]);
-    }
-
-
-
-
-
-
-
 }
