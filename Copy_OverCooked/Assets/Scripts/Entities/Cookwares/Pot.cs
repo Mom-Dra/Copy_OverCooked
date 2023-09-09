@@ -4,31 +4,24 @@ using UnityEngine;
 
 public class Pot : Cookware
 {
-    protected override void Idle(Player player)
+    protected override void Idle()
     {
-        if (player.hand == null)
-        {
-            Grab(player);
-        }
-        else
-        {
-            PutIn(player);
-        }
+            PutIn();
     }
 
     protected override bool ProgressCondition()
     {
-        return elements.Count == maxElementCount;
+        return foods.Count == maxElementCount;
     }
 
-    protected override void Progressing(Player player)
+    protected override void Progressing()
     {
-        StartCoroutine(Cook(player, true));
+        StartCoroutine(Cook(true));
     }
 
-    protected override void Completed(Player player)
+    protected override void Completed()
     {
-        TakeOut(player);
+        TakeOut();
     }
 
     protected override CookingMethod GetCookingMethod()

@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class CuttingBoard : Cookware
 {
-    protected override void Idle(Player player)
+    protected override void Idle()
     {
         if (player.hand != null && player.hand.tag == "Food")
         {
-            PutIn(player);
-            totalProgressTime = elements[0].GetComponent<Food>().chopDuration;
+            PutIn();
+            //totalProgressTime = foods[0].GetComponent<Food>().chopDuration;
         }
     }
 
     protected override bool ProgressCondition()
     {
-        return elements.Count == maxElementCount;
+        return foods.Count == maxElementCount;
     }
 
-    protected override void Progressing(Player player)
+    protected override void Progressing()
     {
-        StartCoroutine(Cook(player));
+        StartCoroutine(Cook());
     }
 
-    protected override void Completed(Player player)
+    protected override void Completed()
     {
-        TakeOut(player);
+        TakeOut();
     }
 
     protected override CookingMethod GetCookingMethod()

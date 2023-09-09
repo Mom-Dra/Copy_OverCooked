@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class CookManager : Singleton<CookManager>
 {
-    Recipe recipe = new Recipe();
     // 레시피
 
     // 조리법 

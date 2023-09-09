@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class Cookware : IObject, Interactable
+public abstract class Cookware : IObject
 {
     [SerializeField]
     protected int maxElementCount;
@@ -15,21 +15,24 @@ public abstract class Cookware : IObject, Interactable
     private Vector2[] offsets2D;
     [SerializeField]
     protected Vector3 cookedOffset;
+    [SerializeField]
+    protected CookingMethod cookingMethod;
 
 
     protected Vector3[] offsets;
     protected CookwareState _state;
-    protected List<Food> elements;
+    protected List<Food> foods;
     // protected GameObject cookedPrefab;
     protected Food cooked;
 
-    protected float totalProgressTime;
-    protected float currProgressTime = 0;
+    protected Player player;
+
+    
 
     private void Awake()
     {
         _state = CookwareState.Idle;
-        elements = new List<Food>(maxElementCount);
+        foods = new List<Food>();
         offsets = new Vector3[maxElementCount];
         for (int i = 0; i < maxElementCount; ++i)
         {
@@ -42,23 +45,27 @@ public abstract class Cookware : IObject, Interactable
 
     // }
 
-    protected IEnumerator Cook(Player player, bool reserve = false)
+    protected IEnumerator Cook(bool reserve = false)
     {
-        while (currProgressTime < totalProgressTime)
+        Recipe recipe = RecipeManager.Instance.Search(cookingMethod, foods);
+        float cookTime = recipe.getCookTime();
+        float currProgressTime = 0;
+
+        while (currProgressTime < cookTime)
         {
             RaycastHit hit;
             if (reserve || Physics.Raycast(transform.position, transform.forward, out hit, 1, LayerMask.GetMask("Player"))
             && hit.transform.GetComponent<Player>().hand == null)
             {
                 currProgressTime += 0.1f;
-                Debug.Log($"Progress: {currProgressTime} / {totalProgressTime}%");
+                Debug.Log($"Progress: {currProgressTime} / {cookTime}%");
                 yield return new WaitForSeconds(0.1f);
             }
             else yield break;
         }
+
         DestroyAllElement();
-        GameObject cookedPrefab = CookManager.Instance.Cooking(1, GetCookingMethod());
-        cooked = Instantiate(cookedPrefab, transform.position + cookedOffset, Quaternion.identity).GetComponent<Food>();
+        cooked = Instantiate(recipe.getCookedFood().gameObject, transform.position + cookedOffset, Quaternion.identity).GetComponent<Food>();
         if (cooked == null)
         {
             Debug.Log("Invalid Component : 'Food'");
@@ -66,18 +73,18 @@ public abstract class Cookware : IObject, Interactable
         else _state = CookwareState.Completed;
     }
 
-    protected void TakeOut(Player player)
+    protected void TakeOut()
     {
         Debug.Log("Take Out!");
-        player.Hand(cooked);
+        player.Grab(cooked);
         cooked = null;
         if (_state == CookwareState.Completed)
             _state = CookwareState.Idle;
     }
 
-    protected void PutIn(Player player)
+    protected void PutIn()
     {
-        if (elements.Count == maxElementCount)
+        if (foods.Count == maxElementCount)
         {
             Debug.Log("Full Elements!");
             return;
@@ -85,38 +92,39 @@ public abstract class Cookware : IObject, Interactable
         Debug.Log("Put In!");
         Food food = player.hand.GetComponent<Food>();
         if (food == null) return;
-        player.Hand(null);
+        player.Put();
         AddElement(food);
     }
 
     private void AddElement(Food food)
     {
-        food.transform.position = transform.position + offsets[elements.Count];
-        elements.Add(food);
+        food.transform.position = transform.position + offsets[foods.Count];
+        foods.Add(food);
     }
 
     private void RemoveElement(Food food)
     {
-        if (elements.Count == 0) return;
+        if (foods.Count == 0) return;
 
-        elements.Remove(food);
+        foods.Remove(food);
     }
 
     private void DestroyAllElement()
     {
-        foreach (Food food in elements)
+        foreach (Food food in foods)
         {
             Destroy(food.gameObject);
         }
-        elements.Clear();
+        foods.Clear();
     }
 
     public void Interact(Player player)
     {
+        this.player = player;
         switch (_state)
         {
             case CookwareState.Idle:
-                Idle(player);
+                Idle();
                 if (ProgressCondition())
                 {
                     _state = CookwareState.Progressing;
@@ -124,17 +132,22 @@ public abstract class Cookware : IObject, Interactable
                 } 
                 break;
             case CookwareState.Progressing:
-                Progressing(player);
+                Progressing();
                 break;
             case CookwareState.Completed:
-                Completed(player);
+                Completed();
                 break;
         }
+        this.player = null;
     }
 
-    protected abstract void Idle(Player player);
+    // Player 매개변수 이거 나중에 심플하게 바꿔보자
+    // Cookware 안에 Player 변수 하나 두고
+    // Player가 Cookware와 상호작용 하는 동안만 Player-Cookware 링크를 걸어두는 식
+    
+    protected abstract void Idle(); 
     protected abstract bool ProgressCondition();
-    protected abstract void Progressing(Player player);
-    protected abstract void Completed(Player player);
+    protected abstract void Progressing();
+    protected abstract void Completed();
     protected abstract CookingMethod GetCookingMethod();
 }

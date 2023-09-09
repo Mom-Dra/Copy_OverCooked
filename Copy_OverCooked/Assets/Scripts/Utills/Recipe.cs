@@ -2,35 +2,57 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Recipe", menuName = "Recipe")]
-public class Recipe : ScriptableObject, IComparable<Recipe>
+#pragma warning disable CS0659 // 형식은 Object.Equals(object o)를 재정의하지만 Object.GetHashCode()를 재정의하지 않습니다.
+public class Recipe : ScriptableObject
+#pragma warning restore CS0659 // 형식은 Object.Equals(object o)를 재정의하지만 Object.GetHashCode()를 재정의하지 않습니다.
 {
     [SerializeField]
     private CookingMethod cookingMethod;
 
     [SerializeField]
-    private List<string> foods = new List<string>();
+    private List<Food> foods;
 
     [SerializeField]
-    private string cookedFood;
+    private float cookedTime;
 
-    public string getCookedFood()
+    [SerializeField]
+    private Food cookedFood;
+
+    public Recipe(CookingMethod cookingMethod, List<Food> foods)
+    {
+        this.cookingMethod = cookingMethod;
+        this.foods = foods;
+    }
+
+    public Food getCookedFood()
     {
         return cookedFood;
     }
 
-    public int CompareTo(Recipe other)
+    public float getCookTime()
     {
-        if(cookingMethod == other.cookingMethod)
+        return cookedTime;
+    }
+
+    public override bool Equals(object other)
+    {
+        Recipe recipe = other as Recipe;
+
+        if (cookingMethod == recipe.cookingMethod)
         {
-            if(foods.Count == other.foods.Count)
+            if (foods.Count == recipe.foods.Count)
             {
-                if(Enumerable.SequenceEqual(foods, other.foods)) return 0;
+                if (foods.OrderBy(e => e).SequenceEqual(recipe.foods.OrderBy(e => e)))
+                {
+                    return true;
+                }
             }
         }
-        return 1;
+        return false;
     }
 }
