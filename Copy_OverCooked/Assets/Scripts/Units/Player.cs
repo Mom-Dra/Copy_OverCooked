@@ -10,7 +10,7 @@ public abstract class Player : Unit
     public IObject hand;
 
     [SerializeField]
-    protected float distance = 1f; // ? 
+    protected float distance;
 
     public void Grab(IObject ob) 
     { 

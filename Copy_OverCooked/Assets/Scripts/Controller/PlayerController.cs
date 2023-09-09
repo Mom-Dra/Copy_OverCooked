@@ -3,60 +3,62 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class PlayerController : Player
 {
     private Rigidbody rigid;
-    
-    private void Awake() 
+
+    private Vector3 moveDirection;
+
+    [Header("Dash")]
+    [SerializeField]
+    private float dashSpeed;
+    private float applyDashSpeed;
+
+    // Î™áÎèÑ ÎèôÏïà ÎåÄÏâ¨Î•º Ìï† Í≤ÉÏù∏Í∞Ä
+    [SerializeField]
+    private float dashTime;
+    private WaitForSeconds dashTimeWaitForsecond;
+
+    // ÎåÄÏâ¨ Ïø®ÌÉÄÏûÑ
+    [SerializeField]
+    private float dashCoolDownTime;
+    private WaitForSeconds dashDelayWaitForSecond;
+
+    private bool canDash;
+
+    private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
+
+        applyDashSpeed = 1f;
+
+        dashTimeWaitForsecond = new WaitForSeconds(dashTime);
+
+        dashDelayWaitForSecond = new WaitForSeconds(dashCoolDownTime);
+
+        canDash = true;
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        if(Input.GetKey(KeyCode.W))
-        {
-            transform.rotation = Quaternion.LookRotation(Vector3.forward);
-            rigid.MovePosition(transform.position + transform.forward * Time.deltaTime * Speed);
-        }
-        else if(Input.GetKey(KeyCode.S))
-        {
-            transform.rotation = Quaternion.LookRotation(Vector3.back);
-            rigid.MovePosition(transform.position + transform.forward * Time.deltaTime * Speed);
-        }
-        else if(Input.GetKey(KeyCode.A))
-        {
-            transform.rotation = Quaternion.LookRotation(Vector3.left);
-            rigid.MovePosition(transform.position + transform.forward * Time.deltaTime * Speed);
-        }
-        else if(Input.GetKey(KeyCode.D))
-        {
-            transform.rotation = Quaternion.LookRotation(Vector3.right);
-            rigid.MovePosition(transform.position + transform.forward * Time.deltaTime * Speed);
-        }
-
-
-        if(Input.GetKeyDown(KeyCode.Space)){
-            GrabOrPut();
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            if (Interact())
-            {
-                Throw();
-            }
-        }
-        
-    }
-
-    private void FixedUpdate() {
         if(hand != null){
             hand.transform.position = transform.position + (transform.forward * 0.8f);
         }
+
+        rigid.MovePosition(rigid.position + moveDirection * speed * applyDashSpeed * Time.deltaTime);
+        Debug.Log(moveDirection.magnitude * applyDashSpeed);
     }
 
-    private void GrabOrPut()
+    public void OnMove(InputValue value)
+    {
+        Vector2 input = value.Get<Vector2>();
+        moveDirection = new Vector3(input.x, 0f, input.y);
+    }
+
+    public void OnGrabAndPut()
     {
         IObject ob = RayCheck();
         if (ob!=null && ob.GetComponent<Cookware>())
@@ -78,7 +80,7 @@ public class PlayerController : Player
         
     }
 
-    private IObject RayCheck() // πŸ∑Œ æ’¿« ø¿∫Í¡ß∆Æ∞° π´æ˘¿Œ¡ˆ »Æ¿Œ 
+    private IObject RayCheck() // Î∞îÎ°ú ÏïûÏùò Ïò§Î∏åÏ†ùÌä∏Í∞Ä Î¨¥ÏóáÏù∏ÏßÄ ÌôïÏù∏ 
     {
         Debug.DrawRay(transform.position + new Vector3(0, 0.2f, 0), transform.forward * distance, Color.red, 3.0f);
         RaycastHit hit;
@@ -105,5 +107,36 @@ public class PlayerController : Player
     private void Throw()
     {
         Debug.Log("Throw!");
+    }
+
+    public void OnInteractAndThrow()
+    {
+        Debug.Log("InteractAndThrow");
+    }
+
+    public void OnDash()
+    {
+        if (canDash)
+        {
+            canDash = false;
+            applyDashSpeed = dashSpeed;
+
+            StartCoroutine(ResetDashSpeedCoroutine());
+            StartCoroutine(CoolDownDash());
+        }
+    }
+
+    private IEnumerator ResetDashSpeedCoroutine()
+    {
+        yield return dashTimeWaitForsecond;
+
+        applyDashSpeed = 1f;
+    }
+
+    private IEnumerator CoolDownDash()
+    {
+        yield return dashDelayWaitForSecond;
+
+        canDash = true;
     }
 }
