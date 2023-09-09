@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 7527166234719243220}
   - component: {fileID: 2871887600180919908}
   - component: {fileID: 1687402742}
-  - component: {fileID: 1687402743}
   - component: {fileID: 2073499378322895981}
+  - component: {fileID: 1933255608683939250}
   m_Layer: 10
   m_Name: Tomato
   m_TagString: Food
@@ -28,13 +28,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7888295032807820803}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.54, y: 1.218, z: 0.54}
   m_LocalScale: {x: 0.4382493, y: 0.4382493, z: 0.4382493}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7527166234719243220
 MeshFilter:
@@ -93,30 +93,26 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7888295032807820803}
-  serializedVersion: 2
+  serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1687402743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7888295032807820803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70ea591f882e3a6448d637e50cebef30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 7888295032807820803, guid: 23782151ed7d2484a82ad2a6090c05a8, type: 3}
-  chopDuration: 2
-  chopped: {fileID: 5576758586236041868, guid: 946f621bedd351249a040f854623091e, type: 3}
 --- !u!65 &2073499378322895981
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -125,8 +121,32 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7888295032807820803}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 2.2807622, y: 2.2071972, z: 2.2620897}
   m_Center: {x: 0.061549015, y: 0.60359967, z: -0.10366736}
+--- !u!114 &1933255608683939250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7888295032807820803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23431b4143019f4e843a5a2aa9c8fbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsGrabable: 1
+  Id: 1
+  Name: Tomato
+  _state: 0

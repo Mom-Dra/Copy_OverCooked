@@ -12,21 +12,16 @@ public abstract class Player : Unit
     [SerializeField]
     protected float distance;
 
+    public void Grab(IObject ob) 
+    { 
+        hand = ob;
+        hand.gameObject.layer = LayerMask.NameToLayer("Hand");
+    }
 
-
-    public void Hand(IObject ob)
+    public void Put()
     {
-        if (ob == null)
-        {
-            if (hand != null)
-                hand.gameObject.layer = LayerMask.NameToLayer("Interactable");
-            hand = null;
-        }
-        else
-        {
-            hand = ob;
-            hand.gameObject.layer = LayerMask.NameToLayer("Hand");
-        }
-
+        if (hand != null)
+            hand.gameObject.layer = LayerMask.NameToLayer("Interactable");
+        hand = null;
     }
 }

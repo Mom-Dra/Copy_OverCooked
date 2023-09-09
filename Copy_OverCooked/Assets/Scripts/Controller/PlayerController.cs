@@ -1,6 +1,7 @@
 using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -8,6 +9,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : Player
 {
     private Rigidbody rigid;
+
     private Vector3 moveDirection;
 
     [Header("Dash")]
@@ -15,12 +17,12 @@ public class PlayerController : Player
     private float dashSpeed;
     private float applyDashSpeed;
 
-    // ¸îµµ µ¿¾È ´ë½¬¸¦ ÇÒ °ÍÀÎ°¡
+    // ëª‡ë„ ë™ì•ˆ ëŒ€ì‰¬ë¥¼ í•  ê²ƒì¸ê°€
     [SerializeField]
     private float dashTime;
     private WaitForSeconds dashTimeWaitForsecond;
 
-    // ´ë½¬ ÄğÅ¸ÀÓ
+    // ëŒ€ì‰¬ ì¿¨íƒ€ì„
     [SerializeField]
     private float dashCoolDownTime;
     private WaitForSeconds dashDelayWaitForSecond;
@@ -58,23 +60,53 @@ public class PlayerController : Player
 
     public void OnGrabAndPut()
     {
-        if (hand != null)
+        IObject ob = RayCheck();
+        if (ob!=null && ob.GetComponent<Cookware>())
         {
-            // Put
-        }
+            ob.GetComponent<Cookware>().Interact(this);
+        }else
+        {
+            if (hand != null)
+            {
+                Put();
+            } else
+            {
+                if (ob!= null && ob.IsGrabable)
+                {
+                    Grab(ob);
+                }
+            }
+        } 
+        
+    }
 
+    private IObject RayCheck() // ë°”ë¡œ ì•ì˜ ì˜¤ë¸Œì íŠ¸ê°€ ë¬´ì—‡ì¸ì§€ í™•ì¸ 
+    {
         Debug.DrawRay(transform.position + new Vector3(0, 0.2f, 0), transform.forward * distance, Color.red, 3.0f);
         RaycastHit hit;
         int layerMask = 1 << LayerMask.NameToLayer("Interactable");
         if (Physics.Raycast(transform.position + new Vector3(0, 0.2f, 0), transform.forward * distance, out hit, 2, layerMask))
         {
-            Debug.Log("Interact!");
-            IObject target = hit.transform.GetComponent<IObject>();
-            if (target.IsGrabable)
-            {
-                // Grab
-            }
+            Debug.Log("Interact : " + hit.transform.name);
+            return hit.transform.GetComponent<IObject>();
         }
+        return null;
+    }
+
+    private bool Interact()
+    {
+        IObject target = RayCheck();
+
+        if (target == null)
+            return false;
+        Cookware cookware = target.GetComponent<Cookware>();
+        cookware.Interact(this);
+        return true;
+    }
+
+    private void Throw()
+    {
+        Debug.Log("Throw!");
     }
 
     public void OnInteractAndThrow()

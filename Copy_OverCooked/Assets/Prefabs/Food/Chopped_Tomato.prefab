@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2920184981529905234}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.18220997, w: 0.9832597}
   m_LocalPosition: {x: 0.125, y: 0.01999998, z: -0.00000008940697}
   m_LocalScale: {x: 0.1641861, y: -0.013426812, z: 0.1641861}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1998279799992371748}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -20.997}
 --- !u!33 &1324447779260104698
 MeshFilter:
@@ -92,8 +92,17 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2920184981529905234}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
+  serializedVersion: 2
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
@@ -109,6 +118,7 @@ GameObject:
   - component: {fileID: 1998279799992371748}
   - component: {fileID: -7723932785079535081}
   - component: {fileID: 1312422370071094843}
+  - component: {fileID: 7824808185213462443}
   m_Layer: 10
   m_Name: Chopped_Tomato
   m_TagString: Untagged
@@ -123,6 +133,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5576758586236041868}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.0707818, y: 1.12324, z: 0.2150104}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -132,7 +143,6 @@ Transform:
   - {fileID: 4679041753009958131}
   - {fileID: 549075508489222023}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-7723932785079535081
 MonoBehaviour:
@@ -146,9 +156,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ea591f882e3a6448d637e50cebef30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  chopDuration: 0
-  chopped: {fileID: 0}
+  IsGrabable: 0
+  Id: 0
+  Name: 
+  _state: 0
 --- !u!65 &1312422370071094843
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -157,11 +168,35 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5576758586236041868}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 0.588582, y: 0.51708513, z: 0.67920303}
   m_Center: {x: -0.048098832, y: 0.009814709, z: 0.16039848}
+--- !u!114 &7824808185213462443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5576758586236041868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23431b4143019f4e843a5a2aa9c8fbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsGrabable: 1
+  Id: 101
+  Name: Chopped_Tomato
+  _state: 0
 --- !u!1 &6331454930656662592
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,13 +223,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6331454930656662592}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.13389221, y: 0.029615771, z: 0.21393071, w: 0.967176}
   m_LocalPosition: {x: -0.006, y: 0.044, z: -0.159}
   m_LocalScale: {x: 0.23986, y: -0.016144257, z: 0.23986}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1998279799992371748}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -15.763, y: 0, z: 24.945}
 --- !u!33 &3476881173512471261
 MeshFilter:
@@ -254,8 +289,17 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6331454930656662592}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
+  serializedVersion: 2
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
@@ -286,13 +330,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7695303479044041933}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.00000011921, y: 0, z: -0.000000074506}
   m_LocalScale: {x: 0.23986, y: -0.016144257, z: 0.23986}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1998279799992371748}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6289272185488325786
 MeshFilter:
@@ -352,8 +396,17 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7695303479044041933}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
+  serializedVersion: 2
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
