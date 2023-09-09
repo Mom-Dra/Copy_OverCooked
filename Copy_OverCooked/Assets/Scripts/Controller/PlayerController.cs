@@ -52,12 +52,6 @@ public class PlayerController : Player
         Debug.Log(moveDirection.magnitude * applyDashSpeed);
     }
 
-    public void OnMove(InputValue value)
-    {
-        Vector2 input = value.Get<Vector2>();
-        moveDirection = new Vector3(input.x, 0f, input.y);
-    }
-
     public void OnGrabAndPut()
     {
         IObject ob = RayCheck();
@@ -109,9 +103,20 @@ public class PlayerController : Player
         Debug.Log("Throw!");
     }
 
+    public void OnMove(InputValue value)
+    {
+        Vector2 input = value.Get<Vector2>();
+        moveDirection = new Vector3(input.x, 0f, input.y);
+        transform.LookAt(transform.position + moveDirection);
+    }
+
     public void OnInteractAndThrow()
     {
         Debug.Log("InteractAndThrow");
+        if (Interact())
+        {
+            Throw();
+        }
     }
 
     public void OnDash()
