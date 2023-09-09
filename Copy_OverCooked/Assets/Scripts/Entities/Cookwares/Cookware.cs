@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class Cookware : Entity, Interactable
+public abstract class Cookware : IObject, Interactable
 {
     [SerializeField]
     protected int maxElementCount;
@@ -121,7 +121,7 @@ public abstract class Cookware : Entity, Interactable
                 {
                     _state = CookwareState.Progressing;
                     Interact(player);
-                }
+                } 
                 break;
             case CookwareState.Progressing:
                 Progressing(player);
@@ -131,6 +131,7 @@ public abstract class Cookware : Entity, Interactable
                 break;
         }
     }
+
     protected abstract void Idle(Player player);
     protected abstract bool ProgressCondition();
     protected abstract void Progressing(Player player);
