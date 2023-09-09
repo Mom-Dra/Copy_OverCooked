@@ -30,4 +30,9 @@ public class Pot : Cookware
     {
         TakeOut(player);
     }
+
+    protected override CookingMethod GetCookingMethod()
+    {
+        throw new System.NotImplementedException();
+    }
 }

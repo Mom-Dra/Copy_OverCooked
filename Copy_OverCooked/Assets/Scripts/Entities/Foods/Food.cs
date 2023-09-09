@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Food : Entity, Interactable
+public abstract class Food : IObject, Interactable
 {
     private int id;
     protected FoodState _state;

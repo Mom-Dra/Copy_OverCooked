@@ -7,12 +7,12 @@ public abstract class Player : Unit
     [SerializeField]
     protected Vector3 _handPos;
     [SerializeField]
-    public Entity hand;
+    public IObject hand;
 
     [SerializeField]
     protected float distance = 1f;
 
-    public void Hand(Entity ob)
+    public void Hand(IObject ob)
     {
         if (ob == null)
         {

@@ -1,3 +1,4 @@
+using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class PlayerController : Player
     private void Awake() {
         rigid=GetComponent<Rigidbody>();
     }
+
     void Update()
     {
         if(Input.GetKey(KeyCode.W))
@@ -32,21 +34,49 @@ public class PlayerController : Player
         }
 
         if(Input.GetKeyDown(KeyCode.Space)){
-            Debug.DrawRay(transform.position + new Vector3(0,0.2f,0), transform.forward * distance, Color.red, 3.0f);
-            RaycastHit hit;
-            int layerMask = 1 << LayerMask.NameToLayer("Interactable");
-            if(Physics.Raycast(transform.position + new Vector3(0,0.2f,0), transform.forward * distance, out hit, 2, layerMask)){
-                Debug.Log("Interact!");
-                hit.transform.GetComponent<Interactable>().Interact(this);
-            }else{
-                Hand(null);
+            GrabOrPut();
+        }else if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            if(hand == null)
+            {
+
+            }else if(hand != null)
+            {
+                Throw();
             }
         }
         
     }
+
     private void FixedUpdate() {
         if(hand != null){
             hand.transform.position = transform.position + (transform.forward * 0.8f);
         }
+    }
+
+    private void GrabOrPut()
+    {
+        if(hand != null)
+        {
+            // Put
+        }
+
+        Debug.DrawRay(transform.position + new Vector3(0, 0.2f, 0), transform.forward * distance, Color.red, 3.0f);
+        RaycastHit hit;
+        int layerMask = 1 << LayerMask.NameToLayer("Interactable");
+        if (Physics.Raycast(transform.position + new Vector3(0, 0.2f, 0), transform.forward * distance, out hit, 2, layerMask))
+        {
+            Debug.Log("Interact!");
+            IObject target = hit.transform.GetComponent<IObject>();
+            if (target.IsGrabable)
+            {
+                // Grab
+            }
+        }
+    }
+
+    private void Throw()
+    {
+
     }
 }

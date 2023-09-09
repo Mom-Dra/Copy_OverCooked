@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plate : Entity, Interactable
+public class Plate : IObject, Interactable
 {
     Food _food;
 
