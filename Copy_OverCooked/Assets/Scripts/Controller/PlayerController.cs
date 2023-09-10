@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
+
+
 public class PlayerController : Player
 {
     private Rigidbody rigid;
@@ -29,6 +31,8 @@ public class PlayerController : Player
 
     private bool canDash;
 
+    private Hand hand;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
@@ -40,38 +44,14 @@ public class PlayerController : Player
         dashDelayWaitForSecond = new WaitForSeconds(dashCoolDownTime);
 
         canDash = true;
+
+        hand = transform.GetChild(0).GetComponent<Hand>();
     }
 
     private void FixedUpdate()
     {
-        if(hand != null){
-            hand.transform.position = transform.position + (transform.forward * 0.8f);
-        }
-
         rigid.MovePosition(rigid.position + moveDirection * speed * applyDashSpeed * Time.deltaTime);
         Debug.Log(moveDirection.magnitude * applyDashSpeed);
-    }
-
-    public void OnGrabAndPut()
-    {
-        IObject ob = RayCheck();
-        if (ob!=null && ob.GetComponent<Cookware>())
-        {
-            ob.GetComponent<Cookware>().Interact(this);
-        }else
-        {
-            if (hand != null)
-            {
-                Put();
-            } else
-            {
-                if (ob!= null && ob.IsGrabable)
-                {
-                    Grab(ob);
-                }
-            }
-        } 
-        
     }
 
     private IObject RayCheck() // 바로 앞의 오브젝트가 무엇인지 확인 
@@ -110,13 +90,14 @@ public class PlayerController : Player
         transform.LookAt(transform.position + moveDirection);
     }
 
-    public void OnInteractAndThrow()
+    public void OnGrabAndPut() // Space 
     {
-        Debug.Log("InteractAndThrow");
-        if (Interact())
-        {
-            Throw();
-        }
+        hand.GrabAndPut();
+    }
+
+    public void OnInteractAndThrow() // Ctrl
+    {
+        hand.InteractAndThorw();
     }
 
     public void OnDash()

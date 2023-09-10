@@ -6,7 +6,7 @@ public class CuttingBoard : Cookware
 {
     protected override void Idle()
     {
-        if (player.hand != null && player.hand.tag == "Food")
+        if (player._hand != null && player._hand.tag == "Food")
         {
             PutIn();
             //totalProgressTime = foods[0].GetComponent<Food>().chopDuration;
@@ -33,4 +33,10 @@ public class CuttingBoard : Cookware
         return CookingMethod.Chop;
     }
 
+    public override GameObject GetObject()
+    {
+        GameObject go = cookedFood.gameObject;
+        cookedFood = null;
+        return go;
+    }
 }

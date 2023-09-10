@@ -28,4 +28,9 @@ public class Pot : Cookware
     {
         throw new System.NotImplementedException();
     }
+
+    public override GameObject GetObject()
+    {
+        throw new System.NotImplementedException();
+    }
 }

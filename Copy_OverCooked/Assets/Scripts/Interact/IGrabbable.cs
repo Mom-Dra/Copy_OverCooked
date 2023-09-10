@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Interactable
+public interface IGrabbable
 {
-    public void Interact(Player player);
+    public void Grab();
 }

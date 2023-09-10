@@ -23,7 +23,7 @@ public abstract class Cookware : IObject
     protected CookwareState _state;
     protected List<Food> foods;
     // protected GameObject cookedPrefab;
-    protected Food cooked;
+    protected Food cookedFood; 
 
     protected Player player;
 
@@ -55,7 +55,7 @@ public abstract class Cookware : IObject
         {
             RaycastHit hit;
             if (reserve || Physics.Raycast(transform.position, transform.forward, out hit, 1, LayerMask.GetMask("Player"))
-            && hit.transform.GetComponent<Player>().hand == null)
+            && hit.transform.GetComponent<Player>()._hand == null)
             {
                 currProgressTime += 0.1f;
                 Debug.Log($"Progress: {currProgressTime} / {cookTime}%");
@@ -65,8 +65,8 @@ public abstract class Cookware : IObject
         }
 
         DestroyAllElement();
-        cooked = Instantiate(recipe.getCookedFood().gameObject, transform.position + cookedOffset, Quaternion.identity).GetComponent<Food>();
-        if (cooked == null)
+        cookedFood = Instantiate(recipe.getCookedFood().gameObject, transform.position + cookedOffset, Quaternion.identity).GetComponent<Food>();
+        if (cookedFood == null)
         {
             Debug.Log("Invalid Component : 'Food'");
         }
@@ -76,11 +76,13 @@ public abstract class Cookware : IObject
     protected void TakeOut()
     {
         Debug.Log("Take Out!");
-        player.Grab(cooked);
-        cooked = null;
+        player.Grab(cookedFood);
+        cookedFood = null;
         if (_state == CookwareState.Completed)
             _state = CookwareState.Idle;
     }
+
+    
 
     protected void PutIn()
     {
@@ -90,7 +92,7 @@ public abstract class Cookware : IObject
             return;
         }
         Debug.Log("Put In!");
-        Food food = player.hand.GetComponent<Food>();
+        Food food = player._hand.GetComponent<Food>();
         if (food == null) return;
         player.Put();
         AddElement(food);
@@ -135,7 +137,8 @@ public abstract class Cookware : IObject
                 Progressing();
                 break;
             case CookwareState.Completed:
-                Completed();
+                //GetObject();
+                Completed(); // 없어도 될거같은데 일다 놔둠 
                 break;
         }
         this.player = null;
@@ -150,4 +153,6 @@ public abstract class Cookware : IObject
     protected abstract void Progressing();
     protected abstract void Completed();
     protected abstract CookingMethod GetCookingMethod();
+
+    public abstract GameObject GetObject();
 }

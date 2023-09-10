@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plate : IObject, Interactable
+public class Plate : IObject
 {
     Food _food;
 
-    public void Interact(Player player)
+    public GameObject GetObject()
     {
-        if (player.hand == null) return;
-        Food food = player.hand.GetComponent<Food>();
-        if (food == null) return;
+        return null;
+    }
+
+    public void PutObject(GameObject go)
+    {
+
     }
 }

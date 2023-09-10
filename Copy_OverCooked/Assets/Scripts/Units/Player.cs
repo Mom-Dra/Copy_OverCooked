@@ -7,21 +7,21 @@ public abstract class Player : Unit
     [SerializeField]
     protected Vector3 _handPos;
     [SerializeField]
-    public IObject hand;
+    public IObject _hand;
 
     [SerializeField]
     protected float distance;
 
     public void Grab(IObject ob) 
     { 
-        hand = ob;
-        hand.gameObject.layer = LayerMask.NameToLayer("Hand");
+        _hand = ob;
+        _hand.gameObject.layer = LayerMask.NameToLayer("Hand");
     }
 
     public void Put()
     {
-        if (hand != null)
-            hand.gameObject.layer = LayerMask.NameToLayer("Interactable");
-        hand = null;
+        if (_hand != null)
+            _hand.gameObject.layer = LayerMask.NameToLayer("Interactable");
+        _hand = null;
     }
 }
