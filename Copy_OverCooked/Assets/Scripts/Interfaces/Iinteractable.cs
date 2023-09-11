@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IObject : MonoBehaviour
+public interface IInteractable
 {
-    public bool IsGrabable;
+    public void Interact();
 }

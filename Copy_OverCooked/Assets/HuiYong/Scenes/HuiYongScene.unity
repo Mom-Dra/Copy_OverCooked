@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44517416, g: 0.49478847, b: 0.57384115, a: 1}
+  m_IndirectSpecularColor: {r: 0.44517386, g: 0.49478805, b: 0.5738404, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -578,7 +578,6 @@ MonoBehaviour:
   speed: 6
   _handPos: {x: 0, y: 0.1, z: 0.5}
   _hand: {fileID: 0}
-  distance: 1
   dashSpeed: 2
   dashTime: 0.3
   dashCoolDownTime: 3
@@ -602,7 +601,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2c748318498823242914586a1ecc1ff7, type: 2}
+  - {fileID: 2100000, guid: a76361730ce984a4bb8dec0998981424, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -814,7 +813,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 943886d0d0badc345b43ef572dc5d815, type: 2}
+  - {fileID: 2100000, guid: 16a5a5ec1564bbb4e933bab95712ea1a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1230,6 +1229,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1687402742, guid: 0fa15ae7dc44e4b43bbbc01a8cfdf025, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1188055506459225002, guid: 0fa15ae7dc44e4b43bbbc01a8cfdf025, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1273,6 +1276,10 @@ PrefabInstance:
     - target: {fileID: 1188055506459225002, guid: 0fa15ae7dc44e4b43bbbc01a8cfdf025, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1933255608683939250, guid: 0fa15ae7dc44e4b43bbbc01a8cfdf025, type: 3}
+      propertyPath: Name
+      value: Tomatod
       objectReference: {fileID: 0}
     - target: {fileID: 2073499378322895981, guid: 0fa15ae7dc44e4b43bbbc01a8cfdf025, type: 3}
       propertyPath: m_Size.x
@@ -1364,8 +1371,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5393326176515437077, guid: 64cf27d61671de44bade1292d3277819, type: 3}
+      propertyPath: Name
+      value: CuttingBoard
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393326176515437077, guid: 64cf27d61671de44bade1292d3277819, type: 3}
       propertyPath: offset.y
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393326176515437077, guid: 64cf27d61671de44bade1292d3277819, type: 3}
+      propertyPath: Description
+      value: Chop something
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393326176515437077, guid: 64cf27d61671de44bade1292d3277819, type: 3}
+      propertyPath: IsImmediateCook
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393326176515437077, guid: 64cf27d61671de44bade1292d3277819, type: 3}
+      propertyPath: requiredFoodCount
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8273781762099862422, guid: 64cf27d61671de44bade1292d3277819, type: 3}
       propertyPath: m_Name

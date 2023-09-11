@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Player : Unit
+public class InteractableObject : MonoBehaviour
 {
     [SerializeField]
-    protected Vector3 _handPos;
+    protected string Name;
     [SerializeField]
-    public InteractableObject _hand;
-
+    protected string Description;
 }

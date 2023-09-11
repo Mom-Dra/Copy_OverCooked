@@ -146,7 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23431b4143019f4e843a5a2aa9c8fbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsGrabable: 1
+  Name: Tomate_
+  Description: malrangmalrang Tomato
   Id: 1
   Name: Tomato
   _state: 0

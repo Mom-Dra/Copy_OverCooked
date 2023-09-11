@@ -5,36 +5,30 @@ using UnityEngine;
 
 public static class GameObjectExtension 
 {
-    public static EHandState? GetEHandState(this GameObject gameObject)
+    public static EHoldState? GetEHandState(this GameObject gameObject)
     {
         switch (gameObject.tag)
         {
             case "Food":
-                return EHandState.Food;
+                return EHoldState.Food;
 
             case "Cookware":
-                return EHandState.Cookware;
-
-            case "Plate":
-                return EHandState.Plate;
+                return EHoldState.Container;
 
             default:
                 return null;
         }
     }
 
-    public static HandState GetHandState(this GameObject gameObject)
+    public static HoldState GetHandState(this GameObject gameObject)
     {
         switch (GetEHandState(gameObject))
         {
-            case EHandState.Food:
-                return FoodHandState.Instance;
+            case EHoldState.Food:
+                return HoldFoodState.Instance;
 
-            case EHandState.Cookware:
-                return CookwareHandState.Instance;
-
-            case EHandState.Plate:
-                return PlateHandState.Instance;
+            case EHoldState.Container:
+                return HoldContainerState.Instance;
 
             default:
                 return null;
