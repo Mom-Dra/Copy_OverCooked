@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class Table : InteractableObject, Containable
 {
+    private GameObject IObject = null;
     public GameObject Get()
     {
-        throw new System.NotImplementedException();
+        return IObject;
     }
 
-    public void Put(GameObject gameObject)
+    public bool Put(GameObject gameObject)
     {
-        throw new System.NotImplementedException();
+        if(IObject != null)
+        {
+            IObject = gameObject;
+            return true;
+        } 
+        return false;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void FixedUpdate()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        if(IObject != null)
+        {
+            IObject.transform.position = transform.position;
+        }
     }
 }

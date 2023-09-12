@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,7 +17,7 @@ public enum ECookwareState
 public abstract class Cookware : InteractableObject, Containable
 {
     [SerializeField]
-    protected int requiredFoodCount;
+    protected int requiredFoodCount = 1;
     [SerializeField]
     protected Vector3 cookedOffset;
     [SerializeField]
@@ -95,13 +96,16 @@ public abstract class Cookware : InteractableObject, Containable
         }
     }
 
-    protected abstract bool CheckFood(); // 해당 조리 도구에 들어갈 수 있는 음식인지 확인 
+    protected abstract bool IsValidObject(); // 해당 조리 도구에 들어갈 수 있는 음식인지 확인 
 
     //protected abstract bool CheckCook();
 
     public GameObject getCookedObject()
     {
-        return cookedFood.gameObject;
+        cookedFood.GetComponent<Food>().IsInteractable = true;
+        GameObject go = cookedFood.gameObject;
+        cookedFood = null;
+        return go; 
     }
 
     public GameObject Get()
@@ -115,24 +119,28 @@ public abstract class Cookware : InteractableObject, Containable
         }
     }
 
-    public void Put(GameObject gameObject)
+    public bool Put(GameObject gameObject)
     {
         if(cookwareState == ECookwareState.Idle)
         {
             if (gameObject.tag == "Food")
             {
-                if (CheckFood())
+                if (IsValidObject())
                 {
                     if (!Full())
                     {
-                        containFoods.Add(gameObject.GetComponent<Food>());
+                        Food putFood = gameObject.GetComponent<Food>();
+                        putFood.IsInteractable = false;
+                        containFoods.Add(putFood);
                         if (IsImmediateCook && Full())
                         {
                             StartCook();
                         }
+                        return true;
                     }
                 }
             }
         }
+        return false;
     }
 }

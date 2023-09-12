@@ -9,7 +9,7 @@ public class Sink : InteractableObject, Containable
         throw new System.NotImplementedException();
     }
 
-    public void Put(GameObject gameObject)
+    public bool Put(GameObject gameObject)
     {
         throw new System.NotImplementedException();
     }

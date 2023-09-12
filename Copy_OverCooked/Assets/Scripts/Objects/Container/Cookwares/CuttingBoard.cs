@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CuttingBoard : Cookware
 {
-    protected override bool CheckFood()
+    protected override bool IsValidObject()
     {
         return true;
     }

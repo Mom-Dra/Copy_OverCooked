@@ -4,7 +4,8 @@ using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum EHoldState
+// 플레이어의 손에 있는 오브젝트의 상태 
+public enum EHandState
 {
     Empty,
     Food,
@@ -13,49 +14,60 @@ public enum EHoldState
 
 public class Hand : MonoBehaviour
 {
-    // Hand에 뭘 가지고 있는지, food인지, cookware인지
-    
-    // 현재 앞에 어떤 Interactable이 Trigger이 되어 있는지, Cookware가 있는지??, 
+    private HandState handState;
 
-    private HoldState holdState;
+    private Interactor interactor;
+    [HideInInspector]
+    public InteractableObject CurrentObject;
 
-    private InteractableBox interactableBox;
-    public GameObject CurrentObject;
-
-    public GameObject TriggeredGrabbableObject { get =>interactableBox.GetClosestGrabbable(); }
-    public GameObject TriggeredInteractableObject { get => interactableBox.GetClosestInteractable(); }
+    public InteractableObject TriggeredObject { get =>interactor.GetTriggeredObject(); }
 
     private void Awake()
     {
-        holdState = EmptyHandState.Instance;
+        handState = EmptyHandState.Instance;
 
-        interactableBox = GetComponent<InteractableBox>();
+        interactor = GetComponent<Interactor>();
     }
 
-    public void ChangeState(HoldState nextState)
+    public void UpdateState()
     {
-        holdState = nextState;
+        if(CurrentObject != null)
+        {
+            switch (CurrentObject.GetObjectType())
+            {
+                case EObjectType.Food:
+                    handState = FoodHandState.Instance;
+                    break;
+                case EObjectType.Container:
+                    handState = ContainerHandState.Instance;
+                    break;
+            }
+        }
+        else
+        {
+            handState = EmptyHandState.Instance;
+        }
     }
 
     public void GrabAndPut()
     {
-        holdState.GrabAndPut(this);
+        handState.GrabAndPut(this);
     }
 
     public void InteractAndThorw()
     {
-        holdState.InteractAndThorw(this);
+        handState.InteractAndThorw(this);
     }
 }
 
-public abstract class HoldState
+public abstract class HandState
 {
     public abstract void GrabAndPut(Hand hand);
 
     public abstract void InteractAndThorw(Hand hand);
 }
 
-public class EmptyHandState : HoldState
+public class EmptyHandState : HandState
 {
     public static readonly EmptyHandState Instance = new EmptyHandState();
     private EmptyHandState() { }
@@ -63,70 +75,61 @@ public class EmptyHandState : HoldState
     public override void GrabAndPut(Hand hand)
     {
         // Grab
-        GameObject triggeredGrabbableObject = hand.TriggeredGrabbableObject;
-        if (triggeredGrabbableObject != null)
+        InteractableObject triggeredObject = hand.TriggeredObject;
+        if (triggeredObject != null)
         {
-            EHoldState? eHandState = triggeredGrabbableObject.GetEHandState();
-            if (eHandState != null)
-            {
-                if (eHandState == EHoldState.Container)
+            EObjectType objectType = triggeredObject.GetObjectType();
+                if (objectType == EObjectType.Container)
                 {
-                    GameObject getObject = triggeredGrabbableObject.GetComponent<Containable>().Get();
-                    hand.CurrentObject = getObject;
+                    GameObject getObject = triggeredObject.GetComponent<Containable>().Get();
+                    hand.CurrentObject = getObject.GetComponent<InteractableObject>();
                 } else
                 {
-                    hand.CurrentObject = triggeredGrabbableObject;
+                    hand.CurrentObject = triggeredObject;
                 }
 
-                hand.ChangeState(triggeredGrabbableObject.GetHandState());
-            }
+                hand.UpdateState();
         }
     }
     public override void InteractAndThorw(Hand hand)
     {
-        EHoldState? eHandState = hand.TriggeredInteractableObject.GetEHandState();
-        if (eHandState != null)
+        // 아래의 코드가 심히 맘에 안듬 (추후 구조 변경 요망)
+
+        // 탐지된 오브젝트 가져오기
+        InteractableObject triggeredObject = hand.TriggeredObject;
+        // 오브젝트가 <Cookware> 스크립트를 가지고 있는지 확인
+        Cookware cookware = triggeredObject.GetComponent<Cookware>();
+        // 가지고 있다면,
+        if(cookware != null)
         {
-            if (eHandState == EHoldState.Container) // 수정 필요 
-            {
-                // 조리하기 명령
-                hand.TriggeredInteractableObject.GetComponent<Cookware>().Interact();
-            }
+            // 해당 조리도구와 상호작용 (요리)
+            cookware.Interact();
         }
     }
 }
 
-public class HoldFoodState : HoldState
+public class FoodHandState : HandState
 {
-    public static readonly HoldFoodState Instance = new HoldFoodState();
+    public static readonly FoodHandState Instance = new FoodHandState();
 
-    private HoldFoodState() { }
+    private FoodHandState() { }
 
     public override void GrabAndPut(Hand hand)
     {
-        GameObject triggeredGrabbableObject = hand.TriggeredGrabbableObject;
+        InteractableObject triggeredObject = hand.TriggeredObject;
         
-        if(triggeredGrabbableObject != null)
+        if(triggeredObject != null)
         {
-            EHoldState? eHandState = triggeredGrabbableObject.GetEHandState();
-            if (eHandState != null)
+            EObjectType objectType = triggeredObject.GetObjectType();
+            if (objectType == EObjectType.Container)
             {
-                switch (eHandState)
-                {   // Empty
-                    // Food
-                    // Container
-                    case EHoldState.Container:
-                        // 음식 옮기기
-                        hand.CurrentObject.GetComponent<Containable>().Put(triggeredGrabbableObject);
-                        break;
-                    default:
-                        hand.CurrentObject = null;
-                        break;
+                if (triggeredObject.GetComponent<Containable>().Put(hand.CurrentObject.gameObject))
+                {
+                    hand.CurrentObject = null;
                 }
-            }
-            else
+            } else
             {
-                // 음식 놓기
+                hand.CurrentObject = null;
             }
         }
         else
@@ -134,47 +137,41 @@ public class HoldFoodState : HoldState
             // 음식 바닥에 놓기
             hand.CurrentObject = null;
         }
-        hand.ChangeState(triggeredGrabbableObject.GetHandState());
+        hand.UpdateState();
     }
 
     public override void InteractAndThorw(Hand hand)
     {
         // 던지는 코드
+        Debug.Log("Throw : " +  hand.gameObject.name);
+        hand.CurrentObject = null;
     }
 }
 
-public class HoldContainerState : HoldState
+public class ContainerHandState : HandState
 {
-    public static readonly HoldContainerState Instance = new HoldContainerState();
+    public static readonly ContainerHandState Instance = new ContainerHandState();
 
-    private HoldContainerState() { }
+    private ContainerHandState() { }
 
     public override void GrabAndPut(Hand hand)
     {
-        GameObject triggeredGrabbableObject = hand.TriggeredGrabbableObject;
-        if(triggeredGrabbableObject != null)
+        InteractableObject triggeredObject = hand.TriggeredObject;
+        if(triggeredObject != null)
         {
-            EHoldState? eHandState = hand.TriggeredGrabbableObject.GetEHandState();
-            if (eHandState != null)
+            EObjectType objectType = triggeredObject.GetObjectType();
+            if (objectType == EObjectType.Container)
             {
-                switch (eHandState)
-                {   // Empty
-                    // Food
-                    // Cookware
-                    // 
-                    case EHoldState.Container:
-                        // 음식 옮기기
-                        hand.CurrentObject.GetComponent<Containable>().Put(triggeredGrabbableObject);
-                        break;
-                    default:
-                        // 바닥에 놓기 
+                GameObject getObject = hand.CurrentObject.GetComponent<Containable>().Get();
+                if (getObject != null && getObject.tag == "Food")
+                {
+                    if (triggeredObject.GetComponent<Containable>().Put(getObject))
+                    {
                         hand.CurrentObject = null;
-                        break;
+                    }
                 }
-            }
-            else
+            } else
             {
-                // 바닥에 놓기
                 hand.CurrentObject = null;
             }
         }
@@ -183,7 +180,7 @@ public class HoldContainerState : HoldState
             // 바닥에 놓기
             hand.CurrentObject = null;
         }
-        hand.ChangeState(triggeredGrabbableObject.GetHandState());
+        hand.UpdateState();
     }
 
     public override void InteractAndThorw(Hand hand)

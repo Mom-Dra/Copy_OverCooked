@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c35098daf1c06f44fb21a39352bf80b8, type: 2}
+  - {fileID: 2100000, guid: b6dc6bc35b1c5984e9ec2f0b2b0bce33, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,6 +120,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: CuttingBoard
   Description: Chop something
+  objectType: 0
+  IsInteractable: 1
   requiredFoodCount: 1
   cookedOffset: {x: 0, y: 0.1, z: 0}
   cookingMethod: 0

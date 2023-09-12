@@ -406,6 +406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Pot
   Description: Boil something
+  objectType: 1
   requiredFoodCount: 1
   cookedOffset: {x: 0, y: 0.1, z: 0}
   cookingMethod: 2

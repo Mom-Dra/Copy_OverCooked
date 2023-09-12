@@ -51,7 +51,7 @@ public class PlayerController : Player
     private void FixedUpdate()
     {
         rigid.MovePosition(rigid.position + moveDirection * speed * applyDashSpeed * Time.deltaTime);
-        Debug.Log(moveDirection.magnitude * applyDashSpeed);
+        //Debug.Log(moveDirection.magnitude * applyDashSpeed);
     }
 
     //private IObject RayCheck() // 바로 앞의 오브젝트가 무엇인지 확인 
