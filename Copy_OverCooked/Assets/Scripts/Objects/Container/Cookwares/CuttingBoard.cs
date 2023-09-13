@@ -1,11 +1,16 @@
+using UnityEngine;
+
 public class CuttingBoard : Cookware
 {
-    protected override void Fit()
+    public override void Fit(InteractableObject gameObject)
     {
-        throw new System.NotImplementedException();
+        gameObject.transform.position = transform.position + offset;
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        rb.rotation = Quaternion.Euler(0f, 0f, 0f);
+        rb.isKinematic = true;
     }
 
-    protected override bool IsValidObject()
+    public override bool IsValidObject(InteractableObject gameObject)
     {
         return true;
     }

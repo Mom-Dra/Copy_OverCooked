@@ -116,7 +116,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1998279799992371748}
-  - component: {fileID: -7723932785079535081}
   - component: {fileID: 1312422370071094843}
   - component: {fileID: 7824808185213462443}
   m_Layer: 10
@@ -144,22 +143,6 @@ Transform:
   - {fileID: 549075508489222023}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-7723932785079535081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5576758586236041868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70ea591f882e3a6448d637e50cebef30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsGrabable: 0
-  Id: 0
-  Name: 
-  _state: 0
 --- !u!65 &1312422370071094843
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -179,8 +162,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.588582, y: 0.51708513, z: 0.67920303}
-  m_Center: {x: -0.048098832, y: 0.009814709, z: 0.16039848}
+  m_Size: {x: 0.48192924, y: 0.24669719, z: 0.51463115}
+  m_Center: {x: 0.005227536, y: 0.038621783, z: -0.07225245}
 --- !u!114 &7824808185213462443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,9 +176,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23431b4143019f4e843a5a2aa9c8fbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsGrabable: 1
   Id: 101
   Name: Chopped_Tomato
+  Description: 
+  objectType: 0
+  IsInteractable: 1
   _state: 0
 --- !u!1 &6331454930656662592
 GameObject:

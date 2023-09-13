@@ -118,10 +118,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4450763c38966f44092d737345a1e423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Id: 10
   Name: CuttingBoard
   Description: Chop something
   objectType: 0
   IsInteractable: 1
+  maxObjectCount: 1
+  offset: {x: 0, y: 1, z: 0}
+  IsGrabbable: 0
+  getObject: {fileID: 0}
   requiredFoodCount: 1
   cookedOffset: {x: 0, y: 0.1, z: 0}
   cookingMethod: 0

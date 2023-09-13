@@ -1,26 +1,12 @@
-using UnityEngine;
-
-public class Sink : InteractableObject, Containable
+public class Sink : Container
 {
-    public GameObject Get()
+    public override void Fit(InteractableObject gameObject)
     {
         throw new System.NotImplementedException();
     }
 
-    public bool Put(GameObject gameObject)
+    public override bool IsValidObject(InteractableObject gameObject)
     {
         throw new System.NotImplementedException();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

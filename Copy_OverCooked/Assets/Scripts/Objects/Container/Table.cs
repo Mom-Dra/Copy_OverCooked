@@ -1,31 +1,16 @@
+using System.IO;
 using UnityEngine;
 
-public class Table : InteractableObject, Containable
+public class Table : Container
 {
-    [SerializeField]
-    private float offset = 1f;
-
-    private GameObject IObject = null;
-    public GameObject Get()
+    public override void Fit(InteractableObject gameObject)
     {
-        return IObject;
+        gameObject.transform.position = transform.position + offset;
+        gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
 
-    public bool Put(GameObject gameObject)
+    public override bool IsValidObject(InteractableObject gameObject)
     {
-        if (IObject != null)
-        {
-            IObject = gameObject;
-            return true;
-        }
-        return false;
-    }
-
-    private void FixedUpdate()
-    {
-        if (IObject != null)
-        {
-            IObject.transform.position = transform.position + new Vector3(0, offset, 0);
-        }
+        return true;
     }
 }

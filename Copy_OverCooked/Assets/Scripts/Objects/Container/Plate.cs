@@ -1,16 +1,16 @@
-using UnityEngine;
-
-public class Plate : InteractableObject, Containable
+public class Plate : Container
 {
-
-    public GameObject Get()
+    public override void Fit(InteractableObject gameObject)
     {
         throw new System.NotImplementedException();
     }
 
-    public bool Put(GameObject gameObject)
+
+    public override bool IsValidObject(InteractableObject gameObject)
     {
         throw new System.NotImplementedException();
     }
+
+
 
 }

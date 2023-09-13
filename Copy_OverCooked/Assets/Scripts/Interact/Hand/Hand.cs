@@ -11,8 +11,10 @@ public enum EHandState
 public class Hand : MonoBehaviour
 {
     private HandState handState;
-    [SerializeField]
+    
     private Interactor interactor;
+
+    public float throwPower;
     [HideInInspector]
     public InteractableObject CurrentObject;
 
@@ -22,7 +24,7 @@ public class Hand : MonoBehaviour
     {
         handState = EmptyHandState.Instance;
 
-        //interactor = GetComponent<Interactor>();
+        interactor = transform.parent.GetComponentInChildren<Interactor>();
     }
 
     private void Update()
@@ -46,11 +48,11 @@ public class Hand : MonoBehaviour
                     handState = ContainerHandState.Instance;
                     break;
             }
-        } else
+        }
+        else
         {
             handState = EmptyHandState.Instance;
         }
-        Debug.Log("Change State : " + handState);
     }
 
     public void GrabAndPut()
@@ -63,11 +65,25 @@ public class Hand : MonoBehaviour
         handState.InteractAndThorw(this);
     }
 
-    public void PutAway()
+    public void HoldIn(InteractableObject gameObject)
+    {
+        if (gameObject != null)
+        {
+            CurrentObject = gameObject;
+            CurrentObject.IsInteractable = false;
+            Rigidbody rigid = CurrentObject.GetComponent<Rigidbody>();
+            rigid.rotation = Quaternion.Euler(0, 0, 0);
+            rigid.isKinematic = true;
+        }
+    }
+
+    public void HoldOut()
     {
         if (CurrentObject != null)
         {
             CurrentObject.IsInteractable = true;
+            Rigidbody rigid = CurrentObject.GetComponent<Rigidbody>();
+            rigid.isKinematic = false;
             CurrentObject = null;
         }
     }
@@ -99,13 +115,12 @@ public class EmptyHandState : HandState
             if (objectType == EObjectType.Container)
             {
                 // Container에서 물체를 가져와서 hand에 넣음 
-                GameObject getObject = triggeredObject.GetComponent<Containable>().Get();
-                hand.CurrentObject = getObject.GetComponent<InteractableObject>();
-                hand.CurrentObject.IsInteractable = false;
-            } else
+                InteractableObject getObject = triggeredObject.GetComponent<Container>().Get();
+                hand.HoldIn(getObject);
+            }
+            else
             {
-                hand.CurrentObject = triggeredObject;
-                hand.CurrentObject.IsInteractable = false;
+                hand.HoldIn(triggeredObject);
             }
 
             hand.UpdateState();
@@ -141,18 +156,20 @@ public class FoodHandState : HandState
             EObjectType objectType = triggeredObject.GetObjectType();
             if (objectType == EObjectType.Container)
             {
-                if (triggeredObject.GetComponent<Containable>().Put(hand.CurrentObject.gameObject))
+                if (triggeredObject.GetComponent<Container>().Put(hand.CurrentObject))
                 {
-                    hand.PutAway();
+                    hand.HoldOut();
                 }
-            } else
-            {
-                hand.PutAway();
             }
-        } else
+            else
+            {
+                hand.HoldOut();
+            }
+        }
+        else
         {
             // 음식 바닥에 놓기
-            hand.PutAway();
+            hand.HoldOut();
         }
         hand.UpdateState();
     }
@@ -160,8 +177,9 @@ public class FoodHandState : HandState
     public override void InteractAndThorw(Hand hand)
     {
         // 던지는 코드
-        Debug.Log("Throw : " + hand.gameObject.name);
-        hand.CurrentObject = null;
+        InteractableObject io = hand.CurrentObject;
+        hand.HoldOut();
+        io.GetComponent<Rigidbody>().AddForce(hand.transform.forward * hand.throwPower, ForceMode.Impulse);
     }
 }
 
@@ -182,22 +200,24 @@ public class ContainerHandState : HandState
             // 케이스 수정 바람 
             if (objectType == EObjectType.Container)
             {
-                GameObject getObject = hand.CurrentObject.GetComponent<Containable>().Get();
+                InteractableObject getObject = hand.CurrentObject.GetComponent<Container>().Get();
                 if (getObject != null && getObject.tag == "Food")
                 {
-                    if (triggeredObject.GetComponent<Containable>().Put(getObject))
+                    if (triggeredObject.GetComponent<Container>().Put(getObject))
                     {
-                        hand.PutAway();
+                        hand.HoldOut();
                     }
                 }
-            } else
-            {
-                hand.PutAway();
             }
-        } else
+            else
+            {
+                hand.HoldOut();
+            }
+        }
+        else
         {
             // 바닥에 놓기
-            hand.PutAway();
+            hand.HoldOut();
         }
         hand.UpdateState();
     }

@@ -20,12 +20,6 @@ public class Recipe : ScriptableObject
     [SerializeField]
     private Food cookedFood;
 
-    public Recipe(CookingMethod cookingMethod, List<Food> foods)
-    {
-        this.cookingMethod = cookingMethod;
-        this.foods = foods;
-    }
-
     public Food getCookedFood()
     {
         return cookedFood;
@@ -36,15 +30,14 @@ public class Recipe : ScriptableObject
         return cookedTime;
     }
 
-    public override bool Equals(object other)
+    public bool Equal(CookingMethod cookingMethod, List<InteractableObject> foods)
     {
-        Recipe recipe = other as Recipe;
 
-        if (cookingMethod == recipe.cookingMethod)
+        if (this.cookingMethod == cookingMethod)
         {
-            if (foods.Count == recipe.foods.Count)
+            if (this.foods.Count == foods.Count)
             {
-                if (foods.OrderBy(e => e).SequenceEqual(recipe.foods.OrderBy(e => e)))
+                if (this.foods.OrderBy(e => e).SequenceEqual(foods.OrderBy(e => e.GetComponent<Food>())))
                 {
                     return true;
                 }

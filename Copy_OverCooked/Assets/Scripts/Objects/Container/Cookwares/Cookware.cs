@@ -10,23 +10,15 @@ public enum ECookwareState
     Overheat
 }
 
-public abstract class Cookware : InteractableObject, Containable
+public abstract class Cookware : Container
 {
     [SerializeField]
-    protected int requiredFoodCount = 1;
-    [SerializeField]
-    protected Vector3 cookedOffset;
-    [SerializeField]
     protected CookingMethod cookingMethod;
-    [SerializeField]
-    private bool isGrabbable;
     [SerializeField]
     private bool IsImmediateCook = true;
 
     protected ECookwareState cookwareState;
-    protected List<Food> containFoods;
 
-    protected GameObject cookedFood;
     protected float currProgressTime;
 
     private bool STOP = false;
@@ -34,23 +26,14 @@ public abstract class Cookware : InteractableObject, Containable
     private void Awake()
     {
         cookwareState = ECookwareState.Idle;
-        containFoods = new List<Food>(requiredFoodCount);
-    }
-
-    private bool Empty()
-    {
-        return containFoods.Count == 0;
-    }
-
-    private bool Full()
-    {
-        return containFoods.Count == requiredFoodCount;
     }
 
     private IEnumerator Cook()
     {
         // 조리 도구마다 방식이 다름 
-        Recipe recipe = RecipeManager.Instance.Search(cookingMethod, containFoods);
+        // 조리가 진행중인 음식이 들어올 수도 있음 = Get() 함수 override 해야할 것 
+        Recipe recipe = RecipeManager.Instance.Search(cookingMethod, containObjects);
+        Debug.Log(recipe);
         float cookDuration = recipe.getCookTime();
         currProgressTime = 0;
 
@@ -64,12 +47,14 @@ public abstract class Cookware : InteractableObject, Containable
             yield return new WaitForSeconds(0.1f);
         }
 
-        containFoods.Clear();
-        cookedFood = Instantiate(recipe.getCookedFood().gameObject, transform.position + cookedOffset, Quaternion.identity);
-        if (cookedFood == null)
+        containObjects.Clear();
+        Destroy(getObject.gameObject);
+        getObject = Instantiate(recipe.getCookedFood().gameObject, transform.position + offset, Quaternion.identity).GetComponent<InteractableObject>();
+        if (getObject == null)
         {
             Debug.Log("Invalid Component : 'Food'");
-        } else
+        }
+        else
             cookwareState = ECookwareState.Complete;
     }
 
@@ -93,53 +78,24 @@ public abstract class Cookware : InteractableObject, Containable
         }
     }
 
-    protected abstract bool IsValidObject(); // 해당 조리 도구에 들어갈 수 있는 음식인지 확인 
 
-    protected abstract void Fit(); // 음식이 들어왔을 때 위치, 크기, 물체 자체를 변환시켜주는 함수 
+    //public InteractableObject getCookedObject()
+    //{
+    //    cookedFood.GetComponent<Food>().IsInteractable = true;
+    //    InteractableObject go = cookedFood;
+    //    cookedFood = null;
+    //    return go;
+    //}
 
-    //protected abstract bool CheckCook();
-
-    public GameObject getCookedObject()
+    public override bool Put(InteractableObject gameObject)
     {
-        cookedFood.GetComponent<Food>().IsInteractable = true;
-        GameObject go = cookedFood.gameObject;
-        cookedFood = null;
-        return go;
-    }
-
-    public GameObject Get()
-    {
-        if (isGrabbable)
+        if (base.Put(gameObject))
         {
-            return this.gameObject;
-        } else
-        {
-            return getCookedObject();
-        }
-    }
-
-    public bool Put(GameObject gameObject)
-    {
-        if (cookwareState == ECookwareState.Idle)
-        {
-            if (gameObject.tag == "Food")
+            if (IsImmediateCook && IsFull())
             {
-                if (IsValidObject())
-                {
-                    if (!Full())
-                    {
-                        Food putFood = gameObject.GetComponent<Food>();
-                        putFood.IsInteractable = true;
-                        Fit();
-                        containFoods.Add(putFood);
-                        if (IsImmediateCook && Full())
-                        {
-                            StartCook();
-                        }
-                        return true;
-                    }
-                }
+                StartCook();
             }
+            return true;
         }
         return false;
     }

@@ -1,12 +1,12 @@
 public class Pot : Cookware
 {
-    protected override void Fit()
+    public override void Fit(InteractableObject gameObject)
     {
         throw new System.NotImplementedException();
     }
 
-    protected override bool IsValidObject()
+    public override bool IsValidObject(InteractableObject gameObject)
     {
-        return true;
+        throw new System.NotImplementedException();
     }
 }

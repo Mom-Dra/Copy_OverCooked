@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7618127877854652939}
   - component: {fileID: 5721777623008320565}
   m_Layer: 0
-  m_Name: normal_table
+  m_Name: Table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,10 +119,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bc23e17d9216944f8d5a32d1dabb225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Id: 1
   Name: Table
-  Description: 
+  Description: Just Table
   objectType: 1
   IsInteractable: 1
+  maxObjectCount: 1
+  offset: {x: 0, y: 0.5, z: 0}
+  IsGrabbable: 0
+  getObject: {fileID: 0}
 --- !u!54 &5721777623008320565
 Rigidbody:
   m_ObjectHideFlags: 0
