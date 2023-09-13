@@ -53,6 +53,7 @@ public abstract class Cookware : InteractableObject, Containable
 
     private IEnumerator Cook()
     {
+        // 조리 도구마다 방식이 다름 
         Recipe recipe = RecipeManager.Instance.Search(cookingMethod, containFoods);
         float cookDuration = recipe.getCookTime();
         currProgressTime = 0;
@@ -98,6 +99,8 @@ public abstract class Cookware : InteractableObject, Containable
 
     protected abstract bool IsValidObject(); // 해당 조리 도구에 들어갈 수 있는 음식인지 확인 
 
+    //protected abstract void SetObject(); // 음식이 들어왔을 때 위치, 크기, 물체 자체를 변환시켜주는 함수 
+
     //protected abstract bool CheckCook();
 
     public GameObject getCookedObject()
@@ -131,6 +134,7 @@ public abstract class Cookware : InteractableObject, Containable
                     {
                         Food putFood = gameObject.GetComponent<Food>();
                         putFood.IsInteractable = true;
+                        //SetObject();
                         containFoods.Add(putFood);
                         if (IsImmediateCook && Full())
                         {

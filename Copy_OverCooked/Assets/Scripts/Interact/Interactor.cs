@@ -16,13 +16,13 @@ public class Interactor : MonoBehaviour
         interactableObjects = new List<InteractableObject>();
     }
 
-    private void FixedUpdate()
+    private void FixedUpdate() // Update 할 필요가 있니? --> 추가 되거나, 빠질때만 하면된다
     {
         if(interactableObjects.Count > 0)
         {
             InteractableObject prevObejct = firstInteractableObject;
             firstInteractableObject = GetClosestObject();
-            Debug.Log(firstInteractableObject);
+            //Debug.Log(firstInteractableObject);
             if(prevObejct != firstInteractableObject)
             {
                 GlowOn();

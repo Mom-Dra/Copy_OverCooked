@@ -122,9 +122,9 @@ public class EmptyHandState : HandState
         // 탐지된 오브젝트 가져오기
         InteractableObject triggeredObject = hand.TriggeredObject;
         // 오브젝트가 <Cookware> 스크립트를 가지고 있는지 확인
-        Cookware cookware = triggeredObject.GetComponent<Cookware>();
+        
         // 가지고 있다면,
-        if(cookware != null)
+        if(triggeredObject.TryGetComponent<Cookware>(out Cookware cookware))
         {
             // 해당 조리도구와 상호작용 (요리)
             cookware.Interact();
@@ -184,6 +184,9 @@ public class ContainerHandState : HandState
         if(triggeredObject != null)
         {
             EObjectType objectType = triggeredObject.GetObjectType();
+            // 조리도구 -> 접시 = 음식이 옮겨짐
+            // 조리도구 -> 선반 = 조리도구가 옮겨짐 
+            // 케이스 수정 바람 
             if (objectType == EObjectType.Container)
             {
                 GameObject getObject = hand.CurrentObject.GetComponent<Containable>().Get();
