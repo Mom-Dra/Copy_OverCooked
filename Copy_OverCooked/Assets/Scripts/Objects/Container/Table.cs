@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Table : InteractableObject, Containable
 {
+    [SerializeField]
+    private float offset = 1f;
+
     private GameObject IObject = null;
     public GameObject Get()
     {
@@ -24,7 +27,7 @@ public class Table : InteractableObject, Containable
     {
         if(IObject != null)
         {
-            IObject.transform.position = transform.position;
+            IObject.transform.position = transform.position + new Vector3(0, offset, 0);
         }
     }
 }

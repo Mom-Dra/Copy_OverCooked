@@ -6,8 +6,8 @@ using UnityEngine;
 #pragma warning disable CS0659 // 형식은 Object.Equals(object o)를 재정의하지만 Object.GetHashCode()를 재정의하지 않습니다.
 public class Food : InteractableObject, IComparable<Food>
 #pragma warning restore CS0659 // 형식은 Object.Equals(object o)를 재정의하지만 Object.GetHashCode()를 재정의하지 않습니다.
-{ 
-    public int Id;
+{
+    public int Id = 0;
     public FoodState _state;
 
     public int getId()

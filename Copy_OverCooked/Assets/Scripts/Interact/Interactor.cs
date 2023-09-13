@@ -6,21 +6,21 @@ using UnityEngine;
 public class Interactor : MonoBehaviour
 {
     [SerializeField]
-    private List<GameObject> interactableObjects;
+    private List<InteractableObject> interactableObjects;
 
     [HideInInspector]
-    public GameObject firstInteractableObject;
+    public InteractableObject firstInteractableObject;
 
     private void Awake()
     {
-        interactableObjects = new List<GameObject>();
+        interactableObjects = new List<InteractableObject>();
     }
 
     private void FixedUpdate()
     {
         if(interactableObjects.Count > 0)
         {
-            GameObject prevObejct = firstInteractableObject;
+            InteractableObject prevObejct = firstInteractableObject;
             firstInteractableObject = GetClosestObject();
             Debug.Log(firstInteractableObject);
             if(prevObejct != firstInteractableObject)
@@ -36,43 +36,46 @@ public class Interactor : MonoBehaviour
         InteractableObject interactableObject = other.GetComponent<InteractableObject>();
         if (interactableObject != null && interactableObject.IsInteractable)
         {
-            interactableObjects.Add(other.gameObject);
+            interactableObjects.Add(interactableObject);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        GlowOff(other.gameObject);
-        interactableObjects.Remove(other.gameObject);
+        InteractableObject io = other.GetComponent<InteractableObject>();
+        GlowOff(io);
+        interactableObjects.Remove(io);
     }
 
     private void GlowOn()
     {
         if (firstInteractableObject != null)
         {
-            Material material = firstInteractableObject.GetComponent<Renderer>().material;
+            Material material = firstInteractableObject.GetComponent<MeshRenderer>().material;
             material.SetColor("_EmissionColor", new Color(10, 10, 10));
         }
     }
 
-    private void GlowOff(GameObject gameObject)
+    private void GlowOff(InteractableObject gameObject)
     {
         if(gameObject != null)
         {
-            Material material = gameObject.GetComponent<Renderer>().material;
+            Material material = gameObject.GetComponent<MeshRenderer>().material;
             material.SetColor("_EmissionColor", new Color(0, 0, 0));
         }
-        
     }
 
     public InteractableObject GetTriggeredObject()
     {
-        return firstInteractableObject.GetComponent<InteractableObject>();
+        InteractableObject go = firstInteractableObject;
+        interactableObjects.Remove(go);
+        return go;
     }
 
-    private GameObject GetClosestObject()
+    private InteractableObject GetClosestObject()
     {
-        return interactableObjects.OrderBy(item => Vector3.Distance(ConvertYPositionToZero(item.transform.position), ConvertYPositionToZero(transform.position))).FirstOrDefault();        
+        return interactableObjects.OrderBy(item => Vector3.Distance(ConvertYPositionToZero(item.transform.position), ConvertYPositionToZero(transform.position)))
+            .FirstOrDefault().GetComponent<InteractableObject>();      
     }
 
     private Vector3 ConvertYPositionToZero(Vector3 vector)

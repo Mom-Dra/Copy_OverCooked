@@ -54,18 +54,7 @@ public class PlayerController : Player
         //Debug.Log(moveDirection.magnitude * applyDashSpeed);
     }
 
-    //private IObject RayCheck() // 바로 앞의 오브젝트가 무엇인지 확인 
-    //{
-    //    Debug.DrawRay(transform.position + new Vector3(0, 0.2f, 0), transform.forward * distance, Color.red, 3.0f);
-    //    RaycastHit hit;
-    //    int layerMask = 1 << LayerMask.NameToLayer("Interactable");
-    //    if (Physics.Raycast(transform.position + new Vector3(0, 0.2f, 0), transform.forward * distance, out hit, 2, layerMask))
-    //    {
-    //        Debug.Log("Interact : " + hit.transform.name);
-    //        return hit.transform.GetComponent<IObject>();
-    //    }
-    //    return null;
-    //}
+    
 
     public void OnMove(InputValue value)
     {

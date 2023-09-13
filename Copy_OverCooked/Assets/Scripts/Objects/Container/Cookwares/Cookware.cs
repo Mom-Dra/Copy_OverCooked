@@ -130,7 +130,7 @@ public abstract class Cookware : InteractableObject, Containable
                     if (!Full())
                     {
                         Food putFood = gameObject.GetComponent<Food>();
-                        putFood.IsInteractable = false;
+                        putFood.IsInteractable = true;
                         containFoods.Add(putFood);
                         if (IsImmediateCook && Full())
                         {

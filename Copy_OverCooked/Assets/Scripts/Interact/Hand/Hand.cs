@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR;
 
 // 플레이어의 손에 있는 오브젝트의 상태 
 public enum EHandState
@@ -15,7 +16,7 @@ public enum EHandState
 public class Hand : MonoBehaviour
 {
     private HandState handState;
-
+    [SerializeField]
     private Interactor interactor;
     [HideInInspector]
     public InteractableObject CurrentObject;
@@ -26,7 +27,15 @@ public class Hand : MonoBehaviour
     {
         handState = EmptyHandState.Instance;
 
-        interactor = GetComponent<Interactor>();
+        //interactor = GetComponent<Interactor>();
+    }
+
+    private void Update()
+    {
+        if(CurrentObject != null)
+        {
+            CurrentObject.transform.position = transform.position;
+        }
     }
 
     public void UpdateState()
@@ -47,6 +56,7 @@ public class Hand : MonoBehaviour
         {
             handState = EmptyHandState.Instance;
         }
+        Debug.Log("Change State : " +  handState);
     }
 
     public void GrabAndPut()
@@ -57,6 +67,15 @@ public class Hand : MonoBehaviour
     public void InteractAndThorw()
     {
         handState.InteractAndThorw(this);
+    }
+
+    public void PutAway()
+    {
+        if(CurrentObject != null)
+        {
+            CurrentObject.IsInteractable = true;
+            CurrentObject = null;
+        }
     }
 }
 
@@ -75,26 +94,31 @@ public class EmptyHandState : HandState
     public override void GrabAndPut(Hand hand)
     {
         // Grab
+        // 탐지된 오브젝트 가져오기 
         InteractableObject triggeredObject = hand.TriggeredObject;
+        // 탐지된 오브젝트가 있다면,
         if (triggeredObject != null)
         {
+            // 탐지된 오브젝트의 ObjectType 검사 (이거 tag로 해도 되겠네 // ? )
             EObjectType objectType = triggeredObject.GetObjectType();
-                if (objectType == EObjectType.Container)
-                {
-                    GameObject getObject = triggeredObject.GetComponent<Containable>().Get();
-                    hand.CurrentObject = getObject.GetComponent<InteractableObject>();
-                } else
-                {
-                    hand.CurrentObject = triggeredObject;
-                }
+            // ObjectType = Container 라면,
+            if (objectType == EObjectType.Container)
+            {
+                // Container에서 물체를 가져와서 hand에 넣음 
+                GameObject getObject = triggeredObject.GetComponent<Containable>().Get();
+                hand.CurrentObject = getObject.GetComponent<InteractableObject>();
+                hand.CurrentObject.IsInteractable = false;
+            } else
+            {
+                hand.CurrentObject = triggeredObject;
+                hand.CurrentObject.IsInteractable = false;
+            }
 
-                hand.UpdateState();
+            hand.UpdateState();
         }
     }
     public override void InteractAndThorw(Hand hand)
     {
-        // 아래의 코드가 심히 맘에 안듬 (추후 구조 변경 요망)
-
         // 탐지된 오브젝트 가져오기
         InteractableObject triggeredObject = hand.TriggeredObject;
         // 오브젝트가 <Cookware> 스크립트를 가지고 있는지 확인
@@ -125,17 +149,17 @@ public class FoodHandState : HandState
             {
                 if (triggeredObject.GetComponent<Containable>().Put(hand.CurrentObject.gameObject))
                 {
-                    hand.CurrentObject = null;
+                    hand.PutAway();
                 }
             } else
             {
-                hand.CurrentObject = null;
+                hand.PutAway();
             }
         }
         else
         {
             // 음식 바닥에 놓기
-            hand.CurrentObject = null;
+            hand.PutAway();
         }
         hand.UpdateState();
     }
@@ -167,18 +191,18 @@ public class ContainerHandState : HandState
                 {
                     if (triggeredObject.GetComponent<Containable>().Put(getObject))
                     {
-                        hand.CurrentObject = null;
+                        hand.PutAway();
                     }
                 }
             } else
             {
-                hand.CurrentObject = null;
+                hand.PutAway();
             }
         }
         else
         {
             // 바닥에 놓기
-            hand.CurrentObject = null;
+            hand.PutAway();
         }
         hand.UpdateState();
     }
