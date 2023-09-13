@@ -1,9 +1,5 @@
-using OpenCover.Framework.Model;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 
@@ -54,7 +50,7 @@ public class PlayerController : Player
         //Debug.Log(moveDirection.magnitude * applyDashSpeed);
     }
 
-    
+
 
     public void OnMove(InputValue value)
     {

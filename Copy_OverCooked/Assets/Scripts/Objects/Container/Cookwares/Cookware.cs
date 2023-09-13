@@ -1,10 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 
 public enum ECookwareState
 {
@@ -60,9 +56,9 @@ public abstract class Cookware : InteractableObject, Containable
 
         while (currProgressTime < cookDuration)
         {
-            if(STOP)
+            if (STOP)
                 yield break;
-            
+
             currProgressTime += 0.1f;
             Debug.Log($"Progress: {currProgressTime} / {cookDuration}%");
             yield return new WaitForSeconds(0.1f);
@@ -73,12 +69,12 @@ public abstract class Cookware : InteractableObject, Containable
         if (cookedFood == null)
         {
             Debug.Log("Invalid Component : 'Food'");
-        }
-        else cookwareState = ECookwareState.Complete;
+        } else
+            cookwareState = ECookwareState.Complete;
     }
-    
+
     protected void StopCook()
-    { 
+    {
         STOP = true;
     }
 
@@ -91,7 +87,7 @@ public abstract class Cookware : InteractableObject, Containable
 
     public void Interact()
     {
-        if(cookwareState != ECookwareState.Complete)
+        if (cookwareState != ECookwareState.Complete)
         {
             StartCook();
         }
@@ -99,7 +95,7 @@ public abstract class Cookware : InteractableObject, Containable
 
     protected abstract bool IsValidObject(); // 해당 조리 도구에 들어갈 수 있는 음식인지 확인 
 
-    //protected abstract void SetObject(); // 음식이 들어왔을 때 위치, 크기, 물체 자체를 변환시켜주는 함수 
+    protected abstract void Fit(); // 음식이 들어왔을 때 위치, 크기, 물체 자체를 변환시켜주는 함수 
 
     //protected abstract bool CheckCook();
 
@@ -108,7 +104,7 @@ public abstract class Cookware : InteractableObject, Containable
         cookedFood.GetComponent<Food>().IsInteractable = true;
         GameObject go = cookedFood.gameObject;
         cookedFood = null;
-        return go; 
+        return go;
     }
 
     public GameObject Get()
@@ -124,7 +120,7 @@ public abstract class Cookware : InteractableObject, Containable
 
     public bool Put(GameObject gameObject)
     {
-        if(cookwareState == ECookwareState.Idle)
+        if (cookwareState == ECookwareState.Idle)
         {
             if (gameObject.tag == "Food")
             {
@@ -134,7 +130,7 @@ public abstract class Cookware : InteractableObject, Containable
                     {
                         Food putFood = gameObject.GetComponent<Food>();
                         putFood.IsInteractable = true;
-                        //SetObject();
+                        Fit();
                         containFoods.Add(putFood);
                         if (IsImmediateCook && Full())
                         {

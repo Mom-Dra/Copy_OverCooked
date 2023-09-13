@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.XR;
 
 // 플레이어의 손에 있는 오브젝트의 상태 
 public enum EHandState
@@ -21,7 +16,7 @@ public class Hand : MonoBehaviour
     [HideInInspector]
     public InteractableObject CurrentObject;
 
-    public InteractableObject TriggeredObject { get =>interactor.GetTriggeredObject(); }
+    public InteractableObject TriggeredObject { get => interactor.GetTriggeredObject(); }
 
     private void Awake()
     {
@@ -32,7 +27,7 @@ public class Hand : MonoBehaviour
 
     private void Update()
     {
-        if(CurrentObject != null)
+        if (CurrentObject != null)
         {
             CurrentObject.transform.position = transform.position;
         }
@@ -40,7 +35,7 @@ public class Hand : MonoBehaviour
 
     public void UpdateState()
     {
-        if(CurrentObject != null)
+        if (CurrentObject != null)
         {
             switch (CurrentObject.GetObjectType())
             {
@@ -51,12 +46,11 @@ public class Hand : MonoBehaviour
                     handState = ContainerHandState.Instance;
                     break;
             }
-        }
-        else
+        } else
         {
             handState = EmptyHandState.Instance;
         }
-        Debug.Log("Change State : " +  handState);
+        Debug.Log("Change State : " + handState);
     }
 
     public void GrabAndPut()
@@ -71,7 +65,7 @@ public class Hand : MonoBehaviour
 
     public void PutAway()
     {
-        if(CurrentObject != null)
+        if (CurrentObject != null)
         {
             CurrentObject.IsInteractable = true;
             CurrentObject = null;
@@ -122,9 +116,9 @@ public class EmptyHandState : HandState
         // 탐지된 오브젝트 가져오기
         InteractableObject triggeredObject = hand.TriggeredObject;
         // 오브젝트가 <Cookware> 스크립트를 가지고 있는지 확인
-        
+
         // 가지고 있다면,
-        if(triggeredObject.TryGetComponent<Cookware>(out Cookware cookware))
+        if (triggeredObject.TryGetComponent<Cookware>(out Cookware cookware))
         {
             // 해당 조리도구와 상호작용 (요리)
             cookware.Interact();
@@ -141,8 +135,8 @@ public class FoodHandState : HandState
     public override void GrabAndPut(Hand hand)
     {
         InteractableObject triggeredObject = hand.TriggeredObject;
-        
-        if(triggeredObject != null)
+
+        if (triggeredObject != null)
         {
             EObjectType objectType = triggeredObject.GetObjectType();
             if (objectType == EObjectType.Container)
@@ -155,8 +149,7 @@ public class FoodHandState : HandState
             {
                 hand.PutAway();
             }
-        }
-        else
+        } else
         {
             // 음식 바닥에 놓기
             hand.PutAway();
@@ -167,7 +160,7 @@ public class FoodHandState : HandState
     public override void InteractAndThorw(Hand hand)
     {
         // 던지는 코드
-        Debug.Log("Throw : " +  hand.gameObject.name);
+        Debug.Log("Throw : " + hand.gameObject.name);
         hand.CurrentObject = null;
     }
 }
@@ -181,7 +174,7 @@ public class ContainerHandState : HandState
     public override void GrabAndPut(Hand hand)
     {
         InteractableObject triggeredObject = hand.TriggeredObject;
-        if(triggeredObject != null)
+        if (triggeredObject != null)
         {
             EObjectType objectType = triggeredObject.GetObjectType();
             // 조리도구 -> 접시 = 음식이 옮겨짐
@@ -201,8 +194,7 @@ public class ContainerHandState : HandState
             {
                 hand.PutAway();
             }
-        }
-        else
+        } else
         {
             // 바닥에 놓기
             hand.PutAway();
@@ -212,6 +204,6 @@ public class ContainerHandState : HandState
 
     public override void InteractAndThorw(Hand hand)
     {
-        
+
     }
 }
