@@ -1,16 +1,19 @@
-using OpenCover.Framework.Model;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+
+
 
 public class PlayerController : Player
 {
     private Rigidbody rigid;
 
     private Vector3 moveDirection;
+
+    private bool IsDash = false;
+    private bool IsWalk = false;
+    private bool IsChop = false;
+    private Animator animator;
 
     [Header("Dash")]
     [SerializeField]
@@ -29,6 +32,8 @@ public class PlayerController : Player
 
     private bool canDash;
 
+    private Hand hand;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
@@ -40,102 +45,60 @@ public class PlayerController : Player
         dashDelayWaitForSecond = new WaitForSeconds(dashCoolDownTime);
 
         canDash = true;
+
+        hand = transform.GetChild(0).GetComponent<Hand>();
+
+        animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
     {
-        if(hand != null){
-            hand.transform.position = transform.position + (transform.forward * 0.8f);
-        }
-
-        rigid.MovePosition(rigid.position + moveDirection * speed * applyDashSpeed * Time.deltaTime);
-        Debug.Log(moveDirection.magnitude * applyDashSpeed);
-    }
-
-    public void OnGrabAndPut()
-    {
-        IObject ob = RayCheck();
-        if (ob!=null && ob.GetComponent<Cookware>())
-        {
-            ob.GetComponent<Cookware>().Interact(this);
-        }else
-        {
-            if (hand != null)
-            {
-                Put();
-            } else
-            {
-                if (ob!= null && ob.IsGrabable)
-                {
-                    Grab(ob);
-                }
-            }
-        } 
-        
-    }
-
-    private IObject RayCheck() // 바로 앞의 오브젝트가 무엇인지 확인 
-    {
-        Debug.DrawRay(transform.position + new Vector3(0, 0.2f, 0), transform.forward * distance, Color.red, 3.0f);
-        RaycastHit hit;
-        int layerMask = 1 << LayerMask.NameToLayer("Interactable");
-        if (Physics.Raycast(transform.position + new Vector3(0, 0.2f, 0), transform.forward * distance, out hit, 2, layerMask))
-        {
-            Debug.Log("Interact : " + hit.transform.name);
-            return hit.transform.GetComponent<IObject>();
-        }
-        return null;
-    }
-
-    private bool Interact()
-    {
-        IObject target = RayCheck();
-
-        if (target == null)
-            return false;
-        Cookware cookware = target.GetComponent<Cookware>();
-        cookware.Interact(this);
-        return true;
-    }
-
-    private void Throw()
-    {
-        Debug.Log("Throw!");
+        rigid.MovePosition(rigid.position + moveDirection * Speed * applyDashSpeed * Time.deltaTime);
+        //Debug.Log(moveDirection.magnitude * applyDashSpeed);
     }
 
     public void OnMove(InputValue value)
     {
+        if (!IsDash)
+        {
+            animator.SetBool("IsWalk", true);
+        }
         Vector2 input = value.Get<Vector2>();
         moveDirection = new Vector3(input.x, 0f, input.y);
         transform.LookAt(transform.position + moveDirection);
+        animator.SetBool("IsWalk", false);
     }
 
-    public void OnInteractAndThrow()
+    public void OnGrabAndPut() // Space 
     {
-        Debug.Log("InteractAndThrow");
-        if (Interact())
-        {
-            Throw();
-        }
+        hand.GrabAndPut();
+    }
+
+    public void OnInteractAndThrow() // Ctrl
+    {
+        hand.InteractAndThorw();
     }
 
     public void OnDash()
     {
         if (canDash)
         {
-            canDash = false;
-            applyDashSpeed = dashSpeed;
-
-            StartCoroutine(ResetDashSpeedCoroutine());
+            StartCoroutine(DashCoroutine());
             StartCoroutine(CoolDownDash());
         }
     }
 
-    private IEnumerator ResetDashSpeedCoroutine()
+    private IEnumerator DashCoroutine()
     {
+        canDash = false;
+        animator.SetBool("IsDash", true);
+        IsDash = true;
+        IsWalk = false;
+        applyDashSpeed = dashSpeed;
         yield return dashTimeWaitForsecond;
 
         applyDashSpeed = 1f;
+        animator.SetBool("IsDash", false);
     }
 
     private IEnumerator CoolDownDash()

@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
     [SerializeField]
-    protected int id;
+    protected int Id;
 
     [SerializeField]
-    protected float speed;
+    protected float Speed;
 }

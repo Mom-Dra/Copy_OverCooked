@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class RecipeManager : MonoBehaviour
-{ 
+{
     private static RecipeManager instance = null;
     [SerializeField]
     private Recipe[] recipes;
@@ -22,22 +21,22 @@ public class RecipeManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
-        } else
+        }
+        else
         {
             Destroy(this.gameObject);
         }
     }
 
-    public Recipe Search(CookingMethod cookingMethod, List<Food> foods)
+    public Recipe Search(CookingMethod cookingMethod, List<InteractableObject> objects)
     {
-        Recipe recipe = new Recipe(cookingMethod, foods);
-        for(int i = 0; i < recipes.Length; i++)
+        for (int i = 0; i < recipes.Length; i++)
         {
-            if (recipes[i].Equals(recipe))
+            if (recipes[i].Equal(cookingMethod, objects))
             {
                 return recipes[i];
             }

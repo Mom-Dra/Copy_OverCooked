@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CookManager : Singleton<CookManager>
