@@ -2,12 +2,10 @@ using UnityEngine;
 
 public class CuttingBoard : Cookware
 {
-    public override void Fit(InteractableObject gameObject)
+    public override void Fit(InteractableObject interactableObject)
     {
-        gameObject.transform.position = transform.position + offset;
-        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
-        rb.rotation = Quaternion.Euler(0f, 0f, 0f);
-        rb.isKinematic = true;
+        interactableObject.transform.position = transform.position + offset;
+        interactableObject.FixFromExternalPhysics();
     }
 
     public override bool IsValidObject(InteractableObject gameObject)

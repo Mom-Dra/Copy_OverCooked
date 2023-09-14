@@ -33,8 +33,11 @@ public abstract class Container : InteractableObject
         }
         else
         {
-            getObject.GetComponent<Rigidbody>().isKinematic = false;
-            return getObject;
+            InteractableObject io = getObject;
+            getObject = null;
+            containObjects.Clear();
+            io.Free();
+            return io;
         }
     }
 

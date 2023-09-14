@@ -1,29 +1,18 @@
+using Unity.VisualScripting;
+using UnityEngine;
+
 public static class InteractableObjectExtension
 {
-    public static EHandState GetEHandState(this InteractableObject gameObject)
+    public static void FixFromExternalPhysics(this InteractableObject interactableObject)
     {
-        switch (gameObject.GetObjectType())
-        {
-            case EObjectType.Food:
-                return EHandState.Food;
-
-            default: // Container
-                return EHandState.Container;
-        }
+        Rigidbody rb = interactableObject.GetComponent<Rigidbody>();
+        rb.rotation = Quaternion.Euler(0f, 0f, 0f);
+        rb.isKinematic = true;
     }
 
-    public static HandState GetHandState(this InteractableObject gameObject)
+    public static void Free(this InteractableObject interactableObject)
     {
-        switch (GetEHandState(gameObject))
-        {
-            case EHandState.Food:
-                return FoodHandState.Instance;
-
-            case EHandState.Container:
-                return ContainerHandState.Instance;
-
-            default:
-                return null;
-        }
+        Rigidbody rb = interactableObject.GetComponent<Rigidbody>();
+        rb.isKinematic = false;
     }
 }

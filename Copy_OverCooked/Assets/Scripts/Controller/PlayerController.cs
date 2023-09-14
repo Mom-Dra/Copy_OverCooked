@@ -10,6 +10,11 @@ public class PlayerController : Player
 
     private Vector3 moveDirection;
 
+    private bool IsDash = false;
+    private bool IsWalk = false;
+    private bool IsChop = false;
+    private Animator animator;
+
     [Header("Dash")]
     [SerializeField]
     private float dashSpeed;
@@ -42,21 +47,26 @@ public class PlayerController : Player
         canDash = true;
 
         hand = transform.GetChild(0).GetComponent<Hand>();
+
+        animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
     {
-        rigid.MovePosition(rigid.position + moveDirection * speed * applyDashSpeed * Time.deltaTime);
+        rigid.MovePosition(rigid.position + moveDirection * Speed * applyDashSpeed * Time.deltaTime);
         //Debug.Log(moveDirection.magnitude * applyDashSpeed);
     }
 
-
-
     public void OnMove(InputValue value)
     {
+        if (!IsDash)
+        {
+            animator.SetBool("IsWalk", true);
+        }
         Vector2 input = value.Get<Vector2>();
         moveDirection = new Vector3(input.x, 0f, input.y);
         transform.LookAt(transform.position + moveDirection);
+        animator.SetBool("IsWalk", false);
     }
 
     public void OnGrabAndPut() // Space 
@@ -73,19 +83,22 @@ public class PlayerController : Player
     {
         if (canDash)
         {
-            canDash = false;
-            applyDashSpeed = dashSpeed;
-
-            StartCoroutine(ResetDashSpeedCoroutine());
+            StartCoroutine(DashCoroutine());
             StartCoroutine(CoolDownDash());
         }
     }
 
-    private IEnumerator ResetDashSpeedCoroutine()
+    private IEnumerator DashCoroutine()
     {
+        canDash = false;
+        animator.SetBool("IsDash", true);
+        IsDash = true;
+        IsWalk = false;
+        applyDashSpeed = dashSpeed;
         yield return dashTimeWaitForsecond;
 
         applyDashSpeed = 1f;
+        animator.SetBool("IsDash", false);
     }
 
     private IEnumerator CoolDownDash()
