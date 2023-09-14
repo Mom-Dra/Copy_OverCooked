@@ -48,7 +48,7 @@ public abstract class Cookware : Container
         }
 
         containObjects.Clear();
-        Destroy(getObject.gameObject);
+        getObject.RemoveFromInteractor();
         getObject = Instantiate(recipe.getCookedFood().gameObject, transform.position + offset, Quaternion.identity).GetComponent<InteractableObject>();
         if (getObject == null)
         {

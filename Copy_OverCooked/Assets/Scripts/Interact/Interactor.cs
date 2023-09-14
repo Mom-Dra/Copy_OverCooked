@@ -1,9 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class Interactor : MonoBehaviour
 {
+    public static readonly List<Interactor> interactors = new List<Interactor>();
+
     [SerializeField]
     private List<InteractableObject> interactableObjects;
 
@@ -13,6 +17,7 @@ public class Interactor : MonoBehaviour
     private void Awake()
     {
         interactableObjects = new List<InteractableObject>();
+        interactors.Add(this);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -56,7 +61,8 @@ public class Interactor : MonoBehaviour
         if(interactableObjects.Count == 1)
         {
             ClosestInteractableObject = interactableObjects.FirstOrDefault();
-        } else
+        } 
+        else
         {
             ClosestInteractableObject = interactableObjects.OrderBy(item => Vector3.Distance(ConvertYPositionToZero(item.transform.position), ConvertYPositionToZero(transform.position)))
             .FirstOrDefault();
@@ -69,14 +75,14 @@ public class Interactor : MonoBehaviour
     }
 
     public InteractableObject GetTriggeredObject()
-    {
-        return ClosestInteractableObject;
-    }
+    { 
+        return ClosestInteractableObject; 
+    } 
 
     // 요리가 다 되서 음식이 바뀌거나 하는 등의 경우에는 MissingObject 오류가 발생하게 된다 
     // 다른 함수, 객체에서 아래 함수를 호출하여 리스트에서 대상을 지우고 ClosestObject를 재설정해주어야 한다 
     public void RemoveObject(InteractableObject io)
-    {
+    { 
         interactableObjects.Remove(io);
         SetClosestObject();
     }
