@@ -15,4 +15,12 @@ public static class InteractableObjectExtension
         Rigidbody rb = interactableObject.GetComponent<Rigidbody>();
         rb.isKinematic = false;
     }
+
+    public static void RemoveFromInteractor(this InteractableObject interactableObject)
+    {
+        foreach (Interactor interactor in Interactor.interactors)
+            interactor.RemoveObject(interactableObject);
+
+        GameObject.Destroy(interactableObject.gameObject);
+    }
 }
