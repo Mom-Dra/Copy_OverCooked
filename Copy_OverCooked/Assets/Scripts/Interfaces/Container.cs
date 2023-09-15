@@ -30,8 +30,7 @@ public abstract class Container : InteractableObject
         if (IsGrabbable)
         {
             return this;
-        }
-        else
+        } else
         {
             InteractableObject io = getObject;
             getObject = null;
@@ -53,7 +52,7 @@ public abstract class Container : InteractableObject
                 getObject = gameObject;
             }
             containObjects.Add(gameObject);
-            
+
             Fit(gameObject);
             return true;
         }

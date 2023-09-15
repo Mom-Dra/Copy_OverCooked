@@ -10,10 +10,6 @@ public class PlayerController : Player
 
     private Vector3 moveDirection;
 
-    private bool IsDash = false;
-    private bool IsWalk = false;
-    private bool IsChop = false;
-    private Animator animator;
 
     [Header("Dash")]
     [SerializeField]
@@ -32,7 +28,7 @@ public class PlayerController : Player
 
     private bool canDash;
 
-    private Hand hand;
+    
 
     private void Awake()
     {
@@ -47,6 +43,7 @@ public class PlayerController : Player
         canDash = true;
 
         hand = transform.GetChild(0).GetComponent<Hand>();
+        hand.SetPlayer(this);
 
         animator = GetComponent<Animator>();
     }
@@ -59,14 +56,10 @@ public class PlayerController : Player
 
     public void OnMove(InputValue value)
     {
-        if (!IsDash)
-        {
-            animator.SetBool("IsWalk", true);
-        }
+        
         Vector2 input = value.Get<Vector2>();
         moveDirection = new Vector3(input.x, 0f, input.y);
         transform.LookAt(transform.position + moveDirection);
-        animator.SetBool("IsWalk", false);
     }
 
     public void OnGrabAndPut() // Space 
@@ -92,8 +85,6 @@ public class PlayerController : Player
     {
         canDash = false;
         animator.SetBool("IsDash", true);
-        IsDash = true;
-        IsWalk = false;
         applyDashSpeed = dashSpeed;
         yield return dashTimeWaitForsecond;
 

@@ -25,8 +25,7 @@ public class RecipeManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
-        }
-        else
+        } else
         {
             Destroy(this.gameObject);
         }

@@ -167,7 +167,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a76361730ce984a4bb8dec0998981424, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -357,7 +357,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3670119798626506063}
-  - component: {fileID: 6874320204093218118}
   m_Layer: 0
   m_Name: ChoppingArm
   m_TagString: Untagged
@@ -381,22 +380,6 @@ Transform:
   - {fileID: 1425300095512979069}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &6874320204093218118
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6935514450040492529}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 9f86c35c89a25944b81363c23bf6a216, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 9f86c35c89a25944b81363c23bf6a216, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &9096895558364175414
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum ECookwareState
@@ -48,19 +47,20 @@ public abstract class Cookware : Container
         }
 
         containObjects.Clear();
-        getObject.RemoveFromInteractor();
+        //getObject.RemoveFromInteractor();
+        ObjectHub.Instance.GetLinkedObject(this).GetInteractor().RemoveObject(getObject);
+        Destroy(getObject.gameObject);
+
         getObject = Instantiate(recipe.getCookedFood().gameObject, transform.position + offset, Quaternion.identity).GetComponent<InteractableObject>();
         if (getObject == null)
         {
             Debug.Log("Invalid Component : 'Food'");
-        }
-        else
+        } else
+        {
             cookwareState = ECookwareState.Complete;
-    }
-
-    protected void StopCook()
-    {
-        STOP = true;
+        }
+        CompletedCook();
+        ObjectHub.Instance.Disconnect(this);
     }
 
     protected void StartCook()
@@ -70,22 +70,20 @@ public abstract class Cookware : Container
         StartCoroutine(Cook());
     }
 
-    public void Interact()
+    protected void StopCook()
+    {
+        STOP = true;
+    }
+
+    public virtual bool Interact()
     {
         if (cookwareState != ECookwareState.Complete)
         {
             StartCook();
+            return true;
         }
+        return false;
     }
-
-
-    //public InteractableObject getCookedObject()
-    //{
-    //    cookedFood.GetComponent<Food>().IsInteractable = true;
-    //    InteractableObject go = cookedFood;
-    //    cookedFood = null;
-    //    return go;
-    //}
 
     public override bool Put(InteractableObject gameObject)
     {
@@ -99,4 +97,6 @@ public abstract class Cookware : Container
         }
         return false;
     }
+
+    protected abstract void CompletedCook();
 }

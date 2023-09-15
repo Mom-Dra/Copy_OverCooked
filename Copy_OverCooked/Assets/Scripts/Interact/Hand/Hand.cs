@@ -10,9 +10,11 @@ public enum EHandState
 
 public class Hand : MonoBehaviour
 {
+    private Player player;
+
     private HandState handState;
-    
-    private Interactor interactor;
+
+    public Interactor interactor { get; private set; }
 
     public float throwPower;
     [HideInInspector]
@@ -35,6 +37,16 @@ public class Hand : MonoBehaviour
         }
     }
 
+    public void SetPlayer(Player player)
+    {
+        this.player = player;
+    }
+
+    public Player GetPlayer()
+    {
+        return player;
+    }
+
     public void UpdateState()
     {
         if (CurrentObject != null)
@@ -48,8 +60,7 @@ public class Hand : MonoBehaviour
                     handState = ContainerHandState.Instance;
                     break;
             }
-        }
-        else
+        } else
         {
             handState = EmptyHandState.Instance;
         }
@@ -117,8 +128,7 @@ public class EmptyHandState : HandState
                 // Container에서 물체를 가져와서 hand에 넣음 
                 InteractableObject getObject = triggeredObject.GetComponent<Container>().Get();
                 hand.HoldIn(getObject);
-            }
-            else
+            } else
             {
                 hand.HoldIn(triggeredObject);
             }
@@ -131,16 +141,19 @@ public class EmptyHandState : HandState
         // 탐지된 오브젝트 가져오기
         InteractableObject triggeredObject = hand.TriggeredObject;
         // 오브젝트가 <Cookware> 스크립트를 가지고 있는지 확인
-        if(triggeredObject != null)
+        if (triggeredObject != null)
         {
             // 가지고 있다면,
             if (triggeredObject.TryGetComponent<Cookware>(out Cookware cookware))
             {
                 // 해당 조리도구와 상호작용 (요리)
-                cookware.Interact();
+                if (ObjectHub.Instance.Connect(hand.GetPlayer(), triggeredObject))
+                {
+                    cookware.Interact();
+                }
             }
         }
-        
+
     }
 }
 
@@ -163,13 +176,11 @@ public class FoodHandState : HandState
                 {
                     hand.HoldOut();
                 }
-            }
-            else
+            } else
             {
                 hand.HoldOut();
             }
-        }
-        else
+        } else
         {
             // 음식 바닥에 놓기
             hand.HoldOut();
@@ -211,13 +222,11 @@ public class ContainerHandState : HandState
                         hand.HoldOut();
                     }
                 }
-            }
-            else
+            } else
             {
                 hand.HoldOut();
             }
-        }
-        else
+        } else
         {
             // 바닥에 놓기
             hand.HoldOut();
