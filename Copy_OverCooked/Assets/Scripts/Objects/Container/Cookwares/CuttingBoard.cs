@@ -4,14 +4,14 @@ public class CuttingBoard : Cookware
     {
         if (base.Interact())
         {
-            ObjectHub.Instance.GetLinkedObject(this).StartChopAnimation();
+            LinkManager.Instance.GetLinkedObject(this).StartChopAnimation();
         }
         return true;
     }
 
     protected override void CompletedCook()
     {
-        ObjectHub.Instance.GetLinkedObject(this).StopChopAnimation();
+        LinkManager.Instance.GetLinkedObject(this).StopChopAnimation();
     }
 
     public override void Fit(InteractableObject interactableObject)

@@ -1,6 +1,11 @@
+using UnityEngine;
+
 public class Food : InteractableObject
 {
-    public FoodState _state;
+    private bool isCooking = false;
+    private float currentCookTime = 0f;
 
-
+    [Header("Cook")]
+    [SerializeField]
+    private CookingMethod cookingMethod;
 }

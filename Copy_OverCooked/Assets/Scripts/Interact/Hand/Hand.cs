@@ -147,7 +147,7 @@ public class EmptyHandState : HandState
             if (triggeredObject.TryGetComponent<Cookware>(out Cookware cookware))
             {
                 // 해당 조리도구와 상호작용 (요리)
-                if (ObjectHub.Instance.Connect(hand.GetPlayer(), triggeredObject))
+                if (LinkManager.Instance.Connect(hand.GetPlayer(), triggeredObject))
                 {
                     cookware.Interact();
                 }

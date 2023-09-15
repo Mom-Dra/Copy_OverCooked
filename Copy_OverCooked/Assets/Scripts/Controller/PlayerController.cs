@@ -16,7 +16,7 @@ public class PlayerController : Player
     private float dashSpeed;
     private float applyDashSpeed;
 
-    // 몇도 동안 대쉬를 할 것인가
+    // 몇초 동안 대쉬를 할 것인가
     [SerializeField]
     private float dashTime;
     private WaitForSeconds dashTimeWaitForsecond;

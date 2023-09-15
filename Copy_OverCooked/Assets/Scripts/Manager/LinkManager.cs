@@ -2,11 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ObjectHub : MonoBehaviour
+public class LinkManager : MonoBehaviour
 {
-    private static ObjectHub instance;
+    private static LinkManager instance;
 
-    [SerializeField]
     private Dictionary<Player, InteractableObject> linkedObjects;
 
     private void Awake()
@@ -23,7 +22,7 @@ public class ObjectHub : MonoBehaviour
     }
 
 
-    public static ObjectHub Instance
+    public static LinkManager Instance
     {
         get
         {

@@ -48,7 +48,7 @@ public abstract class Cookware : Container
 
         containObjects.Clear();
         //getObject.RemoveFromInteractor();
-        ObjectHub.Instance.GetLinkedObject(this).GetInteractor().RemoveObject(getObject);
+        LinkManager.Instance.GetLinkedObject(this).GetInteractor().RemoveObject(getObject);
         Destroy(getObject.gameObject);
 
         getObject = Instantiate(recipe.getCookedFood().gameObject, transform.position + offset, Quaternion.identity).GetComponent<InteractableObject>();
@@ -60,7 +60,7 @@ public abstract class Cookware : Container
             cookwareState = ECookwareState.Complete;
         }
         CompletedCook();
-        ObjectHub.Instance.Disconnect(this);
+        LinkManager.Instance.Disconnect(this);
     }
 
     protected void StartCook()

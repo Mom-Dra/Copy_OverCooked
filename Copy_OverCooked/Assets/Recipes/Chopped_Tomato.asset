@@ -15,5 +15,5 @@ MonoBehaviour:
   cookingMethod: 0
   foods:
   - {fileID: 1933255608683939250, guid: 0fa15ae7dc44e4b43bbbc01a8cfdf025, type: 3}
-  cookedTime: 2
+  cookedTime: 6
   cookedFood: {fileID: 7824808185213462443, guid: 946f621bedd351249a040f854623091e, type: 3}
