@@ -8,7 +8,7 @@ public class Table : Container
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
 
-    public override bool IsValidObject(InteractableObject gameObject)
+    public override bool IsValidObject(InteractableObject interactableObject)
     {
         return true;
     }

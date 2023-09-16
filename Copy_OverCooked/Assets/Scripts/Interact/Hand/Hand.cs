@@ -19,8 +19,9 @@ public class Hand : MonoBehaviour
     public float throwPower;
     [HideInInspector]
     public InteractableObject CurrentObject;
+    private Rigidbody currentObjectRigid;
 
-    public InteractableObject TriggeredObject { get => interactor.GetTriggeredObject(); }
+    public InteractableObject TriggeredObject { get => interactor.ClosestInteractableObject; }
 
     private void Awake()
     {
@@ -29,11 +30,11 @@ public class Hand : MonoBehaviour
         interactor = transform.parent.GetComponentInChildren<Interactor>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (CurrentObject != null)
+        if (currentObjectRigid != null)
         {
-            CurrentObject.transform.position = transform.position;
+            currentObjectRigid.position = transform.position;
         }
     }
 
@@ -64,6 +65,8 @@ public class Hand : MonoBehaviour
         {
             handState = EmptyHandState.Instance;
         }
+
+        Debug.Log($"<color=yellow> {handState} </color>");
     }
 
     public void GrabAndPut()
@@ -76,26 +79,27 @@ public class Hand : MonoBehaviour
         handState.InteractAndThorw(this);
     }
 
-    public void HoldIn(InteractableObject gameObject)
+    public void HoldIn(InteractableObject interactableObject)
     {
-        if (gameObject != null)
+        if (interactableObject != null)
         {
-            CurrentObject = gameObject;
+            CurrentObject = interactableObject;
             CurrentObject.IsInteractable = false;
-            Rigidbody rigid = CurrentObject.GetComponent<Rigidbody>();
-            rigid.rotation = Quaternion.Euler(0, 0, 0);
-            rigid.isKinematic = true;
+            currentObjectRigid = CurrentObject.GetComponent<Rigidbody>();
+
+            CurrentObject.Fix();
         }
     }
 
-    public void HoldOut()
+    public void HoldOut() // Free를 할 지 말지 결정 
     {
         if (CurrentObject != null)
         {
+            CurrentObject.Free();
+
             CurrentObject.IsInteractable = true;
-            Rigidbody rigid = CurrentObject.GetComponent<Rigidbody>();
-            rigid.isKinematic = false;
             CurrentObject = null;
+            currentObjectRigid = null;
         }
     }
 }
@@ -172,12 +176,17 @@ public class FoodHandState : HandState
             EObjectType objectType = triggeredObject.GetObjectType();
             if (objectType == EObjectType.Container)
             {
-                if (triggeredObject.GetComponent<Container>().Put(hand.CurrentObject))
+                Container container = triggeredObject.GetComponent<Container>();
+                if (container.CanPut(hand.CurrentObject))
                 {
+                    Debug.Log("<color=red> Hand put </color>");
+                    InteractableObject io = hand.CurrentObject;
                     hand.HoldOut();
+                    container.Put(io);
                 }
             } else
             {
+                // 음식 바닥에 놓기
                 hand.HoldOut();
             }
         } else
@@ -194,6 +203,7 @@ public class FoodHandState : HandState
         InteractableObject io = hand.CurrentObject;
         hand.HoldOut();
         io.GetComponent<Rigidbody>().AddForce(hand.transform.forward * hand.throwPower, ForceMode.Impulse);
+        hand.UpdateState();
     }
 }
 
@@ -215,11 +225,14 @@ public class ContainerHandState : HandState
             if (objectType == EObjectType.Container)
             {
                 InteractableObject getObject = hand.CurrentObject.GetComponent<Container>().Get();
-                if (getObject != null && getObject.tag == "Food")
+                if (getObject != null && getObject.GetObjectType() == EObjectType.Food)
                 {
-                    if (triggeredObject.GetComponent<Container>().Put(getObject))
+                    Container container = triggeredObject.GetComponent<Container>();
+
+                    if (container.CanPut(getObject))
                     {
                         hand.HoldOut();
+                        container.Put(getObject);
                     }
                 }
             } else

@@ -34,6 +34,7 @@ public class Interactor : MonoBehaviour
         InteractableObject io = other.GetComponent<InteractableObject>();
         GlowOff(io);
         interactableObjects.Remove(io);
+        SetClosestObject();
     }
 
     private void GlowOn()
@@ -69,11 +70,6 @@ public class Interactor : MonoBehaviour
     private Vector3 ConvertYPositionToZero(Vector3 vector)
     {
         return new Vector3(vector.x, 0, vector.z);
-    }
-
-    public InteractableObject GetTriggeredObject()
-    {
-        return ClosestInteractableObject;
     }
 
     // 요리가 다 되서 음식이 바뀌거나 하는 등의 경우에는 MissingObject 오류가 발생하게 된다 

@@ -9,10 +9,11 @@ public abstract class Container : InteractableObject
     protected Vector3 offset = new Vector3(0, 1f, 0); // 물체 오프셋 
     [SerializeField]
     protected bool IsGrabbable = false;
-    [SerializeField]
-    protected InteractableObject getObject;
 
     protected List<InteractableObject> containObjects = new List<InteractableObject>();
+
+    [SerializeField]
+    protected InteractableObject getObject;
 
     protected bool IsEmpty()
     {
@@ -30,33 +31,35 @@ public abstract class Container : InteractableObject
         if (IsGrabbable)
         {
             return this;
-        } else
+        }
+        else
         {
             InteractableObject io = getObject;
             getObject = null;
             containObjects.Clear();
-            io.Free();
+            io?.Free();
             return io;
         }
     }
 
-    // List 첫번째 가져오기
+    // List 첫번째 가져오기 
     // getObject 가져오기  
 
-    public virtual bool Put(InteractableObject gameObject)
+    public virtual void Put(InteractableObject interactableObject)
     {
-        if (!IsFull() && IsValidObject(gameObject))
-        {
-            if (containObjects.Count == 0)
-            {
-                getObject = gameObject;
-            }
-            containObjects.Add(gameObject);
+        Debug.Log("<color=orange> Base Put </color>");
 
-            Fit(gameObject);
-            return true;
+        Fit(interactableObject);
+        if(IsEmpty()) 
+        {
+            getObject = interactableObject;
         }
-        return false;
+        containObjects.Add(interactableObject);
+    }
+
+    public bool CanPut(InteractableObject interactableObject)
+    {
+        return !IsFull() && IsValidObject(interactableObject);
     }
 
     public abstract void Fit(InteractableObject gameObject);

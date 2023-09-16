@@ -14,7 +14,7 @@ public class LinkManager : MonoBehaviour
         {
             instance = this;
             linkedObjects = new Dictionary<Player, InteractableObject>();
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(gameObject);
         } else
         {
             Destroy(this);
@@ -36,7 +36,6 @@ public class LinkManager : MonoBehaviour
         {
             linkedObjects.Add(player, IObject);
             return true;
-
         }
         return false;
     }
@@ -58,15 +57,17 @@ public class LinkManager : MonoBehaviour
         {
             return linkedObjects[player];
         }
+
         throw new System.Exception("Invalid Linked Key");
     }
 
-    public Player GetLinkedObject(InteractableObject IObject)
+    public Player GetLinkedPlayer(InteractableObject IObject)
     {
         if (linkedObjects.ContainsValue(IObject))
         {
             return linkedObjects.FirstOrDefault(item => item.Value == IObject).Key;
         }
+
         throw new System.Exception("Invalid Linked Value");
     }
 }

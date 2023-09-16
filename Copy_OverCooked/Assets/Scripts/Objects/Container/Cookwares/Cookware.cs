@@ -24,6 +24,7 @@ public abstract class Cookware : Container
 
     private void Awake()
     {
+        Debug.Log("Cookware");
         cookwareState = ECookwareState.Idle;
     }
 
@@ -46,16 +47,17 @@ public abstract class Cookware : Container
             yield return new WaitForSeconds(0.1f);
         }
 
-        containObjects.Clear();
-        //getObject.RemoveFromInteractor();
-        LinkManager.Instance.GetLinkedObject(this).GetInteractor().RemoveObject(getObject);
+        LinkManager.Instance.GetLinkedPlayer(this).GetInteractor().RemoveObject(getObject);
         Destroy(getObject.gameObject);
 
+        containObjects.Clear();
         getObject = Instantiate(recipe.getCookedFood().gameObject, transform.position + offset, Quaternion.identity).GetComponent<InteractableObject>();
+
         if (getObject == null)
         {
             Debug.Log("Invalid Component : 'Food'");
-        } else
+        }
+        else
         {
             cookwareState = ECookwareState.Complete;
         }
@@ -85,17 +87,15 @@ public abstract class Cookware : Container
         return false;
     }
 
-    public override bool Put(InteractableObject gameObject)
+    public override void Put(InteractableObject interactableObject)
     {
-        if (base.Put(gameObject))
+        base.Put(interactableObject);
+        Debug.Log("<color=orange> Cookware Put </color>");
+         
+        if (IsImmediateCook && IsFull())
         {
-            if (IsImmediateCook && IsFull())
-            {
-                StartCook();
-            }
-            return true;
+            StartCook();
         }
-        return false;
     }
 
     protected abstract void CompletedCook();
