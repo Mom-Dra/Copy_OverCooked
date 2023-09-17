@@ -4,5 +4,5 @@ public enum CookingMethod
     Roast,
     Boil,
     Fry,
-
+    Grill
 }

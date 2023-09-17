@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +22,15 @@ public abstract class Cookware : Container
     protected ECookwareState cookwareState = ECookwareState.Idle;
 
     private bool STOP = false;
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        if(IsGrabbable && getObject != null)
+        {
+            getObject.transform.position = transform.position + containOffset;
+        }   
+    }
 
     protected virtual bool TryCook()
     {
@@ -51,6 +61,7 @@ public abstract class Cookware : Container
 
         Food getFood = getObject.GetComponent<Food>();
 
+        // UI Setting
         if (getFood.uIImage)
         {
             uIImage = getFood.uIImage;
@@ -62,6 +73,20 @@ public abstract class Cookware : Container
         }
         Image progressGaugeImage = uIImage.transform.GetChild(1).GetComponent<Image>();
 
+        // Extra Food(Prefab) Setting
+        List<Food> extraFoods = recipe.getExtraFoods();
+
+        int currCount = 0; // 음식이 변하는 횟수 (Current)
+        int totalCount = 0; // 음식이 변하는 횟수 (Total)
+        int changeUnit = 0; // 음식이 변하는 퍼센트 단위(간격)
+        if(extraFoods != null &&  extraFoods.Count > 0)
+        {
+            totalCount = extraFoods.Count + 1;
+            changeUnit = 100 / totalCount; 
+        }
+
+
+        // Cooking
         while (currDuration < totalDuration)
         {
             if (STOP)
@@ -74,16 +99,30 @@ public abstract class Cookware : Container
             int percentage = (int)((currDuration / totalDuration) * 100);
             if(percentage > 100) percentage = 100;
             Debug.Log($"<color=green> Cooking { getFood.name}... {percentage}% </color>");
+
+            // 조리하는 음식의 상태 변화를 새로운 Prefab으로 교체함으로 표현
+            if(currCount < extraFoods.Count && percentage >= (currCount + 1) * changeUnit)
+            {
+                Vector3 instantiatePos = getObject.transform.position;
+                Destroy(getObject.gameObject);
+                getObject = Instantiate(extraFoods[currCount].gameObject, instantiatePos, Quaternion.identity).GetComponent<InteractableObject>();
+                getObject.IsInteractable = false;
+                getObject.Fix();
+                getFood = getObject.GetComponent<Food>();
+                ++currCount;
+            }
+
             yield return new WaitForSeconds(0.1f);
         }
 
-        LinkManager.Instance.GetLinkedPlayer(this).GetInteractor().RemoveObject(getObject);
+        //LinkManager.Instance.GetLinkedPlayer(this).GetInteractor().RemoveObject(getObject);
         Destroy(getObject.gameObject);
         Destroy(uIImage.gameObject);
 
         containObjects.Clear();
         getObject = Instantiate(recipe.getCookedFood(), transform.position + containOffset, Quaternion.identity).GetComponent<InteractableObject>();
         getObject.IsInteractable = false;
+        getObject.Fix();
 
         if (getObject == null)
         {
@@ -98,7 +137,6 @@ public abstract class Cookware : Container
 
     protected virtual void StopCook()
     {
-        Debug.Log("Stop : " + getObject);
         getObject.GetComponent<Food>().uIImage = uIImage;
         uIImage = null;
         STOP = true;

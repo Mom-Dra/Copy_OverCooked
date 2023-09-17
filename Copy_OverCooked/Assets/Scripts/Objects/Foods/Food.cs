@@ -8,8 +8,9 @@ public class Food : InteractableObject
     [SerializeField]
     private CookingMethod cookingMethod;
 
+
     public CookingMethod GetCookingMethod() 
     { 
         return cookingMethod; 
-    }
+    } 
 }

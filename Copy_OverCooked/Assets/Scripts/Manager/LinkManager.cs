@@ -32,34 +32,38 @@ public class LinkManager : MonoBehaviour
 
     public bool Connect(Player player, InteractableObject IObject)
     {
-        if (!linkedObjects.ContainsKey(player) && !linkedObjects.ContainsValue(IObject))
-        {
-            linkedObjects.Add(player, IObject);
-            return true;
-        }
-        return false;
+        linkedObjects.Add(player, IObject);
+        return true;
+        //if (!linkedObjects.ContainsKey(player) && !linkedObjects.ContainsValue(IObject))
+        //{
+        //    return true;
+        //}
+        //return false;
     }
 
-    public void Disconnect(Player player)
-    {
-        linkedObjects.Remove(player);
-    }
+    //public void Disconnect(Player player)
+    //{
+    //    linkedObjects.Remove(player);
+    //}
 
     public void Disconnect(InteractableObject IObject)
     {
-        Player player = linkedObjects.FirstOrDefault(item => item.Value == IObject).Key;
-        linkedObjects.Remove(player);
-    }
-
-    public InteractableObject GetLinkedObject(Player player)
-    {
-        if (linkedObjects.ContainsKey(player))
+        if(linkedObjects.ContainsValue(IObject))
         {
-            return linkedObjects[player];
+            Player player = linkedObjects.FirstOrDefault(item => item.Value == IObject).Key;
+            linkedObjects.Remove(player);
         }
-
-        throw new System.Exception("Invalid Linked Key");
     }
+
+    //public InteractableObject GetLinkedObject(Player player)
+    //{
+    //    if (linkedObjects.ContainsKey(player))
+    //    {
+    //        return linkedObjects[player];
+    //    }
+
+    //    throw new System.Exception("Invalid Linked Key");
+    //}
 
     public Player GetLinkedPlayer(InteractableObject IObject)
     {
@@ -67,6 +71,7 @@ public class LinkManager : MonoBehaviour
         {
             return linkedObjects.FirstOrDefault(item => item.Value == IObject).Key;
         }
+        
 
         throw new System.Exception("Invalid Linked Value");
     }

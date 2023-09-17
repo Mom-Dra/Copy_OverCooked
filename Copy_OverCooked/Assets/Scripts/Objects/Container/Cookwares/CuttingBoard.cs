@@ -2,13 +2,6 @@ using UnityEngine;
 
 public class CuttingBoard : Cookware
 {
-    private void Update()
-    {
-        if(cookwareState == ECookwareState.Cook)
-        {
-
-        }
-    }
 
     protected override bool TryCook()
     {
@@ -24,12 +17,6 @@ public class CuttingBoard : Cookware
     {
         LinkManager.Instance.GetLinkedPlayer(this).SetBoolAnimation(EAnimationType.Chop, false);
         base.StopCook();
-    }
-
-    public override InteractableObject Get()
-    {
-        if(cookwareState == ECookwareState.Cook) StopCook();
-        return base.Get();
     }
 
     public override void Fit(InteractableObject interactableObject)

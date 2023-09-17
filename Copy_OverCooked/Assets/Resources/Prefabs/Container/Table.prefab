@@ -124,9 +124,11 @@ MonoBehaviour:
   Name: Table
   Description: Just Table
   objectType: 1
+  uIOffset: {x: 0, y: 80, z: 0}
+  uIImage: {fileID: 0}
   IsInteractable: 1
   maxContainCount: 1
-  offset: {x: 0, y: 0.5, z: 0}
+  containOffset: {x: 0, y: 0.5, z: 0}
   IsGrabbable: 0
   getObject: {fileID: 0}
 --- !u!54 &5721777623008320565

@@ -23,14 +23,6 @@ public static class InteractableObjectExtension
         rb.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
-    public static void RemoveFromInteractor(this InteractableObject interactableObject)
-    {
-        foreach (Interactor interactor in Interactor.interactors)
-            interactor.RemoveObject(interactableObject);
-
-        GameObject.Destroy(interactableObject.gameObject);
-    }
-
     public static Player GetLinkedPlayer(this InteractableObject interactableObject)
     {
         return LinkManager.Instance.GetLinkedPlayer(interactableObject);

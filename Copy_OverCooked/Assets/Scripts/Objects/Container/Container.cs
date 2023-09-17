@@ -17,6 +17,20 @@ public abstract class Container : InteractableObject
     [SerializeField]
     protected InteractableObject getObject;
 
+    private void Awake()
+    {
+        if(getObject != null)
+        {
+            getObject.IsInteractable = false;
+            getObject.Fix();
+        }   
+    }
+
+    public InteractableObject GetObject()
+    {
+        return getObject;
+    }
+
     protected bool IsEmpty()
     {
         return containObjects.Count == 0;

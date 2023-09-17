@@ -6,11 +6,6 @@ public class FoodBox : Container
     [SerializeField]
     private Food food;
 
-    protected override void Awake()
-    {
-        
-    }
-
     public override InteractableObject Get()
     {
         InteractableObject go = Instantiate(food.gameObject, transform.position + containOffset, Quaternion.identity).GetComponent<InteractableObject>();  

@@ -28,13 +28,7 @@ public class InteractableObject : MonoBehaviour
     [HideInInspector]
     public bool IsInteractable = true;
 
-
-    protected virtual void Awake()
-    {
-
-    }
-
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if(uIImage != null)
         {

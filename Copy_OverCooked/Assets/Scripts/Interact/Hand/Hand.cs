@@ -125,7 +125,6 @@ public class EmptyHandState : HandState
         // 탐지된 오브젝트가 있다면,
         if (triggeredObject != null)
         {
-            // 탐지된 오브젝트의 ObjectType 검사 (이거 tag로 해도 되겠네 // ? )
             EObjectType objectType = triggeredObject.GetObjectType();
             // ObjectType = Container 라면,
             if (objectType == EObjectType.Container)
@@ -227,7 +226,7 @@ public class ContainerHandState : HandState
             if (objectType == EObjectType.Container)
             {
                 InteractableObject getObject = hand.CurrentObject.GetComponent<Container>().Get();
-                if (getObject != null && getObject.GetObjectType() == EObjectType.Food)
+                if (getObject != null)
                 {
                     Container container = triggeredObject.GetComponent<Container>();
 

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 018c8a6fbc42ca1439a85f78d163161b, type: 3}
+  m_Name: Grilled_Meat
+  m_EditorClassIdentifier: 
+  cookingMethod: 4
+  materialFoods:
+  - {fileID: 7563695948465420473, guid: 2da00b0691a596844825a3380034adf3, type: 3}
+  totalCookDuration: 4
+  extraFoods: []
+  cookedFood: {fileID: 1972260656686463770, guid: 05852cf26ad57bf42a8e21bcf13329ea, type: 3}

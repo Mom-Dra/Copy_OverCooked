@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 549075508489222023}
   - component: {fileID: 1324447779260104698}
   - component: {fileID: 2061738100523855419}
-  - component: {fileID: 7274724307197826557}
   m_Layer: 0
   m_Name: piece (2)
   m_TagString: Untagged
@@ -84,29 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7274724307197826557
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2920184981529905234}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &5576758586236041868
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +158,10 @@ MonoBehaviour:
   Name: Chopped_Tomato
   Description: 
   objectType: 0
+  uIOffset: {x: 0, y: 80, z: 0}
+  uIImage: {fileID: 0}
   IsInteractable: 1
+  currentCookTime: 0
   cookingMethod: 0
 --- !u!54 &5554663252947651850
 Rigidbody:
@@ -264,7 +243,6 @@ GameObject:
   - component: {fileID: 4679041753009958131}
   - component: {fileID: 3476881173512471261}
   - component: {fileID: 3746100367268148823}
-  - component: {fileID: 99252350558487847}
   m_Layer: 0
   m_Name: piece (1)
   m_TagString: Untagged
@@ -337,29 +315,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &99252350558487847
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6331454930656662592}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &7695303479044041933
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,7 +326,6 @@ GameObject:
   - component: {fileID: 3014412533413074002}
   - component: {fileID: 6289272185488325786}
   - component: {fileID: 923556580020442332}
-  - component: {fileID: 1325591036105146044}
   m_Layer: 0
   m_Name: piece
   m_TagString: Untagged
@@ -444,26 +398,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &1325591036105146044
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7695303479044041933}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}

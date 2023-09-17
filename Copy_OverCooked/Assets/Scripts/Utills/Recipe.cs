@@ -8,17 +8,27 @@ using UnityEngine;
 public class Recipe : ScriptableObject
 #pragma warning restore CS0659 // 형식은 Object.Equals(object o)를 재정의하지만 Object.GetHashCode()를 재정의하지 않습니다.
 {
+    [Header("Incomes")]
     [SerializeField]
     private CookingMethod cookingMethod;
 
     [SerializeField]
-    private List<Food> foods;
+    private List<Food> materialFoods;
 
     [SerializeField]
     private float totalCookDuration;
 
+    [Header("OutComes")]
+    [SerializeField]
+    private List<Food> extraFoods;
+
     [SerializeField]
     private Food cookedFood;
+
+    public List<Food> getExtraFoods()
+    {
+        return extraFoods;
+    }
 
     public Food getCookedFood()
     {
@@ -35,9 +45,9 @@ public class Recipe : ScriptableObject
 
         if (this.cookingMethod == cookingMethod)
         {
-            if (this.foods.Count == foods.Count)
+            if (this.materialFoods.Count == foods.Count)
             {
-                if (this.foods.OrderBy(e => e).SequenceEqual(foods.OrderBy(e => e.GetComponent<Food>())))
+                if (this.materialFoods.OrderBy(e => e).SequenceEqual(foods.OrderBy(e => e.GetComponent<Food>())))
                 {
                     return true;
                 }
