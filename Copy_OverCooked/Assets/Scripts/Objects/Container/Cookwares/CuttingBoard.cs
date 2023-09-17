@@ -2,6 +2,14 @@ using UnityEngine;
 
 public class CuttingBoard : Cookware
 {
+    private void Update()
+    {
+        if(cookwareState == ECookwareState.Cook)
+        {
+
+        }
+    }
+
     protected override bool TryCook()
     {
         if (base.TryCook())
@@ -27,11 +35,20 @@ public class CuttingBoard : Cookware
     public override void Fit(InteractableObject interactableObject)
     {
         interactableObject.Fix();
-        interactableObject.transform.position = transform.position + offset;
+        interactableObject.transform.position = transform.position + containOffset;
     }
 
     public override bool IsValidObject(InteractableObject interactableObject)
     {
-        return interactableObject.GetObjectType() == EObjectType.Food;
+        if(interactableObject.TryGetComponent<Food>(out Food food))
+        {
+            if(food.GetCookingMethod() == CookingMethod.Chop)
+            {
+                return true;
+            }
+        }
+        return false;
     }
+
+   
 }

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum EObjectType
 {
@@ -9,6 +10,7 @@ public enum EObjectType
 
 public class InteractableObject : MonoBehaviour
 {
+    [Header("Interactable Object")]
     [SerializeField]
     protected int Id;
     [SerializeField]
@@ -18,8 +20,28 @@ public class InteractableObject : MonoBehaviour
     [SerializeField]
     protected EObjectType objectType;
 
+    [Header("UI")]
+    public Vector3 uIOffset = new Vector3(0, 80f, 0);
+    [HideInInspector]
+    public Image uIImage = null;
+
     [HideInInspector]
     public bool IsInteractable = true;
+
+
+    protected virtual void Awake()
+    {
+
+    }
+
+    private void FixedUpdate()
+    {
+        if(uIImage != null)
+        {
+            uIImage.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position) + uIOffset;
+        }
+    }
+
 
     public EObjectType GetObjectType()
     {

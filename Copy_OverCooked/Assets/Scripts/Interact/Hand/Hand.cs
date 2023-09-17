@@ -11,14 +11,15 @@ public enum EHandState
 public class Hand : MonoBehaviour
 {
     private Player player;
-
     private HandState handState;
-
     public Interactor interactor { get; private set; }
 
+    [Header("Throw")]
     public float throwPower;
+
     [HideInInspector]
     public InteractableObject CurrentObject;
+
     private Rigidbody currentObjectRigid;
 
     public InteractableObject TriggeredObject { get => interactor.ClosestInteractableObject; }

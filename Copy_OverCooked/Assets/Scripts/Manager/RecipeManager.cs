@@ -4,6 +4,7 @@ using UnityEngine;
 public class RecipeManager : MonoBehaviour
 {
     private static RecipeManager instance = null;
+    [Header("Recipe DB")]
     [SerializeField]
     private Recipe[] recipes;
 

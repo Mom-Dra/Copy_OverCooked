@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum ECookwareState
 {
@@ -11,21 +12,15 @@ public enum ECookwareState
 
 public abstract class Cookware : Container
 {
+    [Header("Cookware")]
     [SerializeField]
     protected CookingMethod cookingMethod;
     [SerializeField]
     private bool IsImmediateCook = true;
 
-    protected ECookwareState cookwareState;
-
-    //protected float currProgressTime;
+    protected ECookwareState cookwareState = ECookwareState.Idle;
 
     private bool STOP = false;
-
-    private void Awake()
-    {
-        cookwareState = ECookwareState.Idle;
-    }
 
     protected virtual bool TryCook()
     {
@@ -46,40 +41,48 @@ public abstract class Cookware : Container
         cookwareState = ECookwareState.Cook;
         float totalCookDuration = recipe.getTotalCookDuration();
 
-        StartCoroutine(Cook(currProgressTime, totalCookDuration, recipe.getCookedFood()));
+        StartCoroutine(Cook(currProgressTime, recipe));
         return true;
     }
 
-    private IEnumerator Cook(float currDuration, float totalDuration, Food cookedFood)
+    private IEnumerator Cook(float currDuration, Recipe recipe)
     {
-        // 조리 도구마다 방식이 다름 
-        // 조리가 진행중인 음식이 들어올 수도 있음 = Get() 함수 override 해야할 것 
-        //float? test2 = null;
-        //test2 ??= recipe?.getCookTime() ?? 0f;
+        float totalDuration = recipe.getTotalCookDuration();
 
-        Food cookingFood = getObject.GetComponent<Food>();
+        Food getFood = getObject.GetComponent<Food>();
+
+        if (getFood.uIImage)
+        {
+            uIImage = getFood.uIImage;
+            getFood.uIImage = null;
+        }
+        else
+        {
+            uIImage = UIManager.Instance.InstantiateUI(EInGameUIType.Progress);
+        }
+        Image progressGaugeImage = uIImage.transform.GetChild(1).GetComponent<Image>();
 
         while (currDuration < totalDuration)
         {
             if (STOP)
             {
-                cookingFood.currentCookTime = currDuration;
                 yield break;
             }
 
-            currDuration += 0.1f;
+            getFood.currentCookTime = currDuration += 0.1f;
+            progressGaugeImage.fillAmount = currDuration / totalDuration;
             int percentage = (int)((currDuration / totalDuration) * 100);
             if(percentage > 100) percentage = 100;
-            Debug.Log($"<color=green> Cooking {cookingFood.name}... {percentage}% </color>");
+            Debug.Log($"<color=green> Cooking { getFood.name}... {percentage}% </color>");
             yield return new WaitForSeconds(0.1f);
         }
-        cookingFood.currentCookTime = currDuration;
 
         LinkManager.Instance.GetLinkedPlayer(this).GetInteractor().RemoveObject(getObject);
         Destroy(getObject.gameObject);
+        Destroy(uIImage.gameObject);
 
         containObjects.Clear();
-        getObject = Instantiate(cookedFood.gameObject, transform.position + offset, Quaternion.identity).GetComponent<InteractableObject>();
+        getObject = Instantiate(recipe.getCookedFood(), transform.position + containOffset, Quaternion.identity).GetComponent<InteractableObject>();
         getObject.IsInteractable = false;
 
         if (getObject == null)
@@ -95,6 +98,9 @@ public abstract class Cookware : Container
 
     protected virtual void StopCook()
     {
+        Debug.Log("Stop : " + getObject);
+        getObject.GetComponent<Food>().uIImage = uIImage;
+        uIImage = null;
         STOP = true;
         cookwareState = ECookwareState.Idle;
         LinkManager.Instance.Disconnect(this);
@@ -131,5 +137,6 @@ public abstract class Cookware : Container
         }
         return false;
     }
+
 
 }

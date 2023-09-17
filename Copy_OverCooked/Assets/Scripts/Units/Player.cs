@@ -11,14 +11,14 @@ public enum EAnimationType
 
 public class Player : MonoBehaviour
 {
-    [Header("Information")]
+    [Header("Info")]
     [SerializeField]
     private int Id;
 
     private Rigidbody rigid;
     private Vector3 moveDirection;
 
-    [Header("Stat")]
+    [Header("Status")]
     [SerializeField]
     private float Speed;
 

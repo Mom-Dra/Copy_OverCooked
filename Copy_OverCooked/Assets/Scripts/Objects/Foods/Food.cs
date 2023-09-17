@@ -2,10 +2,14 @@ using UnityEngine;
 
 public class Food : InteractableObject
 {
-    private bool isCooking = false;
     public float currentCookTime;
 
-    [Header("Cook")]
+    [Header("Food")]
     [SerializeField]
     private CookingMethod cookingMethod;
+
+    public CookingMethod GetCookingMethod() 
+    { 
+        return cookingMethod; 
+    }
 }

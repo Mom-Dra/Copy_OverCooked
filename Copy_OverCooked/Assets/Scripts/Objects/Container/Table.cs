@@ -4,7 +4,7 @@ public class Table : Container
 {
     public override void Fit(InteractableObject gameObject)
     {
-        gameObject.transform.position = transform.position + offset;
+        gameObject.transform.position = transform.position + containOffset;
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
 

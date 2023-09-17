@@ -6,6 +6,7 @@ public class Interactor : MonoBehaviour
 {
     public static readonly List<Interactor> interactors = new List<Interactor>();
 
+    [Header("Debug")]
     [SerializeField]
     private List<InteractableObject> interactableObjects;
 

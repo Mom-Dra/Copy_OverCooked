@@ -3,15 +3,17 @@ using UnityEngine;
 
 public abstract class Container : InteractableObject
 {
+    [Header("Container")]
     [SerializeField]
     protected int maxContainCount = 1; // 최대 보관 개수
     [SerializeField]
-    protected Vector3 offset = new Vector3(0, 1f, 0); // 물체 오프셋 
+    protected Vector3 containOffset = new Vector3(0, 1f, 0); // 물체 오프셋 
     [SerializeField]
     protected bool IsGrabbable = false;
 
     protected List<InteractableObject> containObjects = new List<InteractableObject>();
 
+    [Header("Debug")]
     [SerializeField]
     protected InteractableObject getObject;
 
