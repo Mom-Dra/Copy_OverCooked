@@ -45,16 +45,20 @@ public abstract class Container : InteractableObject
     // List 첫번째 가져오기 
     // getObject 가져오기  
 
-    public virtual void Put(InteractableObject interactableObject)
+    public virtual bool Put(InteractableObject interactableObject)
     {
-        Debug.Log("<color=orange> Base Put </color>");
-
-        Fit(interactableObject);
-        if(IsEmpty()) 
+        if(!IsFull())
         {
-            getObject = interactableObject;
+            Fit(interactableObject);
+            interactableObject.IsInteractable = false;
+            if (IsEmpty())
+            {
+                getObject = interactableObject;
+            }
+            containObjects.Add(interactableObject);
+            return true;
         }
-        containObjects.Add(interactableObject);
+        return false;
     }
 
     public bool CanPut(InteractableObject interactableObject)

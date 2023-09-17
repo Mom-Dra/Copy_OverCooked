@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 2825111134334188137}
   - component: {fileID: 782837592}
   - component: {fileID: 782837590}
-  - component: {fileID: 9022937138374843190}
+  - component: {fileID: 7961465698479112129}
   m_Layer: 10
   m_Name: Pot
   m_TagString: Cookware
@@ -405,21 +405,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eccf496f3c985b64abec1e7b79500675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 11
+  Id: 2
   Name: Pot
   Description: Boil something
   objectType: 1
   IsInteractable: 1
-  maxObjectCount: 1
-  offset: {x: 0, y: 1, z: 0}
+  maxContainCount: 1
+  offset: {x: 0, y: 0.2, z: 0}
   IsGrabbable: 0
   getObject: {fileID: 0}
-  requiredFoodCount: 1
-  cookedOffset: {x: 0, y: 0.1, z: 0}
   cookingMethod: 2
-  isGrabbable: 1
   IsImmediateCook: 1
---- !u!23 &9022937138374843190
+--- !u!23 &7961465698479112129
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

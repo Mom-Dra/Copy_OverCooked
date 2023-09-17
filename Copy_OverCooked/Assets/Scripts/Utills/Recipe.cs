@@ -15,7 +15,7 @@ public class Recipe : ScriptableObject
     private List<Food> foods;
 
     [SerializeField]
-    private float cookedTime;
+    private float totalCookDuration;
 
     [SerializeField]
     private Food cookedFood;
@@ -25,9 +25,9 @@ public class Recipe : ScriptableObject
         return cookedFood;
     }
 
-    public float getCookTime()
+    public float getTotalCookDuration()
     {
-        return cookedTime;
+        return totalCookDuration;
     }
 
     public bool Equal(CookingMethod cookingMethod, List<InteractableObject> foods)

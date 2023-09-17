@@ -2,23 +2,30 @@ using UnityEngine;
 
 public class CuttingBoard : Cookware
 {
-    public override bool Interact()
+    protected override bool TryCook()
     {
-        if (base.Interact())
+        if (base.TryCook())
         {
             LinkManager.Instance.GetLinkedPlayer(this).SetBoolAnimation(EAnimationType.Chop, true);
+            return true;
         }
-        return true;
+        return false;
     }
 
-    protected override void CompletedCook()
+    protected override void StopCook()
     {
         LinkManager.Instance.GetLinkedPlayer(this).SetBoolAnimation(EAnimationType.Chop, false);
+        base.StopCook();
+    }
+
+    public override InteractableObject Get()
+    {
+        if(cookwareState == ECookwareState.Cook) StopCook();
+        return base.Get();
     }
 
     public override void Fit(InteractableObject interactableObject)
     {
-        Debug.Log("<color=orange> Fit </color>");
         interactableObject.Fix();
         interactableObject.transform.position = transform.position + offset;
     }

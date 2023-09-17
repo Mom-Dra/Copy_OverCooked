@@ -9,9 +9,4 @@ public class Pot : Cookware
     {
         throw new System.NotImplementedException();
     }
-
-    protected override void CompletedCook()
-    {
-        throw new System.NotImplementedException();
-    }
 }

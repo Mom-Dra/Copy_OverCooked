@@ -132,6 +132,7 @@ public class EmptyHandState : HandState
                 // Container에서 물체를 가져와서 hand에 넣음 
                 InteractableObject getObject = triggeredObject.GetComponent<Container>().Get();
                 hand.HoldIn(getObject);
+                getObject.gameObject.DebugName(EDebugColor.Orange ,"Hand Get : ");
             } else
             {
                 hand.HoldIn(triggeredObject);

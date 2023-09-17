@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 4789390672667051701}
   - component: {fileID: 5861715002742729382}
   - component: {fileID: 7879242153517038622}
-  - component: {fileID: 1506037639695968690}
   m_Layer: 10
   m_Name: cuttingBoard
   m_TagString: Untagged
@@ -107,7 +106,7 @@ MonoBehaviour:
   maxContainCount: 1
   offset: {x: 0, y: 0.2, z: 0}
   IsGrabbable: 0
-  containObjects: []
+  getObject: {fileID: 0}
   cookingMethod: 0
   IsImmediateCook: 0
 --- !u!65 &5861715002742729382
@@ -158,29 +157,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &1506037639695968690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1814060600769207069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4450763c38966f44092d737345a1e423, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Id: 10
-  Name: CuttingBoard
-  Description: Chop something
-  objectType: 1
-  IsInteractable: 1
-  maxContainCount: 1
-  offset: {x: 0, y: 0.2, z: 0}
-  IsGrabbable: 0
-  containObjects: []
-  cookingMethod: 0
-  IsImmediateCook: 0
 --- !u!1 &7307761284192429998
 GameObject:
   m_ObjectHideFlags: 0
