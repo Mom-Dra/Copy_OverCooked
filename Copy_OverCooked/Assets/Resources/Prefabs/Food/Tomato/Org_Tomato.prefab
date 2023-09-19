@@ -358,13 +358,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Id: 1
-  Name: Tomate
+  Name: Tomato
   Description: malrangmalrang Tomato
   objectType: 0
   uIOffset: {x: 0, y: 80, z: 0}
   uIImage: {fileID: 0}
   IsInteractable: 0
   currentCookTime: 0
+  foodState: 0
   cookingMethod: 0
 --- !u!1 &5571775117073912469
 GameObject:

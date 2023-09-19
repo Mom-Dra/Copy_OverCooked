@@ -1,14 +1,25 @@
+using UnityEngine;
+
 public class Plate : Container
 {
     public override void Fit(InteractableObject gameObject)
     {
-        throw new System.NotImplementedException();
+        gameObject.transform.position = transform.position + containOffset;
+        gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
 
 
-    public override bool IsValidObject(InteractableObject gameObject)
+    public override bool IsValidObject(InteractableObject interactableObject)
     {
-        throw new System.NotImplementedException();
+        if(interactableObject.TryGetComponent<Food>(out Food food))
+        {
+            if (food.foodState != EFoodState.Original)
+            {
+                return true;
+            }
+        }
+        Debug.Log($"{this.Name} Invalid Object : Only Food has been Contained");
+        return false;
     }
 
 

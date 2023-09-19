@@ -133,6 +133,7 @@ MonoBehaviour:
   uIImage: {fileID: 0}
   IsInteractable: 1
   currentCookTime: 0
+  foodState: 0
   cookingMethod: 4
 --- !u!65 &8494332563082704078
 BoxCollider:

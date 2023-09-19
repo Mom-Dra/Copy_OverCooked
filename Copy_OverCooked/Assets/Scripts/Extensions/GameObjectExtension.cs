@@ -4,12 +4,13 @@ public enum EDebugColor
 {
     Red,
     Yellow,
-    Orange
+    Orange,
+    Blue
 }
 
 public static class GameObjectExtension
 {
-    public static void DebugName(this GameObject gameObject, EDebugColor eDebugColor = EDebugColor.Yellow, string prefix = "")
+    public static void DebugName(this GameObject gameObject, string prefix = "", EDebugColor eDebugColor = EDebugColor.Yellow)
     {
         Debug.Log($"<color={eDebugColor.ToString().ToLower()}> {prefix} : {gameObject.name} </color>");
     }

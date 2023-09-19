@@ -37,36 +37,21 @@ public class Interactor : MonoBehaviour
         SetClosestObject();
     }
 
-    private void GlowOn()
-    {
-        if (ClosestInteractableObject != null)
-        {
-            Material material = ClosestInteractableObject.GetComponent<Renderer>().material;
-            material.SetFloat("_Brightness", brightness);
-        }
-    }
-     
-    private void GlowOff()
-    {
-        if (ClosestInteractableObject != null)
-        {
-            Material material = ClosestInteractableObject.GetComponent<Renderer>().material;
-            material.SetFloat("_Brightness", 0f);
-        }
-    }
-
     private void SetClosestObject()
     {
-        GlowOff();
-        if (interactableObjects.Count == 1)
+        if(ClosestInteractableObject != null)
         {
-            ClosestInteractableObject = interactableObjects.FirstOrDefault();
-        } else
-        {
-            ClosestInteractableObject = interactableObjects.OrderBy(item => Vector3.Distance(ConvertYPositionToZero(item.transform.position), ConvertYPositionToZero(transform.position)))
-            .FirstOrDefault();
+            ClosestInteractableObject.GlowOff();
         }
-        GlowOn();
+
+
+        ClosestInteractableObject = interactableObjects.OrderBy(item => Vector3.Distance(ConvertYPositionToZero(item.transform.position), ConvertYPositionToZero(transform.position + Vector3.forward)))
+        .FirstOrDefault();
+
+        if (ClosestInteractableObject != null)
+        {
+            ClosestInteractableObject.GlowOn();
+        }
     }
 
     private Vector3 ConvertYPositionToZero(Vector3 vector)
@@ -81,5 +66,10 @@ public class Interactor : MonoBehaviour
     {
         interactableObjects.Remove(io);
         SetClosestObject();
+    }
+
+    public bool ContainObject(InteractableObject io)
+    {
+        return interactableObjects.Contains(io);
     }
 }

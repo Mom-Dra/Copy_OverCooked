@@ -10,7 +10,7 @@ public class FryingPan : Cookware
     {
         if (interactableObject.TryGetComponent<Food>(out Food food))
         {
-            if (food.GetCookingMethod() == CookingMethod.Grill)
+            if (food.cookingMethod == ECookingMethod.Grill)
             {
                 return true;
             }

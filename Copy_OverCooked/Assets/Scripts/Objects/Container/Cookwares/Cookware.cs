@@ -15,7 +15,7 @@ public abstract class Cookware : Container
 {
     [Header("Cookware")]
     [SerializeField]
-    protected CookingMethod cookingMethod;
+    protected ECookingMethod cookingMethod;
     [SerializeField]
     private bool IsImmediateCook = true;
 
@@ -36,10 +36,15 @@ public abstract class Cookware : Container
     {
         if (!getObject.TryGetComponent<Food>(out Food cookFood))
         {
-            Debug.Log("Object don't have \"Food\"");
+            Debug.Log("Object don't have \"<Food>\"");
             return false;
         }
         float currProgressTime = cookFood.currentCookTime;
+        if(containObjects.Count == 0 && getObject != null)
+        {
+            containObjects.Add(getObject);
+        }
+        
         Recipe recipe = RecipeManager.Instance.Search(cookingMethod, containObjects);
         if (recipe == null)
         {
@@ -49,7 +54,6 @@ public abstract class Cookware : Container
     
         STOP = false;
         cookwareState = ECookwareState.Cook;
-        float totalCookDuration = recipe.getTotalCookDuration();
 
         StartCoroutine(Cook(currProgressTime, recipe));
         return true;
@@ -57,12 +61,14 @@ public abstract class Cookware : Container
 
     private IEnumerator Cook(float currDuration, Recipe recipe)
     {
+        
         float totalDuration = recipe.getTotalCookDuration();
-
         Food getFood = getObject.GetComponent<Food>();
 
+        containObjects.Clear();
+
         // UI Setting
-        if (getFood.uIImage)
+        if (getFood.uIImage != null)
         {
             uIImage = getFood.uIImage;
             getFood.uIImage = null;
@@ -76,14 +82,14 @@ public abstract class Cookware : Container
         // Extra Food(Prefab) Setting
         List<Food> extraFoods = recipe.getExtraFoods();
 
-        int currCount = 0; // 음식이 변하는 횟수 (Current)
         int totalCount = 0; // 음식이 변하는 횟수 (Total)
         int changeUnit = 0; // 음식이 변하는 퍼센트 단위(간격)
         if(extraFoods != null &&  extraFoods.Count > 0)
         {
             totalCount = extraFoods.Count + 1;
-            changeUnit = 100 / totalCount; 
+            changeUnit = 100 / totalCount;
         }
+        int currCount = (int)((currDuration / totalDuration) * 100) / changeUnit; // 음식이 변하는 횟수 (Current)
 
 
         // Cooking
@@ -96,8 +102,12 @@ public abstract class Cookware : Container
 
             getFood.currentCookTime = currDuration += 0.1f;
             progressGaugeImage.fillAmount = currDuration / totalDuration;
+
             int percentage = (int)((currDuration / totalDuration) * 100);
-            if(percentage > 100) percentage = 100;
+            if (percentage >= 100)
+            {
+                break;
+            }
             Debug.Log($"<color=green> Cooking { getFood.name}... {percentage}% </color>");
 
             // 조리하는 음식의 상태 변화를 새로운 Prefab으로 교체함으로 표현
@@ -108,7 +118,9 @@ public abstract class Cookware : Container
                 getObject = Instantiate(extraFoods[currCount].gameObject, instantiatePos, Quaternion.identity).GetComponent<InteractableObject>();
                 getObject.IsInteractable = false;
                 getObject.Fix();
+                Debug.Log($"<color=yellow> Change [{currCount}] : {getObject} </color>");
                 getFood = getObject.GetComponent<Food>();
+                getFood.currentCookTime = currDuration;
                 ++currCount;
             }
 
@@ -119,7 +131,7 @@ public abstract class Cookware : Container
         Destroy(getObject.gameObject);
         Destroy(uIImage.gameObject);
 
-        containObjects.Clear();
+        
         getObject = Instantiate(recipe.getCookedFood(), transform.position + containOffset, Quaternion.identity).GetComponent<InteractableObject>();
         getObject.IsInteractable = false;
         getObject.Fix();
@@ -162,9 +174,9 @@ public abstract class Cookware : Container
         return base.Get();
     }
 
-    public override bool Put(InteractableObject interactableObject)
+    public override bool TryPut(InteractableObject interactableObject)
     {
-        if (base.Put(interactableObject))
+        if (base.TryPut(interactableObject))
         {
             if (IsImmediateCook && IsFull())
             {

@@ -106,6 +106,7 @@ MonoBehaviour:
   uIImage: {fileID: 0}
   IsInteractable: 1
   currentCookTime: 0
+  foodState: 2
   cookingMethod: 4
 --- !u!54 &3008261813453056549
 Rigidbody:

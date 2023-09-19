@@ -10,7 +10,7 @@ public class Recipe : ScriptableObject
 {
     [Header("Incomes")]
     [SerializeField]
-    private CookingMethod cookingMethod;
+    private ECookingMethod cookingMethod;
 
     [SerializeField]
     private List<Food> materialFoods;
@@ -40,7 +40,7 @@ public class Recipe : ScriptableObject
         return totalCookDuration;
     }
 
-    public bool Equal(CookingMethod cookingMethod, List<InteractableObject> foods)
+    public bool Equal(ECookingMethod cookingMethod, List<InteractableObject> foods)
     {
 
         if (this.cookingMethod == cookingMethod)

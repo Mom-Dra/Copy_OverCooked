@@ -122,7 +122,7 @@ public class EmptyHandState : HandState
         // Grab
         // 탐지된 오브젝트 가져오기 
         InteractableObject triggeredObject = hand.TriggeredObject;
-        // 탐지된 오브젝트가 있다면,
+        // 탐지된 오브젝트가 있다면, 
         if (triggeredObject != null)
         {
             EObjectType objectType = triggeredObject.GetObjectType();
@@ -130,9 +130,17 @@ public class EmptyHandState : HandState
             if (objectType == EObjectType.Container)
             {
                 // Container에서 물체를 가져와서 hand에 넣음 
-                InteractableObject getObject = triggeredObject.GetComponent<Container>().Get();
-                hand.HoldIn(getObject);
-                getObject.gameObject.DebugName(EDebugColor.Orange ,"Hand Get : ");
+                Container triggerContainer = triggeredObject.GetComponent<Container>();
+                if(triggerContainer != null && triggerContainer.IsGrabbable)
+                {
+                    hand.HoldIn(triggerContainer);
+                }
+                else
+                {
+                    InteractableObject getObject = triggeredObject.GetComponent<Container>().Get();
+                    hand.HoldIn(getObject);
+                    getObject?.gameObject.DebugName("Hand Get : ", EDebugColor.Orange);
+                }
             } else
             {
                 hand.HoldIn(triggeredObject);
@@ -145,13 +153,13 @@ public class EmptyHandState : HandState
     {
         // 탐지된 오브젝트 가져오기
         InteractableObject triggeredObject = hand.TriggeredObject;
-        // 오브젝트가 <Cookware> 스크립트를 가지고 있는지 확인
+        // 오브젝트가 <Cookware> 스크립트를 가지고 있는지 확인 
         if (triggeredObject != null)
         {
-            // 가지고 있다면,
+            // 가지고 있다면, 
             if (triggeredObject.TryGetComponent<Cookware>(out Cookware cookware))
             {
-                // 해당 조리도구와 상호작용 (요리)
+                // 해당 조리도구와 상호작용 (요리) 
                 if (LinkManager.Instance.Connect(hand.GetPlayer(), triggeredObject))
                 {
                     cookware.Interact();
@@ -183,16 +191,16 @@ public class FoodHandState : HandState
                     Debug.Log("<color=red> Hand put </color>");
                     InteractableObject io = hand.CurrentObject;
                     hand.HoldOut();
-                    container.Put(io);
+                    container.TryPut(io);
                 }
             } else
             {
-                // 음식 바닥에 놓기
+                // 음식 바닥에 놓기 
                 hand.HoldOut();
             }
         } else
         {
-            // 음식 바닥에 놓기
+            // 음식 바닥에 놓기 
             hand.HoldOut();
         }
         hand.UpdateState();
@@ -216,27 +224,110 @@ public class ContainerHandState : HandState
 
     public override void GrabAndPut(Hand hand)
     {
+        // 손에 들고 있는 Container(Hand)
+        Container handContainer = hand.CurrentObject.GetComponent<Container>();
+        
+        // 탐지된 물체가 Null인지 검사 
         InteractableObject triggeredObject = hand.TriggeredObject;
         if (triggeredObject != null)
         {
             EObjectType objectType = triggeredObject.GetObjectType();
-            // 조리도구 -> 접시 = 음식이 옮겨짐
-            // 조리도구 -> 선반 = 조리도구가 옮겨짐 
-            // 케이스 수정 바람 
+            // 탐지된 물체가 Container라면, 
+            // Container(Hand) -> Container(Triggered) 또는
+            // Container(Hand) <- Container(Triggered) 이런 형식이 됨 
             if (objectType == EObjectType.Container)
             {
-                InteractableObject getObject = hand.CurrentObject.GetComponent<Container>().Get();
-                if (getObject != null)
-                {
-                    Container container = triggeredObject.GetComponent<Container>();
+                // 탐지된 Container(Trigger)
+                Container triggerContainer = triggeredObject.GetComponent<Container>();
 
-                    if (container.CanPut(getObject))
+                // Container(Hand) 내의 물체 GetObject(HandContainer)
+                InteractableObject GetObjectInHandContainer = handContainer.PeekGetObject();
+                // Container(Trigger) 내의 물체 GetObjet(TriggerContainer)
+                InteractableObject GetObjectInTriggerContainer = triggerContainer.PeekGetObject();
+
+                // Container(Trigger)가 물체를 보관하고 있는지 검사
+                if (GetObjectInTriggerContainer != null)
+                {
+                    // Container(Trigger)가 물체를 보관하고 있다면,
+                    // 아래 2가지 경우의 수를 고려해야 함 
+
+                    // 1. 넣기(Put)
+                    // : Container(Trigger)에 추가로 넣기 
+
+                    // 2. 가져오기(Get)
+                    // : Container(Trigger) 내의 물체를 가져와 Container(Hand)에 넣기
+
+
+                    // 1번. 넣기(Put)
+                    // GetObject(HandContainer) -> Container(Trigger)
+                    if (GetObjectInHandContainer != null && triggerContainer.CanPut(GetObjectInHandContainer))
                     {
-                        hand.HoldOut();
-                        container.Put(getObject);
+                        triggerContainer.TryPut(GetObjectInHandContainer);
+                        handContainer.Get();
+                    }
+                    else
+                    {
+                        // 2번. 가져오기(Get) 
+
+                        // Container(Trigger) 내의 물체를 꺼내서 Container(Hand)로 가져오기(Get) 시도
+                        // GetObject(TriggerContainer) -> Container(Hand) 
+                        if (handContainer.CanPut(GetObjectInTriggerContainer))
+                        {
+                            handContainer.TryPut(GetObjectInTriggerContainer);
+                            triggerContainer.Get();
+                        }
                     }
                 }
-            } else
+                else
+                {
+                    // Container(Trigger)가 물체를 보관하고 있지 않으면,
+                    // 아래 2가지 경우의 수를 고려해야 함
+
+                    // 1. Container(Hand) 자체를 넣기(Put)
+                    // : Container(Hand) -> Container(Trigger)
+
+                    // 2. 가져오고(Get) 넣기(Put)
+                    // : GetObject(HandContainer) -> Container(Trigger)
+
+
+                    // 1번. Container(Hand) 자체를 넣기(Put)
+
+                    // Container(Hand)를 Container(Trigger)에 넣기(Put) 시도
+                    // Container(Hand) -> Container(Trigger) 
+                    if (triggerContainer.CanPut(handContainer))
+                    {
+                        triggerContainer.TryPut(handContainer);
+                        handContainer.gameObject.DebugName("Put Container");
+                        hand.HoldOut();
+                    }
+                    else
+                    {
+                        // 2번. 가져오고(Get) 넣기(Put)
+
+                        // Container(Hand)가 물체를 보관하고 있는지 검사 
+                        if(GetObjectInHandContainer != null)
+                        {
+                            // Container(Hand) 내의 물체를 꺼내서 Container(Trigger)로 넣기(Put)를 시도
+                            // GetObject(HandContainer) -> Container(Trigger)
+                            if (triggerContainer.CanPut(GetObjectInHandContainer))
+                            {
+                                triggerContainer.TryPut(GetObjectInHandContainer);
+                                GetObjectInHandContainer.gameObject.DebugName("Put Object");
+                                handContainer.Get();
+                            }
+                        }
+                    }
+                }
+                
+            } else if (objectType == EObjectType.Food) { 
+                // 탐지된 물체가 음식이라면,
+                // 해당 음식을 Container(Hand)에 넣을 수 있는 검사
+                if (handContainer.CanPut(triggeredObject))
+                {
+                    handContainer.TryPut(triggeredObject);
+                }
+            }
+            else
             {
                 hand.HoldOut();
             }

@@ -1,4 +1,4 @@
-public enum CookingMethod
+public enum ECookingMethod
 {
     Chop,
     Roast,

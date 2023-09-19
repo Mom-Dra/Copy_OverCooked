@@ -28,6 +28,8 @@ public class InteractableObject : MonoBehaviour
     [HideInInspector]
     public bool IsInteractable = true;
 
+    protected float brightness = 0.2f;
+
     protected virtual void FixedUpdate()
     {
         if(uIImage != null)
@@ -40,6 +42,18 @@ public class InteractableObject : MonoBehaviour
     public EObjectType GetObjectType()
     {
         return objectType;
+    }
+
+    public virtual void GlowOn()
+    {
+        Material material = GetComponent<Renderer>().material;
+        material.SetFloat("_Brightness", brightness);
+    }
+
+    public virtual void GlowOff()
+    {
+        Material material = GetComponent<Renderer>().material;
+        material.SetFloat("_Brightness", 0f);
     }
 
     public override bool Equals(object other)

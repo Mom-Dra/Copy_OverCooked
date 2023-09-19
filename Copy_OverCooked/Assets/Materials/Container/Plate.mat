@@ -7,13 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tomato
+  m_Name: Plate
   m_Shader: {fileID: 4800000, guid: ef76d3382d642f94b81bda9fc4a758b8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 6
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -67,9 +67,9 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.405
+    - _Glossiness: 0.645
     - _GlossyReflections: 1
-    - _Metallic: 0.22
+    - _Metallic: 0.293
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -79,6 +79,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 0.10728204, b: 0, a: 1}
+    - _Color: {r: 0.83647794, g: 1, b: 0.9833919, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

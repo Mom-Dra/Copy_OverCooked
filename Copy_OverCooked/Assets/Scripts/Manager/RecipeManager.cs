@@ -32,7 +32,7 @@ public class RecipeManager : MonoBehaviour
         }
     }
 
-    public Recipe Search(CookingMethod cookingMethod, List<InteractableObject> objects)
+    public Recipe Search(ECookingMethod cookingMethod, List<InteractableObject> objects)
     {
         for (int i = 0; i < recipes.Length; i++)
         {

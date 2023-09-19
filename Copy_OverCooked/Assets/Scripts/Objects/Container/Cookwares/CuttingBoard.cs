@@ -2,6 +2,18 @@ using UnityEngine;
 
 public class CuttingBoard : Cookware
 {
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        if(cookwareState == ECookwareState.Cook)
+        {
+            Interactor interactor = LinkManager.Instance.GetLinkedPlayer(this).GetInteractor();
+            if(!interactor.ContainObject(this))
+            {
+                StopCook();
+            }
+        }
+    }
 
     protected override bool TryCook()
     {
@@ -29,7 +41,7 @@ public class CuttingBoard : Cookware
     {
         if(interactableObject.TryGetComponent<Food>(out Food food))
         {
-            if(food.GetCookingMethod() == CookingMethod.Chop)
+            if(food.cookingMethod == ECookingMethod.Chop)
             {
                 return true;
             }

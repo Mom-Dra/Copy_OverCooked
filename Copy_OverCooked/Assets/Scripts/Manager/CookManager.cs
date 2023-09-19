@@ -8,7 +8,7 @@ public class CookManager : Singleton<CookManager>
 
     int wayToCook;
 
-    public GameObject Cooking(int id, CookingMethod cookingMethod)
+    public GameObject Cooking(int id, ECookingMethod cookingMethod)
     {
         //Food food = recipe.search(id, cookingMethod);
         return null;

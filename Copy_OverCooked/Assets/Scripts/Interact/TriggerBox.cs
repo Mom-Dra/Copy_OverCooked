@@ -15,8 +15,8 @@ public class TriggerBox : MonoBehaviour
         {
             if (food.IsInteractable && container.CanPut(food))
             {
-                food.gameObject.DebugName(EDebugColor.Red, "ThrowPut");
-                container.Put(food);
+                food.gameObject.DebugName("ThrowPut", EDebugColor.Red);
+                container.TryPut(food);
             }
         }
     }

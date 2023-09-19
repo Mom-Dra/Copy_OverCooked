@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 549075508489222023}
   - component: {fileID: 1324447779260104698}
   - component: {fileID: 2061738100523855419}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: piece (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c660f732a909b1649b230185f700c32f, type: 2}
+  - {fileID: 2100000, guid: 70481cbd0846bb94cb02ecc9c5aec0ab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,7 +96,8 @@ GameObject:
   - component: {fileID: 7824808185213462443}
   - component: {fileID: 5554663252947651850}
   - component: {fileID: -930457645761061850}
-  m_Layer: 10
+  - component: {fileID: 6974987787990505858}
+  m_Layer: 8
   m_Name: Chopped_Tomato
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,14 +155,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23431b4143019f4e843a5a2aa9c8fbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 101
-  Name: Chopped_Tomato
+  Id: 2
+  Name: Chopped_Tomto
   Description: 
   objectType: 0
   uIOffset: {x: 0, y: 80, z: 0}
   uIImage: {fileID: 0}
   IsInteractable: 1
   currentCookTime: 0
+  foodState: 2
   cookingMethod: 0
 --- !u!54 &5554663252947651850
 Rigidbody:
@@ -210,7 +212,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 70481cbd0846bb94cb02ecc9c5aec0ab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -232,6 +234,14 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &6974987787990505858
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5576758586236041868}
+  m_Mesh: {fileID: 0}
 --- !u!1 &6331454930656662592
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +253,7 @@ GameObject:
   - component: {fileID: 4679041753009958131}
   - component: {fileID: 3476881173512471261}
   - component: {fileID: 3746100367268148823}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: piece (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +303,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c660f732a909b1649b230185f700c32f, type: 2}
+  - {fileID: 2100000, guid: 70481cbd0846bb94cb02ecc9c5aec0ab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -326,7 +336,7 @@ GameObject:
   - component: {fileID: 3014412533413074002}
   - component: {fileID: 6289272185488325786}
   - component: {fileID: 923556580020442332}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: piece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -376,7 +386,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c660f732a909b1649b230185f700c32f, type: 2}
+  - {fileID: 2100000, guid: 70481cbd0846bb94cb02ecc9c5aec0ab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

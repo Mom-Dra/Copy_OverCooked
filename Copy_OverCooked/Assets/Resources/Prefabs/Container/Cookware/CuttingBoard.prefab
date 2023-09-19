@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1814060600769207069}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0.1, y: 0.5, z: 0}
   m_LocalScale: {x: 0.77040124, y: 0.078241326, z: 0.4773604}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -102,9 +102,11 @@ MonoBehaviour:
   Name: CuttingBoard
   Description: Chop something
   objectType: 1
+  uIOffset: {x: 0, y: 80, z: 0}
+  uIImage: {fileID: 0}
   IsInteractable: 1
   maxContainCount: 1
-  offset: {x: 0, y: 0.2, z: 0}
+  containOffset: {x: 0, y: 0.2, z: 0}
   IsGrabbable: 0
   getObject: {fileID: 0}
   cookingMethod: 0
@@ -219,7 +221,7 @@ Transform:
   m_GameObject: {fileID: 8889395286778988012}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -310,7 +312,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 373575364205131882, guid: 2ea9dff7baf05744593ba9cbbb41c191, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 373575364205131882, guid: 2ea9dff7baf05744593ba9cbbb41c191, type: 3}
       propertyPath: m_LocalPosition.z
