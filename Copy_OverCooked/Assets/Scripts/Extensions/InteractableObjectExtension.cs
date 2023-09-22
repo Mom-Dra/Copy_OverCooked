@@ -11,6 +11,7 @@ public static class InteractableObjectExtension
             rb.angularVelocity = Vector3.zero;
             rb.rotation = Quaternion.Euler(0f, 0f, 0f);
             rb.isKinematic = true;
+
         }
     }
 
@@ -21,6 +22,7 @@ public static class InteractableObjectExtension
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.rotation = Quaternion.Euler(0f, 0f, 0f);
+
     }
 
     public static Player GetLinkedPlayer(this InteractableObject interactableObject)

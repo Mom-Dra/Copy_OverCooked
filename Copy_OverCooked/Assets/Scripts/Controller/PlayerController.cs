@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
         this.player = player;
     }
 
-    public void OnMove(InputValue value) // Arrow
+    public void OnMove(InputValue value) // Move
     {
         Vector2 input = value.Get<Vector2>();
         player.SetMoveDirection(new Vector3(input.x, 0f, input.y));

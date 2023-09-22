@@ -5,6 +5,9 @@ public class CuttingBoard : Cookware
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        // Update로 계속 판별하는 것은 낭비이니까
+        // Interactor에 기능을 위임할 수 있음
+        // OnTriggerExit으로 CuttingBoard가 나갈 때 아래 코드를 호출하면 된다 
         if(cookwareState == ECookwareState.Cook)
         {
             Interactor interactor = LinkManager.Instance.GetLinkedPlayer(this).GetInteractor();
@@ -15,7 +18,7 @@ public class CuttingBoard : Cookware
         }
     }
 
-    protected override bool TryCook()
+    public override bool TryCook()
     {
         if (base.TryCook())
         {

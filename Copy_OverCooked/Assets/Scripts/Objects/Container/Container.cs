@@ -7,7 +7,7 @@ public abstract class Container : InteractableObject
     [SerializeField]
     protected int maxContainCount = 1; // 최대 보관 개수
     [SerializeField]
-    protected Vector3 containOffset = new Vector3(0, 1f, 0); // 물체 오프셋 
+    protected Vector3 containOffset = Vector3.up; // 물체 오프셋 
     
     public bool IsGrabbable = false;
 
@@ -35,7 +35,7 @@ public abstract class Container : InteractableObject
         }
     }
 
-    private bool Put(InteractableObject interactableObject)
+    protected virtual bool Put(InteractableObject interactableObject)
     {
         if (!IsFull())
         {
@@ -67,6 +67,11 @@ public abstract class Container : InteractableObject
         return containObjects.Count == maxContainCount;
     }
 
+    public InteractableObject Peek()
+    {
+        return getObject;
+    }
+
     public InteractableObject PeekGetObject()
     {
         if(getObject != null && getObject.TryGetComponent<Container>(out Container getContainer))
@@ -76,8 +81,17 @@ public abstract class Container : InteractableObject
         return getObject;
     }
 
+    // Container(this) 자체를 반환할지, GetObject를 반환할지
+    // 이것을 Get() 함수에 위임하지 않고 EmptyHandState-GrabAndPut() 에서 판별하는 이유
+    // : 손에 Container를 들고 있을 때, Get() 함수를 호출하면 this가 반환되게 된다 -> 이러면 안됨
+    // 만약 RemoveGetObject() 함수를 만들면, Get() 함수에 위임해도 된다. 
     public virtual InteractableObject Get()
     {
+        if(uIImage != null)
+        {
+            Destroy(uIImage.gameObject);
+            uIImage = null;
+        }
         InteractableObject io = getObject;
         getObject = null;
         containObjects.Clear();
@@ -114,6 +128,7 @@ public abstract class Container : InteractableObject
         {
             base.GlowOff();
             getObject.GlowOn();
+
         }
         else
         {

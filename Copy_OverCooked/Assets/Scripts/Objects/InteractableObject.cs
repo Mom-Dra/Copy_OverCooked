@@ -25,7 +25,7 @@ public class InteractableObject : MonoBehaviour
     [HideInInspector]
     public Image uIImage = null;
 
-    [HideInInspector]
+    //[HideInInspector]
     public bool IsInteractable = true;
 
     protected float brightness = 0.2f;

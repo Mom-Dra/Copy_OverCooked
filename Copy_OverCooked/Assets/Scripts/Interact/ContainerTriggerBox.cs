@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TriggerBox : MonoBehaviour
+public class ContainerTriggerBox : MonoBehaviour
 {
     private Container container;
 

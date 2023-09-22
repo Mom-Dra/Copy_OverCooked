@@ -1,5 +1,6 @@
 public class FryingPan : Cookware
 {
+    private bool OnInduction = false;
     public override void Fit(InteractableObject interactableObject)
     {
         interactableObject.Fix();

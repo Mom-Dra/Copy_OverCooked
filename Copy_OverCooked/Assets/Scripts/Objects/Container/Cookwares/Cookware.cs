@@ -18,6 +18,10 @@ public abstract class Cookware : Container
     protected ECookingMethod cookingMethod;
     [SerializeField]
     private bool IsImmediateCook = true;
+    [SerializeField]
+    private bool IsOverheat = true;
+
+    protected bool OnFire = false;
 
     protected ECookwareState cookwareState = ECookwareState.Idle;
 
@@ -32,13 +36,13 @@ public abstract class Cookware : Container
         }   
     }
 
-    protected virtual bool TryCook()
+    public virtual bool TryCook()
     {
-        if (!getObject.TryGetComponent<Food>(out Food cookFood))
+        if(cookwareState != ECookwareState.Idle)
         {
-            Debug.Log("Object don't have \"<Food>\"");
             return false;
         }
+        Food cookFood = getObject as Food;
         float currProgressTime = cookFood.currentCookTime;
         if(containObjects.Count == 0 && getObject != null)
         {
@@ -75,21 +79,22 @@ public abstract class Cookware : Container
         }
         else
         {
-            uIImage = UIManager.Instance.InstantiateUI(EInGameUIType.Progress);
+            uIImage = InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.Progress);
         }
         Image progressGaugeImage = uIImage.transform.GetChild(1).GetComponent<Image>();
 
         // Extra Food(Prefab) Setting
         List<Food> extraFoods = recipe.getExtraFoods();
 
+        int currCount = 0;
         int totalCount = 0; // 음식이 변하는 횟수 (Total)
         int changeUnit = 0; // 음식이 변하는 퍼센트 단위(간격)
         if(extraFoods != null &&  extraFoods.Count > 0)
         {
             totalCount = extraFoods.Count + 1;
             changeUnit = 100 / totalCount;
+            currCount = (int)((currDuration / totalDuration) * 100) / changeUnit; // 음식이 변하는 횟수 (Current)
         }
-        int currCount = (int)((currDuration / totalDuration) * 100) / changeUnit; // 음식이 변하는 횟수 (Current)
 
 
         // Cooking
@@ -145,6 +150,56 @@ public abstract class Cookware : Container
             cookwareState = ECookwareState.Complete;
         }
         StopCook();
+        StartCoroutine(ShowCompleteUI());
+    }
+
+    protected IEnumerator ShowCompleteUI()
+    {
+        uIImage = InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.Complete);
+        yield return new WaitForSeconds(4f);
+        if(uIImage != null) Destroy(uIImage.gameObject);
+        if(IsOverheat && getObject != null) StartCoroutine(ShowWarningUI());
+    }
+
+    protected IEnumerator ShowWarningUI()
+    {
+        uIImage = InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.Warning);
+        Image warningImage = uIImage.transform.GetChild(0).GetComponent<Image>();
+        float currTime = 0;
+        float totalTime = 10f;
+        float waitForTime = 0;
+        float currOpacity = 255;
+        while (currTime < totalTime && getObject != null)
+        {
+            waitForTime = (totalTime - currTime) / totalTime;
+            if (waitForTime > 1f) waitForTime = 0.8f;
+            if (waitForTime < 0.2f) waitForTime = 0.1f;
+            if (warningImage.gameObject.activeSelf)
+            {
+                warningImage.gameObject.SetActive(false);
+            }
+            else
+            {
+                warningImage.gameObject.SetActive(true);
+            }
+            currTime += waitForTime;
+            yield return new WaitForSeconds(waitForTime);
+        }
+        Destroy(uIImage.gameObject);
+        if(getObject != null ) Overheat();
+    }
+
+    protected void Overheat()
+    {
+        Debug.Log("<color=red> Fire!! </color>");
+        cookwareState = ECookwareState.Overheat;
+        GameObject onFirePrefab = InstantiateManager.Instance.InstantiatePrefab(this.gameObject, EPrefabType.Fire);
+        onFirePrefab.transform.position = transform.position;
+
+        uIImage = InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.Overheat);
+        Food getFood = getObject.GetComponent<Food>();
+        getFood.foodState = EFoodState.Burned;
+        getFood.GetComponent<Renderer>().material.SetColor("_Color", new Color(0, 0, 0));
     }
 
     protected virtual void StopCook()
@@ -167,26 +222,26 @@ public abstract class Cookware : Container
 
     public override InteractableObject Get()
     {
-        if(cookwareState == ECookwareState.Cook)
+        if(cookwareState != ECookwareState.Idle)
         {
             StopCook();
         }
         return base.Get();
     }
 
-    public override bool TryPut(InteractableObject interactableObject)
-    {
-        if (base.TryPut(interactableObject))
-        {
-            if (IsImmediateCook && IsFull())
-            {
-                if (!TryCook())
-                    LinkManager.Instance.Disconnect(this);
-            }
-            return true;
-        }
-        return false;
-    }
+    //public override bool TryPut(InteractableObject interactableObject)
+    //{
+    //    if (base.TryPut(interactableObject))
+    //    {
+    //        if (IsImmediateCook && IsFull())
+    //        {
+    //            if (!TryCook())
+    //                LinkManager.Instance.Disconnect(this);
+    //        }
+    //        return true;
+    //    }
+    //    return false;
+    //}
 
 
 }

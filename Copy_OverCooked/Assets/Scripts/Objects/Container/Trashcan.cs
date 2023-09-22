@@ -1,12 +1,19 @@
 public class Trashcan : Container
 {
+    protected override bool Put(InteractableObject interactableObject)
+    {
+        interactableObject?.gameObject.DebugName("Trash!", EDebugColor.Red);
+        Destroy(interactableObject.gameObject);
+        return true;
+    }
+
     public override void Fit(InteractableObject gameObject)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override bool IsValidObject(InteractableObject gameObject)
     {
-        throw new System.NotImplementedException();
+        return true;
     }
 }

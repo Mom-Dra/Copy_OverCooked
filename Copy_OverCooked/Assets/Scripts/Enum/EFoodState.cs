@@ -4,5 +4,6 @@ public enum EFoodState
 {
     Original,
     Cooking,
-    Cooked
+    Cooked,
+    Burned
 }

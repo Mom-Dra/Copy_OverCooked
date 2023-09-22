@@ -22,10 +22,13 @@ public class Interactor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log($"Enter: {other.name}");
+
         InteractableObject interactableObject = other.GetComponent<InteractableObject>();
         if (interactableObject != null && interactableObject.IsInteractable)
         {
             interactableObjects.Add(interactableObject);
+            Debug.Log($"Enter: {interactableObject}");
             SetClosestObject();
         }
     }
@@ -34,6 +37,7 @@ public class Interactor : MonoBehaviour
     {
         InteractableObject io = other.GetComponent<InteractableObject>();
         interactableObjects.Remove(io);
+        Debug.Log($"Exit: {other.name}");
         SetClosestObject();
     }
 
@@ -44,9 +48,10 @@ public class Interactor : MonoBehaviour
             ClosestInteractableObject.GlowOff();
         }
 
-
         ClosestInteractableObject = interactableObjects.OrderBy(item => Vector3.Distance(ConvertYPositionToZero(item.transform.position), ConvertYPositionToZero(transform.position + Vector3.forward)))
         .FirstOrDefault();
+
+        
 
         if (ClosestInteractableObject != null)
         {

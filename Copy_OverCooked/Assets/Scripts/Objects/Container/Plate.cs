@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class Plate : Container
 {
-    public override void Fit(InteractableObject gameObject)
+    public override void Fit(InteractableObject interactableObject)
     {
-        gameObject.transform.position = transform.position + containOffset;
-        gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        interactableObject.Fix();
+        interactableObject.transform.position = transform.position + containOffset;
     }
 
 

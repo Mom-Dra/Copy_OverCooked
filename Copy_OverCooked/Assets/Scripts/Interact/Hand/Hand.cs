@@ -36,6 +36,7 @@ public class Hand : MonoBehaviour
         if (currentObjectRigid != null)
         {
             currentObjectRigid.position = transform.position;
+            currentObjectRigid.rotation = transform.rotation;
         }
     }
 
@@ -103,6 +104,18 @@ public class Hand : MonoBehaviour
             currentObjectRigid = null;
         }
     }
+
+    public void HoldOutWithoutChagne()
+    {
+        if (CurrentObject != null)
+        {
+            //CurrentObject.Free();
+
+            //CurrentObject.IsInteractable = true;
+            CurrentObject = null;
+            currentObjectRigid = null;
+        }
+    }
 }
 
 public abstract class HandState
@@ -137,7 +150,7 @@ public class EmptyHandState : HandState
                 }
                 else
                 {
-                    InteractableObject getObject = triggeredObject.GetComponent<Container>().Get();
+                    InteractableObject getObject = triggerContainer.Get();
                     hand.HoldIn(getObject);
                     getObject?.gameObject.DebugName("Hand Get : ", EDebugColor.Orange);
                 }
@@ -149,6 +162,7 @@ public class EmptyHandState : HandState
             hand.UpdateState();
         }
     }
+
     public override void InteractAndThorw(Hand hand)
     {
         // 탐지된 오브젝트 가져오기
@@ -166,7 +180,6 @@ public class EmptyHandState : HandState
                 }
             }
         }
-
     }
 }
 
@@ -259,11 +272,12 @@ public class ContainerHandState : HandState
 
 
                     // 1번. 넣기(Put)
+
                     // GetObject(HandContainer) -> Container(Trigger)
                     if (GetObjectInHandContainer != null && triggerContainer.CanPut(GetObjectInHandContainer))
                     {
-                        triggerContainer.TryPut(GetObjectInHandContainer);
                         handContainer.Get();
+                        triggerContainer.TryPut(GetObjectInHandContainer);
                     }
                     else
                     {
@@ -273,8 +287,14 @@ public class ContainerHandState : HandState
                         // GetObject(TriggerContainer) -> Container(Hand) 
                         if (handContainer.CanPut(GetObjectInTriggerContainer))
                         {
+                            Debug.Log("sibal");
+                            // GetObjectInTriggerContainer --> Food
+                            if (triggerContainer.Peek().TryGetComponent<Container>(out Container InnerContainer))
+                            {
+                                InnerContainer.gameObject.DebugName("Inner Container");
+                                InnerContainer.Get();
+                            }
                             handContainer.TryPut(GetObjectInTriggerContainer);
-                            triggerContainer.Get();
                         }
                     }
                 }
@@ -296,9 +316,9 @@ public class ContainerHandState : HandState
                     // Container(Hand) -> Container(Trigger) 
                     if (triggerContainer.CanPut(handContainer))
                     {
+                        hand.HoldOut();
                         triggerContainer.TryPut(handContainer);
                         handContainer.gameObject.DebugName("Put Container");
-                        hand.HoldOut();
                     }
                     else
                     {
@@ -311,9 +331,9 @@ public class ContainerHandState : HandState
                             // GetObject(HandContainer) -> Container(Trigger)
                             if (triggerContainer.CanPut(GetObjectInHandContainer))
                             {
+                                handContainer.Get();
                                 triggerContainer.TryPut(GetObjectInHandContainer);
                                 GetObjectInHandContainer.gameObject.DebugName("Put Object");
-                                handContainer.Get();
                             }
                         }
                     }

@@ -1,6 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum EPrefabType
+{
+    Fire
+}
+
 public enum EInGameUIType
 {
     Progress,
@@ -9,14 +14,14 @@ public enum EInGameUIType
     Overheat
 }
 
-public class UIManager : MonoBehaviour
+public class InstantiateManager : MonoBehaviour
 {
-    private static UIManager instance;
-    public static UIManager Instance
+    private static InstantiateManager instance;
+    public static InstantiateManager Instance
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
                 return null;
             return instance;
         }
@@ -32,9 +37,13 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Image OverheatImage;
 
+    [Header("InGame Particles")]
+    [SerializeField]
+    private GameObject OnFirePrefab;
+
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
@@ -45,10 +54,24 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public Image InstantiateUI(EInGameUIType uIType)
+    public GameObject InstantiatePrefab(GameObject gameObject, EPrefabType uIType)
+    {
+        GameObject showPrefab = null;
+        switch(uIType)
+        {
+            case EPrefabType.Fire:
+                showPrefab = OnFirePrefab;
+                break;
+            default:
+                break;
+        }
+        return Instantiate(showPrefab, gameObject.transform.position, Quaternion.identity);
+    }
+
+    public Image InstantiateUI(InteractableObject interactableObject, EInGameUIType uIType)
     {
         Image showUI = null;
-        switch(uIType)
+        switch (uIType)
         {
             case EInGameUIType.Progress:
                 showUI = ProgressBarImage;
@@ -64,8 +87,10 @@ public class UIManager : MonoBehaviour
                 break;
             default:
                 throw new System.Exception("Invalid UI Image");
-        }   
-        return Instantiate(showUI, GameObject.Find("Canvas").transform);
+        }
+        Vector3 instantiatePos = Camera.main.WorldToScreenPoint(gameObject.transform.position) + interactableObject.uIOffset;
+
+        return Instantiate(showUI, instantiatePos,Quaternion.identity, GameObject.Find("Canvas").transform);
     }
 
 

@@ -108,9 +108,11 @@ MonoBehaviour:
   maxContainCount: 1
   containOffset: {x: 0, y: 0.2, z: 0}
   IsGrabbable: 0
+  containObjects: []
   getObject: {fileID: 0}
   cookingMethod: 0
   IsImmediateCook: 0
+  IsOverheat: 0
 --- !u!65 &5861715002742729382
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -184,7 +186,7 @@ Transform:
   m_GameObject: {fileID: 7307761284192429998}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.5110319, y: 1.9793516, z: 2.5181193}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -255,7 +257,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 18a0c3bcbe50c1348898dff43290d0e6, type: 2}
+  - {fileID: 2100000, guid: 67ac69078709a4c4bab9c4206578e437, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

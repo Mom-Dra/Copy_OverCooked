@@ -130,6 +130,7 @@ MonoBehaviour:
   maxContainCount: 1
   containOffset: {x: 0, y: 0.2, z: 0}
   IsGrabbable: 1
+  containObjects: []
   getObject: {fileID: 0}
 --- !u!54 &3935827389281180962
 Rigidbody:

@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23431b4143019f4e843a5a2aa9c8fbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 0
+  Id: 6
   Name: Grilled_Meat
   Description: 
   objectType: 0

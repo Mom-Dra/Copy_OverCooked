@@ -128,8 +128,9 @@ MonoBehaviour:
   uIImage: {fileID: 0}
   IsInteractable: 1
   maxContainCount: 1
-  containOffset: {x: 0, y: 1, z: 0}
+  containOffset: {x: 0, y: 0.7, z: 0}
   IsGrabbable: 0
+  containObjects: []
   getObject: {fileID: 0}
 --- !u!54 &5721777623008320565
 Rigidbody:

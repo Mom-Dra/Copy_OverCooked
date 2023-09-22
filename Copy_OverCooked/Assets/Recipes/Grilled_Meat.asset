@@ -15,6 +15,6 @@ MonoBehaviour:
   cookingMethod: 4
   materialFoods:
   - {fileID: 7563695948465420473, guid: 2da00b0691a596844825a3380034adf3, type: 3}
-  totalCookDuration: 4
+  totalCookDuration: 2
   extraFoods: []
   cookedFood: {fileID: 1972260656686463770, guid: 05852cf26ad57bf42a8e21bcf13329ea, type: 3}
