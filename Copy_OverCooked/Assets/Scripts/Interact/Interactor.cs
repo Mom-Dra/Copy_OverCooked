@@ -41,9 +41,9 @@ public class Interactor : MonoBehaviour
         SetClosestObject();
     }
 
-    private void SetClosestObject()
+    public void SetClosestObject()
     {
-        if(ClosestInteractableObject != null)
+        if (ClosestInteractableObject != null)
         {
             ClosestInteractableObject.GlowOff();
         }
@@ -51,7 +51,7 @@ public class Interactor : MonoBehaviour
         ClosestInteractableObject = interactableObjects.OrderBy(item => Vector3.Distance(ConvertYPositionToZero(item.transform.position), ConvertYPositionToZero(transform.position + Vector3.forward)))
         .FirstOrDefault();
 
-        
+
 
         if (ClosestInteractableObject != null)
         {

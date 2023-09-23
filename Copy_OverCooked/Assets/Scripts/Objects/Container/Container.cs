@@ -22,6 +22,7 @@ public abstract class Container : InteractableObject
     {
         if(getObject != null)
         {
+            getObject.Fix();
             Put(getObject);
         }   
     }
@@ -51,6 +52,15 @@ public abstract class Container : InteractableObject
         return false;
     }
 
+    protected virtual bool ThrowPut(InteractableObject interactableObject)
+    {
+        if (Put(interactableObject))
+        {
+            interactableObject.Fix();
+            return true;
+        }
+        return false;
+    }
 
     public InteractableObject GetObject()
     {
@@ -85,7 +95,7 @@ public abstract class Container : InteractableObject
     // 이것을 Get() 함수에 위임하지 않고 EmptyHandState-GrabAndPut() 에서 판별하는 이유
     // : 손에 Container를 들고 있을 때, Get() 함수를 호출하면 this가 반환되게 된다 -> 이러면 안됨
     // 만약 RemoveGetObject() 함수를 만들면, Get() 함수에 위임해도 된다. 
-    public virtual InteractableObject Get()
+    public virtual InteractableObject Get() // pop
     {
         if(uIImage != null)
         {
@@ -95,7 +105,8 @@ public abstract class Container : InteractableObject
         InteractableObject io = getObject;
         getObject = null;
         containObjects.Clear();
-        io?.Free();
+        //io?.Free();
+        io.GlowOff();
         return io;
     }
 
@@ -111,6 +122,17 @@ public abstract class Container : InteractableObject
         }
         
         return Put(interactableObject);
+    }
+
+    public virtual bool TryThrowPut(InteractableObject interactableObject)
+    {
+        gameObject.DebugName("Put", EDebugColor.Red);
+        if (getObject != null && getObject.TryGetComponent<Container>(out Container getContainer))
+        {
+            return getContainer.TryPut(interactableObject);
+        }
+        
+        return ThrowPut(interactableObject);
     }
 
     public bool CanPut(InteractableObject interactableObject)
@@ -142,12 +164,16 @@ public abstract class Container : InteractableObject
         {
             getObject.GlowOff();
         }
-        else
-        {
+        //else
+        //{
             base.GlowOff();
-        }
+        //}
     }
 
-    public abstract void Fit(InteractableObject gameObject);
-    public abstract bool IsValidObject(InteractableObject gameObject);
+    public void Fit(InteractableObject interactableObject)
+    {
+        interactableObject.transform.position = transform.position + containOffset;
+    }
+
+    public abstract bool IsValidObject(InteractableObject interactableObject);
 }

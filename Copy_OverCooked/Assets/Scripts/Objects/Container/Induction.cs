@@ -19,12 +19,6 @@ public class Induction : Container
         return false;
     }
 
-    public override void Fit(InteractableObject interactableObject)
-    {
-        interactableObject.transform.position = transform.position + containOffset;
-        interactableObject.Fix();
-    }
-
     public override bool IsValidObject(InteractableObject interactableObject)
     {
         return true;

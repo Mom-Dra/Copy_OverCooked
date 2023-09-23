@@ -11,13 +11,9 @@ public class FoodBox : Container
         InteractableObject go = Instantiate(food.gameObject, transform.position + containOffset, Quaternion.identity).GetComponent<InteractableObject>();  
         return go;
     }
-    public override void Fit(InteractableObject gameObject)
-    {
-        throw new System.NotImplementedException();
-    }
 
     public override bool IsValidObject(InteractableObject gameObject)
     {
-        throw new System.NotImplementedException();
+        return false;
     }
 }

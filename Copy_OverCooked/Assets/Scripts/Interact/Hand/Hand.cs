@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.XR;
 
 // 플레이어의 손에 있는 오브젝트의 상태 
 public enum EHandState
@@ -90,10 +91,11 @@ public class Hand : MonoBehaviour
             currentObjectRigid = CurrentObject.GetComponent<Rigidbody>();
 
             CurrentObject.Fix();
+            //CurrentObject.GlowOff();
         }
     }
 
-    public void HoldOut() // Free를 할 지 말지 결정 
+    public void HoldOutAndFree() // Free를 할 지 말지 결정 
     {
         if (CurrentObject != null)
         {
@@ -105,7 +107,7 @@ public class Hand : MonoBehaviour
         }
     }
 
-    public void HoldOutWithoutChagne()
+    public void HoldOut()   
     {
         if (CurrentObject != null)
         {
@@ -205,16 +207,18 @@ public class FoodHandState : HandState
                     InteractableObject io = hand.CurrentObject;
                     hand.HoldOut();
                     container.TryPut(io);
+                    hand.interactor.SetClosestObject();
                 }
-            } else
+            } 
+            else
             {
                 // 음식 바닥에 놓기 
-                hand.HoldOut();
+                hand.HoldOutAndFree();
             }
         } else
         {
             // 음식 바닥에 놓기 
-            hand.HoldOut();
+            hand.HoldOutAndFree();
         }
         hand.UpdateState();
     }
@@ -223,7 +227,7 @@ public class FoodHandState : HandState
     {
         // 던지는 코드
         InteractableObject io = hand.CurrentObject;
-        hand.HoldOut();
+        hand.HoldOutAndFree();
         io.GetComponent<Rigidbody>().AddForce(hand.transform.forward * hand.throwPower, ForceMode.Impulse);
         hand.UpdateState();
     }
@@ -287,7 +291,6 @@ public class ContainerHandState : HandState
                         // GetObject(TriggerContainer) -> Container(Hand) 
                         if (handContainer.CanPut(GetObjectInTriggerContainer))
                         {
-                            Debug.Log("sibal");
                             // GetObjectInTriggerContainer --> Food
                             if (triggerContainer.Peek().TryGetComponent<Container>(out Container InnerContainer))
                             {
@@ -339,7 +342,9 @@ public class ContainerHandState : HandState
                     }
                 }
                 
-            } else if (objectType == EObjectType.Food) { 
+            }
+            else if (objectType == EObjectType.Food)
+            { 
                 // 탐지된 물체가 음식이라면,
                 // 해당 음식을 Container(Hand)에 넣을 수 있는 검사
                 if (handContainer.CanPut(triggeredObject))
@@ -348,14 +353,16 @@ public class ContainerHandState : HandState
                 }
             }
             else
-            {
-                hand.HoldOut();
+            {   // 바닥에 놓기
+                hand.HoldOutAndFree();
             }
-        } else
+        }
+        else
         {
             // 바닥에 놓기
-            hand.HoldOut();
+            hand.HoldOutAndFree();
         }
+
         hand.UpdateState();
     }
 
