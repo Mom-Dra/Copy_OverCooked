@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4376660533241911930}
-  - component: {fileID: 1815317283336768978}
   - component: {fileID: 202001491742902116}
   - component: {fileID: 1066856724364982319}
   - component: {fileID: 8142875742194864393}
+  - component: {fileID: 4241626043140322667}
   m_Layer: 0
   m_Name: Trashcan
   m_TagString: Untagged
@@ -45,30 +45,6 @@ Transform:
   - {fileID: 7818489452189335764}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1815317283336768978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 454764615951547873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 947687163fa07dd4bbf075f7f921d118, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Id: 808
-  Name: Trashcan
-  Description: 
-  objectType: 1
-  uIOffset: {x: 0, y: 80, z: 0}
-  uIImage: {fileID: 0}
-  IsInteractable: 1
-  maxContainCount: 1
-  containOffset: {x: 0, y: 1, z: 0}
-  IsGrabbable: 0
-  containObjects: []
-  getObject: {fileID: 0}
 --- !u!54 &202001491742902116
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -159,6 +135,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4241626043140322667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454764615951547873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ba98001aeaac3948936ce70d6a66c44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Trashcan
+  Description: 
+  eObjectType: 0
+  IsInteractable: 1
+  containOffset: {x: 0, y: 1, z: 0}
+  getObject: {fileID: 0}
+  a: 0
+  a: 0
 --- !u!1 &586120067588278506
 GameObject:
   m_ObjectHideFlags: 0

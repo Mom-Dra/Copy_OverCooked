@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1599242124031425304}
   - component: {fileID: 6821332030380131124}
   - component: {fileID: 3374898160226948615}
-  - component: {fileID: 7618127877854652939}
   - component: {fileID: 5721777623008320565}
+  - component: {fileID: 2891531501296802592}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -108,30 +108,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7618127877854652939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2839896578466581416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bc23e17d9216944f8d5a32d1dabb225, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Id: 1
-  Name: Table
-  Description: Just Table
-  objectType: 1
-  uIOffset: {x: 0, y: 80, z: 0}
-  uIImage: {fileID: 0}
-  IsInteractable: 1
-  maxContainCount: 1
-  containOffset: {x: 0, y: 0.7, z: 0}
-  IsGrabbable: 0
-  containObjects: []
-  getObject: {fileID: 0}
 --- !u!54 &5721777623008320565
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -159,6 +135,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &2891531501296802592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2839896578466581416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d32af3e1a1de174daae16af3df509f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Table
+  Description: 
+  eObjectType: 0
+  IsInteractable: 1
+  containOffset: {x: 0, y: 0.55, z: 0}
+  getObject: {fileID: 0}
 --- !u!1001 &3511756326405885884
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1379637564853490442}
   - component: {fileID: 7311938189255129008}
   - component: {fileID: 5665424422850790244}
-  - component: {fileID: 1972260656686463770}
   - component: {fileID: 3008261813453056549}
   - component: {fileID: 7555908009225529520}
+  - component: {fileID: 7191187785553465461}
   m_Layer: 0
   m_Name: Grilled_Meat
   m_TagString: Untagged
@@ -86,28 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1972260656686463770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6924242740667906775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d23431b4143019f4e843a5a2aa9c8fbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Id: 6
-  Name: Grilled_Meat
-  Description: 
-  objectType: 0
-  uIOffset: {x: 0, y: 80, z: 0}
-  uIImage: {fileID: 0}
-  IsInteractable: 1
-  currentCookTime: 0
-  foodState: 2
-  cookingMethod: 4
 --- !u!54 &3008261813453056549
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -156,3 +134,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &7191187785553465461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6924242740667906775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6db983855454aa4ebcd2ecff000b6db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Grilled_Meat
+  Description: 
+  eObjectType: 2
+  IsInteractable: 1
+  currCookTime: 0

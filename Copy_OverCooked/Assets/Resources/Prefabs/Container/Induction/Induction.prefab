@@ -92,10 +92,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7790668472495875048}
-  - component: {fileID: 8102426312994884899}
   - component: {fileID: 5320969170728805736}
   - component: {fileID: 4861379820422660259}
   - component: {fileID: 1160831691375803069}
+  - component: {fileID: 5256896712239470026}
   m_Layer: 0
   m_Name: Induction
   m_TagString: Untagged
@@ -120,30 +120,6 @@ Transform:
   - {fileID: 4640682572638394999}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8102426312994884899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2622317581136035845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58395361354b87f44a373b7aba8bc3d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Id: 28972
-  Name: Induction
-  Description: 
-  objectType: 1
-  uIOffset: {x: 0, y: 80, z: 0}
-  uIImage: {fileID: 0}
-  IsInteractable: 1
-  maxContainCount: 1
-  containOffset: {x: 0, y: 1, z: 0}
-  IsGrabbable: 0
-  containObjects: []
-  getObject: {fileID: 0}
 --- !u!65 &5320969170728805736
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -163,8 +139,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.90595764, z: 0.9999995}
-  m_Center: {x: 0, y: 0.4528872, z: -0.9998164}
+  m_Size: {x: 1, y: 0.90595764, z: 1.0038605}
+  m_Center: {x: 0, y: 0.4528872, z: 0.0021207035}
 --- !u!23 &4861379820422660259
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -234,6 +210,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5256896712239470026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2622317581136035845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f3b4210990a2934da9a41dbb1ef55ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Induction
+  Description: 
+  eObjectType: 0
+  IsInteractable: 1
+  containOffset: {x: 0, y: 1, z: 0}
+  getObject: {fileID: 0}
+  test: 0
+  a: 0
 --- !u!1 &8587979538733561643
 GameObject:
   m_ObjectHideFlags: 0

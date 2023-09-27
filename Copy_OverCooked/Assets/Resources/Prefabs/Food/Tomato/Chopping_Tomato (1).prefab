@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7081548113334337474}
   - component: {fileID: 5234388330804119248}
   - component: {fileID: 7324308417411717034}
-  - component: {fileID: 5708203202538156705}
+  - component: {fileID: 2919352100528897992}
   m_Layer: 8
   m_Name: Chopping_Tomato (1)
   m_TagString: Food
@@ -134,7 +134,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9999997, y: 1.2498999, z: 1.0976998}
   m_Center: {x: 0, y: 0.077004425, z: 0.026609572}
---- !u!114 &5708203202538156705
+--- !u!114 &2919352100528897992
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,16 +143,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2193962861596821251}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d23431b4143019f4e843a5a2aa9c8fbc, type: 3}
+  m_Script: {fileID: 11500000, guid: a6db983855454aa4ebcd2ecff000b6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 1
-  Name: Tomato
-  Description: 
-  objectType: 0
-  uIOffset: {x: 0, y: 80, z: 0}
-  uIImage: {fileID: 0}
+  Name: Chopping_Tomato
+  Description: 1th
+  eObjectType: 2
   IsInteractable: 0
-  currentCookTime: 0
-  foodState: 1
-  cookingMethod: 0
+  currCookTime: 0

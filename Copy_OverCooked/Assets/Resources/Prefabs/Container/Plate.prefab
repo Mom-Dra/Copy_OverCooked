@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1154155975071836037}
   - component: {fileID: 637601188941671137}
   - component: {fileID: 296867224139534627}
-  - component: {fileID: 5849714335106455753}
   - component: {fileID: 3935827389281180962}
+  - component: {fileID: 4926228850746513820}
   m_Layer: 0
   m_Name: Plate
   m_TagString: Untagged
@@ -108,30 +108,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0000001, y: 1.9999999, z: 1.0000002}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &5849714335106455753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893396002255082344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d3d02daba033c24eb361730b8c0bf16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Id: 209
-  Name: Plate
-  Description: 
-  objectType: 1
-  uIOffset: {x: 0, y: 80, z: 0}
-  uIImage: {fileID: 0}
-  IsInteractable: 1
-  maxContainCount: 1
-  containOffset: {x: 0, y: 0.2, z: 0}
-  IsGrabbable: 1
-  containObjects: []
-  getObject: {fileID: 0}
 --- !u!54 &3935827389281180962
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -159,6 +135,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4926228850746513820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893396002255082344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae89e51d8b678a4ba71c5f1794f515b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Plate
+  Description: 
+  eObjectType: 1
+  IsInteractable: 1
+  containOffset: {x: 0, y: 0.2, z: 0}
+  getObject: {fileID: 0}
+  a: 0
 --- !u!1001 &6286948440724899603
 PrefabInstance:
   m_ObjectHideFlags: 0

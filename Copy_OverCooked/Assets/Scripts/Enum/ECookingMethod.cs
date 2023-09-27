@@ -1,8 +1,9 @@
+using UnityEngine;
+
 public enum ECookingMethod
 {
     Chop,
-    Roast,
+    Grill,
     Boil,
-    Fry,
-    Grill
+    Mix,
 }

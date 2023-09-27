@@ -1,5 +1,13 @@
 using UnityEngine;
 
+public enum EDebugColor
+{
+    Red,
+    Yellow,
+    Green,
+    Orange
+}
+
 public static class Utill
 {
     public static void AddComponentToChild(GameObject parent, GameObject child)
@@ -12,8 +20,26 @@ public static class Utill
         return Resources.Load<T>($"Prefabs/{path}");
     }
 
-    public static Vector3 convert(Vector3 orgPos)
+    public static void DebugName(this GameObject gameObject, string message="", EDebugColor color = EDebugColor.Yellow)
     {
-        return Camera.main.WorldToScreenPoint(orgPos);
+        Debug.Log($"<color={color.ToString().ToLower()}>[{gameObject.name}] : {message} </color>");
+    }
+
+    public static void Fix(this InteractableObject interactableObject)
+    {
+        Rigidbody rigidbody = interactableObject.GetComponent<Rigidbody>();
+        if (rigidbody != null && rigidbody.isKinematic == false)
+        {
+            rigidbody.isKinematic = true;
+        }
+    }
+
+    public static void Free(this InteractableObject interactableObject)
+    {
+        Rigidbody rigidbody = interactableObject.GetComponent<Rigidbody>();
+        if (rigidbody != null && rigidbody.isKinematic == true)
+        {
+            rigidbody.isKinematic = false;
+        }
     }
 }

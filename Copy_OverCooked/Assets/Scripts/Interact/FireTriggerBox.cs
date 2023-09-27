@@ -11,9 +11,9 @@ public class FireTriggerBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<Food>(out Food food))
-        {
+        //if (other.TryGetComponent<Food>(out Food food))
+        //{
             
-        }
+        //}
     }
 }

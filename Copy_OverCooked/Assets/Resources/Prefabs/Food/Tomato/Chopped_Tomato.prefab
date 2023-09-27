@@ -93,10 +93,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1998279799992371748}
   - component: {fileID: 1312422370071094843}
-  - component: {fileID: 7824808185213462443}
   - component: {fileID: 5554663252947651850}
   - component: {fileID: -930457645761061850}
   - component: {fileID: 6974987787990505858}
+  - component: {fileID: 8620234310661808743}
   m_Layer: 8
   m_Name: Chopped_Tomato
   m_TagString: Untagged
@@ -143,28 +143,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.48192924, y: 0.24669719, z: 0.51463115}
   m_Center: {x: 0.005227536, y: 0.038621783, z: -0.07225245}
---- !u!114 &7824808185213462443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5576758586236041868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d23431b4143019f4e843a5a2aa9c8fbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Id: 2
-  Name: Chopped_Tomto
-  Description: 
-  objectType: 0
-  uIOffset: {x: 0, y: 80, z: 0}
-  uIImage: {fileID: 0}
-  IsInteractable: 1
-  currentCookTime: 0
-  foodState: 2
-  cookingMethod: 0
 --- !u!54 &5554663252947651850
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -242,6 +220,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5576758586236041868}
   m_Mesh: {fileID: 0}
+--- !u!114 &8620234310661808743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5576758586236041868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6db983855454aa4ebcd2ecff000b6db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Chopped_Tomato
+  Description: 
+  eObjectType: 2
+  IsInteractable: 1
+  currCookTime: 0
 --- !u!1 &6331454930656662592
 GameObject:
   m_ObjectHideFlags: 0

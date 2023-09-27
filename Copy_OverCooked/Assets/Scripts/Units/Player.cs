@@ -5,9 +5,9 @@ public enum EAnimationType
 {
     Dash,
     Chop,
-    
 
-} 
+
+}
 
 public class Player : MonoBehaviour
 {
@@ -26,12 +26,12 @@ public class Player : MonoBehaviour
     private float dashSpeed;
     private float applyDashSpeed;
 
-    // 몇초 동안 대쉬를 할 것인가
+    
     [SerializeField]
     private float dashTime;
     private WaitForSeconds dashTimeWaitForsecond;
 
-    // 대쉬 쿨타임
+    
     [SerializeField]
     private float dashCoolDownTime;
     private WaitForSeconds dashDelayWaitForSecond;
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
 
 
     private Hand hand;
-    private Animator animator;    
+    private Animator animator;
 
 
     private void Awake()
@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
         isDashable = true;
 
         hand = GetComponentInChildren<Hand>();
-        hand.SetPlayer(this);
+        //hand.SetPlayer(this);
 
         animator = GetComponent<Animator>();
     }
@@ -65,10 +65,10 @@ public class Player : MonoBehaviour
         rigid.MovePosition(rigid.position + moveDirection * Speed * applyDashSpeed * Time.deltaTime);
     }
 
-    public Interactor GetInteractor()
-    {
-        return hand.interactor;
-    }
+    //public Interactor GetInteractor()
+    //{
+    //    //return hand.interactor;
+    //}
 
     public void SetBoolAnimation(EAnimationType animationType, bool condition)
     {
@@ -97,9 +97,9 @@ public class Player : MonoBehaviour
         hand.GrabAndPut();
     }
 
-    public void OnInteractAndThrow()
+    public void InteractAndThrow()
     {
-        hand.InteractAndThorw();
+        //hand.InteractAndThorw();
     }
 
     public void Dash()

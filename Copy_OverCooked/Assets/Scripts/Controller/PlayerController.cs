@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Player Controller")]
     [SerializeField]
     private Player player;
 
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteractAndThrow() // Ctrl
     {
-        player.OnInteractAndThrow();
+        player.InteractAndThrow();
     }
 
     public void OnDash() // Alt

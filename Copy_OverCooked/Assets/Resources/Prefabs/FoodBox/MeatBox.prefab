@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4120585129380172941}
   - component: {fileID: 5293750827217747135}
   - component: {fileID: 3657122069675990476}
-  - component: {fileID: 1671639198679631651}
+  - component: {fileID: 7274417732704426102}
   m_Layer: 0
   m_Name: MeatBox
   m_TagString: Untagged
@@ -106,7 +106,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1671639198679631651
+--- !u!114 &7274417732704426102
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,18 +115,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 452109335002406505}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fc2be642675b6f4e928ff8bfc8a8499, type: 3}
+  m_Script: {fileID: 11500000, guid: a8a79a55c5fdc06489fe4c36fdbdfaba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 501
-  Name: Meat Box
+  Name: MeatBox
   Description: 
-  objectType: 1
-  uIOffset: {x: 0, y: 80, z: 0}
-  uIImage: {fileID: 0}
+  eObjectType: 2
   IsInteractable: 1
-  maxContainCount: 0
   containOffset: {x: 0, y: 1, z: 0}
-  IsGrabbable: 0
   getObject: {fileID: 0}
-  food: {fileID: 7563695948465420473, guid: 2da00b0691a596844825a3380034adf3, type: 3}
+  food: {fileID: 0}

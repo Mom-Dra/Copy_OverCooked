@@ -832,7 +832,7 @@ GameObject:
   - component: {fileID: 7019206920050121421}
   - component: {fileID: 2447983175111155917}
   - component: {fileID: 8700862583662353091}
-  - component: {fileID: 1033505622134085447}
+  - component: {fileID: 4144433809494137528}
   m_Layer: 0
   m_Name: Sink
   m_TagString: Untagged
@@ -949,7 +949,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1033505622134085447
+--- !u!114 &4144433809494137528
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -958,21 +958,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6477064757151318651}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc5c1529b35ff8141815057663272399, type: 3}
+  m_Script: {fileID: 11500000, guid: 4542fd321a8ddd4428de546e6326351a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 44
   Name: Sink
   Description: 
-  objectType: 1
-  uIOffset: {x: 0, y: 80, z: 0}
-  uIImage: {fileID: 0}
+  eObjectType: 0
   IsInteractable: 1
-  maxContainCount: 1
-  containOffset: {x: 0, y: 1, z: 0}
-  IsGrabbable: 0
-  containObjects: []
+  containOffset: {x: 0, y: 0.5, z: 0}
   getObject: {fileID: 0}
+  a: 0
+  a: 0
 --- !u!1 &8035984932074540149
 GameObject:
   m_ObjectHideFlags: 0
