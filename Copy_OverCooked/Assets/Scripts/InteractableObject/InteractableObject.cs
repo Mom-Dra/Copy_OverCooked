@@ -18,7 +18,7 @@ public class InteractableObject : MonoBehaviour
         return eObjectType;
     }
 
-    public virtual bool TryGet<T> (out T result) where T : InteractableObject
+    public virtual bool TryGet<T> (out T result) 
     {
         return TryGetComponent<T>(out result);
     }

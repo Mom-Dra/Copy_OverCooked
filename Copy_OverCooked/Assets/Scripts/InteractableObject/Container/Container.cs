@@ -73,7 +73,7 @@ public class Container : InteractableObject
         return false;
     }
 
-    protected void Put(InteractableObject interactableObject)
+    protected virtual void Put(InteractableObject interactableObject)
     {
         gameObject.DebugName($"Put -> {interactableObject.name}", EDebugColor.Orange);
         Fit(interactableObject);

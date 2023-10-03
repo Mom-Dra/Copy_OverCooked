@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEditorInternal;
 
 public enum EAnimationType
 {
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
 
     private Rigidbody rigid;
     private Vector3 moveDirection;
+    
 
     [Header("Status")]
     [SerializeField]
@@ -65,10 +67,6 @@ public class Player : MonoBehaviour
         rigid.MovePosition(rigid.position + moveDirection * Speed * applyDashSpeed * Time.deltaTime);
     }
 
-    //public Interactor GetInteractor()
-    //{
-    //    //return hand.interactor;
-    //}
 
     public void SetBoolAnimation(EAnimationType animationType, bool condition)
     {
@@ -99,7 +97,7 @@ public class Player : MonoBehaviour
 
     public void InteractAndThrow()
     {
-        //hand.InteractAndThorw();
+        hand.InteractAndThrow();
     }
 
     public void Dash()

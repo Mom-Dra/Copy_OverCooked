@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using System.Reflection;
 using System.Transactions;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InteractManager : MonoBehaviour // 快府狼 脚 
@@ -10,6 +12,8 @@ public class InteractManager : MonoBehaviour // 快府狼 脚
     {
         get => instance;
     }
+
+    private Dictionary<Player, InteractableObject> links = new Dictionary<Player, InteractableObject>();
 
     private void Awake()
     {
@@ -22,6 +26,11 @@ public class InteractManager : MonoBehaviour // 快府狼 脚
         {
             Destroy(this);
         }
+    }
+
+    private int CompareType(InteractableObject host, InteractableObject guest)
+    {
+        return host.GetShownType() - guest.GetShownType();
     }
 
     public void Match(Hand hand, InteractableObject target)
@@ -57,7 +66,7 @@ public class InteractManager : MonoBehaviour // 快府狼 脚
         EObjectType topReceiveType = receiver.GetShownType();
         switch (topReceiveType)
         {
-            case EObjectType.Empty:
+            case EObjectType.Empty_Fixed_Container:
                 if(sender.TryGet<Tray>(out Tray tray))
                 {
                     sendObject = tray;
@@ -115,8 +124,19 @@ public class InteractManager : MonoBehaviour // 快府狼 脚
         }
     }
 
-    private int CompareType(InteractableObject host, InteractableObject guest)
+    public void Connect(Player player, InteractableObject interactableObject)
     {
-        return host.GetShownType() - guest.GetShownType();
+        links.Add(player, interactableObject);
     }
+
+    //public Player GetLinkedPlayer(InteractableObject interactableObject)
+    //{
+    //    KeyValuePair keyValuePair = links.Values.
+    //}
+
+    public InteractableObject GetLinkedObject(Player player)
+    {
+        return links[player];
+    }
+    
 }
