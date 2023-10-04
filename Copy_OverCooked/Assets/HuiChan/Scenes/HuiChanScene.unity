@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44517386, g: 0.49478805, b: 0.5738404, a: 1}
+  m_IndirectSpecularColor: {r: 0.44517416, g: 0.49478847, b: 0.57384115, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -145,6 +145,8 @@ GameObject:
   - component: {fileID: 191021293}
   - component: {fileID: 191021295}
   - component: {fileID: 191021296}
+  - component: {fileID: 191021297}
+  - component: {fileID: 191021298}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -203,6 +205,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c4690a6c022444da34a31e94f71603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &191021297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191021292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd18f8ff4099c94199e35b1722d41e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recipes:
+  - {fileID: 11400000, guid: 0e704add5ef81fa4a801df83b17efd33, type: 2}
+  - {fileID: 11400000, guid: 365e0506dd998f3478a3d8ab6b507aee, type: 2}
+--- !u!114 &191021298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191021292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8dc2275dd5b6fa4887d38fb4a2cc0e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressImage: {fileID: 4550205067920828651, guid: 0551cdfa44a593e47aa41f2e3576c75c, type: 3}
+  completeImage: {fileID: 5801782159880544329, guid: 8bd230a89a5519241887831bf4087573, type: 3}
+  warningImage: {fileID: 4363357860045541578, guid: 8b9cd7eb5f93e9b40a3f95279d3d5f62, type: 3}
+  overheatImage: {fileID: 7085876919124342828, guid: 04a4995a8ba017b45b2465ae6e80af9b, type: 3}
 --- !u!1001 &214474524
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -848,10 +881,6 @@ PrefabInstance:
     - target: {fileID: 5206656819119915471, guid: 4c32c09f790a4f14798985023d467ee6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7618127877854652939, guid: 4c32c09f790a4f14798985023d467ee6, type: 3}
-      propertyPath: containOffset.y
-      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2307,6 +2336,10 @@ PrefabInstance:
       propertyPath: containOffset.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 638735210536316705, guid: d92b7cc0225a19d4fbe6530f98223fe4, type: 3}
+      propertyPath: displayOffset.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1320494831045618640, guid: d92b7cc0225a19d4fbe6530f98223fe4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.02
@@ -2791,10 +2824,6 @@ PrefabInstance:
     - target: {fileID: 1893396002255082344, guid: abffe6cbd3abac54baf751f927767135, type: 3}
       propertyPath: m_Name
       value: Plate
-      objectReference: {fileID: 0}
-    - target: {fileID: 3935827389281180962, guid: abffe6cbd3abac54baf751f927767135, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8024642140856387402, guid: abffe6cbd3abac54baf751f927767135, type: 3}
       propertyPath: m_LocalPosition.x

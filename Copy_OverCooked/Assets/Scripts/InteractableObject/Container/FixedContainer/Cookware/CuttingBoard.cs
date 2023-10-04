@@ -2,18 +2,13 @@ using UnityEngine;
 
 public class CuttingBoard : Cookware, Reactable
 {
-    protected override void Put(InteractableObject interactableObject)
-    {
-        base.Put(interactableObject);
-    }
-
     public void React(Player player) 
     {
-        ChopEvent chopEvent = new ChopEvent(player, this);
-        chopEvent.StartChop();
-        EventManager.Instance.AddEvent(chopEvent);
-        TryCook();    
-    }  
+        // 플레이어의 Animation 호출
+
+        EventManager.Instance.AddEvent(new ChopEvent(player, this));
+        TryCook();
+    }
 
     protected override bool CanCook()
     {

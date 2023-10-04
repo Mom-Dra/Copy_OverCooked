@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,6 +10,10 @@ public class EventManager : MonoBehaviour
     // 2. 이벤트 조건
     // 3. 이벤트 행동 
     private static EventManager instance;
+
+    private IEnumerator checkCoroutine;
+    private bool isPlaying;
+
     public static EventManager Instance
     {
         get => instance;
@@ -22,7 +27,7 @@ public class EventManager : MonoBehaviour
         {
             instance = this;
             events = new List<Event>();
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(gameObject);
         } 
         else
         {
@@ -30,19 +35,24 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    // 이벤트 조건절 검사 
-    private void Update()
+    private IEnumerator CheckCoroutine()
     {
-        if (events.Count > 0)
+        while(true)
         {
-            foreach (Event e in events) // 요기서 InvalidOperation 오류뜸, 배열이 변경되었다고 뜨는데
+            if (events.Count > 0)
             {
-                if (e.Condition())
+                for(int i = 0; i < events.Count; ++i)
                 {
-                    e.Action();
-                    RemoveEvent(e);
+                    if (events[i].Condition())
+                    {
+                        events[i].Action();
+                        RemoveEvent(events[i]);
+                        --i;
+                    }
                 }
             }
+
+            yield return null;
         }
     }
 
@@ -50,6 +60,13 @@ public class EventManager : MonoBehaviour
     public void AddEvent(Event _event) 
     { 
         events.Add(_event);
+        _event.AddEventAction();
+
+        if(checkCoroutine == null)
+        {
+            checkCoroutine = CheckCoroutine();
+            StartCoroutine(checkCoroutine);
+        }
     }
     
 
@@ -57,5 +74,11 @@ public class EventManager : MonoBehaviour
     public void RemoveEvent(Event _event)
     {
         events.Remove(_event);
+
+        if(events.Count == 0)
+        {
+            StopCoroutine(checkCoroutine);
+            checkCoroutine = null;
+        }
     }
 }

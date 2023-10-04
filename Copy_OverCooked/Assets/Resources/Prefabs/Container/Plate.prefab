@@ -151,9 +151,10 @@ MonoBehaviour:
   Description: 
   eObjectType: 1
   IsInteractable: 1
-  containOffset: {x: 0, y: 0.2, z: 0}
+  maxContainCount: 1
+  displayOffset: {x: 0, y: 0.2, z: 0}
   getObject: {fileID: 0}
-  a: 0
+  containObjects: []
 --- !u!1001 &6286948440724899603
 PrefabInstance:
   m_ObjectHideFlags: 0

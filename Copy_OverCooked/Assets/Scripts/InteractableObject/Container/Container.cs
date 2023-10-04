@@ -1,14 +1,23 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Purchasing;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Container : InteractableObject
 {
     [Header("Container")]
     [SerializeField]
-    protected Vector3 containOffset = Vector3.up;
+    protected int maxContainCount = 1;
+    [SerializeField]
+    protected Vector3 displayOffset = Vector3.up;
 
+    protected Image uIImage;
+
+    [Header("Debug")]    
     public InteractableObject getObject;
+
+    protected List<InteractableObject> containObjects = new List<InteractableObject>();
 
     private void Awake()
     {
@@ -16,6 +25,11 @@ public class Container : InteractableObject
         {
             Put(getObject);
         }
+    }
+
+    protected bool IsFull()
+    {
+        return containObjects.Count == maxContainCount;
     }
 
     public bool HasObject()
@@ -49,10 +63,11 @@ public class Container : InteractableObject
     public void Remove(InteractableObject interactableObject)
     {
         // 1. 타입으로 없애기
-        // 2. 객체 일치로 없애기  
+        // 2. 객체 일치로 없애기  (&&^^당첨^^&&)
         if(getObject == interactableObject)
         {
             getObject = null;
+            containObjects.Remove(interactableObject);
         }else if (getObject != null && getObject.TryGet<Container>(out Container container))
         {
             container.Remove(interactableObject);
@@ -65,7 +80,7 @@ public class Container : InteractableObject
         {
             return container.TryPut(interactableObject);
         }
-        if(IsValidObject(interactableObject))
+        if(!IsFull() && IsValidObject(interactableObject))
         {
             Put(interactableObject);
             return true;
@@ -78,7 +93,11 @@ public class Container : InteractableObject
         gameObject.DebugName($"Put -> {interactableObject.name}", EDebugColor.Orange);
         Fit(interactableObject);
         interactableObject.IsInteractable = false;
-        getObject = interactableObject;
+        if(containObjects.Count == 0)
+        {
+            getObject = interactableObject;
+        }
+        containObjects.Add(interactableObject);
     }
 
     public InteractableObject Get()
@@ -102,7 +121,7 @@ public class Container : InteractableObject
 
     protected virtual void Fit(InteractableObject interactableObject)
     {
-        interactableObject.transform.position = transform.position + containOffset;
+        interactableObject.transform.position = transform.position + displayOffset;
         interactableObject.Fix();
     }
 }

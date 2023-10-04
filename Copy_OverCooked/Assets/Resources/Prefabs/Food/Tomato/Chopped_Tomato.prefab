@@ -236,6 +236,7 @@ MonoBehaviour:
   Description: 
   eObjectType: 2
   IsInteractable: 1
+  foodState: 2
   currCookTime: 0
 --- !u!1 &6331454930656662592
 GameObject:

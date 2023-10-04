@@ -12,7 +12,7 @@ public class FoodBox : FixedContainer
     {
         if (!base.TryGet<T>(out result) && food is T)
         {
-            result = Instantiate(food, transform.position + containOffset, Quaternion.identity).GetComponent<T>();
+            result = Instantiate(food, transform.position + displayOffset, Quaternion.identity).GetComponent<T>();
         }
         return result != null;
     }

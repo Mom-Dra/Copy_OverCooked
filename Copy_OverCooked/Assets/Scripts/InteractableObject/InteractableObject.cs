@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
@@ -21,5 +22,16 @@ public class InteractableObject : MonoBehaviour
     public virtual bool TryGet<T> (out T result) 
     {
         return TryGetComponent<T>(out result);
+    }
+
+    public override bool Equals(object other)
+    {
+        InteractableObject io = other as InteractableObject;
+        return Name.Equals(io.Name) && eObjectType == io.eObjectType;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(base.GetHashCode(), name);
     }
 }

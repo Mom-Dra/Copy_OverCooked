@@ -5,5 +5,6 @@ public class Food : InteractableObject
     [Header("Food")]
     public EFoodState foodState;
 
-    public float currCookTime;
+    public int currCookDegree = 0;
+
 }

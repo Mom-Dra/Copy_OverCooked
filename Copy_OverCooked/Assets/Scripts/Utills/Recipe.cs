@@ -8,51 +8,42 @@ using UnityEngine;
 public class Recipe : ScriptableObject
 #pragma warning restore CS0659 // 형식은 Object.Equals(object o)를 재정의하지만 Object.GetHashCode()를 재정의하지 않습니다.
 {
-    //[Header("Incomes")]
-    //[SerializeField]
-    //private ECookingMethod cookingMethod;
+    [Header("Incomes")]
+    [SerializeField]
+    private ECookingMethod cookingMethod;
 
-    //[SerializeField]
-    //private List<Food> materialFoods;
+    [SerializeField]
+    private List<Food> ingredients;
 
-    //[SerializeField]
-    //private float totalCookDuration;
+    [SerializeField]
+    private float totalCookDuration;
 
-    //[Header("OutComes")]
-    //[SerializeField]
-    //private List<Food> extraFoods;
+    [Header("OutComes")]
+    [SerializeField]
+    private Food cookedFood;
 
-    //[SerializeField]
-    //private Food cookedFood;
+    public Food getCookedFood()
+    {
+        return cookedFood;
+    }
 
-    //public List<Food> getExtraFoods()
-    //{
-    //    return extraFoods;
-    //}
+    public float getTotalCookDuration()
+    {
+        return totalCookDuration;
+    }
 
-    //public Food getCookedFood()
-    //{
-    //    return cookedFood;
-    //}
-
-    //public float getTotalCookDuration()
-    //{
-    //    return totalCookDuration;
-    //}
-
-    //public bool Equal(ECookingMethod cookingMethod, List<InteractableObject> foods)
-    //{
-
-    //    if (this.cookingMethod == cookingMethod)
-    //    {
-    //        if (this.materialFoods.Count == foods.Count)
-    //        {
-    //            if (this.materialFoods.OrderBy(e => e).SequenceEqual(foods.OrderBy(e => e.GetComponent<Food>())))
-    //            {
-    //                return true;
-    //            }
-    //        }
-    //    }
-    //    return false;
-    //}
+    public bool Equal(ECookingMethod cookingMethod, List<InteractableObject> foods)
+    {
+        if (this.cookingMethod == cookingMethod)
+        {
+            if (this.ingredients.Count == foods.Count)
+            {
+                if (this.ingredients.OrderBy(e => e).SequenceEqual(foods.OrderBy(e => e.GetComponent<Food>())))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

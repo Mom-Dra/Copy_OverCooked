@@ -16,7 +16,7 @@ public class Hand : Container
     {
         if (getObject != null)
         {
-            getObject.transform.position = transform.position + containOffset;
+            getObject.transform.position = transform.position + displayOffset;
         }
     }
 
@@ -29,17 +29,22 @@ public class Hand : Container
     {
         getObject.Free();
         getObject.IsInteractable = true;
+        containObjects.Remove(getObject);
         getObject = null;
     }
 
     public void GrabAndPut()
     {
         InteractableObject triggerObject = interactor.ClosestInteractableObject;
-        if (HasObject() && triggerObject == null)
+        if (triggerObject == null)
         {
-            HoldOut();
+            if (HasObject())
+            {
+                HoldOut();
+            }
             return;
         }
+        
         InteractManager.Instance.Match(this, triggerObject);
     }
 
@@ -55,7 +60,7 @@ public class Hand : Container
             {
                 reactObject.React(player);
             }
-        } 
+        }
         else
         {
             InteractableObject triggerObject = interactor.ClosestInteractableObject;

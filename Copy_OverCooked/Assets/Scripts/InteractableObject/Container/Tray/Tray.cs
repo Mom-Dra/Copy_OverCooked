@@ -8,7 +8,7 @@ public class Tray : Container
     {
         if (getObject != null)
         {
-            getObject.transform.position = transform.position + containOffset;
+            getObject.transform.position = transform.position + displayOffset;
         }
     }
 }

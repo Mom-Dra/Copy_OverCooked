@@ -19,17 +19,19 @@ public class ChopEvent : Event
 
     public bool Condition()
     {
-        float distance = Vector3.Distance(player.transform.position, reactableObject.transform.position);
-        Debug.Log($"Distance : {distance}");
-        if(distance > 3)
+        float distance = Vector3.Distance(player.transform.position + player.transform.forward, reactableObject.transform.position);
+        
+        if(distance > 2f || reactableObject.cookwareState == ECookwareState.Complete)
         {
             return true;
         }
+
         return false;
     }
 
-    public void StartChop()
+    public void AddEventAction()
     {
         player.SetBoolAnimation(EAnimationType.Chop, true);
     }
+
 }

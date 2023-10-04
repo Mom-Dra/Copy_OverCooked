@@ -42,4 +42,13 @@ public static class Utill
             rigidbody.isKinematic = false;
         }
     }
+
+    public static void Convert(ref InteractableObject interactableObject, InteractableObject toObject)
+    {
+        InteractableObject destroyObject = interactableObject;
+        interactableObject = GameObject.Instantiate(toObject, interactableObject.transform.position, Quaternion.identity); // new 
+        interactableObject.GetComponent<Rigidbody>().isKinematic = destroyObject.GetComponent<Rigidbody>().isKinematic;
+        interactableObject.IsInteractable = destroyObject.IsInteractable;
+        GameObject.Destroy(destroyObject.gameObject);
+    }
 }
