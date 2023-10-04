@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InteractableObject : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class InteractableObject : MonoBehaviour
     protected string Description;
     [SerializeField]
     protected EObjectType eObjectType;
+
+    public float uIYOffset = 1f;
+
+    public Image uIImage;
 
     [HideInInspector]
     public bool IsInteractable = true;

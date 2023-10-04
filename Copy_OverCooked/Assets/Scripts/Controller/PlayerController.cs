@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteractAndThrow() // Ctrl
     {
+        Debug.Log("Interact");
         player.InteractAndThrow();
     }
 

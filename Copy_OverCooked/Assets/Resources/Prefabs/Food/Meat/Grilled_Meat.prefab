@@ -149,5 +149,8 @@ MonoBehaviour:
   Name: Grilled_Meat
   Description: 
   eObjectType: 2
+  uIYOffset: 1
+  uIImage: {fileID: 0}
   IsInteractable: 1
-  currCookTime: 0
+  foodState: 2
+  currCookDegree: 0

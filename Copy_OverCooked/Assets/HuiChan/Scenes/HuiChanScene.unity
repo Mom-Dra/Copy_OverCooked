@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44517416, g: 0.49478847, b: 0.57384115, a: 1}
+  m_IndirectSpecularColor: {r: 0.44517386, g: 0.49478805, b: 0.5738404, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -454,18 +454,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1802786293}
     m_Modifications:
-    - target: {fileID: 782837590, guid: 4315118c932b8954cb9f556ffa358acc, type: 3}
-      propertyPath: IsGrabbable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 782837590, guid: 4315118c932b8954cb9f556ffa358acc, type: 3}
-      propertyPath: IsImmediateCook
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 782837590, guid: 4315118c932b8954cb9f556ffa358acc, type: 3}
-      propertyPath: containOffset.y
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 2825111134334188137, guid: 4315118c932b8954cb9f556ffa358acc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.02
@@ -510,10 +498,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FryingPan
       objectReference: {fileID: 0}
-    - target: {fileID: 7961465698479112129, guid: 4315118c932b8954cb9f556ffa358acc, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 3a0713ce899a5dc4eb33eb29dadac35b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -986,6 +970,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1802786293}
     m_Modifications:
+    - target: {fileID: 535515301120072023, guid: 64cf27d61671de44bade1292d3277819, type: 3}
+      propertyPath: IsFirable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2218439725455348348, guid: 64cf27d61671de44bade1292d3277819, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3
@@ -2197,10 +2185,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8102426312994884899, guid: c7225d116d005194eb3c2e22a09d4471, type: 3}
-      propertyPath: getObject
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2258,6 +2242,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7274417732704426102, guid: ea5098163ffccc543bc4a66b73bd4170, type: 3}
+      propertyPath: food
+      value: 
+      objectReference: {fileID: 5459943901223524774, guid: 2da00b0691a596844825a3380034adf3, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

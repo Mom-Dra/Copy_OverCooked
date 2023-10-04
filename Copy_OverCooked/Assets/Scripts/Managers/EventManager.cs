@@ -41,16 +41,18 @@ public class EventManager : MonoBehaviour
         {
             if (events.Count > 0)
             {
-                for(int i = 0; i < events.Count; ++i)
+                for (int i = 0; i < events.Count; ++i)
                 {
-                    if (events[i].Condition())
+                    if (events[i].HasNextAction())
                     {
-                        events[i].Action();
+                        events[i].TryAction();
+                    } else
+                    {
                         RemoveEvent(events[i]);
                         --i;
                     }
                 }
-            }
+            } else break;
 
             yield return null;
         }

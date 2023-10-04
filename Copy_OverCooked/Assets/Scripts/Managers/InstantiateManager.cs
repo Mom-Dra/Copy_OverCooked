@@ -58,7 +58,7 @@ public class InstantiateManager : MonoBehaviour
                 showImage = overheatImage;
                 break;
         }
-        Vector3 showPos = Camera.main.WorldToScreenPoint(interactableObject.transform.position);
+        Vector3 showPos = Camera.main.WorldToScreenPoint(interactableObject.transform.position + new Vector3(0, interactableObject.uIYOffset, 0));
         return Instantiate(showImage, showPos, Quaternion.identity, GameObject.Find("Canvas").transform);
     }
 }
