@@ -6,15 +6,13 @@ using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
 
-
-
-public class ClientInfo
+public class ClientHandler
 {
     private TcpClient tcpClient;
     private int id;
     private byte[] buffer;
 
-    public ClientInfo(TcpClient tcpClient, int id)
+    public ClientHandler(TcpClient tcpClient, int id)
     {
         this.tcpClient = tcpClient;
         this.id = id;
@@ -35,7 +33,7 @@ public class ClientInfo
 
         if(readLength > 0)
         {
-            DecodePacket();
+            DecodePacket(readLength);
             //string message = Encoding.UTF8.GetString(buffer, 0, readLength);
             //Debug.Log($"{id}로 부터 받은 메시지: {message}, 크기: {readLength}");
         }
@@ -43,8 +41,23 @@ public class ClientInfo
         tcpClient.GetStream().BeginRead(buffer, 0, buffer.Length, ReadCallback, tcpClient);
     }
 
-    private void DecodePacket()
+    private void DecodePacket(int readLength)
     {
-        Packet packet = (Packet)Encoding.UTF8.
+        using (Packet packet = new Packet(buffer.Take(readLength).ToArray()))
+        {
+            PacketHandler.Invoke(packet);
+        }
+    }
+
+    private void Move(Packet packet)
+    {
+        int targetId = packet.targetId;
+        packet.Read(out int direction);
+        // Move
+    }
+
+    private void Alt()
+    {
+
     }
 }

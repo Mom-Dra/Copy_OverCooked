@@ -34,15 +34,15 @@ public class Client : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W))
         {
-
+            Move(77);
         }
-        else if (Input.GetKeyUp(KeyCode.S))
+        else if (Input.GetKeyDown(KeyCode.S))
         {
-
+            Transfroma();
         }
-        else if (Input.GetKeyUp(KeyCode.A))
+        else if (Input.GetKeyDown(KeyCode.A))
         {
 
         }
@@ -61,7 +61,24 @@ public class Client : MonoBehaviour
 
     private void Move(int direction)
     {
-        Packet packet = new Packet(id, EActionCode.Input, ETargetType.Player, direction);
-        tcpClient.GetStream().Write(packet.ToByteArr());
+        using(Packet packet = new Packet(id, EActionCode.Input, ETargetType.Player, id))
+        {
+            packet.Write((int)EInputType.Move);
+            packet.Write(direction);
+            Send(packet);
+        }
+    }
+
+    private void Transfroma()
+    {
+        using(Packet packet = new Packet(id, EActionCode.Event, ETargetType.Player, id))
+        {
+            Send(packet);
+        }
+    }
+
+    private void Send(Packet packet)
+    {
+        tcpClient.GetStream().Write(packet.ToByteArray());
     }
 }

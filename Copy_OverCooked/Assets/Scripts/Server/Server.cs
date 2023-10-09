@@ -12,12 +12,13 @@ public class Server : MonoBehaviour
 {
     private TcpListener tcpListener = new TcpListener(IPAddress.Any, 9999);
     private int id;
-    private Dictionary<int, ClientInfo> clientDic = new Dictionary<int, ClientInfo>();
+    private Dictionary<int, ClientHandler> clientDic = new Dictionary<int, ClientHandler>();
 
     private void Awake()
     {
         tcpListener.Start();
         tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
+        PacketHandler.Init();
     }
 
     private void TCPConnectCallback(IAsyncResult result)
@@ -25,7 +26,7 @@ public class Server : MonoBehaviour
         TcpClient client = tcpListener.EndAcceptTcpClient(result);
         NetworkStream networkStream = client.GetStream();
 
-        ClientInfo clientInfo = new ClientInfo(client, id);
+        ClientHandler clientInfo = new ClientHandler(client, id);
 
         byte[] sendId = BitConverter.GetBytes(id++);
         networkStream.Write(sendId, 0, sendId.Length);
