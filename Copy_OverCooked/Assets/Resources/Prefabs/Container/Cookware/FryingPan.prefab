@@ -479,9 +479,14 @@ MonoBehaviour:
   Name: Frying Pan
   Description: 
   eObjectType: 1
+  uIYOffset: 2
+  uIImage: {fileID: 0}
   IsInteractable: 1
-  containOffset: {x: 0, y: 0.2, z: 0}
+  maxContainCount: 1
+  IsFirable: 1
+  displayOffset: {x: 0, y: 0.3, z: 0}
   getObject: {fileID: 0}
+  containObjects: []
 --- !u!1 &6430025013051586919
 GameObject:
   m_ObjectHideFlags: 0

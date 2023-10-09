@@ -113,7 +113,7 @@ Transform:
   m_GameObject: {fileID: 5576758586236041868}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0707818, y: 1.12324, z: 0.2150104}
+  m_LocalPosition: {x: 3, y: 1.5, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -166,7 +166,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -235,9 +235,11 @@ MonoBehaviour:
   Name: Chopped_Tomato
   Description: 
   eObjectType: 2
-  IsInteractable: 1
+  uIYOffset: 1
+  uIImage: {fileID: 0}
+  IsInteractable: 0
   foodState: 2
-  currCookTime: 0
+  currCookDegree: 100
 --- !u!1 &6331454930656662592
 GameObject:
   m_ObjectHideFlags: 0

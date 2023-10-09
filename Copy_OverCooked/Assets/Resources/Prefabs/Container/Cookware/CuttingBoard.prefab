@@ -183,11 +183,16 @@ MonoBehaviour:
   Name: Cutting_Board
   Description: 
   eObjectType: 0
+  uIYOffset: 2
+  uIImage: {fileID: 0}
   IsInteractable: 1
-  containOffset: {x: 0, y: 0.5, z: 0}
+  maxContainCount: 1
+  IsFirable: 0
+  displayOffset: {x: 0, y: 1, z: 0}
   getObject: {fileID: 0}
-  test: 0
-  a: 0
+  containObjects: []
+  cookwareState: 0
+  cookingMethod: 0
 --- !u!1 &8889395286778988012
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,37 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using UnityEngine;
 
 public class ChopEvent : Event
 {
     private Player player;
-    private Cookware reactableObject;
+    private Cookware cookware;
 
-    public ChopEvent(Player player, Cookware reactableObject)
+    public ChopEvent(Player player, Cookware cookware)
     {
         this.player = player;
-        this.reactableObject = reactableObject;
+        this.cookware = cookware;
+        actions.Add(StopChopEventAction);
     }
 
-    public void Action() 
+    private bool StopChopEventAction() 
     {
-        player.SetBoolAnimation(EAnimationType.Chop, false);
-        reactableObject.StopCook();
-    }
-
-    public bool Condition()
-    {
-        float distance = Vector3.Distance(player.transform.position + player.transform.forward, reactableObject.transform.position);
-        
-        if(distance > 2f || reactableObject.cookwareState == ECookwareState.Complete)
+        if (CheckDistance())
         {
+            if(cookware.cookwareState == ECookwareState.Cook)
+            {
+                cookware.StopCook();
+            }
+            player.SetBoolAnimation(EAnimationType.Chop, false);
             return true;
         }
-
         return false;
     }
 
-    public void AddEventAction()
+    private bool CheckDistance()
+    {
+        float distance = Vector3.Distance(player.transform.position + player.transform.forward, cookware.transform.position);
+        
+        if(distance > 2f || cookware.cookwareState == ECookwareState.Complete)
+        {
+            return true;
+        }
+        return false;
+    }
+     
+    public override void AddEventAction()
     {
         player.SetBoolAnimation(EAnimationType.Chop, true);
     }
-
 }

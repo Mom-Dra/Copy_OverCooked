@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InteractableObject : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class InteractableObject : MonoBehaviour
     [SerializeField]
     protected EObjectType eObjectType;
 
+    public float uIYOffset = 1f;
+
+    public Image uIImage;
+
     [HideInInspector]
     public bool IsInteractable = true;
 
@@ -19,7 +24,7 @@ public class InteractableObject : MonoBehaviour
         return eObjectType;
     }
 
-    public virtual bool TryGet<T> (out T result) 
+    public virtual bool TryGet<T> (out T result, EGetMode getMode = EGetMode.Peek) 
     {
         return TryGetComponent<T>(out result);
     }
