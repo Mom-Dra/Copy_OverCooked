@@ -61,17 +61,19 @@ public class InteractManager : MonoBehaviour // 快府狼 脚
     public void MoveObject(Container sender, Container receiver) 
     {
         Debug.Log($"<color=yellow> Move {sender.name} -> {receiver.name} </color>");
-        InteractableObject sendObject = null; 
-
+        InteractableObject sendObject = null;
+        
         EObjectType topReceiveType = receiver.GetShownType();
+        Debug.Log($"Object Type : {topReceiveType}");
         switch (topReceiveType)
         {
             case EObjectType.Empty_Fixed_Container:
-                if(sender.TryGet<Tray>(out Tray tray))
+                Debug.Log("Move E");
+                if (sender.TryGet<Tray>(out Tray tray, EGetMode.Pop))
                 {
                     sendObject = tray;
                 }
-                else if(sender.TryGet<Food>(out Food food))
+                else if(sender.TryGet<Food>(out Food food, EGetMode.Pop))
                 {
                     sendObject = food;
                 }
@@ -80,13 +82,15 @@ public class InteractManager : MonoBehaviour // 快府狼 脚
                 {
                     if (receiver.TryPut(sendObject))
                     {
+                        Debug.Log($"<color=yellow> OK </color>");
                         sender.Remove(sendObject);
                     }
                 }
                 break;
 
             case EObjectType.Tray:
-                if (sender.TryGet<Food>(out Food food1))
+                Debug.Log("Move T");
+                if (sender.TryGet<Food>(out Food food1, EGetMode.Pop))
                 {
                     sendObject = food1;
                 }
@@ -95,13 +99,15 @@ public class InteractManager : MonoBehaviour // 快府狼 脚
                 {
                     if (receiver.TryPut(sendObject))
                     {
+                        Debug.Log($"<color=yellow> OK </color>");
                         sender.Remove(sendObject);
                     }
                 }
                 break;
 
             case EObjectType.Food:
-                if (sender.TryGet<Food>(out Food food2))
+                Debug.Log("Move F");
+                if (sender.TryGet<Food>(out Food food2, EGetMode.Pop))
                 {
                     sendObject = food2;
                 }
@@ -110,12 +116,14 @@ public class InteractManager : MonoBehaviour // 快府狼 脚
                 {
                     if (receiver.TryPut(sendObject))
                     {
+                        Debug.Log($"<color=yellow> OK </color>");
                         sender.Remove(sendObject);
                     }
                     else
                     {
                         if(sender.TryGet<Hand>(out Hand sendHand))
                         {
+                            
                             MoveObject(receiver, sendHand);
                         }
                     }

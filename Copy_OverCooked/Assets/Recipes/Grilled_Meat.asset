@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018c8a6fbc42ca1439a85f78d163161b, type: 3}
   m_Name: Grilled_Meat
   m_EditorClassIdentifier: 
-  cookingMethod: 4
+  cookingMethod: 1
   ingredients:
   - {fileID: 5459943901223524774, guid: 2da00b0691a596844825a3380034adf3, type: 3}
-  totalCookDuration: 2
+  totalCookDuration: 3
   cookedFood: {fileID: 7191187785553465461, guid: 05852cf26ad57bf42a8e21bcf13329ea, type: 3}

@@ -9,15 +9,14 @@ public class Container : InteractableObject
     [Header("Container")]
     [SerializeField]
     protected int maxContainCount = 1;
+    public bool IsFirable = true;
     [SerializeField]
     protected Vector3 displayOffset = Vector3.up;
 
-    protected Image uIImage;
-
-    [Header("Debug")]    
+    [Header("Debug")] 
     public InteractableObject getObject;
-
-    protected List<InteractableObject> containObjects = new List<InteractableObject>();
+    [SerializeField]
+    public List<InteractableObject> containObjects = new List<InteractableObject>();
 
     private void Awake()
     {
@@ -37,20 +36,18 @@ public class Container : InteractableObject
         return getObject != null;
     }
 
-    public override bool TryGet<T>(out T result) 
+    public override bool TryGet<T>(out T result, EGetMode getMode = EGetMode.Peek)
     {
         result = default(T);
         if (base.TryGet<T>(out T value))
         {
-            if (CanGet())
-            {
-                gameObject.DebugName("<- TryGet", EDebugColor.Red);
-                result = value;
-            }
-        }
-        else if (getObject != null)
+            result = value;
+        } else if (getObject != null)
         {
-            getObject.TryGet<T>(out result);
+            if (getObject.TryGet<T>(out T value2) && (getMode == EGetMode.Peek || CanGet()))
+            {
+                result = value2;
+            }
         }
         return result != null;
     }
@@ -60,21 +57,21 @@ public class Container : InteractableObject
         return true;
     }
 
-    public void Remove(InteractableObject interactableObject)
+    public virtual void Remove(InteractableObject interactableObject)
     {
         // 1. 타입으로 없애기
         // 2. 객체 일치로 없애기  (&&^^당첨^^&&)
         if(getObject == interactableObject)
         {
             getObject = null;
-            containObjects.Remove(interactableObject);
+            containObjects.Clear();
         }else if (getObject != null && getObject.TryGet<Container>(out Container container))
         {
             container.Remove(interactableObject);
         }
     }
 
-    public bool TryPut(InteractableObject interactableObject)
+    public virtual bool TryPut(InteractableObject interactableObject)
     {
         if(getObject != null && getObject.TryGet<Container>(out Container container))
         {
@@ -107,7 +104,8 @@ public class Container : InteractableObject
 
     public override EObjectType GetShownType()
     {
-        if(getObject != null)
+        Debug.Log("GetShownType");
+        if (getObject != null)
         {
             return getObject.GetShownType();
         }
