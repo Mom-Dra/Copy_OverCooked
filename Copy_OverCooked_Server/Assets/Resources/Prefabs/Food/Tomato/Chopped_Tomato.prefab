@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: -930457645761061850}
   - component: {fileID: 6974987787990505858}
   - component: {fileID: 8620234310661808743}
+  - component: {fileID: -7003196966997154167}
   m_Layer: 8
   m_Name: Chopped_Tomato
   m_TagString: Untagged
@@ -237,7 +238,19 @@ MonoBehaviour:
   eObjectType: 2
   IsInteractable: 1
   foodState: 2
-  currCookTime: 0
+  currCookDegree: 0
+--- !u!114 &-7003196966997154167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5576758586236041868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ac3807fe1e6b64cb5cc10ef6aa9a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6331454930656662592
 GameObject:
   m_ObjectHideFlags: 0

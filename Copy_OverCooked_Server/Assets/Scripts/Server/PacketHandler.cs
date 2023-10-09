@@ -15,11 +15,6 @@ public class PacketHandler
         {
             { (int)EActionCode.Input, InputCommand },
             { (int)EActionCode.Event, EventCommand },
-            { (int)EActionCode.Transform, TranformCommand },
-            { (int)EActionCode.Instantiate, InstantiateCommand },
-            { (int)EActionCode.Active, ActiveCommand },
-            { (int)EActionCode.Animation, AnimationCommand },
-            { (int)EActionCode.Sound, SoundCommand },
         };
     }
 
@@ -44,55 +39,18 @@ public class PacketHandler
     private static void Move(Packet packet)
     {
         int targetId = packet.targetId;
-        packet.Read(out Vector2 vector);
-        
+        packet.Read(out int clientId);
+        packet.Read(out Vector2 direction);
+        Player movePlayer = NetworkObjectManager.Instance.GetObjectById(targetId).GetComponent<Player>();
+        movePlayer.SetMoveDirection(new Vector3(direction.x, 0f, direction.y));
     }
 
     private static void EventCommand(Packet packet)
     {
-
+        
     }
 
-    private static void TranformCommand(Packet packet)
-    {
-        int targetId = packet.targetId;
-        packet.Read(out Vector3 position);
-        packet.Read(out Quaternion rotation);
-        packet.Read(out Vector3 scale);
-
-
-    }
-
-    private static void InstantiateCommand(Packet packet)
-    {
-        int targetId = packet.targetId;
-        packet.Read(out int type); // 1 : instantiate, 2 : Destroy
-        if((EInstantiateType)type == EInstantiateType.Instantiate)
-        {
-            packet.Read(out Vector3 position);
-            packet.Read(out Quaternion rotation);
-            // 생성
-        }
-        else
-        {
-            // 삭제 
-        }
-    }
-
-    private static void ActiveCommand(Packet packet)
-    {
-
-    }
-
-    private static void AnimationCommand(Packet packet)
-    {
-
-    }
-
-    private static void SoundCommand(Packet packet)
-    {
-
-    }
+    
 
 
 }

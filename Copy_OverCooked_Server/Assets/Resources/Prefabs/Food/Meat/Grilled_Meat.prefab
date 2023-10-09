@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3008261813453056549}
   - component: {fileID: 7555908009225529520}
   - component: {fileID: 7191187785553465461}
+  - component: {fileID: 2410106073243595991}
   m_Layer: 0
   m_Name: Grilled_Meat
   m_TagString: Untagged
@@ -150,4 +151,17 @@ MonoBehaviour:
   Description: 
   eObjectType: 2
   IsInteractable: 1
-  currCookTime: 0
+  foodState: 0
+  currCookDegree: 0
+--- !u!114 &2410106073243595991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6924242740667906775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ac3807fe1e6b64cb5cc10ef6aa9a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

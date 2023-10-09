@@ -15,10 +15,8 @@ public class PlayerController : MonoBehaviour
         this.player = player;
     }
 
-
     public void OnMove(InputValue value) // Move
     {
-
         NetworkManager.Instance.Move(value.Get<Vector2>());
 
         //Vector2 input = value.Get<Vector2>();

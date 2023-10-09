@@ -12,8 +12,6 @@ public class Container : InteractableObject
     [SerializeField]
     protected Vector3 displayOffset = Vector3.up;
 
-    protected Image uIImage;
-
     [Header("Debug")]    
     public InteractableObject getObject;
 
@@ -26,6 +24,8 @@ public class Container : InteractableObject
             Put(getObject);
         }
     }
+
+    
 
     protected bool IsFull()
     {

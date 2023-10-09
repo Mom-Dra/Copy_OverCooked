@@ -8,14 +8,15 @@ using System;
 using System.Text;
 
 
-public class Server : MonoBehaviour
+public class Server : MonobehaviorSingleton<Server>
 {
     private TcpListener tcpListener = new TcpListener(IPAddress.Any, 9999);
     private int id;
     private Dictionary<int, ClientHandler> clientDic = new Dictionary<int, ClientHandler>();
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         tcpListener.Start();
         tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
         PacketHandler.Init();
@@ -26,14 +27,23 @@ public class Server : MonoBehaviour
         TcpClient client = tcpListener.EndAcceptTcpClient(result);
         NetworkStream networkStream = client.GetStream();
 
-        ClientHandler clientInfo = new ClientHandler(client, id);
+        ClientHandler clientHandler = new ClientHandler(client, id);
 
         byte[] sendId = BitConverter.GetBytes(id++);
         networkStream.Write(sendId, 0, sendId.Length);
 
-        clientInfo.BeginRead();
+        clientHandler.BeginRead();
+        NetworkObjectManager.Instance.UploadObjects(clientHandler);
 
         tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
+    }
+
+    public void SendToAllClients(Packet packet)
+    {
+        foreach(ClientHandler clientHandler in clientDic.Values)
+        {
+            clientHandler.Send(packet);
+        }
     }
 
     private void OnApplicationQuit()

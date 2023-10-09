@@ -44,9 +44,9 @@ public class ClientHandler
         tcpClient.GetStream().BeginRead(buffer, 0, buffer.Length, ReadCallback, tcpClient);
     }
 
-
-    private void Alt()
+    public void Send(Packet packet)
     {
-
+        NetworkStream stream = tcpClient.GetStream();
+        stream.Write(packet.ToByteArray());
     }
 }

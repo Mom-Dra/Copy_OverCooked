@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 6213309299284260217}
   - component: {fileID: 2846311932433697789}
   - component: {fileID: 2667601602116679972}
+  - component: {fileID: 3884906391248670622}
   m_Layer: 8
   m_Name: Org_Tomato
   m_TagString: Food
@@ -317,7 +318,20 @@ MonoBehaviour:
   Description: d
   eObjectType: 2
   IsInteractable: 0
-  currCookTime: 0
+  foodState: 0
+  currCookDegree: 0
+--- !u!114 &3884906391248670622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5359118705028117076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ac3807fe1e6b64cb5cc10ef6aa9a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5571775117073912469
 GameObject:
   m_ObjectHideFlags: 0

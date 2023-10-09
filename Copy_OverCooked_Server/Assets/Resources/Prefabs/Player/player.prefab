@@ -119,8 +119,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f5b69cf0fdc88342b0f778f0cc33d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: 
+  Description: 
+  eObjectType: 0
+  IsInteractable: 1
+  maxContainCount: 1
+  displayOffset: {x: 0, y: 1, z: 0}
   getObject: {fileID: 0}
-  containState: 0
+  throwPower: 6
 --- !u!1 &3630446594044350341
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,6 +142,7 @@ GameObject:
   - component: {fileID: 6622066270829856081}
   - component: {fileID: 5239437961117853430}
   - component: {fileID: 1896860680403621950}
+  - component: {fileID: 8555410436320367643}
   m_Layer: 9
   m_Name: player
   m_TagString: Untagged
@@ -298,6 +305,18 @@ MonoBehaviour:
   dashSpeed: 2
   dashTime: 0.5
   dashCoolDownTime: 3
+--- !u!114 &8555410436320367643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3630446594044350341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ac3807fe1e6b64cb5cc10ef6aa9a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5416137629786203493
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,6 +435,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94b707f0eae9274582509048b28e6c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brightness: 0.4
+  interactableObjects: []
+  ClosestInteractableObject: {fileID: 0}
 --- !u!1001 &2896562893680686731
 PrefabInstance:
   m_ObjectHideFlags: 0

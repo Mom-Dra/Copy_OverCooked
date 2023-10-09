@@ -5,8 +5,8 @@ using UnityEngine;
 public class Interactor : MonoBehaviour
 {
     [Header("Trigger")]
-    [SerializeField]
-    private float brightness = 0.4f;
+    //[SerializeField]
+    //private float brightness = 0.4f;
 
     [Header("Debug")]
     [SerializeField]

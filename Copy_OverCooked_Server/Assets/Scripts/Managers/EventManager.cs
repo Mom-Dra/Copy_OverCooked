@@ -3,36 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EventManager : MonoBehaviour
+public class EventManager : MonobehaviorSingleton<EventManager>
 {
     // EventManager = Event 관리 
     // 1. 이벤트 멤버들
     // 2. 이벤트 조건
     // 3. 이벤트 행동 
-    private static EventManager instance;
 
     private IEnumerator checkCoroutine;
     private bool isPlaying;
 
-    public static EventManager Instance
-    {
-        get => instance;
-    }
-
     private List<Event> events;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            events = new List<Event>();
-            DontDestroyOnLoad(gameObject);
-        } 
-        else
-        {
-            Destroy(this);
-        }
+        base.Awake();
+
+        events = new List<Event>();
     }
 
     private IEnumerator CheckCoroutine()

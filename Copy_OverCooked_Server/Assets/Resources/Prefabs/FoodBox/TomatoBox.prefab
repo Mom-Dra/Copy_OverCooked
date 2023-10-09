@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3378725128812177918}
   - component: {fileID: 1262922211930418098}
   - component: {fileID: 6987498919083064324}
+  - component: {fileID: -5854962514607569127}
   m_Layer: 0
   m_Name: TomatoBox
   m_TagString: Untagged
@@ -118,9 +119,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a79a55c5fdc06489fe4c36fdbdfaba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: 
+  Description: 
   eObjectType: 0
   IsInteractable: 1
-  containOffset: {x: 0, y: 1, z: 0}
+  maxContainCount: 1
+  displayOffset: {x: 0, y: 1, z: 0}
   getObject: {fileID: 0}
-  containState: 2
   food: {fileID: 2667601602116679972, guid: 94e524b18cd3ec047a6a1c5420844929, type: 3}
+--- !u!114 &-5854962514607569127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3010498099734623817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596f230ca261bd748ac0e41aafdbbf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

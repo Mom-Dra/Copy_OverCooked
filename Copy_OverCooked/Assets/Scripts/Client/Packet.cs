@@ -34,7 +34,6 @@ public enum ETargetType
 
 public class Packet : IDisposable
 {
-    public int clientId; // 송신자 or 수신자
     public EActionCode actionCode;
     public ETargetType targetType;
     public int targetId;
@@ -44,16 +43,14 @@ public class Packet : IDisposable
 
     private int readPos = 0;
 
-    public Packet(int clientId, EActionCode actionCode, ETargetType targetType, int targetId)
+    public Packet(EActionCode actionCode, ETargetType targetType, int targetId)
     {
-        this.clientId = clientId;
         this.actionCode = actionCode;
         this.targetType = targetType;
         this.targetId = targetId;
 
         buffer = new List<byte>();
 
-        Write(clientId);
         Write((int)actionCode);
         Write((int)targetType);
         Write(targetId);
@@ -63,7 +60,6 @@ public class Packet : IDisposable
     {
         readableBuffer = bytes;
 
-        Read(out clientId);
         Read(out int action);
         Read(out int target);
         Read(out targetId);

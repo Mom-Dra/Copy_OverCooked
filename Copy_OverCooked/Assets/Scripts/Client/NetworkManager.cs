@@ -5,14 +5,8 @@ using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
 
-public class NetworkManager : MonoBehaviour
+public class NetworkManager : MonobehaviorSingleton<NetworkManager>
 {
-    private static NetworkManager instance;
-    public static NetworkManager Instance
-    {
-        get => instance;
-    }
-
     private TcpClient tcpClient;
 
     [SerializeField]
@@ -21,24 +15,16 @@ public class NetworkManager : MonoBehaviour
     [SerializeField]
     private int port = 9999;
 
-    private int id;
+    private int clientId;
     private byte[] buffer = new byte[1024];
 
     [SerializeField]
     private string msg;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if(instance == null)
-        {
-            instance = this;
-            ConnectToServer();
-            DontDestroyOnLoad(gameObject);
-        }
-        else if(instance != this)
-        {
-            Destroy(this);
-        }
+        base.Awake();
+        ConnectToServer();
     }
 
     private void ConnectToServer()
@@ -47,9 +33,9 @@ public class NetworkManager : MonoBehaviour
         Debug.Log("서버에 연결 되었습니다.");
 
         int bytesRead = tcpClient.GetStream().Read(buffer, 0, buffer.Length);
-        id = BitConverter.ToInt32(buffer, 0);
+        clientId = BitConverter.ToInt32(buffer, 0);
 
-        Debug.Log($"id: {id}");
+        Debug.Log($"id: {clientId}");
     }
 
     private void Update()
@@ -64,18 +50,11 @@ public class NetworkManager : MonoBehaviour
 
     public void Move(Vector2 vector2)
     {
-        using(Packet packet = new Packet(id, EActionCode.Input, ETargetType.Player, id))
+        using(Packet packet = new Packet(EActionCode.Input, ETargetType.Player, clientId))
         {
             packet.Write((int)EInputType.Move);
+            packet.Write(clientId);
             packet.Write(vector2);
-            Send(packet);
-        }
-    }
-
-    private void Transfroma()
-    {
-        using(Packet packet = new Packet(id, EActionCode.Event, ETargetType.Player, id))
-        {
             Send(packet);
         }
     }
