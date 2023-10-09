@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chopped_Tomato
   m_EditorClassIdentifier: 
   cookingMethod: 0
-  foods:
-  - {fileID: 1933255608683939250, guid: 0fa15ae7dc44e4b43bbbc01a8cfdf025, type: 3}
-  cookedTime: 2
-  cookedFood: {fileID: 7824808185213462443, guid: 946f621bedd351249a040f854623091e, type: 3}
+  ingredients:
+  - {fileID: 2667601602116679972, guid: 94e524b18cd3ec047a6a1c5420844929, type: 3}
+  totalCookDuration: 4
+  cookedFood: {fileID: 8620234310661808743, guid: 946f621bedd351249a040f854623091e, type: 3}
