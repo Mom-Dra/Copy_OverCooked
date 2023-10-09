@@ -36,6 +36,7 @@ public class Hand : Container
 
     public void GrabAndPut()
     {
+        Debug.Log("Space");
         InteractableObject triggerObject = interactor.ClosestInteractableObject;
         if (triggerObject == null)
         {
@@ -63,7 +64,6 @@ public class Hand : Container
         }
         else 
         { 
-            Debug.Log("$$$$");
             InteractableObject triggerObject = interactor.ClosestInteractableObject;
             if (triggerObject != null && triggerObject.TryGet<Reactable>(out Reactable reactObject))
             {

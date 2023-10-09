@@ -15,5 +15,5 @@ MonoBehaviour:
   cookingMethod: 1
   ingredients:
   - {fileID: 5459943901223524774, guid: 2da00b0691a596844825a3380034adf3, type: 3}
-  totalCookDuration: 7
+  totalCookDuration: 3
   cookedFood: {fileID: 7191187785553465461, guid: 05852cf26ad57bf42a8e21bcf13329ea, type: 3}

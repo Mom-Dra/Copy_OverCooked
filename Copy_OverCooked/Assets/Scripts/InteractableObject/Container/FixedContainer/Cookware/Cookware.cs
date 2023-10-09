@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,22 +17,28 @@ public abstract class Cookware : FixedContainer
     private WaitForSeconds waitForTick = new WaitForSeconds(0.1f);
     private IEnumerator currSelectedCoroutine;
 
-    protected override void Put(InteractableObject interactableObject)
+    public override bool TryPut(InteractableObject interactableObject)
     {
-        base.Put(interactableObject);
-        if(getObject.TryGet<Food>(out Food getFood))
+        if (base.TryPut(interactableObject))
         {
-            float currCookDegree = getFood.currCookDegree;
-            if(currCookDegree >= 100)
+            Debug.Log("111");
+            if (getObject.TryGet<Food>(out Food getFood))
             {
-                if (currSelectedCoroutine != null)
+                Debug.Log("222");
+                float currCookDegree = getFood.currCookDegree;
+                if (currCookDegree >= 100)
                 {
-                    StopCoroutine(currSelectedCoroutine);
+                    if (currSelectedCoroutine != null)
+                    {
+                        StopCoroutine(currSelectedCoroutine);
+                    }
+                    currSelectedCoroutine = AddUIStateEvent();
+                    StartCoroutine(currSelectedCoroutine);
                 }
-                currSelectedCoroutine = AddUIStateEvent();
-                StartCoroutine(currSelectedCoroutine);
             }
+            return true;
         }
+        return false;
     }
 
     public override void Remove(InteractableObject interactableObject)
@@ -47,10 +54,8 @@ public abstract class Cookware : FixedContainer
     {
         if (cookwareState != ECookwareState.Complete)
         {
-            Debug.Log("111");
             if (CanCook() && getObject.TryGet<Food>(out Food getFood))
             {
-                Debug.Log("222");
                 if (getFood.currCookDegree < 100)
                 {
                     if (getObject.TryGetComponent<Tray>(out Tray tray))
@@ -59,7 +64,6 @@ public abstract class Cookware : FixedContainer
                     }
                     if (RecipeManager.Instance.TryGetRecipe(cookingMethod, containObjects, out Recipe currRecipe))
                     {
-                        Debug.Log("444");
                         if (currSelectedCoroutine != null)
                         {
                             StopCoroutine(currSelectedCoroutine);
@@ -98,59 +102,31 @@ public abstract class Cookware : FixedContainer
         {
             currFood.currCookDegree += (int)((1 / totalCookDuration) * 10);
             gauge.fillAmount = (float)currFood.currCookDegree / 100;
-            Debug.Log($"Cooking... <color=yellow>{currFood.name}</color> => <color=red>{cookedFood.name}</color> <color=green>## {currFood.currCookDegree}%</color>");
+            Debug.Log($"Cooking... <color=yellow>{currFood.name}</color> => <color=orange>{cookedFood.name}</color> <color=green>## {currFood.currCookDegree}%</color>");
             yield return waitForTick;
         }
         containObjects.Clear();
-        cookedFood.currCookDegree = 100;
-        Utill.Convert(ref getObject, cookedFood);
-        
         cookwareState = ECookwareState.Complete;
-        currSelectedCoroutine = AddUIStateEvent();
-        StartCoroutine(currSelectedCoroutine);
+
+        Food instantiateFood = Instantiate(cookedFood, currFood.transform.position, Quaternion.identity);
+        instantiateFood.currCookDegree = 100;
+        instantiateFood.IsInteractable = false;
+        base.Remove(currFood);
+        Destroy(currFood.gameObject);
+        TryPut(instantiateFood);
     }
+
 
     private IEnumerator AddUIStateEvent()
     {
         EventManager.Instance.AddEvent(new UIStateEvent(this));
-        Food getFood = getObject as Food;
-        while(true)
+        getObject.TryGet<Food>(out Food getFood);
+        while(getFood != null && (IsFirable || getFood.currCookDegree < 160))
         {
             getFood.currCookDegree += 1;
             yield return waitForTick;
         }
     }
-
-    //private IEnumerator UIStateCoroutine()
-    //{
-    //    UIStateTimer uIStateTimer = new UIStateTimer(this);
-    //    Food getFood = getObject as Food;
-    //    IEnumerator currUICoroutine = null;
-    //    while(getObject != null)
-    //    {
-    //        IEnumerator getCoroutine = uIStateTimer.GetCoroutine(getFood.currCookDegree);
-    //        if (getCoroutine != null) 
-    //        {
-    //            if (currUICoroutine != null)
-    //            {
-    //                StopCoroutine(currUICoroutine);
-    //            }
-    //            if(uIImage != null)
-    //            {
-    //                Destroy(uIImage.gameObject);
-    //            }
-    //            currUICoroutine = getCoroutine;
-    //            StartCoroutine(currUICoroutine);
-    //        }
-    //        getFood.currCookDegree += 1;
-    //        yield return waitForTick;
-    //    }
-    //    currSelectedCoroutine = null;
-    //    if(uIImage != null)
-    //    {
-    //        Destroy(uIImage.gameObject);
-    //    }
-    //}
 
     public void StopCook()
     {

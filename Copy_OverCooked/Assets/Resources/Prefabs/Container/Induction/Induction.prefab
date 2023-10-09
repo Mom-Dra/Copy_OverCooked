@@ -225,13 +225,14 @@ MonoBehaviour:
   Name: Induction
   Description: 
   eObjectType: 0
-  uIYOffset: 1
+  uIYOffset: 2.5
   uIImage: {fileID: 0}
   IsInteractable: 1
   maxContainCount: 1
   IsFirable: 1
   displayOffset: {x: 0, y: 1, z: 0}
   getObject: {fileID: 0}
+  containObjects: []
   cookwareState: 0
   cookingMethod: 1
 --- !u!1 &8587979538733561643

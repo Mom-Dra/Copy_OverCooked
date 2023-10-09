@@ -190,6 +190,7 @@ MonoBehaviour:
   IsFirable: 0
   displayOffset: {x: 0, y: 1, z: 0}
   getObject: {fileID: 0}
+  containObjects: []
   cookwareState: 0
   cookingMethod: 0
 --- !u!1 &8889395286778988012

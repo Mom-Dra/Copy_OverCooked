@@ -24,7 +24,7 @@ public class InteractableObject : MonoBehaviour
         return eObjectType;
     }
 
-    public virtual bool TryGet<T> (out T result) 
+    public virtual bool TryGet<T> (out T result, EGetMode getMode = EGetMode.Peek) 
     {
         return TryGetComponent<T>(out result);
     }

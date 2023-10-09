@@ -17,45 +17,60 @@ public class UIStateEvent : Event
 
     private bool ShowCompleteUI()
     {
-        int currDegree = container.getObject.GetComponent<Food>().currCookDegree;
-        if(currDegree >= 100 && currDegree < 160)
-        {
-            if (container.uIImage != null)
-            {
-                GameObject.Destroy(container.uIImage.gameObject);
-            }
-            container.uIImage = InstantiateManager.Instance.InstantiateUI(container, EInGameUIType.Complete);
+        if (!container.HasObject())
             return true;
-        }
+        if (container.TryGet<Food>(out Food food))
+        {
+            int currDegree = food.currCookDegree;
+            if (currDegree >= 100 && currDegree < 160)
+            {
+                if (container.uIImage != null)
+                {
+                    GameObject.Destroy(container.uIImage.gameObject);
+                }
+                container.uIImage = InstantiateManager.Instance.InstantiateUI(container, EInGameUIType.Complete);
+                return true;
+            }
+        }        
         return false;
     }
 
     private bool ShowWarningUI()
     {
-        int currDegree = container.getObject.GetComponent<Food>().currCookDegree;
-        if (currDegree >= 160 && currDegree < 200)
-        {
-            if (container.uIImage != null)
-            {
-                GameObject.Destroy(container.uIImage.gameObject);
-            }
-            container.uIImage = InstantiateManager.Instance.InstantiateUI(container, EInGameUIType.Warning);
+        if (!container.HasObject())
             return true;
+        if (container.TryGet<Food>(out Food food))
+        {
+            int currDegree = food.currCookDegree;
+            if (currDegree >= 160 && currDegree < 200)
+            {
+                if (container.uIImage != null)
+                {
+                    GameObject.Destroy(container.uIImage.gameObject);
+                }
+                container.uIImage = InstantiateManager.Instance.InstantiateUI(container, EInGameUIType.Warning);
+                return true;
+            }
         }
         return false;
     }
 
     private bool ShowOverheatUI()
     {
-        int currDegree = container.getObject.GetComponent<Food>().currCookDegree;
-        if (currDegree >= 200)
-        {
-            if (container.uIImage != null)
-            {
-                GameObject.Destroy(container.uIImage.gameObject);
-            }
-            container.uIImage = InstantiateManager.Instance.InstantiateUI(container, EInGameUIType.Overheat);
+        if (!container.HasObject())
             return true;
+        if (container.TryGet<Food>(out Food food))
+        {
+            int currDegree = food.currCookDegree;
+            if (currDegree >= 200)
+            {
+                if (container.uIImage != null)
+                {
+                    GameObject.Destroy(container.uIImage.gameObject);
+                }
+                container.uIImage = InstantiateManager.Instance.InstantiateUI(container, EInGameUIType.Overheat);
+                return true;
+            }
         }
         return false;
     }

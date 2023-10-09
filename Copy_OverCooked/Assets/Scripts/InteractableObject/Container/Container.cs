@@ -36,7 +36,7 @@ public class Container : InteractableObject
         return getObject != null;
     }
 
-    public override bool TryGet<T>(out T result)
+    public override bool TryGet<T>(out T result, EGetMode getMode = EGetMode.Peek)
     {
         result = default(T);
         if (base.TryGet<T>(out T value))
@@ -44,8 +44,7 @@ public class Container : InteractableObject
             result = value;
         } else if (getObject != null)
         {
-            getObject.TryGet<T>(out T value2);
-            if (CanGet())
+            if (getObject.TryGet<T>(out T value2) && (getMode == EGetMode.Peek || CanGet()))
             {
                 result = value2;
             }
@@ -65,7 +64,7 @@ public class Container : InteractableObject
         if(getObject == interactableObject)
         {
             getObject = null;
-            containObjects.Remove(interactableObject);
+            containObjects.Clear();
         }else if (getObject != null && getObject.TryGet<Container>(out Container container))
         {
             container.Remove(interactableObject);
@@ -105,7 +104,8 @@ public class Container : InteractableObject
 
     public override EObjectType GetShownType()
     {
-        if(getObject != null)
+        Debug.Log("GetShownType");
+        if (getObject != null)
         {
             return getObject.GetShownType();
         }
