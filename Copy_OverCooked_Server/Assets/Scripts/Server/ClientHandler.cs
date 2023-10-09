@@ -33,7 +33,10 @@ public class ClientHandler
 
         if(readLength > 0)
         {
-            DecodePacket(readLength);
+            using (Packet packet = new Packet(buffer.Take(readLength).ToArray()))
+            {
+                PacketHandler.Invoke(packet);
+            }
             //string message = Encoding.UTF8.GetString(buffer, 0, readLength);
             //Debug.Log($"{id}로 부터 받은 메시지: {message}, 크기: {readLength}");
         }
@@ -41,20 +44,6 @@ public class ClientHandler
         tcpClient.GetStream().BeginRead(buffer, 0, buffer.Length, ReadCallback, tcpClient);
     }
 
-    private void DecodePacket(int readLength)
-    {
-        using (Packet packet = new Packet(buffer.Take(readLength).ToArray()))
-        {
-            PacketHandler.Invoke(packet);
-        }
-    }
-
-    private void Move(Packet packet)
-    {
-        int targetId = packet.targetId;
-        packet.Read(out int direction);
-        // Move
-    }
 
     private void Alt()
     {

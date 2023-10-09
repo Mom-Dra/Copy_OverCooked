@@ -1,8 +1,8 @@
+#define NETWORK_MODE 
+
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
-
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,10 +15,14 @@ public class PlayerController : MonoBehaviour
         this.player = player;
     }
 
+
     public void OnMove(InputValue value) // Move
     {
-        Vector2 input = value.Get<Vector2>();
-        player.SetMoveDirection(new Vector3(input.x, 0f, input.y));
+
+        NetworkManager.Instance.Move(value.Get<Vector2>());
+
+        //Vector2 input = value.Get<Vector2>();
+        //player.SetMoveDirection(new Vector3(input.x, 0f, input.y));
     }
 
     public void OnGrabAndPut() // Space 
