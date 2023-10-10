@@ -8,13 +8,18 @@ public class Induction : Cookware
         {
             if (TryGet<Food>(out Food food))
             {
-                Debug.Log("Induction");
                 TryCook();
             }
             return true;
         }
         return false;
     }
+
+    protected override bool IsValidObject(InteractableObject interactableObject)
+    {
+        return base.IsValidObject(interactableObject) && interactableObject.TryGetComponent<FryingPan>(out FryingPan value);
+    }
+
     protected override bool CanCook()
     {
         return true;

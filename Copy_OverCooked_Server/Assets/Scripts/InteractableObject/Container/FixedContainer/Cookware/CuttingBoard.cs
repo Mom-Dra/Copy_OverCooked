@@ -23,6 +23,6 @@ public class CuttingBoard : Cookware, Reactable
     protected override bool CanGet()
     {
         Food getFood = getObject as Food;
-        return cookwareState != ECookwareState.Cook || getFood.currCookDegree < 10;
+        return cookwareState != ECookwareState.Cook || (cookwareState == ECookwareState.Cook && getFood.currCookDegree < 5);
     }
 }

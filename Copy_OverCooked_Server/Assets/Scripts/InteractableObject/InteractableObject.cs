@@ -19,6 +19,8 @@ public class InteractableObject : MonoBehaviour
     [HideInInspector]
     public bool IsInteractable = true;
 
+    
+
     public virtual EObjectType GetShownType()
     {
         return eObjectType;

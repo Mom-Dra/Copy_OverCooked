@@ -37,31 +37,38 @@ public abstract class Cookware : FixedContainer
 
     public override void Remove(InteractableObject interactableObject)
     {
-        base.Remove(interactableObject);
-        if (getObject == null)
+        if (uIImage != null)
         {
-            StopCook();
+            if (cookwareState == ECookwareState.Overheat && getObject.TryGet<Food>(out Food getFood))
+            {
+                getFood.uIImage = uIImage;
+            } 
+            else
+            {
+                Destroy(uIImage.gameObject);
+            }
+            uIImage = null;
         }
+
+        base.Remove(interactableObject);
+        StopSelectedCoroutine();
+        cookwareState = ECookwareState.Idle;
     }
 
     protected bool TryCook()
     {
         if (cookwareState != ECookwareState.Complete)
         {
-            Debug.Log("111");
             if (CanCook() && getObject.TryGet<Food>(out Food getFood))
             {
-                Debug.Log("222");
                 if (getFood.currCookDegree < 100)
                 {
-                    Debug.Log("333");
                     if (getObject.TryGetComponent<Tray>(out Tray tray))
                     {
                         containObjects = tray.containObjects;
                     }
                     if (RecipeManager.Instance.TryGetRecipe(cookingMethod, containObjects, out Recipe currRecipe))
                     {
-                        Debug.Log("444");
                         if (currSelectedCoroutine != null)
                         {
                             StopCoroutine(currSelectedCoroutine);
@@ -119,26 +126,20 @@ public abstract class Cookware : FixedContainer
     {
         EventManager.Instance.AddEvent(new UIStateEvent(this));
         getObject.TryGet<Food>(out Food getFood);
-        while (getFood != null && (IsFirable || getFood.currCookDegree < 160))
+        while (getFood != null && getFood.currCookDegree <= 200 && (IsFirable || getFood.currCookDegree < 160))
         {
             getFood.currCookDegree += 1;
             yield return waitForTick;
         }
     }
 
-    public void StopCook()
+    public void StopSelectedCoroutine()
     {
         if (currSelectedCoroutine != null)
         {
             StopCoroutine(currSelectedCoroutine);
             currSelectedCoroutine = null;
         }
-        if (cookwareState != ECookwareState.Cook && uIImage != null)
-        {
-            Destroy(uIImage.gameObject);
-            uIImage = null;
-        }
-        cookwareState = ECookwareState.Idle;
     }
 
     protected abstract bool CanCook();

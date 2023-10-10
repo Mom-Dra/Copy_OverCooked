@@ -18,7 +18,7 @@ public class ChopEvent : Event
         {
             if (cookware.cookwareState == ECookwareState.Cook)
             {
-                cookware.StopCook();
+                cookware.StopSelectedCoroutine();
             }
             player.SetBoolAnimation(EAnimationType.Chop, false);
             return true;

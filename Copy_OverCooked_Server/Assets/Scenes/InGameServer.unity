@@ -2740,6 +2740,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plate
       objectReference: {fileID: 0}
+    - target: {fileID: 4926228850746513820, guid: abffe6cbd3abac54baf751f927767135, type: 3}
+      propertyPath: IsFirable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8024642140856387402, guid: abffe6cbd3abac54baf751f927767135, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.996
