@@ -2,13 +2,18 @@ using UnityEngine;
 
 public class Induction : Cookware
 {
-    protected override void Put(InteractableObject interactableObject)
+    public override bool TryPut(InteractableObject interactableObject)
     {
-        base.Put(interactableObject);
-        if(TryGet<Food>(out Food food))
+        if (base.TryPut(interactableObject))
         {
-            TryCook();
+            if (TryGet<Food>(out Food food))
+            {
+                Debug.Log("Induction");
+                TryCook();
+            }
+            return true;
         }
+        return false;
     }
     protected override bool CanCook()
     {

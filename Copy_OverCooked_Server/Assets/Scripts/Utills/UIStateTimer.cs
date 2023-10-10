@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEngine;
 
 public class UIStateTimer
 {
@@ -12,5 +11,5 @@ public class UIStateTimer
     {
         yield return null;
     }
-    
+
 }

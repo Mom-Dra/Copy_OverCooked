@@ -9,8 +9,14 @@ public enum EInGameUIType
     Overheat
 }
 
-public class InstantiateManager : MonobehaviorSingleton<InstantiateManager>
+public class InstantiateManager : MonoBehaviour
 {
+    private static InstantiateManager instance;
+    public static InstantiateManager Instance
+    {
+        get => instance;
+    }
+
     [Header("InGame UI")]
     [SerializeField]
     private Image progressImage;
@@ -20,6 +26,18 @@ public class InstantiateManager : MonobehaviorSingleton<InstantiateManager>
     private Image warningImage;
     [SerializeField]
     private Image overheatImage;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        } else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public Image InstantiateUI(InteractableObject interactableObject, EInGameUIType uIType)
     {
@@ -39,7 +57,7 @@ public class InstantiateManager : MonobehaviorSingleton<InstantiateManager>
                 showImage = overheatImage;
                 break;
         }
-        Vector3 showPos = Camera.main.WorldToScreenPoint(interactableObject.transform.position + interactableObject.uIOffset);
+        Vector3 showPos = Camera.main.WorldToScreenPoint(interactableObject.transform.position + new Vector3(0, interactableObject.uIYOffset, 0));
         return Instantiate(showImage, showPos, Quaternion.identity, GameObject.Find("Canvas").transform);
     }
 }

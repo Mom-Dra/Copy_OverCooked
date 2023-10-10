@@ -10,30 +10,21 @@ public class InteractableObject : MonoBehaviour
     [SerializeField]
     protected string Description;
     [SerializeField]
-    public EObjectType eObjectType;
-    
-    public Vector3 uIOffset = Vector3.up;
+    protected EObjectType eObjectType;
 
-    protected Image uIImage;
+    public float uIYOffset = 1f;
 
+    public Image uIImage;
 
     [HideInInspector]
     public bool IsInteractable = true;
-
-    private void FixedUpdate()
-    {
-        if (uIImage != null)
-        {
-            uIImage.transform.position = Camera.main.WorldToScreenPoint(transform.position + uIOffset);
-        }
-    }
 
     public virtual EObjectType GetShownType()
     {
         return eObjectType;
     }
 
-    public virtual bool TryGet<T> (out T result) 
+    public virtual bool TryGet<T>(out T result, EGetMode getMode = EGetMode.Peek)
     {
         return TryGetComponent<T>(out result);
     }

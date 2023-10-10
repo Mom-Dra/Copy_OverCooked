@@ -9,11 +9,11 @@ public class RecipeManager : MonobehaviorSingleton<RecipeManager>
     public bool TryGetRecipe(ECookingMethod eCookingMethod, List<InteractableObject> foods, out Recipe outRecipe)
     {
         outRecipe = default(Recipe);
-        foreach(Recipe recipe in recipes)
+        foreach (Recipe recipe in recipes)
         {
-            if(recipe.Equal(eCookingMethod, foods))
+            if (recipe.Equal(eCookingMethod, foods))
             {
-                outRecipe = recipe; 
+                outRecipe = recipe;
                 break;
             }
         }

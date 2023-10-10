@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
-using System.Text;
-using UnityEngine;
 
 public class ClientHandler
 {
@@ -31,7 +27,7 @@ public class ClientHandler
 
         int readLength = stream.EndRead(result);
 
-        if(readLength > 0)
+        if (readLength > 0)
         {
             using (Packet packet = new Packet(buffer.Take(readLength).ToArray()))
             {

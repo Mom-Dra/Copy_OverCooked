@@ -20,7 +20,7 @@ public static class Utill
         return Resources.Load<T>($"Prefabs/{path}");
     }
 
-    public static void DebugName(this GameObject gameObject, string message="", EDebugColor color = EDebugColor.Yellow)
+    public static void DebugName(this GameObject gameObject, string message = "", EDebugColor color = EDebugColor.Yellow)
     {
         Debug.Log($"<color={color.ToString().ToLower()}>[{gameObject.name}] : {message} </color>");
     }

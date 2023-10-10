@@ -13,7 +13,7 @@ public class FireTriggerBox : MonoBehaviour
     {
         //if (other.TryGetComponent<Food>(out Food food))
         //{
-            
+
         //}
     }
 }

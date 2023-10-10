@@ -31,7 +31,7 @@ public class UIStateEvent : Event
                 container.uIImage = InstantiateManager.Instance.InstantiateUI(container, EInGameUIType.Complete);
                 return true;
             }
-        }        
+        }
         return false;
     }
 

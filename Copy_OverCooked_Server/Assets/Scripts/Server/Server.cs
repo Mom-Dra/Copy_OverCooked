@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Net.Sockets;
-using System.Net;
-using System.Threading.Tasks;
 using System;
-using System.Text;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
 
 
 public class Server : MonobehaviorSingleton<Server>
@@ -40,7 +36,7 @@ public class Server : MonobehaviorSingleton<Server>
 
     public void SendToAllClients(Packet packet)
     {
-        foreach(ClientHandler clientHandler in clientDic.Values)
+        foreach (ClientHandler clientHandler in clientDic.Values)
         {
             clientHandler.Send(packet);
         }

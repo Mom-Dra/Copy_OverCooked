@@ -1,8 +1,5 @@
-using JetBrains.Annotations;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PacketHandler
@@ -28,11 +25,11 @@ public class PacketHandler
     {
         packet.Read(out int inputType);
         EInputType eInput = (EInputType)inputType;
-        switch(eInput)
+        switch (eInput)
         {
             case EInputType.Move:
-                Move(packet); 
-                break; 
+                Move(packet);
+                break;
         }
     }
 
@@ -47,10 +44,10 @@ public class PacketHandler
 
     private static void EventCommand(Packet packet)
     {
-        
+
     }
 
-    
+
 
 
 }

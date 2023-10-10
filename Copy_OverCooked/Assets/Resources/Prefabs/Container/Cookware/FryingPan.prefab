@@ -344,7 +344,6 @@ GameObject:
   - component: {fileID: 782837592}
   - component: {fileID: 7961465698479112129}
   - component: {fileID: 5825258779506995646}
-  - component: {fileID: 3292409800752684329}
   m_Layer: 10
   m_Name: FryingPan
   m_TagString: Cookware
@@ -371,7 +370,6 @@ Transform:
   - {fileID: 4615490441847828198}
   - {fileID: 975292257606715641}
   - {fileID: 5038054457998732878}
-  - {fileID: 2853828568562653675}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &782837592
@@ -464,29 +462,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3292409800752684329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5350805098027501781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6c85ffa81f21541bd563c635c0baae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Frying Pan
-  Description: 
-  eObjectType: 1
-  uIYOffset: 2
-  uIImage: {fileID: 0}
-  IsInteractable: 1
-  maxContainCount: 1
-  IsFirable: 1
-  displayOffset: {x: 0, y: 0.3, z: 0}
-  getObject: {fileID: 0}
-  containObjects: []
 --- !u!1 &6430025013051586919
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,65 +628,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &2501152725681660289
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 2825111134334188137}
-    m_Modifications:
-    - target: {fileID: 373575364205131882, guid: 2ea9dff7baf05744593ba9cbbb41c191, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 373575364205131882, guid: 2ea9dff7baf05744593ba9cbbb41c191, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 373575364205131882, guid: 2ea9dff7baf05744593ba9cbbb41c191, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 373575364205131882, guid: 2ea9dff7baf05744593ba9cbbb41c191, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 373575364205131882, guid: 2ea9dff7baf05744593ba9cbbb41c191, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 373575364205131882, guid: 2ea9dff7baf05744593ba9cbbb41c191, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 373575364205131882, guid: 2ea9dff7baf05744593ba9cbbb41c191, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 373575364205131882, guid: 2ea9dff7baf05744593ba9cbbb41c191, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 373575364205131882, guid: 2ea9dff7baf05744593ba9cbbb41c191, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 373575364205131882, guid: 2ea9dff7baf05744593ba9cbbb41c191, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3057679748676991014, guid: 2ea9dff7baf05744593ba9cbbb41c191, type: 3}
-      propertyPath: m_Name
-      value: TriggerBox
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2ea9dff7baf05744593ba9cbbb41c191, type: 3}
---- !u!4 &2853828568562653675 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 373575364205131882, guid: 2ea9dff7baf05744593ba9cbbb41c191, type: 3}
-  m_PrefabInstance: {fileID: 2501152725681660289}
-  m_PrefabAsset: {fileID: 0}

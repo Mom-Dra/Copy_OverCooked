@@ -6,36 +6,9 @@ using System.Text;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
-public enum EActionCode
-{
-    Input,
-    Event,
-    Transform,
-    Instantiate,
-    Active,
-    Animation,
-    Sound
-}
-
-public enum EInputType
-{
-    Move,
-    Alt,
-    Space,
-    Ctrl
-}
-
-public enum ETargetType
-{
-    Player,
-    Object,
-    UI
-}
-
 public class Packet : IDisposable
 {
     public EActionCode actionCode;
-    public ETargetType targetType;
     public int targetId;
 
     private List<byte> buffer;
@@ -43,16 +16,14 @@ public class Packet : IDisposable
 
     private int readPos = 0;
 
-    public Packet(EActionCode actionCode, ETargetType targetType, int targetId)
+    public Packet(EActionCode actionCode, int targetId)
     {
         this.actionCode = actionCode;
-        this.targetType = targetType;
         this.targetId = targetId;
 
         buffer = new List<byte>();
 
         Write((int)actionCode);
-        Write((int)targetType);
         Write(targetId);
     }
 
@@ -65,7 +36,6 @@ public class Packet : IDisposable
         Read(out targetId);
 
         actionCode = (EActionCode)action;
-        targetType = (ETargetType)target;
     }
 
     private bool CanRead()
@@ -277,12 +247,6 @@ public class Packet : IDisposable
     }
 
     #endregion
-
-
-    //public byte[] ToByteArr()
-    //{
-    //    //Vector2 a = new Vector2();
-    //}
 
     public void Dispose()
     {

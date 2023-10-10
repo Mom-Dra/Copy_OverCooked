@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7529910666848623975}
-  - component: {fileID: 3314129137896380405}
   - component: {fileID: 6350242575095495046}
   - component: {fileID: 2904311953250218039}
   - component: {fileID: 4863927729737380505}
@@ -40,25 +39,6 @@ Transform:
   - {fileID: 2753560765812517122}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3314129137896380405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111102688129036984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4acebcecd3c4d43ad97352768cd682, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Id: 2122
-  Name: Fire Extinguisher
-  Description: 
-  objectType: 0
-  uIOffset: {x: 0, y: 80, z: 0}
-  uIImage: {fileID: 0}
-  IsInteractable: 1
 --- !u!65 &6350242575095495046
 BoxCollider:
   m_ObjectHideFlags: 0

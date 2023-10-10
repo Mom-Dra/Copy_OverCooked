@@ -226,12 +226,16 @@ MonoBehaviour:
   Name: Induction
   Description: 
   eObjectType: 0
+  uIYOffset: 2.5
+  uIImage: {fileID: 0}
   IsInteractable: 1
   maxContainCount: 1
+  IsFirable: 1
   displayOffset: {x: 0, y: 1, z: 0}
   getObject: {fileID: 0}
+  containObjects: []
   cookwareState: 0
-  cookingMethod: 0
+  cookingMethod: 1
 --- !u!114 &-4250746294309890776
 MonoBehaviour:
   m_ObjectHideFlags: 0

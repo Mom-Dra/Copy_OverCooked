@@ -25,6 +25,7 @@ public class Hand : Container
         interactor = GetComponentInChildren<Interactor>();
         player = transform.parent.GetComponent<Player>();
     }
+
     public void HoldOut()
     {
         getObject.Free();
@@ -35,6 +36,7 @@ public class Hand : Container
 
     public void GrabAndPut()
     {
+        Debug.Log("Space");
         InteractableObject triggerObject = interactor.ClosestInteractableObject;
         if (triggerObject == null)
         {
@@ -44,24 +46,21 @@ public class Hand : Container
             }
             return;
         }
-        
         InteractManager.Instance.Match(this, triggerObject);
     }
 
     public void InteractAndThrow()
     {
-        if(HasObject())
+        if (HasObject())
         {
-            if(getObject.TryGetComponent<Food>(out Food food))
+            if (getObject.TryGetComponent<Food>(out Food food))
             {
                 Throw();
-            }
-            else if(getObject.TryGet<Reactable>(out Reactable reactObject))
+            } else if (getObject.TryGet<Reactable>(out Reactable reactObject))
             {
                 reactObject.React(player);
             }
-        }
-        else
+        } else
         {
             InteractableObject triggerObject = interactor.ClosestInteractableObject;
             if (triggerObject != null && triggerObject.TryGet<Reactable>(out Reactable reactObject))

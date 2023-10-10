@@ -6,14 +6,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Player Controller")]
-    [SerializeField]
-    private Player player;
+    //[Header("Player Controller")]
+    //[SerializeField]
+    //private Player player;
 
-    public void SetPlayer(Player player)
-    {
-        this.player = player;
-    }
+    //public void SetPlayer(Player player)
+    //{
+    //    this.player = player;
+    //}
 
     public void OnMove(InputValue value) // Move
     {
@@ -25,16 +25,16 @@ public class PlayerController : MonoBehaviour
 
     public void OnGrabAndPut() // Space 
     {
-        player.GrabAndPut();
+        //player.GrabAndPut();
     }
 
     public void OnInteractAndThrow() // Ctrl
     {
-        player.InteractAndThrow();
+        //player.InteractAndThrow();
     }
 
     public void OnDash() // Alt
     {
-        player.Dash();
+        //player.Dash();
     }
 }

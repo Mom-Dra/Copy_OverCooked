@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 5320969170728805736}
   - component: {fileID: 4861379820422660259}
   - component: {fileID: 1160831691375803069}
-  - component: {fileID: 5256896712239470026}
   m_Layer: 0
   m_Name: Induction
   m_TagString: Untagged
@@ -210,31 +209,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5256896712239470026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2622317581136035845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3b4210990a2934da9a41dbb1ef55ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Induction
-  Description: 
-  eObjectType: 0
-  uIYOffset: 2.5
-  uIImage: {fileID: 0}
-  IsInteractable: 1
-  maxContainCount: 1
-  IsFirable: 1
-  displayOffset: {x: 0, y: 1, z: 0}
-  getObject: {fileID: 0}
-  containObjects: []
-  cookwareState: 0
-  cookingMethod: 1
 --- !u!1 &8587979538733561643
 GameObject:
   m_ObjectHideFlags: 0

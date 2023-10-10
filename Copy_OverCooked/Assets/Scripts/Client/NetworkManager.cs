@@ -50,7 +50,7 @@ public class NetworkManager : MonobehaviorSingleton<NetworkManager>
 
     public void Move(Vector2 vector2)
     {
-        using(Packet packet = new Packet(EActionCode.Input, ETargetType.Player, clientId))
+        using(Packet packet = new Packet(EActionCode.Input, clientId))
         {
             packet.Write((int)EInputType.Move);
             packet.Write(clientId);

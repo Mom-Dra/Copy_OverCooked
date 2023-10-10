@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,7 +26,7 @@ public class NetworkObjectManager : MonobehaviorSingleton<NetworkObjectManager>
 
     public void Add(NetworkObject obj)
     {
-        Debug.Log($"Set ID : {obj.gameObject.name} -> {s_nextId}");
+        //Debug.Log($"Set ID : {obj.gameObject.name} -> {s_nextId}");
         obj.SetId(s_nextId);
         objectDic.Add(s_nextId++, obj);
     }
@@ -39,7 +38,7 @@ public class NetworkObjectManager : MonobehaviorSingleton<NetworkObjectManager>
 
     public void UploadObjects(ClientHandler clientHandler)
     {
-        foreach(NetworkObject obj in objectDic.Values)
+        foreach (NetworkObject obj in objectDic.Values)
         {
             using (Packet packet = new Packet(EActionCode.Instantiate, obj.GetId()))
             {

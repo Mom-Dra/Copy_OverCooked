@@ -1,6 +1,5 @@
-using UnityEngine;
 using System.Collections;
-using UnityEditorInternal;
+using UnityEngine;
 
 public enum EAnimationType
 {
@@ -18,7 +17,7 @@ public class Player : MonoBehaviour
 
     private Rigidbody rigid;
     private Vector3 moveDirection;
-    
+
 
     [Header("Status")]
     [SerializeField]
@@ -28,12 +27,12 @@ public class Player : MonoBehaviour
     private float dashSpeed;
     private float applyDashSpeed;
 
-    
+
     [SerializeField]
     private float dashTime;
     private WaitForSeconds dashTimeWaitForsecond;
 
-    
+
     [SerializeField]
     private float dashCoolDownTime;
     private WaitForSeconds dashDelayWaitForSecond;

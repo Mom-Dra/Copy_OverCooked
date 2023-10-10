@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class Packet : IDisposable
@@ -30,7 +27,7 @@ public class Packet : IDisposable
     public Packet(byte[] bytes)
     {
         readableBuffer = bytes;
-        
+
         Read(out int action);
         Read(out int target);
         Read(out targetId);
@@ -55,7 +52,7 @@ public class Packet : IDisposable
         buffer.AddRange(BitConverter.GetBytes(value));
     }
 
-    public void Write(double value) 
+    public void Write(double value)
     {
         buffer.AddRange(BitConverter.GetBytes(value));
     }
@@ -135,7 +132,7 @@ public class Packet : IDisposable
 
     public void Read(out double value)
     {
-        if(!CanRead())
+        if (!CanRead())
         {
             throw new Exception("Could not read value of type 'double'!");
         }

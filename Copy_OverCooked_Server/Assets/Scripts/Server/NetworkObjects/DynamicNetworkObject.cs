@@ -6,7 +6,7 @@ public class DynamicNetworkObject : NetworkObject
 
     private void FixedUpdate()
     {
-        if(prevPosition != transform.position)
+        if (prevPosition != transform.position)
         {
             Packet packet = new Packet(EActionCode.Transform, id);
             Server.Instance.SendToAllClients(packet);
