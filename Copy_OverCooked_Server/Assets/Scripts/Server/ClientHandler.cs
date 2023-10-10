@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Net.Sockets;
+using UnityEngine;
 
 public class ClientHandler
 {
@@ -31,7 +32,9 @@ public class ClientHandler
         {
             using (Packet packet = new Packet(buffer.Take(readLength).ToArray()))
             {
-                PacketHandler.Invoke(packet);
+                Debug.Log($"<color=magenta> clientId: {id}, {packet} </color>");
+
+                PacketHandle.Invoke(packet);
             }
             //string message = Encoding.UTF8.GetString(buffer, 0, readLength);
             //Debug.Log($"{id}로 부터 받은 메시지: {message}, 크기: {readLength}");

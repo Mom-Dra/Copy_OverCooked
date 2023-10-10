@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PacketSend
+{
+
+    public static void UploadMapDataToClient(int clientId)
+    {
+        foreach (NetworkObject obj in NetworkObjectManager.Instance.ObjectDic)
+        {
+            InteractableObject interactableObject = obj.GetComponent<InteractableObject>();
+            using (Packet packet = new Packet(EActionCode.Instantiate, obj.GetId()))
+            {
+                packet.Write((int)EInstantiateType.Instantiate);
+                packet.Write((int)interactableObject.ObjectSerialCode);
+                packet.Write(obj.transform.position);
+                packet.Write(obj.transform.rotation);
+                Server.Instance.SendToClient(packet, clientId);
+            }
+        }
+    }
+}

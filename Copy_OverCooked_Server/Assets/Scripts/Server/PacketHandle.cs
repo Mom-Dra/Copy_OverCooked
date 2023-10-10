@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PacketHandler
+public class PacketHandle
 {
     private static Dictionary<int, Action<Packet>> actionDics;
 
@@ -33,6 +33,19 @@ public class PacketHandler
         }
     }
 
+    private static void EventCommand(Packet packet)
+    {
+        int clientId = packet.targetId;
+        packet.Read(out int eventType);
+        EEventType eEventType = (EEventType)eventType;
+        switch (eEventType)
+        {
+            case EEventType.SceneLoaded:
+                PacketSend.UploadMapDataToClient(clientId);
+                break;
+        }
+    }
+
     private static void Move(Packet packet)
     {
         int targetId = packet.targetId;
@@ -42,10 +55,7 @@ public class PacketHandler
         movePlayer.SetMoveDirection(new Vector3(direction.x, 0f, direction.y));
     }
 
-    private static void EventCommand(Packet packet)
-    {
-
-    }
+    
 
 
 

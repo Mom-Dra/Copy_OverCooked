@@ -11,6 +11,10 @@ public class InteractableObject : MonoBehaviour
     protected string Description;
     [SerializeField]
     protected EObjectType eObjectType;
+    [SerializeField]
+    protected EObjectSerialCode objectSerialCode;
+
+    public EObjectSerialCode ObjectSerialCode { get; }
 
     public float uIYOffset = 1f;
 

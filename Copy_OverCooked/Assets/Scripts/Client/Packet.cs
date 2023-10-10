@@ -261,5 +261,19 @@ public class Packet : IDisposable
     {
         return buffer.ToArray();
     }
+
+    public override string ToString()
+    {
+        int length = 0;
+        if (readableBuffer != null)
+        {
+            length = readableBuffer.Length;
+        }
+        else if(buffer != null)
+        {
+            length = buffer.Count;
+        }
+        return $"ActionCode: {actionCode}, TargetId: {targetId}, BufferLength: {length}";
+    }
 }
 

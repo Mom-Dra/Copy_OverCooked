@@ -47,9 +47,10 @@ public class PacketHandler
         packet.Read(out int type); // 1 : instantiate, 2 : Destroy
         if ((EInstantiateType)type == EInstantiateType.Instantiate)
         {
+            packet.Read(out int serialCode);
             packet.Read(out Vector3 position);
             packet.Read(out Quaternion rotation);
-            // 생성
+            // <책갈피>
             
         }
         else

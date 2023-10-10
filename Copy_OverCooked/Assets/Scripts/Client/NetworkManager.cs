@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class NetworkManager : MonobehaviorSingleton<NetworkManager>
 {
@@ -16,51 +17,43 @@ public class NetworkManager : MonobehaviorSingleton<NetworkManager>
     private int port = 9999;
 
     private int clientId;
-    private byte[] buffer = new byte[1024];
 
-    [SerializeField]
-    private string msg;
+    public int ClientId { get; }
+
+    private byte[] buffer = new byte[1024];
 
     protected override void Awake()
     {
         base.Awake();
-        ConnectToServer();
+        //ConnectToServer();
     }
 
-    private void ConnectToServer()
+    public void ConnectToServer(string hostIP, UnityAction connectSuccessCallBack, UnityAction connectFailCallBack)
     {
-        tcpClient = new TcpClient(hostIP, port);
-        Debug.Log("서버에 연결 되었습니다.");
-
-        int bytesRead = tcpClient.GetStream().Read(buffer, 0, buffer.Length);
-        clientId = BitConverter.ToInt32(buffer, 0);
-
-        Debug.Log($"id: {clientId}");
-    }
-
-    private void Update()
-    {
-
-        if (Input.GetKeyDown(KeyCode.Q))
+        try
         {
-            byte[] sendBytes = Encoding.UTF8.GetBytes(msg);
-            tcpClient.GetStream().Write(sendBytes);
+            tcpClient = new TcpClient(hostIP, port);
+            Debug.Log("서버에 연결 되었습니다.");
+
+            int bytesRead = tcpClient.GetStream().Read(buffer, 0, buffer.Length);
+            clientId = BitConverter.ToInt32(buffer, 0);
+
+            Debug.Log($"id: {clientId}");
+
+            connectSuccessCallBack.Invoke();
+        }
+        catch (Exception e)
+        {
+            Debug.Log("서버에 연결 실패했습니다.");
+            Debug.LogException(e);
+            connectFailCallBack.Invoke();
         }
     }
 
-    public void Move(Vector2 vector2)
+    public void Send(Packet packet)
     {
-        using(Packet packet = new Packet(EActionCode.Input, clientId))
-        {
-            packet.Write((int)EInputType.Move);
-            packet.Write(clientId);
-            packet.Write(vector2);
-            Send(packet);
-        }
-    }
+        Debug.Log($"<color=magenta> {packet} </color>");
 
-    private void Send(Packet packet)
-    {
         tcpClient.GetStream().Write(packet.ToByteArray());
     }
 }

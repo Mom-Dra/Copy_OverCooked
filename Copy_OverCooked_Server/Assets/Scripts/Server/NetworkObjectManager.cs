@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,8 @@ public class NetworkObjectManager : MonobehaviorSingleton<NetworkObjectManager>
 {
     private static int s_nextId = 1;
     private Dictionary<int, NetworkObject> objectDic;
+
+    public Dictionary<int, NetworkObject>.ValueCollection ObjectDic { get => objectDic.Values; }
 
     protected override void Awake()
     {
@@ -36,17 +39,5 @@ public class NetworkObjectManager : MonobehaviorSingleton<NetworkObjectManager>
         return objectDic[id];
     }
 
-    public void UploadObjects(ClientHandler clientHandler)
-    {
-        foreach (NetworkObject obj in objectDic.Values)
-        {
-            using (Packet packet = new Packet(EActionCode.Instantiate, obj.GetId()))
-            {
-                packet.Write((int)EInstantiateType.Instantiate);
-                packet.Write(obj.transform.position);
-                packet.Write(obj.transform.rotation);
-                clientHandler.Send(packet);
-            }
-        }
-    }
+    
 }

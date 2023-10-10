@@ -15,7 +15,7 @@ public class Server : MonobehaviorSingleton<Server>
         base.Awake();
         tcpListener.Start();
         tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
-        PacketHandler.Init();
+        PacketHandle.Init();
     }
 
     private void TCPConnectCallback(IAsyncResult result)
@@ -29,9 +29,13 @@ public class Server : MonobehaviorSingleton<Server>
         networkStream.Write(sendId, 0, sendId.Length);
 
         clientHandler.BeginRead();
-        NetworkObjectManager.Instance.UploadObjects(clientHandler);
 
         tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
+    }
+
+    public void SendToClient(Packet packet, int clientId)
+    {
+        clientDic[clientId].Send(packet);
     }
 
     public void SendToAllClients(Packet packet)
