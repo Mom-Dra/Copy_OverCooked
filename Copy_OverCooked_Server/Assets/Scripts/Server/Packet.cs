@@ -6,36 +6,9 @@ using System.Text;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
-public enum EActionCode
-{
-    Input,
-    Event,
-    Transform,
-    Instantiate,
-    Active,
-    Animation,
-    Sound
-}
-
-public enum EInputType
-{
-    Move,
-    Alt,
-    Space,
-    Ctrl
-}
-
-public enum ETargetType
-{
-    Player,
-    Object,
-    UI
-}
-
 public class Packet : IDisposable
 {
     public EActionCode actionCode;
-    //public ETargetType targetType;
     public int targetId;
 
     private List<byte> buffer;
@@ -275,11 +248,6 @@ public class Packet : IDisposable
 
     #endregion
 
-
-    //public byte[] ToByteArr()
-    //{
-    //    //Vector2 a = new Vector2();
-    //}
 
     public void Dispose()
     {
