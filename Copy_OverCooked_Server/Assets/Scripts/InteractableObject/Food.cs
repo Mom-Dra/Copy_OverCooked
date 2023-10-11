@@ -3,15 +3,20 @@ using UnityEngine;
 public class Food : InteractableObject
 {
     [Header("Food")]
-    public EFoodState foodState;
+    [SerializeField]
+    private EFoodState foodState;
+    [SerializeField]
+    private int currCookDegree = 0;
 
-    public int currCookDegree = 0;
+    // Property
+    public EFoodState FoodState { get => foodState; }
+    public int CurrCookDegree { get => currCookDegree; set { currCookDegree = value; } }
 
     private void FixedUpdate()
     {
-        if (uIImage != null)
+        if (UIImage != null)
         {
-            uIImage.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, uIYOffset, 0));
+            UIImage.transform.position = Camera.main.WorldToScreenPoint(transform.position + uIOffset);
         }
     }
 

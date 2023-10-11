@@ -11,7 +11,6 @@ public class Hand : Container
     private Player player;
     private Interactor interactor;
 
-
     private void FixedUpdate()
     {
         if (getObject != null)
@@ -29,7 +28,7 @@ public class Hand : Container
     public void HoldOut()
     {
         getObject.Free();
-        getObject.IsInteractable = true;
+        getObject.Selectable = true;
         containObjects.Remove(getObject);
         getObject = null;
     }
@@ -37,7 +36,7 @@ public class Hand : Container
     public void GrabAndPut()
     {
         Debug.Log("Space");
-        InteractableObject triggerObject = interactor.ClosestInteractableObject;
+        InteractableObject triggerObject = interactor.TriggerObject;
         if (triggerObject == null)
         {
             if (HasObject())
@@ -62,7 +61,7 @@ public class Hand : Container
             }
         } else
         {
-            InteractableObject triggerObject = interactor.ClosestInteractableObject;
+            InteractableObject triggerObject = interactor.TriggerObject;
             if (triggerObject != null && triggerObject.TryGet<Reactable>(out Reactable reactObject))
             {
                 reactObject.React(player);

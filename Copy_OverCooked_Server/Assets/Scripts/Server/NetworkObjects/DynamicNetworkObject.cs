@@ -8,8 +8,13 @@ public class DynamicNetworkObject : NetworkObject
     {
         if (prevPosition != transform.position)
         {
-            Packet packet = new Packet(EActionCode.Transform, id);
-            Server.Instance.SendToAllClients(packet);
+            using (Packet packet = new Packet(EActionCode.Transform, id))
+            {
+                packet.Write(transform.position);
+                packet.Write(transform.rotation);
+                packet.Write(transform.localScale);
+                Server.Instance.SendToAllClients(packet);
+            }
         }
         prevPosition = transform.position;
     }

@@ -5,13 +5,17 @@ using UnityEngine;
 
 public class Packet : IDisposable
 {
-    public EActionCode actionCode;
-    public int targetId;
+    private EActionCode actionCode;
+    private int targetId;
 
     private List<byte> buffer;
-    private byte[] readableBuffer;
-
+    private byte[] bufferForRead;
     private int readPos = 0;
+
+    // Property
+    public EActionCode ActionCode { get => actionCode; }
+    public int TargetId { get => targetId; }
+
 
     public Packet(EActionCode actionCode, int targetId)
     {
@@ -26,7 +30,7 @@ public class Packet : IDisposable
 
     public Packet(byte[] bytes)
     {
-        readableBuffer = bytes;
+        bufferForRead = bytes;
 
         Read(out int action);
         Read(out int target);
@@ -37,7 +41,7 @@ public class Packet : IDisposable
 
     private bool CanRead()
     {
-        return readPos < readableBuffer.Length;
+        return readPos < bufferForRead.Length;
     }
 
     #region Write
@@ -115,7 +119,7 @@ public class Packet : IDisposable
             throw new Exception("Could not read value of type 'int'!");
         }
 
-        value = BitConverter.ToInt32(readableBuffer, readPos);
+        value = BitConverter.ToInt32(bufferForRead, readPos);
         readPos += 4;
     }
 
@@ -126,7 +130,7 @@ public class Packet : IDisposable
             throw new Exception("Could not read value of type 'float'!");
         }
 
-        value = BitConverter.ToSingle(readableBuffer, readPos);
+        value = BitConverter.ToSingle(bufferForRead, readPos);
         readPos += 4;
     }
 
@@ -137,7 +141,7 @@ public class Packet : IDisposable
             throw new Exception("Could not read value of type 'double'!");
         }
 
-        value = BitConverter.ToDouble(readableBuffer, readPos);
+        value = BitConverter.ToDouble(bufferForRead, readPos);
         readPos += 8;
     }
 
@@ -148,7 +152,7 @@ public class Packet : IDisposable
             throw new Exception("Could not read value of type 'bool'!");
         }
 
-        value = BitConverter.ToBoolean(readableBuffer, readPos);
+        value = BitConverter.ToBoolean(bufferForRead, readPos);
         readPos += 1;
     }
 
@@ -159,7 +163,7 @@ public class Packet : IDisposable
             throw new Exception("Could not read value of type 'char'!");
         }
 
-        value = BitConverter.ToChar(readableBuffer, readPos);
+        value = BitConverter.ToChar(bufferForRead, readPos);
         readPos += 1;
     }
 
@@ -170,7 +174,7 @@ public class Packet : IDisposable
             throw new Exception("Could not read value of type 'byte'!");
         }
 
-        value = readableBuffer[readPos];
+        value = bufferForRead[readPos];
         readPos += 1;
     }
 
@@ -185,7 +189,7 @@ public class Packet : IDisposable
 
         value = new byte[length];
 
-        Array.Copy(readableBuffer, readPos, value, 0, length);
+        Array.Copy(bufferForRead, readPos, value, 0, length);
     }
 
     public void Read(out string value)
@@ -197,7 +201,7 @@ public class Packet : IDisposable
 
         Read(out int length);
 
-        value = Encoding.ASCII.GetString(readableBuffer, readPos, length);
+        value = Encoding.ASCII.GetString(bufferForRead, readPos, length);
         readPos += length;
     }
 
@@ -248,7 +252,7 @@ public class Packet : IDisposable
 
     public void Dispose()
     {
-        readableBuffer = null;
+        bufferForRead = null;
         buffer = null;
         readPos = 0;
 
@@ -263,15 +267,15 @@ public class Packet : IDisposable
     public override string ToString()
     {
         int length = 0;
-        if (readableBuffer != null)
+        if (bufferForRead != null)
         {
-            length = readableBuffer.Length;
+            length = bufferForRead.Length;
         }
         else if (buffer != null)
         {
             length = buffer.Count;
         }
-        return $"ActionCode: {actionCode}, TargetId: {targetId}, BufferLength: {length}";
+        return $"ActionCode: {ActionCode}, TargetId: {TargetId}, BufferLength: {length}";
     }
 }
 

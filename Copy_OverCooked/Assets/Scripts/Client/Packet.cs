@@ -8,13 +8,16 @@ using UnityEngine;
 
 public class Packet : IDisposable
 {
-    public EActionCode actionCode;
-    public int targetId;
+    private EActionCode actionCode;
+    private int targetId;
 
     private List<byte> buffer;
     private byte[] readableBuffer;
-
     private int readPos = 0;
+
+    // Property
+    public EActionCode ActionCode { get => actionCode; }
+    public int TargetId { get => targetId; }
 
     public Packet(EActionCode actionCode, int targetId)
     {
@@ -273,7 +276,7 @@ public class Packet : IDisposable
         {
             length = buffer.Count;
         }
-        return $"ActionCode: {actionCode}, TargetId: {targetId}, BufferLength: {length}";
+        return $"ActionCode: {ActionCode}, TargetId: {TargetId}, BufferLength: {length}";
     }
 }
 

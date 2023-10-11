@@ -13,17 +13,17 @@ public class InteractableObject : MonoBehaviour
     protected EObjectType eObjectType;
     [SerializeField]
     protected EObjectSerialCode objectSerialCode;
-
-    public EObjectSerialCode ObjectSerialCode { get; }
-
-    public float uIYOffset = 1f;
-
-    public Image uIImage;
-
-    [HideInInspector]
-    public bool IsInteractable = true;
-
+    [SerializeField]
+    protected Vector3 uIOffset = Vector3.up;
     
+    protected bool selectable = true;
+    private Image uIImage;
+
+    // Property
+    public bool Selectable { get => selectable; set { selectable = value; } }
+    public Image UIImage { get => uIImage; set { uIImage = value; } }
+    public Vector3 UIOffset { get => uIOffset; }
+    public EObjectSerialCode ObjectSerialCode { get => objectSerialCode; }
 
     public virtual EObjectType GetShownType()
     {

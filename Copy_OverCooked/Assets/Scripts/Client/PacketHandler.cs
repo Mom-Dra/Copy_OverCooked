@@ -7,11 +7,11 @@ using UnityEngine;
 
 public class PacketHandler
 {
-    private static Dictionary<int, Action<Packet>> actionDics;
+    private static Dictionary<int, Action<Packet>> actionDic;
 
     public static void Init()
     {
-        actionDics = new Dictionary<int, Action<Packet>>()
+        actionDic = new Dictionary<int, Action<Packet>>()
         {
             { (int)EActionCode.Event, EventCommand },
             { (int)EActionCode.Transform, TranformCommand },
@@ -24,8 +24,8 @@ public class PacketHandler
 
     public static void Invoke(Packet packet)
     {
-        EActionCode actionCode = packet.actionCode;
-        actionDics[(int)actionCode].Invoke(packet);
+        EActionCode actionCode = packet.ActionCode;
+        actionDic[(int)actionCode].Invoke(packet);
     }
 
     private static void EventCommand(Packet packet)
@@ -35,7 +35,7 @@ public class PacketHandler
 
     private static void TranformCommand(Packet packet)
     {
-        int targetId = packet.targetId;
+        int targetId = packet.TargetId;
         packet.Read(out Vector3 position);
         packet.Read(out Quaternion rotation);
         packet.Read(out Vector3 scale);
@@ -43,7 +43,7 @@ public class PacketHandler
 
     private static void InstantiateCommand(Packet packet)
     {
-        int targetId = packet.targetId;
+        int targetId = packet.TargetId;
         packet.Read(out int type); // 1 : instantiate, 2 : Destroy
         if ((EInstantiateType)type == EInstantiateType.Instantiate)
         {

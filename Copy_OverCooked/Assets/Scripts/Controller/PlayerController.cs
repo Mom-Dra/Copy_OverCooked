@@ -6,15 +6,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    //[Header("Player Controller")]
-    //[SerializeField]
-    //private Player player;
-
-    //public void SetPlayer(Player player)
-    //{
-    //    this.player = player;
-    //}
-
     public void OnMove(InputValue value) // Move
     {
         PacketSend.Move(value.Get<Vector2>(), 0);

@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
 
-[Serializable]
+
 public abstract class Event
 {
     protected List<Func<bool>> actions = new List<Func<bool>>();
     protected int currIndex = 0;
-    // CurrAction 변수로 놓자 
-    // EventAction 을 배열로 만들고,
-    // 각 Event에서 
 
     public bool HasNextAction()
     {
@@ -17,12 +14,10 @@ public abstract class Event
 
     public void TryAction()
     {
-        if (actions[currIndex]())
+        if (actions[currIndex].Invoke())
         {
             currIndex++;
         }
-        // 현재 액션을 실행하고,
-        // 실행하였다면 다음 액션을 현재 액션으로 등록 
     }
     public abstract void AddEventAction();
 }

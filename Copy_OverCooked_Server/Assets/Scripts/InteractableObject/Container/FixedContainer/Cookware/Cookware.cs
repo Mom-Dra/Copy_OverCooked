@@ -1,17 +1,21 @@
 using System.Collections;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.UI;
 
 public abstract class Cookware : FixedContainer
 {
-    public ECookwareState cookwareState = ECookwareState.Idle;
     [Header("Cookware")]
     [SerializeField]
     protected ECookingMethod cookingMethod;
+    [SerializeField]
+    protected ECookwareState cookwareState = ECookwareState.Idle;
 
+    private WaitForSeconds workInterval = new WaitForSeconds(0.1f);
+    private IEnumerator selectedCoroutine;
 
-    private WaitForSeconds waitForTick = new WaitForSeconds(0.1f);
-    private IEnumerator currSelectedCoroutine;
+    // Property
+    public ECookwareState CookwareState { get => cookwareState; set { cookwareState = value; } }
 
     public override bool TryPut(InteractableObject interactableObject)
     {
@@ -19,15 +23,15 @@ public abstract class Cookware : FixedContainer
         {
             if (getObject.TryGet<Food>(out Food getFood))
             {
-                float currCookDegree = getFood.currCookDegree;
+                float currCookDegree = getFood.CurrCookDegree;
                 if (currCookDegree >= 100)
                 {
-                    if (currSelectedCoroutine != null)
+                    if (selectedCoroutine != null)
                     {
-                        StopCoroutine(currSelectedCoroutine);
+                        StopCoroutine(selectedCoroutine);
                     }
-                    currSelectedCoroutine = AddUIStateEvent();
-                    StartCoroutine(currSelectedCoroutine);
+                    selectedCoroutine = AddUIStateEvent();
+                    StartCoroutine(selectedCoroutine);
                 }
             }
             return true;
@@ -37,17 +41,17 @@ public abstract class Cookware : FixedContainer
 
     public override void Remove(InteractableObject interactableObject)
     {
-        if (uIImage != null)
+        if (UIImage != null)
         {
             if (cookwareState == ECookwareState.Overheat && getObject.TryGet<Food>(out Food getFood))
             {
-                getFood.uIImage = uIImage;
+                getFood.UIImage = UIImage;
             } 
             else
             {
-                Destroy(uIImage.gameObject);
+                Destroy(UIImage.gameObject);
             }
-            uIImage = null;
+            UIImage = null;
         }
 
         base.Remove(interactableObject);
@@ -61,20 +65,20 @@ public abstract class Cookware : FixedContainer
         {
             if (CanCook() && getObject.TryGet<Food>(out Food getFood))
             {
-                if (getFood.currCookDegree < 100)
+                if (getFood.CurrCookDegree < 100)
                 {
                     if (getObject.TryGetComponent<Tray>(out Tray tray))
                     {
-                        containObjects = tray.containObjects;
+                        containObjects = tray.ContainObjects;
                     }
                     if (RecipeManager.Instance.TryGetRecipe(cookingMethod, containObjects, out Recipe currRecipe))
                     {
-                        if (currSelectedCoroutine != null)
+                        if (selectedCoroutine != null)
                         {
-                            StopCoroutine(currSelectedCoroutine);
+                            StopCoroutine(selectedCoroutine);
                         }
-                        currSelectedCoroutine = CookCoroutine(currRecipe);
-                        StartCoroutine(currSelectedCoroutine);
+                        selectedCoroutine = CookCoroutine(currRecipe);
+                        StartCoroutine(selectedCoroutine);
                         return true;
                     }
                 }
@@ -87,35 +91,35 @@ public abstract class Cookware : FixedContainer
     {
         cookwareState = ECookwareState.Cook;
         // 실질적으로 조리를 시작하는 코드
-        Food cookedFood = recipe.getCookedFood();
+        Food cookedFood = recipe.CookedFood;
         getObject.TryGet<Food>(out Food currFood);
         if (currFood == null)
         {
             throw new System.Exception("Cookware warning : GetObject is not <Food>");
         }
 
-        float totalCookDuration = recipe.getTotalCookDuration();
+        float totalCookDuration = recipe.TotalCookDuration;
 
         // UI
-        if (uIImage == null)
+        if (UIImage == null)
         {
-            uIImage = InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.Progress);
+            UIImage = InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.Progress);
         }
-        Image gauge = uIImage.transform.GetChild(1).GetComponent<Image>();
+        Image gauge = UIImage.transform.GetChild(1).GetComponent<Image>();
 
-        while (currFood.currCookDegree <= 100)
+        while (currFood.CurrCookDegree <= 100)
         {
-            currFood.currCookDegree += (int)((1 / totalCookDuration) * 10);
-            gauge.fillAmount = (float)currFood.currCookDegree / 100;
-            Debug.Log($"Cooking... <color=yellow>{currFood.name}</color> => <color=orange>{cookedFood.name}</color> <color=green>## {currFood.currCookDegree}%</color>");
-            yield return waitForTick;
+            currFood.CurrCookDegree += (int)((1 / totalCookDuration) * 10);
+            gauge.fillAmount = (float)currFood.CurrCookDegree / 100;
+            Debug.Log($"Cooking... <color=yellow>{currFood.name}</color> => <color=orange>{cookedFood.name}</color> <color=green>## {currFood.CurrCookDegree}%</color>");
+            yield return workInterval;
         }
         containObjects.Clear();
         cookwareState = ECookwareState.Complete;
 
         Food instantiateFood = Instantiate(cookedFood, currFood.transform.position, Quaternion.identity);
-        instantiateFood.currCookDegree = 100;
-        instantiateFood.IsInteractable = false;
+        instantiateFood.CurrCookDegree = 100;
+        instantiateFood.Selectable = false;
         base.Remove(currFood);
         Destroy(currFood.gameObject);
         TryPut(instantiateFood);
@@ -126,19 +130,19 @@ public abstract class Cookware : FixedContainer
     {
         EventManager.Instance.AddEvent(new UIStateEvent(this));
         getObject.TryGet<Food>(out Food getFood);
-        while (getFood != null && getFood.currCookDegree <= 200 && (IsFirable || getFood.currCookDegree < 160))
+        while (getFood != null && getFood.CurrCookDegree <= 200 && (flammablity || getFood.CurrCookDegree < 160))
         {
-            getFood.currCookDegree += 1;
-            yield return waitForTick;
+            getFood.CurrCookDegree += 1;
+            yield return workInterval;
         }
     }
 
     public void StopSelectedCoroutine()
     {
-        if (currSelectedCoroutine != null)
+        if (selectedCoroutine != null)
         {
-            StopCoroutine(currSelectedCoroutine);
-            currSelectedCoroutine = null;
+            StopCoroutine(selectedCoroutine);
+            selectedCoroutine = null;
         }
     }
 

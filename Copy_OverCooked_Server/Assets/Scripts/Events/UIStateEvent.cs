@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class UIStateEvent : Event
 {
-    Cookware cookware;
+    private Cookware cookware;
 
     public UIStateEvent(Cookware container)
     {
         this.cookware = container;
         actions.Add(ShowCompleteUI);
-        if (container.IsFirable)
+        if (container.Flammablity)
         {
             actions.Add(ShowWarningUI);
             actions.Add(ShowOverheatUI);
@@ -21,14 +21,14 @@ public class UIStateEvent : Event
             return true;
         if (cookware.TryGet<Food>(out Food food))
         {
-            int currDegree = food.currCookDegree;
+            int currDegree = food.CurrCookDegree;
             if (currDegree >= 100 && currDegree < 160)
             {
-                if (cookware.uIImage != null)
+                if (cookware.UIImage != null)
                 {
-                    GameObject.Destroy(cookware.uIImage.gameObject);
+                    GameObject.Destroy(cookware.UIImage.gameObject);
                 }
-                cookware.uIImage = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Complete);
+                cookware.UIImage = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Complete);
                 return true;
             }
         }
@@ -41,14 +41,14 @@ public class UIStateEvent : Event
             return true;
         if (cookware.TryGet<Food>(out Food food))
         {
-            int currDegree = food.currCookDegree;
+            int currDegree = food.CurrCookDegree;
             if (currDegree >= 160 && currDegree < 200)
             {
-                if (cookware.uIImage != null)
+                if (cookware.UIImage != null)
                 {
-                    GameObject.Destroy(cookware.uIImage.gameObject);
+                    GameObject.Destroy(cookware.UIImage.gameObject);
                 }
-                cookware.uIImage = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Warning);
+                cookware.UIImage = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Warning);
                 return true;
             }
         }
@@ -61,15 +61,15 @@ public class UIStateEvent : Event
             return true;
         if (cookware.TryGet<Food>(out Food food))
         {
-            int currDegree = food.currCookDegree;
+            int currDegree = food.CurrCookDegree;
             if (currDegree >= 200)
             {
-                if (cookware.uIImage != null)
+                if (cookware.UIImage != null)
                 {
-                    GameObject.Destroy(cookware.uIImage.gameObject);
+                    GameObject.Destroy(cookware.UIImage.gameObject);
                 }
-                cookware.uIImage = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Overheat);
-                cookware.cookwareState = ECookwareState.Overheat;
+                cookware.UIImage = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Overheat);
+                cookware.CookwareState = ECookwareState.Overheat;
                 return true;
             }
         }

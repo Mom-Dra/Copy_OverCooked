@@ -22,15 +22,9 @@ public class Recipe : ScriptableObject
     [SerializeField]
     private Food cookedFood;
 
-    public Food getCookedFood()
-    {
-        return cookedFood;
-    }
-
-    public float getTotalCookDuration()
-    {
-        return totalCookDuration;
-    }
+    // Property
+    public Food CookedFood { get => cookedFood; }
+    public float TotalCookDuration { get => totalCookDuration; }
 
     public bool Equal(ECookingMethod cookingMethod, List<InteractableObject> foods)
     {

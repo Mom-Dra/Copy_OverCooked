@@ -9,11 +9,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Player player;
 
-    public void SetPlayer(Player player)
-    {
-        this.player = player;
-    }
-
     public void OnMove(InputValue value) // Move
     {
         Vector2 input = value.Get<Vector2>();

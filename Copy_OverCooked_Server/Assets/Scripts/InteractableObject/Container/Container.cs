@@ -6,14 +6,21 @@ public class Container : InteractableObject
     [Header("Container")]
     [SerializeField]
     protected int maxContainCount = 1;
-    public bool IsFirable = true;
+    [SerializeField]
+    protected bool flammablity = true; // °¡¿¬¼º 
     [SerializeField]
     protected Vector3 displayOffset = Vector3.up;
 
     [Header("Debug")]
-    public InteractableObject getObject;
     [SerializeField]
-    public List<InteractableObject> containObjects = new List<InteractableObject>();
+    protected InteractableObject getObject;
+    [SerializeField]
+    protected List<InteractableObject> containObjects = new List<InteractableObject>();
+
+    // Property
+    public bool Flammablity { get => flammablity; }
+    public InteractableObject GetObject { get => getObject; }
+    public List<InteractableObject> ContainObjects { get => containObjects; }
 
     private void Awake()
     {
@@ -86,7 +93,7 @@ public class Container : InteractableObject
     {
         gameObject.DebugName($"Put -> {interactableObject.name}", EDebugColor.Orange);
         Fit(interactableObject);
-        interactableObject.IsInteractable = false;
+        interactableObject.Selectable = false;
         if (containObjects.Count == 0)
         {
             getObject = interactableObject;

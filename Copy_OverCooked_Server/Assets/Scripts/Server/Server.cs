@@ -7,7 +7,7 @@ using System.Net.Sockets;
 public class Server : MonobehaviorSingleton<Server>
 {
     private TcpListener tcpListener = new TcpListener(IPAddress.Any, 9999);
-    private int id;
+    private static int s_nextId;
     private Dictionary<int, ClientHandler> clientDic = new Dictionary<int, ClientHandler>();
 
     protected override void Awake()
@@ -23,9 +23,9 @@ public class Server : MonobehaviorSingleton<Server>
         TcpClient client = tcpListener.EndAcceptTcpClient(result);
         NetworkStream networkStream = client.GetStream();
 
-        ClientHandler clientHandler = new ClientHandler(client, id);
+        ClientHandler clientHandler = new ClientHandler(client, s_nextId);
 
-        byte[] sendId = BitConverter.GetBytes(id++);
+        byte[] sendId = BitConverter.GetBytes(s_nextId++);
         networkStream.Write(sendId, 0, sendId.Length);
 
         clientHandler.BeginRead();

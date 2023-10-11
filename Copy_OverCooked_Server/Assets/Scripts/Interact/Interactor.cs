@@ -10,21 +10,24 @@ public class Interactor : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField]
-    private List<InteractableObject> interactableObjects;
+    private List<InteractableObject> triggerObjectList;
 
-    public InteractableObject ClosestInteractableObject;
+    private InteractableObject triggerObject;
+
+    // Property
+    public InteractableObject TriggerObject { get => triggerObject; }
 
     private void Awake()
     {
-        interactableObjects = new List<InteractableObject>();
+        triggerObjectList = new List<InteractableObject>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         InteractableObject interactableObject = other.GetComponent<InteractableObject>();
-        if (interactableObject != null && interactableObject.IsInteractable)
+        if (interactableObject != null && interactableObject.Selectable)
         {
-            interactableObjects.Add(interactableObject);
+            triggerObjectList.Add(interactableObject);
             SetClosestObject();
         }
     }
@@ -32,13 +35,13 @@ public class Interactor : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         InteractableObject io = other.GetComponent<InteractableObject>();
-        interactableObjects.Remove(io);
+        triggerObjectList.Remove(io);
         SetClosestObject();
     }
 
     public void SetClosestObject()
     {
-        ClosestInteractableObject = interactableObjects.OrderBy(item => Vector3.Distance(ConvertYPositionToZero(item.transform.position), ConvertYPositionToZero(transform.position + Vector3.forward)))
+        triggerObject = triggerObjectList.OrderBy(item => Vector3.Distance(ConvertYPositionToZero(item.transform.position), ConvertYPositionToZero(transform.position + Vector3.forward)))
         .FirstOrDefault();
     }
 

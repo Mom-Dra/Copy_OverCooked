@@ -6,13 +6,13 @@ using UnityEngine;
 public class ClientHandler
 {
     private TcpClient tcpClient;
-    private int id;
+    private int clientId;
     private byte[] buffer;
 
-    public ClientHandler(TcpClient tcpClient, int id)
+    public ClientHandler(TcpClient tcpClient, int clientId)
     {
         this.tcpClient = tcpClient;
-        this.id = id;
+        this.clientId = clientId;
 
         buffer = new byte[1024];
     }
@@ -32,12 +32,10 @@ public class ClientHandler
         {
             using (Packet packet = new Packet(buffer.Take(readLength).ToArray()))
             {
-                Debug.Log($"<color=magenta> clientId: {id}, {packet} </color>");
+                Debug.Log($"<color=magenta> clientId: {clientId}, {packet} </color>");
 
                 PacketHandle.Invoke(packet);
             }
-            //string message = Encoding.UTF8.GetString(buffer, 0, readLength);
-            //Debug.Log($"{id}로 부터 받은 메시지: {message}, 크기: {readLength}");
         }
 
         tcpClient.GetStream().BeginRead(buffer, 0, buffer.Length, ReadCallback, tcpClient);

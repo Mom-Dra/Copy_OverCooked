@@ -9,13 +9,13 @@ using UnityEngine;
 public class ClientHandler
 {
     private TcpClient tcpClient;
-    private int id;
+    private int cliendId;
     private byte[] buffer;
 
     public ClientHandler(TcpClient tcpClient, int id)
     {
         this.tcpClient = tcpClient;
-        this.id = id;
+        this.cliendId = id;
 
         buffer = new byte[1024];
     }

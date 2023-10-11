@@ -11,21 +11,17 @@ public class NetworkManager : MonobehaviorSingleton<NetworkManager>
     private TcpClient tcpClient;
 
     [SerializeField]
-    private string hostIP = "127.0.0.1";
-
-    [SerializeField]
     private int port = 9999;
 
     private int clientId;
-
-    public int ClientId { get; }
-
     private byte[] buffer = new byte[1024];
+
+    //Property
+    public int ClientId { get; }
 
     protected override void Awake()
     {
         base.Awake();
-        //ConnectToServer();
     }
 
     public void ConnectToServer(string hostIP, UnityAction connectSuccessCallBack, UnityAction connectFailCallBack)
@@ -33,7 +29,7 @@ public class NetworkManager : MonobehaviorSingleton<NetworkManager>
         try
         {
             tcpClient = new TcpClient(hostIP, port);
-            Debug.Log("서버에 연결 되었습니다.");
+            Debug.Log("서버에 성공적으로 접속하였습니다!");
 
             int bytesRead = tcpClient.GetStream().Read(buffer, 0, buffer.Length);
             clientId = BitConverter.ToInt32(buffer, 0);
@@ -44,7 +40,7 @@ public class NetworkManager : MonobehaviorSingleton<NetworkManager>
         }
         catch (Exception e)
         {
-            Debug.Log("서버에 연결 실패했습니다.");
+            Debug.Log("서버 접속에 실패하였습니다.");
             Debug.LogException(e);
             connectFailCallBack.Invoke();
         }

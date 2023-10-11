@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class LoginManager : MonoBehaviour
+public class LoginManager : MonobehaviorSingleton<LoginManager>
 {
     [SerializeField]
     private TMP_InputField hostIPInputField;
@@ -16,8 +16,9 @@ public class LoginManager : MonoBehaviour
     [SerializeField]
     private Button joinButton;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         joinButton.onClick.AddListener(OnClickedJoinButton);
     }
 

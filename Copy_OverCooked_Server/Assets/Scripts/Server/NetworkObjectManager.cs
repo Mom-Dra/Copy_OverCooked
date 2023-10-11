@@ -5,14 +5,14 @@ using UnityEngine;
 public class NetworkObjectManager : MonobehaviorSingleton<NetworkObjectManager>
 {
     private static int s_nextId = 1;
-    private Dictionary<int, NetworkObject> objectDic;
+    private Dictionary<int, NetworkObject> networkObjectDic;
 
-    public Dictionary<int, NetworkObject>.ValueCollection ObjectDic { get => objectDic.Values; }
+    public Dictionary<int, NetworkObject>.ValueCollection ObjectDic { get => networkObjectDic.Values; }
 
     protected override void Awake()
     {
         base.Awake();
-        objectDic = new Dictionary<int, NetworkObject>();
+        networkObjectDic = new Dictionary<int, NetworkObject>();
     }
 
     public GameObject Instantiate(GameObject gameObject, Vector3 vector3, Quaternion quaternion)
@@ -30,13 +30,13 @@ public class NetworkObjectManager : MonobehaviorSingleton<NetworkObjectManager>
     public void Add(NetworkObject obj)
     {
         //Debug.Log($"Set ID : {obj.gameObject.name} -> {s_nextId}");
-        obj.SetId(s_nextId);
-        objectDic.Add(s_nextId++, obj);
+        obj.Id = s_nextId;
+        networkObjectDic.Add(s_nextId++, obj);
     }
 
     public NetworkObject GetObjectById(int id)
     {
-        return objectDic[id];
+        return networkObjectDic[id];
     }
 
     

@@ -8,9 +8,9 @@ public class Tray : Container
         {
             getObject.transform.position = transform.position + displayOffset;
         }
-        if (uIImage != null)
+        if (UIImage != null)
         {
-            uIImage.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, uIYOffset, 0));
+            UIImage.transform.position = Camera.main.WorldToScreenPoint(transform.position + uIOffset);
         }
     }
 }

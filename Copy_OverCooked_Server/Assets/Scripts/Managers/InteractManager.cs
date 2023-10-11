@@ -5,27 +5,9 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class InteractManager : MonoBehaviour // 快府狼 脚 
+public class InteractManager : MonobehaviorSingleton<InteractManager> // 快府狼 脚 
 {
-    private static InteractManager instance;
-    public static InteractManager Instance
-    {
-        get => instance;
-    }
-
-    private Dictionary<Player, InteractableObject> links = new Dictionary<Player, InteractableObject>();
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        } else if (instance != this)
-        {
-            Destroy(this);
-        }
-    }
+    private Dictionary<Player, InteractableObject> connectionList = new Dictionary<Player, InteractableObject>();
 
     private int CompareType(InteractableObject host, InteractableObject guest)
     {
@@ -126,16 +108,4 @@ public class InteractManager : MonoBehaviour // 快府狼 脚
                 break;
         }
     }
-
-    public void Connect(Player player, InteractableObject interactableObject)
-    {
-        links.Add(player, interactableObject);
-    }
-
-
-    public InteractableObject GetLinkedObject(Player player)
-    {
-        return links[player];
-    }
-
 }

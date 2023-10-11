@@ -17,7 +17,7 @@ public class PacketHandle
 
     public static void Invoke(Packet packet)
     {
-        EActionCode actionCode = packet.actionCode;
+        EActionCode actionCode = packet.ActionCode;
         actionDics[(int)actionCode].Invoke(packet);
     }
 
@@ -35,7 +35,7 @@ public class PacketHandle
 
     private static void EventCommand(Packet packet)
     {
-        int clientId = packet.targetId;
+        int clientId = packet.TargetId;
         packet.Read(out int eventType);
         EEventType eEventType = (EEventType)eventType;
         switch (eEventType)
@@ -48,16 +48,11 @@ public class PacketHandle
 
     private static void Move(Packet packet)
     {
-        int targetId = packet.targetId;
-        packet.Read(out int clientId);
+        int targetId = packet.TargetId;
         packet.Read(out Vector2 direction);
         Player movePlayer = NetworkObjectManager.Instance.GetObjectById(targetId).GetComponent<Player>();
         movePlayer.SetMoveDirection(new Vector3(direction.x, 0f, direction.y));
     }
-
-    
-
-
 
 
 }

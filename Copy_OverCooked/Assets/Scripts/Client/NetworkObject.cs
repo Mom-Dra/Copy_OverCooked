@@ -7,13 +7,6 @@ public class NetworkObject : MonoBehaviour
 {
     protected int id;
 
-    public int GetId()
-    {
-        return id;
-    }
-
-    public void SetId(int id)
-    {
-        this.id = id;
-    }
+    // Property
+    public int Id { get => id; set { id = value; } }
 }

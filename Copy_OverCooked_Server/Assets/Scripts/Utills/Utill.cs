@@ -48,7 +48,7 @@ public static class Utill
         InteractableObject destroyObject = interactableObject;
         interactableObject = GameObject.Instantiate(toObject, interactableObject.transform.position, Quaternion.identity); // new 
         interactableObject.GetComponent<Rigidbody>().isKinematic = destroyObject.GetComponent<Rigidbody>().isKinematic;
-        interactableObject.IsInteractable = destroyObject.IsInteractable;
+        interactableObject.Selectable = destroyObject.Selectable;
         GameObject.Destroy(destroyObject.gameObject);
     }
 }

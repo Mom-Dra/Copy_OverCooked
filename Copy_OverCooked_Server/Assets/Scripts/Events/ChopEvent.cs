@@ -16,7 +16,7 @@ public class ChopEvent : Event
     {
         if (CheckDistance())
         {
-            if (cookware.cookwareState == ECookwareState.Cook)
+            if (cookware.CookwareState == ECookwareState.Cook)
             {
                 cookware.StopSelectedCoroutine();
             }
@@ -30,7 +30,7 @@ public class ChopEvent : Event
     {
         float distance = Vector3.Distance(player.transform.position + player.transform.forward, cookware.transform.position);
 
-        if (distance > 2f || cookware.cookwareState == ECookwareState.Complete)
+        if (distance > 2f || cookware.CookwareState == ECookwareState.Complete)
         {
             return true;
         }

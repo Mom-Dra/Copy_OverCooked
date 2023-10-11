@@ -10,7 +10,7 @@ public class PacketSend
         foreach (NetworkObject obj in NetworkObjectManager.Instance.ObjectDic)
         {
             InteractableObject interactableObject = obj.GetComponent<InteractableObject>();
-            using (Packet packet = new Packet(EActionCode.Instantiate, obj.GetId()))
+            using (Packet packet = new Packet(EActionCode.Instantiate, obj.Id))
             {
                 packet.Write((int)EInstantiateType.Instantiate);
                 packet.Write((int)interactableObject.ObjectSerialCode);
