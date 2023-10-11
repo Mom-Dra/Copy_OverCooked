@@ -10,16 +10,14 @@ public class Interactor : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField]
-    private List<InteractableObject> triggerObjectList;
+    private List<InteractableObject> triggerObjectList = new List<InteractableObject>();
 
     private InteractableObject triggerObject;
 
     // Property
-    public InteractableObject TriggerObject { get => triggerObject; }
-
-    private void Awake()
-    {
-        triggerObjectList = new List<InteractableObject>();
+    public InteractableObject TriggerObject 
+    { 
+        get => triggerObject; 
     }
 
     private void OnTriggerEnter(Collider other)

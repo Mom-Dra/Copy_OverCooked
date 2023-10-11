@@ -24,6 +24,7 @@ public class ClientHandler
 
     private void ReadCallback(IAsyncResult result)
     {
+        
         NetworkStream stream = tcpClient.GetStream();
 
         int readLength = stream.EndRead(result);
@@ -32,8 +33,7 @@ public class ClientHandler
         {
             using (Packet packet = new Packet(buffer.Take(readLength).ToArray()))
             {
-                Debug.Log($"<color=magenta> clientId: {clientId}, {packet} </color>");
-
+                Debug.Log($"{clientId}, {packet}");
                 PacketHandle.Invoke(packet);
             }
         }
@@ -43,6 +43,8 @@ public class ClientHandler
 
     public void Send(Packet packet)
     {
+        packet.Sender = 1;
+        Debug.Log($"{clientId}, {packet}");
         NetworkStream stream = tcpClient.GetStream();
         stream.Write(packet.ToByteArray());
     }

@@ -35,7 +35,8 @@ public class ClientHandler
         {
             using (Packet packet = new Packet(buffer.Take(readLength).ToArray()))
             {
-                PacketHandler.Invoke(packet);
+                Debug.Log($"{packet}");
+                PacketHandle.Invoke(packet);
             }
         }
 

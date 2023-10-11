@@ -151,10 +151,12 @@ MonoBehaviour:
   Name: Table
   Description: 
   eObjectType: 0
-  IsInteractable: 1
+  uIOffset: {x: 0, y: 1, z: 0}
   maxContainCount: 1
+  flammablity: 1
   displayOffset: {x: 0, y: 0.6, z: 0}
   getObject: {fileID: 0}
+  containObjects: []
 --- !u!114 &-6989002557386292928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 596f230ca261bd748ac0e41aafdbbf5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serialCode: 3
 --- !u!1001 &3511756326405885884
 PrefabInstance:
   m_ObjectHideFlags: 0

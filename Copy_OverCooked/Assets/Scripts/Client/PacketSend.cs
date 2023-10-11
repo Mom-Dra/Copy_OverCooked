@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class PacketSend
 {
-    public static void SceneLoaded(string sceneName)
+    public static void SceneLoad(string sceneName)
     {
         using (Packet packet = new Packet(EActionCode.Event, NetworkManager.Instance.ClientId)) 
         {

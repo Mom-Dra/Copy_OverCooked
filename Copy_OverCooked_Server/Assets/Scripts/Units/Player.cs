@@ -18,7 +18,6 @@ public class Player : MonoBehaviour
     private Rigidbody rigid;
     private Vector3 moveDirection;
 
-
     [Header("Status")]
     [SerializeField]
     private float Speed;
@@ -26,7 +25,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float dashSpeed;
     private float applyDashSpeed;
-
 
     [SerializeField]
     private float dashTime;

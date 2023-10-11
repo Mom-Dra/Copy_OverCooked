@@ -15,7 +15,14 @@ public abstract class Cookware : FixedContainer
     private IEnumerator selectedCoroutine;
 
     // Property
-    public ECookwareState CookwareState { get => cookwareState; set { cookwareState = value; } }
+    public ECookwareState CookwareState 
+    { 
+        get => cookwareState; 
+        set 
+        { 
+            cookwareState = value; 
+        } 
+    }
 
     public override bool TryPut(InteractableObject interactableObject)
     {
@@ -23,8 +30,7 @@ public abstract class Cookware : FixedContainer
         {
             if (getObject.TryGet<Food>(out Food getFood))
             {
-                float currCookDegree = getFood.CurrCookDegree;
-                if (currCookDegree >= 100)
+                if (getFood.CurrCookDegree >= 100)
                 {
                     if (selectedCoroutine != null)
                     {
@@ -67,11 +73,7 @@ public abstract class Cookware : FixedContainer
             {
                 if (getFood.CurrCookDegree < 100)
                 {
-                    if (getObject.TryGetComponent<Tray>(out Tray tray))
-                    {
-                        containObjects = tray.ContainObjects;
-                    }
-                    if (RecipeManager.Instance.TryGetRecipe(cookingMethod, containObjects, out Recipe currRecipe))
+                    if (RecipeManager.Instance.TryGetRecipe(cookingMethod, ContainObjects, out Recipe currRecipe))
                     {
                         if (selectedCoroutine != null)
                         {

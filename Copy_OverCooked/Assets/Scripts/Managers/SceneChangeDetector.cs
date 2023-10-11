@@ -19,18 +19,18 @@ public class SceneChangeDetector : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Scene loaded: " + scene.name);
+        //Debug.Log("Scene loaded: " + scene.name);
 
         switch (scene.name)
         {
             case "InGameClient":
-                PacketSend.SceneLoaded("InGameClient");
+                PacketSend.SceneLoad("InGameClient");
                 break;
         }
     }
 
     private void OnSceneUnloaded(Scene scene)
     {
-        Debug.Log("Scene unloaded: " + scene.name);
+        //Debug.Log("Scene unloaded: " + scene.name);
     }
 }

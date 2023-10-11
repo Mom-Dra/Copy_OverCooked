@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Packet : IDisposable
 {
+    private int sender;
     private EActionCode actionCode;
     private int targetId;
 
@@ -12,7 +13,10 @@ public class Packet : IDisposable
     private byte[] bufferForRead;
     private int readPos = 0;
 
+    private List<string> debugLines = new List<string>();
+
     // Property
+    public int Sender { set => sender = value; }
     public EActionCode ActionCode { get => actionCode; }
     public int TargetId { get => targetId; }
 
@@ -49,64 +53,75 @@ public class Packet : IDisposable
     public void Write(int value)
     {
         buffer.AddRange(BitConverter.GetBytes(value));
+        debugLines.Add(value.ToString());
     }
 
     public void Write(float value)
     {
         buffer.AddRange(BitConverter.GetBytes(value));
+        debugLines.Add(value.ToString());
     }
 
     public void Write(double value)
     {
         buffer.AddRange(BitConverter.GetBytes(value));
+        debugLines.Add(value.ToString());
     }
 
     public void Write(bool value)
     {
         buffer.AddRange(BitConverter.GetBytes(value));
+        debugLines.Add(value.ToString());
     }
 
     public void Write(char value)
     {
         buffer.AddRange(BitConverter.GetBytes(value));
+        debugLines.Add(value.ToString());
     }
 
     public void Write(byte value)
     {
         buffer.Add(value);
+        debugLines.Add(value.ToString());
     }
 
     public void Write(byte[] value)
     {
-        Write(value.Length);
+        buffer.AddRange(BitConverter.GetBytes(value.Length));
         buffer.AddRange(value);
+        debugLines.Add($"[{value}, {value.Length}]");
     }
 
     public void Write(string value)
     {
-        Write(value.Length);
+        buffer.AddRange(BitConverter.GetBytes(value.Length));
         buffer.AddRange(Encoding.UTF8.GetBytes(value));
+        debugLines.Add($"[{value}, {value.Length}]");
     }
 
     public void Write(Vector3 value)
     {
-        Write(value.x);
-        Write(value.y);
-        Write(value.z);
+        buffer.AddRange(BitConverter.GetBytes(value.x));
+        buffer.AddRange(BitConverter.GetBytes(value.y));
+        buffer.AddRange(BitConverter.GetBytes(value.z));
+        debugLines.Add($"[x: {value.x}, y: {value.y}, z: {value.z}]");
     }
 
     public void Write(Vector2 value)
     {
-        Write(value.x);
-        Write(value.y);
+        buffer.AddRange(BitConverter.GetBytes(value.x));
+        buffer.AddRange(BitConverter.GetBytes(value.y));
+        debugLines.Add($"[x: {value.x}, y: {value.y}]");
     }
 
     public void Write(Quaternion value)
     {
-        Write(value.x);
-        Write(value.y);
-        Write(value.z);
-        Write(value.w);
+        buffer.AddRange(BitConverter.GetBytes(value.x));
+        buffer.AddRange(BitConverter.GetBytes(value.y));
+        buffer.AddRange(BitConverter.GetBytes(value.z));
+        buffer.AddRange(BitConverter.GetBytes(value.w));
+        debugLines.Add($"[x: {value.x}, y: {value.y}, z: {value.z}, w: {value.w}]");
     }
 
     #endregion
@@ -266,16 +281,24 @@ public class Packet : IDisposable
 
     public override string ToString()
     {
-        int length = 0;
-        if (bufferForRead != null)
+        string debugColor;
+        if (sender == 0)
         {
-            length = bufferForRead.Length;
-        }
-        else if (buffer != null)
+            debugColor = "yellow";
+        } else
         {
-            length = buffer.Count;
+            debugColor = "magenta";
         }
-        return $"ActionCode: {ActionCode}, TargetId: {TargetId}, BufferLength: {length}";
+        string result = $"<color={debugColor}> ";
+        result += "Action: " + debugLines[0] + ", ";
+        result += "TargetID: " + debugLines[1] + ", ";
+        result += "Args = { ";
+        for (int i = 3; i < debugLines.Count; ++i)
+        {
+            result += debugLines[i] + ", ";
+        }
+        result += "</color>}";
+        return result;
     }
 }
 

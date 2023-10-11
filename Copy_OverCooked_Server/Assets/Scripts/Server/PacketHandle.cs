@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class PacketHandle
@@ -10,8 +11,8 @@ public class PacketHandle
     {
         actionDics = new Dictionary<int, Action<Packet>>()
         {
-            { (int)EActionCode.Input, InputCommand },
-            { (int)EActionCode.Event, EventCommand },
+            { (int)EActionCode.Input, OnInputAction },
+            { (int)EActionCode.Event, OnEventAction },
         };
     }
 
@@ -21,11 +22,10 @@ public class PacketHandle
         actionDics[(int)actionCode].Invoke(packet);
     }
 
-    private static void InputCommand(Packet packet)
+    private static void OnInputAction(Packet packet)
     {
         packet.Read(out int inputType);
-        EInputType eInput = (EInputType)inputType;
-        switch (eInput)
+        switch ((EInputType)inputType)
         {
             case EInputType.Move:
                 Move(packet);
@@ -33,15 +33,14 @@ public class PacketHandle
         }
     }
 
-    private static void EventCommand(Packet packet)
+    private static void OnEventAction(Packet packet)
     {
-        int clientId = packet.TargetId;
+        Debug.Log("Receive Event");
         packet.Read(out int eventType);
-        EEventType eEventType = (EEventType)eventType;
-        switch (eEventType)
+        switch ((EEventType)eventType)
         {
-            case EEventType.SceneLoaded:
-                PacketSend.UploadMapDataToClient(clientId);
+            case EEventType.SceneLoad:
+                UploadMapData(packet);
                 break;
         }
     }
@@ -52,6 +51,11 @@ public class PacketHandle
         packet.Read(out Vector2 direction);
         Player movePlayer = NetworkObjectManager.Instance.GetObjectById(targetId).GetComponent<Player>();
         movePlayer.SetMoveDirection(new Vector3(direction.x, 0f, direction.y));
+    }
+
+    private static void UploadMapData(Packet packet)
+    {
+        PacketSend.UploadMapDataToClient(packet.TargetId);
     }
 
 

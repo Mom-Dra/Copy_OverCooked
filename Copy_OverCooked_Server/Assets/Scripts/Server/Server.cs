@@ -2,13 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using UnityEngine;
 
 
 public class Server : MonobehaviorSingleton<Server>
 {
+    [SerializeField]
+    private int clientNumberForDebug  = 0; // Just Debug
+
     private TcpListener tcpListener = new TcpListener(IPAddress.Any, 9999);
-    private static int s_nextId;
+    private int s_nextId;
     private Dictionary<int, ClientHandler> clientDic = new Dictionary<int, ClientHandler>();
+
 
     protected override void Awake()
     {
@@ -20,17 +25,21 @@ public class Server : MonobehaviorSingleton<Server>
 
     private void TCPConnectCallback(IAsyncResult result)
     {
+        NetworkDebug.Log($"Hello [{s_nextId}] User!");
         TcpClient client = tcpListener.EndAcceptTcpClient(result);
         NetworkStream networkStream = client.GetStream();
 
         ClientHandler clientHandler = new ClientHandler(client, s_nextId);
+        clientDic.Add(s_nextId, clientHandler);
+        clientNumberForDebug++;
 
-        byte[] sendId = BitConverter.GetBytes(s_nextId++);
+        byte[] sendId = BitConverter.GetBytes(s_nextId);
         networkStream.Write(sendId, 0, sendId.Length);
 
         clientHandler.BeginRead();
 
         tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
+        s_nextId++;
     }
 
     public void SendToClient(Packet packet, int clientId)

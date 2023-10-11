@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,18 +13,44 @@ public class InteractableObject : MonoBehaviour
     [SerializeField]
     protected EObjectType eObjectType;
     [SerializeField]
-    protected EObjectSerialCode objectSerialCode;
-    [SerializeField]
     protected Vector3 uIOffset = Vector3.up;
     
+    private List<Image> uIImages = new List<Image>();
     protected bool selectable = true;
-    private Image uIImage;
 
     // Property
-    public bool Selectable { get => selectable; set { selectable = value; } }
-    public Image UIImage { get => uIImage; set { uIImage = value; } }
-    public Vector3 UIOffset { get => uIOffset; }
-    public EObjectSerialCode ObjectSerialCode { get => objectSerialCode; }
+    public bool Selectable 
+    { 
+        get => selectable; 
+        set 
+        { 
+            selectable = value; 
+        } 
+    }
+
+    public Image UIImage 
+    {
+        get
+        {
+            if(uIImages.Count == 0)
+            {
+                return null;
+            }
+            return uIImages[0];
+        }
+        set 
+        {
+            if (value == null)
+                uIImages.Clear();
+            else
+                uIImages.Add(value); 
+        } 
+    }
+
+    public Vector3 UIOffset 
+    {
+        get => uIOffset; 
+    }
 
     public virtual EObjectType GetShownType()
     {

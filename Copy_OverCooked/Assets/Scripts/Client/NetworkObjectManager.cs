@@ -32,7 +32,7 @@ public class NetworkObjectManager : MonobehaviorSingleton<NetworkObjectManager>
         networkObjectDic.Add(s_nextId++, obj);
     }
 
-    public NetworkObject GetObjectById(int id)
+    public NetworkObject FindById(int id)
     {
         return networkObjectDic[id];
     }

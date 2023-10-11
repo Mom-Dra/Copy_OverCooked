@@ -47,7 +47,7 @@ public class LoginManager : MonobehaviorSingleton<LoginManager>
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded");
+        //Debug.Log("OnSceneLoaded");
         Debug.Log(scene.name);
 
         SceneManager.sceneLoaded -= OnSceneLoaded;

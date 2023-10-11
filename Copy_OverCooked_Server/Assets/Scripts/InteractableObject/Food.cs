@@ -9,8 +9,18 @@ public class Food : InteractableObject
     private int currCookDegree = 0;
 
     // Property
-    public EFoodState FoodState { get => foodState; }
-    public int CurrCookDegree { get => currCookDegree; set { currCookDegree = value; } }
+    public EFoodState FoodState 
+    { 
+        get => foodState; 
+    }
+    public int CurrCookDegree 
+    { 
+        get => currCookDegree; 
+        set 
+        { 
+            currCookDegree = value; 
+        } 
+    }
 
     private void FixedUpdate()
     {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44517416, g: 0.49478847, b: 0.57384115, a: 1}
+  m_IndirectSpecularColor: {r: 0.44517386, g: 0.49478805, b: 0.5738404, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -301,7 +301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &606033848
 Transform:
   m_ObjectHideFlags: 0
@@ -510,6 +510,7 @@ GameObject:
   - component: {fileID: 799040786}
   - component: {fileID: 799040784}
   - component: {fileID: 799040787}
+  - component: {fileID: 799040788}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -556,6 +557,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fbaefa2c1bbf7942b94b0baa7455677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &799040788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799040783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed2261bde87ef743807cf793646cdec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serialCodeDictionary:
+  - {fileID: 3630446594044350341, guid: d92b7cc0225a19d4fbe6530f98223fe4, type: 3}
+  - {fileID: 5350805098027501781, guid: 4315118c932b8954cb9f556ffa358acc, type: 3}
+  - {fileID: 1893396002255082344, guid: abffe6cbd3abac54baf751f927767135, type: 3}
+  - {fileID: 2839896578466581416, guid: 4c32c09f790a4f14798985023d467ee6, type: 3}
+  - {fileID: 2622317581136035845, guid: c7225d116d005194eb3c2e22a09d4471, type: 3}
+  - {fileID: 7307761284192429998, guid: 64cf27d61671de44bade1292d3277819, type: 3}
+  - {fileID: 6477064757151318651, guid: ba2c5968b4ec18745b192fcd306a0edf, type: 3}
+  - {fileID: 454764615951547873, guid: 70e379037e6453d4d920c8deee8f95ce, type: 3}
+  - {fileID: 33877154923391642, guid: d74990ded935baf4c80f4773fb03154d, type: 3}
+  - {fileID: 2111102688129036984, guid: 29b600a68ffa38e499cfbcd985e63a71, type: 3}
+  - {fileID: 3010498099734623817, guid: 45e518b23fff3784591c1c7bfde2ef4a, type: 3}
+  - {fileID: 452109335002406505, guid: ea5098163ffccc543bc4a66b73bd4170, type: 3}
+  - {fileID: 5359118705028117076, guid: 94e524b18cd3ec047a6a1c5420844929, type: 3}
+  - {fileID: 8597518091720313445, guid: 2da00b0691a596844825a3380034adf3, type: 3}
+  - {fileID: 5576758586236041868, guid: 946f621bedd351249a040f854623091e, type: 3}
+  - {fileID: 6924242740667906775, guid: 05852cf26ad57bf42a8e21bcf13329ea, type: 3}
 --- !u!4 &831963625 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7790668472495875048, guid: c7225d116d005194eb3c2e22a09d4471, type: 3}
@@ -1068,9 +1098,9 @@ GameObject:
   - component: {fileID: 1484634175}
   - component: {fileID: 1484634174}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Ground
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1703,7 +1733,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1917373397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2162,6 +2192,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 3630446594044350341, guid: d92b7cc0225a19d4fbe6530f98223fe4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2472,6 +2506,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireExtinguisher
       objectReference: {fileID: 0}
+    - target: {fileID: 2111102688129036984, guid: 29b600a68ffa38e499cfbcd985e63a71, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4863927729737380505, guid: 29b600a68ffa38e499cfbcd985e63a71, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2643,11 +2681,11 @@ SceneRoots:
   m_Roots:
   - {fileID: 963194228}
   - {fileID: 705507995}
+  - {fileID: 1484634177}
+  - {fileID: 799040786}
+  - {fileID: 1812554862}
   - {fileID: 1814487202}
   - {fileID: 3125764925493657082}
-  - {fileID: 799040786}
   - {fileID: 1917373400}
-  - {fileID: 1812554862}
   - {fileID: 606033848}
   - {fileID: 7108661513415428657}
-  - {fileID: 1484634177}

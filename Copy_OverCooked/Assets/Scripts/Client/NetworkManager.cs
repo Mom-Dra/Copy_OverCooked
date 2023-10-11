@@ -13,7 +13,7 @@ public class NetworkManager : MonobehaviorSingleton<NetworkManager>
     [SerializeField]
     private int port = 9999;
 
-    private int clientId;
+    private int clientId = -1;
     private byte[] buffer = new byte[1024];
 
     //Property
@@ -29,18 +29,18 @@ public class NetworkManager : MonobehaviorSingleton<NetworkManager>
         try
         {
             tcpClient = new TcpClient(hostIP, port);
-            Debug.Log("서버에 성공적으로 접속하였습니다!");
+            NetworkDebug.Log("서버에 성공적으로 접속하였습니다!");
 
             int bytesRead = tcpClient.GetStream().Read(buffer, 0, buffer.Length);
             clientId = BitConverter.ToInt32(buffer, 0);
 
-            Debug.Log($"id: {clientId}");
+            NetworkDebug.Log($"id: {clientId}");
 
             connectSuccessCallBack.Invoke();
         }
         catch (Exception e)
         {
-            Debug.Log("서버 접속에 실패하였습니다.");
+            NetworkDebug.Log("서버 접속에 실패하였습니다.");
             Debug.LogException(e);
             connectFailCallBack.Invoke();
         }
@@ -48,8 +48,8 @@ public class NetworkManager : MonobehaviorSingleton<NetworkManager>
 
     public void Send(Packet packet)
     {
-        Debug.Log($"<color=magenta> {packet} </color>");
-
+        packet.Sender = 0;
+        Debug.Log($"{packet}");
         tcpClient.GetStream().Write(packet.ToByteArray());
     }
 }

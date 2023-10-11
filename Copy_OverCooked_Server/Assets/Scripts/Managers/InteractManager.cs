@@ -43,11 +43,9 @@ public class InteractManager : MonobehaviorSingleton<InteractManager> // 快府狼 
         InteractableObject sendObject = null;
 
         EObjectType topReceiveType = receiver.GetShownType();
-        Debug.Log($"Object Type : {topReceiveType}");
         switch (topReceiveType)
         {
             case EObjectType.Empty_Fixed_Container:
-                Debug.Log("Move E");
                 if (sender.TryGet<Tray>(out Tray tray, EGetMode.Pop))
                 {
                     sendObject = tray;
@@ -67,7 +65,6 @@ public class InteractManager : MonobehaviorSingleton<InteractManager> // 快府狼 
                 break;
 
             case EObjectType.Tray:
-                Debug.Log("Move T");
                 if (sender.TryGet<Food>(out Food food1, EGetMode.Pop))
                 {
                     sendObject = food1;
@@ -84,7 +81,6 @@ public class InteractManager : MonobehaviorSingleton<InteractManager> // 快府狼 
                 break;
 
             case EObjectType.Food:
-                Debug.Log("Move F");
                 if (sender.TryGet<Food>(out Food food2, EGetMode.Pop))
                 {
                     sendObject = food2;

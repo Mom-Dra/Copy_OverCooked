@@ -18,9 +18,27 @@ public class Container : InteractableObject
     protected List<InteractableObject> containObjects = new List<InteractableObject>();
 
     // Property
-    public bool Flammablity { get => flammablity; }
-    public InteractableObject GetObject { get => getObject; }
-    public List<InteractableObject> ContainObjects { get => containObjects; }
+    public bool Flammablity 
+    { 
+        get => flammablity; 
+    }
+
+    public InteractableObject GetObject 
+    { 
+        get => getObject; 
+    }
+
+    public List<InteractableObject> ContainObjects 
+    {
+        get
+        {
+            if(getObject.TryGet<Tray>(out Tray tray))
+            {
+                return tray.ContainObjects;
+            }
+            return containObjects;
+        }
+    }
 
     private void Awake()
     {
@@ -99,11 +117,6 @@ public class Container : InteractableObject
             getObject = interactableObject;
         }
         containObjects.Add(interactableObject);
-    }
-
-    public InteractableObject Get()
-    {
-        return getObject;
     }
 
     public override EObjectType GetShownType()

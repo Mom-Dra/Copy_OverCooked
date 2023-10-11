@@ -1,0 +1,20 @@
+Object Serial Code
+(Server1.1) _20231011
+-------------------
+0 Player
+1 FryingPan
+2 Plate
+3 Table
+4 Induction
+5 CuttingBoard
+6 Sink
+7 Trashcan
+8 OrderTable
+9 TomatoFoodBox
+10 MeatFoodBox
+11 FireExtinguisher
+12 Org_Tomato
+13 Org_Meat
+14 Chopeed_Tomato
+15 Grilled_Meat
+
