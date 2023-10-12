@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
@@ -37,6 +38,9 @@ public class NetworkManager : MonobehaviorSingleton<NetworkManager>
             NetworkDebug.Log($"id: {clientId}");
 
             connectSuccessCallBack.Invoke();
+
+
+            tcpClient.GetStream().BeginRead(buffer, 0, buffer.Length, ReadCallBack, tcpClient);
         }
         catch (Exception e)
         {
@@ -46,10 +50,26 @@ public class NetworkManager : MonobehaviorSingleton<NetworkManager>
         }
     }
 
+    private void ReadCallBack(IAsyncResult result)
+    {
+        NetworkStream stream = tcpClient.GetStream();
+
+        int readLength = stream.EndRead(result);
+
+        if(readLength > 0)
+        {
+            using (Packet packet = new Packet(buffer.Take(readLength).ToArray()))
+            {
+                Debug.Log($"<color=orange> {packet} </color>");
+            }
+        }
+
+        tcpClient.GetStream().BeginRead(buffer, 0, buffer.Length, ReadCallBack, tcpClient);
+    }
+
     public void Send(Packet packet)
     {
-        packet.Sender = 0;
-        Debug.Log($"{packet}");
+        Debug.Log($"<color=yellow> {packet} </color>");
         tcpClient.GetStream().Write(packet.ToByteArray());
     }
 }

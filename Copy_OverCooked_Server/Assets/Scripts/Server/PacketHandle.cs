@@ -2,14 +2,15 @@ using System;
 using System.Collections.Generic;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PacketHandle
 {
-    private static Dictionary<int, Action<Packet>> actionDics;
+    private static Dictionary<int, UnityAction<Packet>> actionDics;
 
     public static void Init()
     {
-        actionDics = new Dictionary<int, Action<Packet>>()
+        actionDics = new Dictionary<int, UnityAction<Packet>>()
         {
             { (int)EActionCode.Input, OnInputAction },
             { (int)EActionCode.Event, OnEventAction },

@@ -24,18 +24,22 @@ public class ClientHandler
 
     private void ReadCallback(IAsyncResult result)
     {
-        
         NetworkStream stream = tcpClient.GetStream();
 
         int readLength = stream.EndRead(result);
 
         if (readLength > 0)
         {
-            using (Packet packet = new Packet(buffer.Take(readLength).ToArray()))
+            UnityMainThread.Instance.AddJob(() =>
             {
-                Debug.Log($"{clientId}, {packet}");
-                PacketHandle.Invoke(packet);
-            }
+                using (Packet packet = new Packet(buffer.Take(readLength).ToArray()))
+                {
+                    Debug.Log($"<color=yellow> {clientId}, {packet} </color>");
+                    PacketHandle.Invoke(packet);
+
+                    Debug.Log("<color=yellow> Hello? </color>");
+                }
+            });
         }
 
         tcpClient.GetStream().BeginRead(buffer, 0, buffer.Length, ReadCallback, tcpClient);
@@ -43,8 +47,7 @@ public class ClientHandler
 
     public void Send(Packet packet)
     {
-        packet.Sender = 1;
-        Debug.Log($"{clientId}, {packet}");
+        Debug.Log($"<color=orange> ClientId: {clientId}, {packet}, Length: {packet.GetLength()} </color>");
         NetworkStream stream = tcpClient.GetStream();
         stream.Write(packet.ToByteArray());
     }

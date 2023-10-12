@@ -21,6 +21,8 @@ public class Server : MonobehaviorSingleton<Server>
         tcpListener.Start();
         tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
         PacketHandle.Init();
+
+        Debug.Log("서버가 시작되었습니다.");
     }
 
     private void TCPConnectCallback(IAsyncResult result)
@@ -38,8 +40,8 @@ public class Server : MonobehaviorSingleton<Server>
 
         clientHandler.BeginRead();
 
-        tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
         s_nextId++;
+        tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
     }
 
     public void SendToClient(Packet packet, int clientId)

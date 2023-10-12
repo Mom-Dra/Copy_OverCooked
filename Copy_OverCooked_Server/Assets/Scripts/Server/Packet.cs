@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Packet : IDisposable
 {
-    private int sender;
     private EActionCode actionCode;
     private int targetId;
 
@@ -13,10 +13,9 @@ public class Packet : IDisposable
     private byte[] bufferForRead;
     private int readPos = 0;
 
-    private List<string> debugLines = new List<string>();
+    private List<string> debugLines;
 
     // Property
-    public int Sender { set => sender = value; }
     public EActionCode ActionCode { get => actionCode; }
     public int TargetId { get => targetId; }
 
@@ -27,6 +26,7 @@ public class Packet : IDisposable
         this.targetId = targetId;
 
         buffer = new List<byte>();
+        debugLines = new List<string>();
 
         Write((int)actionCode);
         Write(targetId);
@@ -35,12 +35,24 @@ public class Packet : IDisposable
     public Packet(byte[] bytes)
     {
         bufferForRead = bytes;
-
         Read(out int action);
-        Read(out int target);
         Read(out targetId);
 
         actionCode = (EActionCode)action;
+    }
+
+    public int GetLength()
+    {
+        if(buffer != null)
+        {
+            return buffer.Count;
+        }
+        else if (bufferForRead != null)
+        {
+            return bufferForRead.Length;
+        }
+
+        return 0;
     }
 
     private bool CanRead()
@@ -281,24 +293,23 @@ public class Packet : IDisposable
 
     public override string ToString()
     {
-        string debugColor;
-        if (sender == 0)
+        if(debugLines != null)
         {
-            debugColor = "yellow";
-        } else
-        {
-            debugColor = "magenta";
+            string result = string.Empty;
+            result += "Action: " + debugLines[0] + ", ";
+            result += "TargetID: " + debugLines[1] + ", ";
+            result += "Args = { ";
+            for (int i = 3; i < debugLines.Count; ++i)
+            {
+                result += debugLines[i] + ", ";
+            }
+
+            return result;
         }
-        string result = $"<color={debugColor}> ";
-        result += "Action: " + debugLines[0] + ", ";
-        result += "TargetID: " + debugLines[1] + ", ";
-        result += "Args = { ";
-        for (int i = 3; i < debugLines.Count; ++i)
+        else
         {
-            result += debugLines[i] + ", ";
+            return $"ActionCode: {ActionCode}, TargetId: {TargetId}, BufferLength: {GetLength()}";
         }
-        result += "</color>}";
-        return result;
     }
 }
 

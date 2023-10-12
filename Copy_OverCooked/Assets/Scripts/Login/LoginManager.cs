@@ -35,21 +35,10 @@ public class LoginManager : MonobehaviorSingleton<LoginManager>
     private void ConnectSuccessCallBack()
     {
         SceneManager.LoadScene("InGameClient");
-
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        
     }
 
     private void ConnectFailCallBack()
     {
         joinButton.interactable = true;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        //Debug.Log("OnSceneLoaded");
-        Debug.Log(scene.name);
-
-        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
