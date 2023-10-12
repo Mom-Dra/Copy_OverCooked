@@ -27,21 +27,28 @@ public class ClientHandler
         NetworkStream stream = tcpClient.GetStream();
 
         int readLength = stream.EndRead(result);
-
-        if (readLength > 0)
+        int readPos = 0;
+        while (readPos < readLength)
         {
-            UnityMainThread.Instance.AddJob(() =>
+            int packetLength = BitConverter.ToInt32(buffer, readPos);
+            readPos += 4;
+
+            if (packetLength > 0)
             {
-                using (Packet packet = new Packet(buffer.Take(readLength).ToArray()))
+                byte[] packetUnitData = buffer.Skip(readPos).Take(packetLength).ToArray(); 
+                UnityMainThread.Instance.AddJob(() =>
                 {
-                    Debug.Log($"<color=yellow> {clientId}, {packet} </color>");
-                    PacketHandle.Invoke(packet);
-
-                    Debug.Log("<color=yellow> Hello? </color>");
-                }
-            });
+                    int readPosForDelay = readPos;
+                    using (Packet packet = new Packet(packetUnitData))
+                    {
+                        Debug.Log($"<color=yellow> {packet} </color>");
+                        PacketHandle.Invoke(packet);
+                    }
+                });
+                readPos += packetLength;
+            } else
+                break;
         }
-
         tcpClient.GetStream().BeginRead(buffer, 0, buffer.Length, ReadCallback, tcpClient);
     }
 

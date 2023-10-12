@@ -24,7 +24,13 @@ public class PacketHandle
 
     public static void Invoke(Packet packet)
     {
-        actionDic[(int)packet.ActionCode].Invoke(packet);
+        try
+        { 
+            actionDic[(int)packet.ActionCode].Invoke(packet);
+        }catch (Exception e)
+        {
+            Debug.LogException(e);
+        }
     }
 
     private static void OnEventHandle(Packet packet)

@@ -23,6 +23,7 @@ public class NetworkManager : MonobehaviorSingleton<NetworkManager>
     protected override void Awake()
     {
         base.Awake();
+        PacketHandle.Init();
     }
 
     public void ConnectToServer(string hostIP, UnityAction connectSuccessCallBack, UnityAction connectFailCallBack)
@@ -55,13 +56,27 @@ public class NetworkManager : MonobehaviorSingleton<NetworkManager>
         NetworkStream stream = tcpClient.GetStream();
 
         int readLength = stream.EndRead(result);
-
-        if(readLength > 0)
+        int readPos = 0;
+        while (readPos < readLength)
         {
-            using (Packet packet = new Packet(buffer.Take(readLength).ToArray()))
+            int packetLength = BitConverter.ToInt32(buffer, readPos);
+            readPos += 4;
+
+            if (packetLength > 0)
             {
-                Debug.Log($"<color=orange> {packet} </color>");
-            }
+                byte[] packetUnitData = buffer.Skip(readPos).Take(packetLength).ToArray();
+                UnityMainThread.Instance.AddJob(() =>
+                {
+                    int readPosForDelay = readPos;
+                    using (Packet packet = new Packet(packetUnitData))
+                    {
+                        Debug.Log($"<color=yellow> {packet} </color>");
+                        PacketHandle.Invoke(packet);
+                    }
+                });
+                readPos += packetLength;
+            } else
+                break;
         }
 
         tcpClient.GetStream().BeginRead(buffer, 0, buffer.Length, ReadCallBack, tcpClient);

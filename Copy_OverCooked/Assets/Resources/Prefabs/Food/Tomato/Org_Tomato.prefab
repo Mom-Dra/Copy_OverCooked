@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 7823514998457293973}
   - component: {fileID: 6213309299284260217}
   - component: {fileID: 2846311932433697789}
+  - component: {fileID: -2998041392817242677}
   m_Layer: 8
   m_Name: Org_Tomato
   m_TagString: Food
@@ -300,6 +301,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9999997, y: 1.2498999, z: 1.0976998}
   m_Center: {x: 0, y: 0.077004425, z: 0.026609572}
+--- !u!114 &-2998041392817242677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5359118705028117076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 620bb2bf60ed2b04880bd8eb8b05930e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serialCode: 0
 --- !u!1 &5571775117073912469
 GameObject:
   m_ObjectHideFlags: 0

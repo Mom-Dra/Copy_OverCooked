@@ -4,6 +4,12 @@ public class DynamicNetworkObject : NetworkObject
 {
     private Vector3 prevPosition;
 
+    protected override void Start()
+    {
+        base.Start();
+        prevPosition = transform.position;
+    }
+
     private void FixedUpdate()
     {
         if (prevPosition != transform.position)

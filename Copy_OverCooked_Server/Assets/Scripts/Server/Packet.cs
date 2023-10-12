@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -43,11 +45,10 @@ public class Packet : IDisposable
 
     public int GetLength()
     {
-        if(buffer != null)
+        if (buffer != null)
         {
             return buffer.Count;
-        }
-        else if (bufferForRead != null)
+        } else if (bufferForRead != null)
         {
             return bufferForRead.Length;
         }
@@ -288,25 +289,27 @@ public class Packet : IDisposable
 
     public byte[] ToByteArray()
     {
-        return buffer.ToArray();
+        List<byte> bufferHeader = new List<byte>();
+        bufferHeader.AddRange(BitConverter.GetBytes(buffer.Count));
+        bufferHeader.AddRange(buffer);
+        return bufferHeader.ToArray();
     }
 
     public override string ToString()
     {
-        if(debugLines != null)
+        if (debugLines != null)
         {
             string result = string.Empty;
             result += "Action: " + debugLines[0] + ", ";
             result += "TargetID: " + debugLines[1] + ", ";
             result += "Args = { ";
-            for (int i = 3; i < debugLines.Count; ++i)
+            for (int i = 2; i < debugLines.Count; ++i)
             {
                 result += debugLines[i] + ", ";
             }
-
+            result += " }";
             return result;
-        }
-        else
+        } else
         {
             return $"ActionCode: {ActionCode}, TargetId: {TargetId}, BufferLength: {GetLength()}";
         }

@@ -36,7 +36,6 @@ public class PacketHandle
 
     private static void OnEventAction(Packet packet)
     {
-        Debug.Log("Receive Event");
         packet.Read(out int eventType);
         switch ((EEventType)eventType)
         {

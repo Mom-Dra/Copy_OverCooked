@@ -27,7 +27,7 @@ public class NetworkObjectManager : MonobehaviorSingleton<NetworkObjectManager>
 
     public void Add(NetworkObject obj)
     {
-        Debug.Log($"Set ID : {obj.gameObject.name} -> {s_nextId}");
+        //Debug.Log($"Set ID : {obj.gameObject.name} -> {s_nextId}");
         obj.Id = s_nextId;
         networkObjectDic.Add(s_nextId++, obj);
     }

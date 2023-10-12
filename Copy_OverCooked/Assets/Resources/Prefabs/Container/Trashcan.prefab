@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4376660533241911930}
   - component: {fileID: 202001491742902116}
   - component: {fileID: 1066856724364982319}
+  - component: {fileID: -5023900217687542158}
   m_Layer: 0
   m_Name: Trashcan
   m_TagString: Untagged
@@ -90,6 +91,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.0190094, z: 1}
   m_Center: {x: 0, y: 0.494243, z: 0}
+--- !u!114 &-5023900217687542158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454764615951547873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 620bb2bf60ed2b04880bd8eb8b05930e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serialCode: 0
 --- !u!1 &586120067588278506
 GameObject:
   m_ObjectHideFlags: 0

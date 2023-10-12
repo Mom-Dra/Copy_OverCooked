@@ -7,13 +7,10 @@ public class PacketSend
 
     public static void UploadMapDataToClient(int clientId)
     {
-        Debug.Log($"MapData Upload to {clientId}");
-
         try
         {
             foreach (NetworkObject obj in NetworkObjectManager.Instance.ObjectDic)
             {
-
                 InteractableObject interactableObject = obj.GetComponent<InteractableObject>();
 
                 using (Packet packet = new Packet(EActionCode.Instantiate, obj.Id))
@@ -31,7 +28,5 @@ public class PacketSend
         {
             Debug.LogException(e);
         }
-        
-        Debug.Log("END");
     }
 }

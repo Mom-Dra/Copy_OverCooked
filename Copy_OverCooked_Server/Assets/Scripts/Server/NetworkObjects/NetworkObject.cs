@@ -4,8 +4,8 @@ public class NetworkObject : MonoBehaviour
 {
     [SerializeField]
     protected EObjectSerialCode serialCode;
-
-    protected int id;
+    [SerializeField]
+    protected int id; // For Debug
 
     // Property
     public int Id 
@@ -22,7 +22,7 @@ public class NetworkObject : MonoBehaviour
         get => serialCode; 
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         NetworkObjectManager.Instance.Add(this);
     }

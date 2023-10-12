@@ -25,6 +25,7 @@ public class ClientHandler
         tcpClient.GetStream().BeginRead(buffer, 0, buffer.Length, ReadCallback, tcpClient);
     }
 
+    // 이거 안쓰는거 아닌가 
     private void ReadCallback(IAsyncResult result)
     {
         NetworkStream stream = tcpClient.GetStream();

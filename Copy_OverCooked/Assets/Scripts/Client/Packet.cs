@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UIElements;
 
 public class Packet : IDisposable
@@ -288,7 +291,10 @@ public class Packet : IDisposable
 
     public byte[] ToByteArray()
     {
-        return buffer.ToArray();
+        List<byte> bufferHeader = new List<byte>();
+        bufferHeader.AddRange(BitConverter.GetBytes(buffer.Count));
+        bufferHeader.AddRange(buffer);
+        return bufferHeader.ToArray();
     }
 
     public override string ToString()
@@ -299,11 +305,11 @@ public class Packet : IDisposable
             result += "Action: " + debugLines[0] + ", ";
             result += "TargetID: " + debugLines[1] + ", ";
             result += "Args = { ";
-            for (int i = 3; i < debugLines.Count; ++i)
+            for (int i = 2; i < debugLines.Count; ++i)
             {
                 result += debugLines[i] + ", ";
             }
-
+            result += " }";
             return result;
         }
         else
