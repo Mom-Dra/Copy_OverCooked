@@ -40,8 +40,9 @@ public class Container : InteractableObject
         }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (getObject != null)
         {
             Put(getObject);
@@ -81,8 +82,6 @@ public class Container : InteractableObject
 
     public virtual void Remove(InteractableObject interactableObject)
     {
-        // 1. 타입으로 없애기
-        // 2. 객체 일치로 없애기  (&&^^당첨^^&&)
         if (getObject == interactableObject)
         {
             getObject = null;
@@ -121,7 +120,6 @@ public class Container : InteractableObject
 
     public override EObjectType GetShownType()
     {
-        Debug.Log("GetShownType");
         if (getObject != null)
         {
             return getObject.GetShownType();

@@ -24,9 +24,9 @@ public class Food : InteractableObject
 
     private void FixedUpdate()
     {
-        if (UIImage != null)
+        if (UIComponent != null)
         {
-            UIImage.transform.position = Camera.main.WorldToScreenPoint(transform.position + uIOffset);
+            UIComponent.OnUIPositionChanging();
         }
     }
 

@@ -186,7 +186,7 @@ MonoBehaviour:
   eObjectType: 0
   uIOffset: {x: 0, y: 1, z: 0}
   maxContainCount: 1
-  flammablity: 1
+  flammablity: 0
   displayOffset: {x: 0, y: 0.6, z: 0}
   getObject: {fileID: 0}
   containObjects: []
@@ -205,6 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serialCode: 5
+  id: 0
 --- !u!1 &8889395286778988012
 GameObject:
   m_ObjectHideFlags: 0

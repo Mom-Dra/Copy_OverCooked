@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,17 +46,16 @@ public abstract class Cookware : FixedContainer
 
     public override void Remove(InteractableObject interactableObject)
     {
-        if (UIImage != null)
+        if (UIComponent.Count > 0)
         {
             if (cookwareState == ECookwareState.Overheat && getObject.TryGet<Food>(out Food getFood))
             {
-                getFood.UIImage = UIImage;
+                getFood.UIComponent = uIComponent;
             } 
             else
             {
-                Destroy(UIImage.gameObject);
+                uIComponent.Images = null;
             }
-            UIImage = null;
         }
 
         base.Remove(interactableObject);
@@ -103,11 +101,11 @@ public abstract class Cookware : FixedContainer
         float totalCookDuration = recipe.TotalCookDuration;
 
         // UI
-        if (UIImage == null)
+        if (uIComponent.Count == 0)
         {
-            UIImage = InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.Progress);
+            uIComponent.Images = InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.Progress);
         }
-        Image gauge = UIImage.transform.GetChild(1).GetComponent<Image>();
+        Image gauge = uIComponent.Images.transform.GetChild(1).GetComponent<Image>();
 
         while (currFood.CurrCookDegree <= 100)
         {
@@ -116,7 +114,7 @@ public abstract class Cookware : FixedContainer
             Debug.Log($"Cooking... <color=yellow>{currFood.name}</color> => <color=orange>{cookedFood.name}</color> <color=green>## {currFood.CurrCookDegree}%</color>");
             yield return workInterval;
         }
-        containObjects.Clear();
+        ContainObjects.Clear();
         cookwareState = ECookwareState.Complete;
 
         Food instantiateFood = Instantiate(cookedFood, currFood.transform.position, Quaternion.identity);

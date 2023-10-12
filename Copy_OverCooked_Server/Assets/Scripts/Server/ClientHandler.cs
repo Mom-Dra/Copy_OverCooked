@@ -36,9 +36,9 @@ public class ClientHandler
             if (packetLength > 0)
             {
                 byte[] packetUnitData = buffer.Skip(readPos).Take(packetLength).ToArray(); 
+                // 이렇게 안해주면 JobQueue 문제때문에 꼬임 
                 UnityMainThread.Instance.AddJob(() =>
                 {
-                    int readPosForDelay = readPos;
                     using (Packet packet = new Packet(packetUnitData))
                     {
                         Debug.Log($"<color=yellow> {packet} </color>");

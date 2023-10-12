@@ -67,10 +67,9 @@ public class NetworkManager : MonobehaviorSingleton<NetworkManager>
                 byte[] packetUnitData = buffer.Skip(readPos).Take(packetLength).ToArray();
                 UnityMainThread.Instance.AddJob(() =>
                 {
-                    int readPosForDelay = readPos;
                     using (Packet packet = new Packet(packetUnitData))
                     {
-                        Debug.Log($"<color=yellow> {packet} </color>");
+                        Debug.Log($"<color=orange> {packet} </color>");
                         PacketHandle.Invoke(packet);
                     }
                 });

@@ -19,8 +19,9 @@ public class Hand : Container
         }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         interactor = GetComponentInChildren<Interactor>();
         player = transform.parent.GetComponent<Player>();
     }

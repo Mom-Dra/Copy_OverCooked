@@ -22,13 +22,13 @@ public class UIStateEvent : Event
         if (cookware.TryGet<Food>(out Food food))
         {
             int currDegree = food.CurrCookDegree;
-            if (currDegree >= 100 && currDegree < 160)
+            if (currDegree >= 100)
             {
-                if (cookware.UIImage != null)
+                if (cookware.UIComponent.Count > 0)
                 {
-                    GameObject.Destroy(cookware.UIImage.gameObject);
+                    cookware.UIComponent.Images = null;
                 }
-                cookware.UIImage = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Complete);
+                cookware.UIComponent.Images = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Complete);
                 return true;
             }
         }
@@ -37,18 +37,19 @@ public class UIStateEvent : Event
 
     private bool ShowWarningUI()
     {
+        
         if (!cookware.HasObject())
             return true;
         if (cookware.TryGet<Food>(out Food food))
         {
             int currDegree = food.CurrCookDegree;
-            if (currDegree >= 160 && currDegree < 200)
+            if (currDegree >= 160)
             {
-                if (cookware.UIImage != null)
+                if (cookware.UIComponent.Count > 0)
                 {
-                    GameObject.Destroy(cookware.UIImage.gameObject);
+                    cookware.UIComponent.Images = null;
                 }
-                cookware.UIImage = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Warning);
+                cookware.UIComponent.Images = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Warning);
                 return true;
             }
         }
@@ -64,11 +65,11 @@ public class UIStateEvent : Event
             int currDegree = food.CurrCookDegree;
             if (currDegree >= 200)
             {
-                if (cookware.UIImage != null)
+                if (cookware.UIComponent.Count > 0)
                 {
-                    GameObject.Destroy(cookware.UIImage.gameObject);
+                    cookware.UIComponent.Images = null;
                 }
-                cookware.UIImage = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Overheat);
+                cookware.UIComponent.Images = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Overheat);
                 cookware.CookwareState = ECookwareState.Overheat;
                 return true;
             }

@@ -151,7 +151,7 @@ MonoBehaviour:
   Description: 
   eObjectType: 2
   uIOffset: {x: 0, y: 1, z: 0}
-  foodState: 0
+  foodState: 2
   currCookDegree: 0
 --- !u!114 &2410106073243595991
 MonoBehaviour:
@@ -166,3 +166,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serialCode: 15
+  id: 0

@@ -2,9 +2,9 @@ public class Plate : Tray
 {
     protected override bool IsValidObject(InteractableObject interactableObject)
     {
-        if (interactableObject.TryGet<Food>(out Food food) && food.FoodState != EFoodState.Original)
+        if (base.IsValidObject(interactableObject) && interactableObject.TryGet<Food>(out Food food))
         {
-            return base.IsValidObject(interactableObject);
+            return food.FoodState == EFoodState.Cooked;
         }
         return false;
     }

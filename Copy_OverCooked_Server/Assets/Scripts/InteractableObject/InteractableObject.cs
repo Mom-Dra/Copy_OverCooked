@@ -15,7 +15,7 @@ public class InteractableObject : MonoBehaviour
     [SerializeField]
     protected Vector3 uIOffset = Vector3.up;
     
-    private List<Image> uIImages = new List<Image>();
+    protected UIComponent uIComponent;
     protected bool selectable = true;
 
     // Property
@@ -28,23 +28,21 @@ public class InteractableObject : MonoBehaviour
         } 
     }
 
-    public Image UIImage 
+    public UIComponent UIComponent 
     {
-        get
-        {
-            if(uIImages.Count == 0)
-            {
-                return null;
-            }
-            return uIImages[0];
+        get 
+        { 
+            return uIComponent; 
         }
-        set 
+        set
         {
-            if (value == null)
-                uIImages.Clear();
-            else
-                uIImages.Add(value); 
-        } 
+            uIComponent = value;
+        }
+    }
+
+    protected virtual void Awake()
+    {
+        uIComponent = new UIComponent(transform, uIOffset);
     }
 
     public Vector3 UIOffset 
