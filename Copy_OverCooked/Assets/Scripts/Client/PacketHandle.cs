@@ -24,18 +24,18 @@ public class PacketHandle
 
     public static void Invoke(Packet packet)
     {
-        try
-        { 
-            actionDic[(int)packet.ActionCode].Invoke(packet);
-        }catch (Exception e)
-        {
-            Debug.LogException(e);
-        }
+        actionDic[(int)packet.ActionCode].Invoke(packet);
     }
 
     private static void OnEventHandle(Packet packet)
     {
-
+        packet.Read(out int type);
+        switch ((EEventType)type)
+        {
+            case EEventType.SpawnPlayer:
+                PlayerController.Instance.PlayerId = packet.TargetId;
+                break;
+        }
     }
 
     private static void OnTransformHandle(Packet packet)
@@ -59,7 +59,8 @@ public class PacketHandle
 
     private static void OnInstantiateHandle(Packet packet)
     {
-        packet.Read(out int type); 
+        packet.Read(out int type);
+
         switch ((EInstantiateType)type)
         {
             case EInstantiateType.Instantiate:
@@ -91,9 +92,9 @@ public class PacketHandle
         packet.Read(out int serialCode);
         packet.Read(out Vector3 position);
         packet.Read(out Quaternion rotation);
-        GameObject instantiateGO = SerialCodeDictionary.Instance.FindBySerialCode((EObjectSerialCode)serialCode);
+
+        GameObject instantiateGO = GameObject.Instantiate(SerialCodeDictionary.Instance.FindBySerialCode((EObjectSerialCode)serialCode), position, rotation);
         instantiateGO.GetComponent<NetworkObject>().Id = packet.TargetId;
-        GameObject.Instantiate(instantiateGO, position, rotation);
     }
 
     private static void DoDestroy(Packet packet)

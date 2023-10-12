@@ -8,11 +8,6 @@ public class NetworkObject : MonoBehaviour
     protected int id;
 
     // Property
-    public int Id { get => id; set { id = value; } }
+    public int Id { get => id; set { id = value; NetworkObjectManager.Instance.Add(this); } }
     public EObjectSerialCode ObjectSerialCode { get => serialCode; }
-
-    private void Start()
-    {
-        NetworkObjectManager.Instance.Add(this);
-    }
 }

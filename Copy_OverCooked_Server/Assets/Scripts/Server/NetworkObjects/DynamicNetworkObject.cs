@@ -4,9 +4,10 @@ public class DynamicNetworkObject : NetworkObject
 {
     private Vector3 prevPosition;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
+
         prevPosition = transform.position;
     }
 

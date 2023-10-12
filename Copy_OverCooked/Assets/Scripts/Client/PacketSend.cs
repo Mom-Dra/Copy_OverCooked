@@ -9,7 +9,7 @@ public static class PacketSend
     {
         using (Packet packet = new Packet(EActionCode.Event, NetworkManager.Instance.ClientId)) 
         {
-            packet.Write((int)EEventType.SceneLoaded);
+            packet.Write((int)EEventType.SceneLoad);
             packet.Write(sceneName);
 
             NetworkManager.Instance.Send(packet);

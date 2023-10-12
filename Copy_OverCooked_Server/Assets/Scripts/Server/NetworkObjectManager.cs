@@ -6,8 +6,10 @@ using System;
 
 public class NetworkObjectManager : MonobehaviorSingleton<NetworkObjectManager>
 {
-    private static int s_nextId = 1;
+    private static int s_nextId = 0;
     public Dictionary<int, NetworkObject> networkObjectDic;
+
+    private int playerCount = 0;
 
     public Dictionary<int, NetworkObject>.ValueCollection ObjectDic 
     {
@@ -49,19 +51,25 @@ public class NetworkObjectManager : MonobehaviorSingleton<NetworkObjectManager>
         return instantiateObject;
     }
 
+    public void SpawnPlayer(int clientId)
+    {
+        Transform spawnLocation = GameObject.Find("PlayerSpawnPositions").transform.GetChild(playerCount++);
+        GameObject player = this.Instantiate(SerialCodeDictionary.Instance.FindBySerialCode(EObjectSerialCode.Player), spawnLocation.position, spawnLocation.rotation);
+
+        int targetId = player.GetComponent<NetworkObject>().Id;
+        Debug.Log($" Player Id :{targetId}");
+        PacketSend.SpawnPlayer(targetId, clientId);
+    }
+
     public void Add(NetworkObject obj)
     {
         //Debug.Log($"Set ID : {obj.gameObject.name} -> {s_nextId}");
-        obj.Id = s_nextId;
-        networkObjectDic.Add(s_nextId, obj);
-        //Debug.Log($"NetworkObject Add : {networkObjectDic[s_nextId].name}");
-        s_nextId++;
+        //obj.Id = s_nextId;
+        networkObjectDic.Add(obj.Id, obj);
     }
 
     public NetworkObject GetObjectById(int id)
     {
         return networkObjectDic[id];
     }
-
-    
 }

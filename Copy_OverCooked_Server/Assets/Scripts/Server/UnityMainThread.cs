@@ -18,6 +18,9 @@ public class UnityMainThread : MonobehaviorSingleton<UnityMainThread>
 
     public void AddJob(UnityAction job)
     {
-        actionQueue.Enqueue(job);
+        lock (actionQueue)
+        {
+            actionQueue.Enqueue(job);
+        }
     }
 }

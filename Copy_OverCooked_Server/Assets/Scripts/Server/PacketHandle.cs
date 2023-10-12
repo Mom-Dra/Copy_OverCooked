@@ -49,7 +49,8 @@ public class PacketHandle
     {
         int targetId = packet.TargetId;
         packet.Read(out Vector2 direction);
-        Player movePlayer = NetworkObjectManager.Instance.GetObjectById(targetId).GetComponent<Player>();
+        Player movePlayer = NetworkObjectManager.Instance.GetObjectById(targetId).gameObject.GetComponent<Player>();
+        Debug.Log($"Direction : {direction}, Player : {movePlayer}");
         movePlayer.SetMoveDirection(new Vector3(direction.x, 0f, direction.y));
     }
 

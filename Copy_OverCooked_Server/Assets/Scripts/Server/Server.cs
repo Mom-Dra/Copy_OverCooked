@@ -38,9 +38,15 @@ public class Server : MonobehaviorSingleton<Server>
         byte[] sendId = BitConverter.GetBytes(s_nextId);
         networkStream.Write(sendId, 0, sendId.Length);
 
-        clientHandler.BeginRead();
+        int ID = s_nextId;
+        UnityMainThread.Instance.AddJob(() =>
+        {
+            NetworkObjectManager.Instance.SpawnPlayer(ID);
+        });
 
         s_nextId++;
+
+        clientHandler.BeginRead();
         tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
     }
 

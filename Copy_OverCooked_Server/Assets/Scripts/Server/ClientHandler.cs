@@ -35,7 +35,7 @@ public class ClientHandler
 
             if (packetLength > 0)
             {
-                byte[] packetUnitData = buffer.Skip(readPos).Take(packetLength).ToArray(); 
+                byte[] packetUnitData = buffer.Skip(readPos).Take(packetLength).ToArray();
                 // 이렇게 안해주면 JobQueue 문제때문에 꼬임 
                 UnityMainThread.Instance.AddJob(() =>
                 {
@@ -45,10 +45,13 @@ public class ClientHandler
                         PacketHandle.Invoke(packet);
                     }
                 });
+
                 readPos += packetLength;
-            } else
+            }
+            else
                 break;
         }
+
         tcpClient.GetStream().BeginRead(buffer, 0, buffer.Length, ReadCallback, tcpClient);
     }
 
@@ -56,6 +59,7 @@ public class ClientHandler
     {
         Debug.Log($"<color=orange> ClientId: {clientId}, {packet}, Length: {packet.GetLength()} </color>");
         NetworkStream stream = tcpClient.GetStream();
+
         stream.Write(packet.ToByteArray());
     }
 }

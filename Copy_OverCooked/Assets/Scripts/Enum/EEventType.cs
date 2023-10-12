@@ -1,4 +1,5 @@
 public enum EEventType
 {
-    SceneLoaded,
+    SceneLoad,
+    SpawnPlayer
 }

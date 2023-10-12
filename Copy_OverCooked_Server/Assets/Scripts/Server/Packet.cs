@@ -289,10 +289,8 @@ public class Packet : IDisposable
 
     public byte[] ToByteArray()
     {
-        List<byte> bufferHeader = new List<byte>();
-        bufferHeader.AddRange(BitConverter.GetBytes(buffer.Count));
-        bufferHeader.AddRange(buffer);
-        return bufferHeader.ToArray();
+        buffer.InsertRange(0, BitConverter.GetBytes(buffer.Count));
+        return buffer.ToArray();
     }
 
     public override string ToString()
@@ -300,7 +298,7 @@ public class Packet : IDisposable
         if (debugLines != null)
         {
             string result = string.Empty;
-            result += "Action: " + debugLines[0] + ", ";
+            result += "Action: " + (EActionCode)int.Parse(debugLines[0]) + ", ";
             result += "TargetID: " + debugLines[1] + ", ";
             result += "Args = { ";
             for (int i = 2; i < debugLines.Count; ++i)
