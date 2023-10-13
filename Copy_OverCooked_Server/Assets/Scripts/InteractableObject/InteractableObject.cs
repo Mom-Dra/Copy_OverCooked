@@ -14,8 +14,8 @@ public class InteractableObject : MonoBehaviour
     protected EObjectType eObjectType;
     [SerializeField]
     protected Vector2 uIOffset = new Vector2 (0f, 75f);
-    
-    protected UIComponent uIComponent;
+
+    protected UIComponent uIComponent = new UIComponent();
     protected bool selectable = true;
 
     // Property
@@ -40,9 +40,20 @@ public class InteractableObject : MonoBehaviour
         }
     }
 
-    protected virtual void Awake()
+    public virtual Image Image
     {
-        uIComponent = new UIComponent(transform, uIOffset);
+        set
+        {
+            if(value != null)
+            {
+                uIComponent.Add(value);
+                uIComponent.OnUIPositionChanging(transform, uIOffset);
+            } 
+            else
+            {
+                uIComponent.DestroyAllImages();
+            }
+        }
     }
 
     public Vector3 UIOffset 

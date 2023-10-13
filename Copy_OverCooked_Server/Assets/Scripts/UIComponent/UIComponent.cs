@@ -13,15 +13,22 @@ public class UIComponent
     };
     private Image[] images = new Image[4];
     private int index = 0;
-    private Transform anchorTransform;
-    private Vector2 anchorOffset;
+    private int offsetIndex = -1;
 
-    public int Index
+    private int OffsetIndex
+    {
+        get
+        {
+            return offsetIndex == -1 ? index - 1 : offsetIndex - 1;
+        }
+    }
+
+    public int Count
     {
         get => index;
     }
 
-    public Image[] Image
+    public Image[] Images
     {
         get
         {
@@ -33,36 +40,20 @@ public class UIComponent
         }
     }        
 
-    //if(value == null && m_index > 0)
-    //{
-    //    DestroyAllImages();
-    //}
-    //else if(m_index < 4)
-    //{
-    //    m_images[m_index++] = value;
-    //    OnUIPositionChanging();
-    //}
-
-    public Image[] Images
+    public void Add(Image image)
     {
-        get 
-        { 
-            return images; 
-        }
-        set 
+        if (index < 4)
         {
-            images = value; 
-            // m_index Ã³¸® 
+            images[index++] = image;
         }
     }
 
-    public UIComponent(Transform anchorTransform, Vector2 anchorOffset)
+    public void SetOffsetIndex(int index)
     {
-        this.anchorTransform = anchorTransform;
-        this.anchorOffset = anchorOffset;
+        offsetIndex = index;
     }
 
-    private void DestroyAllImages()
+    public void DestroyAllImages()
     {
         for(int i=0; i<index; ++i)
         {
@@ -72,12 +63,12 @@ public class UIComponent
         index = 0;
     }
 
-    public void OnUIPositionChanging()
+    public void OnUIPositionChanging(Transform parent, Vector2 anchorOffset)
     {
         for(int i=0; i < index; i++)
         {
-            Vector3 worldToScreenPos = Camera.main.WorldToScreenPoint(anchorTransform.position);
-            Vector2 totalOffset = anchorOffset + imageOffsets[index - 1][i] + new Vector2(worldToScreenPos.x, worldToScreenPos.y);
+            Vector3 worldToScreenPos = Camera.main.WorldToScreenPoint(parent.position);
+            Vector2 totalOffset = anchorOffset + imageOffsets[OffsetIndex][i] + new Vector2(worldToScreenPos.x, worldToScreenPos.y);
             images[i].transform.position = totalOffset;
         }
     }

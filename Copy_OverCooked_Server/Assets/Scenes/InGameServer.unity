@@ -1293,6 +1293,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3292409800752684329, guid: 4315118c932b8954cb9f556ffa358acc, type: 3}
+      propertyPath: maxContainCount
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5350805098027501781, guid: 4315118c932b8954cb9f556ffa358acc, type: 3}
       propertyPath: m_Name
       value: FryingPan (1)

@@ -24,9 +24,9 @@ public class Food : InteractableObject
 
     private void FixedUpdate()
     {
-        if (UIComponent != null)
+        if (uIComponent.Count > 0)
         {
-            UIComponent.OnUIPositionChanging();
+            uIComponent.OnUIPositionChanging(transform, uIOffset);
         }
     }
 

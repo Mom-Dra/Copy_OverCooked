@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tray : Container
 {
@@ -8,16 +9,39 @@ public class Tray : Container
 
     private UIComponent baseUIComponent;
 
-    protected override void Awake()
+    public override Image Image
     {
-        base.Awake();
+        set
+        {
+            base.Image = value;
+            if (PlusBaseUI)
+            {
+                if (value != null)
+                {
+                    if (baseUIComponent.Count == 1)
+                    {
+                        for (int i = 0; i < maxContainCount - 1; ++i)
+                        {
+                            baseUIComponent.Add(InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.PlusBase));
+                        }
+                    }
+                } 
+                else
+                {
+                    baseUIComponent.DestroyAllImages();
+                    baseUIComponent.Add(InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.PlusBase));
+                }
+            }
+        }
+    }
+
+    private void Awake()
+    { 
         if(PlusBaseUI)
         {
-            baseUIComponent = new UIComponent(transform, uIOffset);
-            for(int i = 0; i< maxContainCount; i++)
-            {
-                baseUIComponent.Image = InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.PlusBase);
-            }
+            uIComponent.SetOffsetIndex(maxContainCount);
+            baseUIComponent = new UIComponent();
+            baseUIComponent.Add(InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.PlusBase));
         }
     }
 
@@ -27,13 +51,49 @@ public class Tray : Container
         {
             getObject.transform.position = transform.position + displayOffset;
         }
-        if (uIComponent.Index > 0)
+        if (uIComponent.Count > 0)
         {
-            uIComponent.OnUIPositionChanging();
+            uIComponent.OnUIPositionChanging(transform, uIOffset);
         }
-        if (baseUIComponent.Index > 0)
+        if (baseUIComponent.Count > 0)
         {
-            baseUIComponent.OnUIPositionChanging();
+            baseUIComponent.OnUIPositionChanging(transform, uIOffset);
+        }
+    }
+
+    public override bool TryGet<T>(out T result, EGetMode getMode = EGetMode.Peek)
+    {
+        if(base.TryGet(out result, getMode)){
+            if(getMode == EGetMode.Pop && uIComponent.Count > 0)
+            {
+                foreach (Image image in uIComponent.Images)
+                {
+                    getObject.Image = image;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    protected override void Put(InteractableObject interactableObject)
+    {
+        base.Put(interactableObject);
+        if(interactableObject.UIComponent.Count > 0)
+        {
+            foreach(Image image in interactableObject.UIComponent.Images)
+            {
+                Image = image;
+            }
+        }
+    }
+
+    public override void Remove(InteractableObject interactableObject)
+    {
+        base.Remove(interactableObject);
+        if(uIComponent.Count > 0)
+        {
+            Image = null;
         }
     }
 }

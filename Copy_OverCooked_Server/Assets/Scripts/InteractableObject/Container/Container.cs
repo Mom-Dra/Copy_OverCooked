@@ -40,9 +40,8 @@ public class Container : InteractableObject
         }
     }
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         if (getObject != null)
         {
             Put(getObject);
