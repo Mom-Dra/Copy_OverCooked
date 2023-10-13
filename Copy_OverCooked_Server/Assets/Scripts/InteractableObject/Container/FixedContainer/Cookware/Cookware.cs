@@ -46,7 +46,7 @@ public abstract class Cookware : FixedContainer
 
     public override void Remove(InteractableObject interactableObject)
     {
-        if (UIComponent.Count > 0)
+        if (UIComponent.Index > 0)
         {
             if (cookwareState == ECookwareState.Overheat && getObject.TryGet<Food>(out Food getFood))
             {
@@ -54,7 +54,7 @@ public abstract class Cookware : FixedContainer
             } 
             else
             {
-                uIComponent.Images = null;
+                uIComponent.Image = null;
             }
         }
 
@@ -101,11 +101,11 @@ public abstract class Cookware : FixedContainer
         float totalCookDuration = recipe.TotalCookDuration;
 
         // UI
-        if (uIComponent.Count == 0)
+        if (uIComponent.Index == 0)
         {
-            uIComponent.Images = InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.Progress);
+            uIComponent.Image = InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.Progress);
         }
-        Image gauge = uIComponent.Images.transform.GetChild(1).GetComponent<Image>();
+        Image gauge = uIComponent.Image.transform.GetChild(1).GetComponent<Image>();
 
         while (currFood.CurrCookDegree <= 100)
         {

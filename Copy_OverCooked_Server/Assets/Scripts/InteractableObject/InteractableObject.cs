@@ -13,7 +13,7 @@ public class InteractableObject : MonoBehaviour
     [SerializeField]
     protected EObjectType eObjectType;
     [SerializeField]
-    protected Vector3 uIOffset = Vector3.up;
+    protected Vector2 uIOffset = new Vector2 (0f, 75f);
     
     protected UIComponent uIComponent;
     protected bool selectable = true;

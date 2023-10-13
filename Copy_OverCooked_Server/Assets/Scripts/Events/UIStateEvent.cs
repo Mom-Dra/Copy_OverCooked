@@ -24,11 +24,11 @@ public class UIStateEvent : Event
             int currDegree = food.CurrCookDegree;
             if (currDegree >= 100)
             {
-                if (cookware.UIComponent.Count > 0)
+                if (cookware.UIComponent.Index > 0)
                 {
-                    cookware.UIComponent.Images = null;
+                    cookware.UIComponent.Image = null;
                 }
-                cookware.UIComponent.Images = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Complete);
+                cookware.UIComponent.Image = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Complete);
                 return true;
             }
         }
@@ -45,11 +45,11 @@ public class UIStateEvent : Event
             int currDegree = food.CurrCookDegree;
             if (currDegree >= 160)
             {
-                if (cookware.UIComponent.Count > 0)
+                if (cookware.UIComponent.Index > 0)
                 {
-                    cookware.UIComponent.Images = null;
+                    cookware.UIComponent.Image = null;
                 }
-                cookware.UIComponent.Images = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Warning);
+                cookware.UIComponent.Image = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Warning);
                 return true;
             }
         }
@@ -65,12 +65,19 @@ public class UIStateEvent : Event
             int currDegree = food.CurrCookDegree;
             if (currDegree >= 200)
             {
-                if (cookware.UIComponent.Count > 0)
+                if (cookware.UIComponent.Index > 0)
                 {
-                    cookware.UIComponent.Images = null;
+                    cookware.UIComponent.Image = null;
                 }
-                cookware.UIComponent.Images = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Overheat);
-                cookware.CookwareState = ECookwareState.Overheat;
+                if(cookware.GetObject.TryGet<Tray>(out Tray tray))
+                {
+                    tray.UIComponent.Image = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Overheat);
+                    cookware.CookwareState = ECookwareState.Overheat;
+                } 
+                else
+                {
+                    Debug.Log("UIStateEvent : Can't find tray in cookware");
+                }
                 return true;
             }
         }

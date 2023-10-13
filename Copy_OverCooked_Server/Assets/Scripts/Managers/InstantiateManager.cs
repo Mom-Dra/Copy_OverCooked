@@ -6,7 +6,8 @@ public enum EInGameUIType
     Progress,
     Complete,
     Warning,
-    Overheat
+    Overheat,
+    PlusBase
 }
 
 public class InstantiateManager : MonobehaviorSingleton<InstantiateManager>
@@ -20,6 +21,8 @@ public class InstantiateManager : MonobehaviorSingleton<InstantiateManager>
     private Image warningImage;
     [SerializeField]
     private Image overheatImage;
+    [SerializeField]
+    private Image plusBaseImage;
 
     public Image InstantiateUI(InteractableObject interactableObject, EInGameUIType uIType)
     {
@@ -37,6 +40,9 @@ public class InstantiateManager : MonobehaviorSingleton<InstantiateManager>
                 break;
             case EInGameUIType.Overheat:
                 showImage = overheatImage;
+                break;
+            case EInGameUIType.PlusBase:
+                showImage = plusBaseImage;
                 break;
         }
         Vector3 showPos = Camera.main.WorldToScreenPoint(interactableObject.transform.position + interactableObject.UIOffset);

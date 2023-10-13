@@ -4,70 +4,81 @@ using UnityEngine.UI;
 
 public class UIComponent
 {
-    private static List<Vector2[]> m_imageOffsets = new List<Vector2[]>(4)
+    private static List<Vector2[]> imageOffsets = new List<Vector2[]>(4)
     {
-        { new Vector2[1]{ new Vector2(50f, 0f)} },
-        { new Vector2[2]{ new Vector2(1f, 1f), new Vector2(1f, 1f),} },
-        { new Vector2[3]{ new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f),} },
-        { new Vector2[4]{ new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f)} }
+        { new Vector2[1]{ new Vector2(0f, 0f)} },
+        { new Vector2[2]{ new Vector2(-25f, 0f), new Vector2(25f, 0f),} },
+        { new Vector2[3]{ new Vector2(-25f, 50f), new Vector2(25f, 50f), new Vector2(-25f, 0f),} },
+        { new Vector2[4]{ new Vector2(-25f, 50f), new Vector2(25f, 50f), new Vector2(-25f, 0f), new Vector2(25f, 0f)} }
     };
-    private Image[] m_images = new Image[4];
-    private int m_index = 0;
-    private Transform m_anchorTransform;
-    private Vector3 m_anchorOffset;
+    private Image[] images = new Image[4];
+    private int index = 0;
+    private Transform anchorTransform;
+    private Vector2 anchorOffset;
 
-    public int Count
+    public int Index
     {
-        get => m_index;
+        get => index;
     }
 
-    public Image Images
+    public Image[] Image
     {
         get
         {
-            if(m_index == 0)
-            {
-                return m_images[0];
-            }
-            return m_images[m_index - 1];
+            return images;
         }
         set
         {
-            if(value == null && m_index > 0)
-            {
-                DestroyAllImages();
-            }
-            else if(m_index < 4)
-            {
-                m_images[m_index++] = value;
-                OnUIPositionChanging();
-            }
+            images = value;
+        }
+    }        
+
+    //if(value == null && m_index > 0)
+    //{
+    //    DestroyAllImages();
+    //}
+    //else if(m_index < 4)
+    //{
+    //    m_images[m_index++] = value;
+    //    OnUIPositionChanging();
+    //}
+
+    public Image[] Images
+    {
+        get 
+        { 
+            return images; 
+        }
+        set 
+        {
+            images = value; 
+            // m_index Ã³¸® 
         }
     }
 
-    public UIComponent(Transform anchorTransform, Vector3 anchorOffset)
+    public UIComponent(Transform anchorTransform, Vector2 anchorOffset)
     {
-        m_anchorTransform = anchorTransform;
-        m_anchorOffset = anchorOffset;
+        this.anchorTransform = anchorTransform;
+        this.anchorOffset = anchorOffset;
     }
 
     private void DestroyAllImages()
     {
-        for(int i=0; i<m_index; ++i)
+        for(int i=0; i<index; ++i)
         {
-            GameObject.Destroy(m_images[i].gameObject);
-            m_images[i] = null;
+            GameObject.Destroy(images[i].gameObject);
+            images[i] = null;
         }
-        m_index = 0;
+        index = 0;
     }
 
     public void OnUIPositionChanging()
     {
-        for(int i=0; i < m_index - 1; i++)
+        for(int i=0; i < index; i++)
         {
-            Vector2 offset = m_imageOffsets[m_index][i];
-            Debug.Log(offset);
-            m_images[i].transform.position = m_anchorOffset + Camera.main.WorldToScreenPoint(m_anchorTransform.position) + new Vector3(offset.x, 0f, offset.y);
+            Vector3 worldToScreenPos = Camera.main.WorldToScreenPoint(anchorTransform.position);
+            Vector2 totalOffset = anchorOffset + imageOffsets[index - 1][i] + new Vector2(worldToScreenPos.x, worldToScreenPos.y);
+            images[i].transform.position = totalOffset;
         }
     }
 
