@@ -1,34 +1,32 @@
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIComponent
 {
-    private static List<Vector2[]> imageOffsets = new List<Vector2[]>(4)
+    protected static List<Vector2[]> imageOffsets = new List<Vector2[]>(4)
     {
         { new Vector2[1]{ new Vector2(0f, 0f)} },
         { new Vector2[2]{ new Vector2(-25f, 0f), new Vector2(25f, 0f),} },
         { new Vector2[3]{ new Vector2(-25f, 50f), new Vector2(25f, 50f), new Vector2(-25f, 0f),} },
         { new Vector2[4]{ new Vector2(-25f, 50f), new Vector2(25f, 50f), new Vector2(-25f, 0f), new Vector2(25f, 0f)} }
     };
-    private Image[] images = new Image[4];
-    private int index = 0;
-    private int offsetIndex = -1;
+    protected List<Image> images;
+    protected Transform anchorTransform;
+    protected Vector2 anchorOffset;
 
-    private int OffsetIndex
+    public bool HasImage
     {
-        get
-        {
-            return offsetIndex == -1 ? index - 1 : offsetIndex - 1;
-        }
+        get => images.Count > 0;
     }
 
-    public int Count
+    public Image FirstImage
     {
-        get => index;
+        get => images[0];
     }
 
-    public Image[] Images
+    public virtual List<Image> Images
     {
         get
         {
@@ -36,39 +34,49 @@ public class UIComponent
         }
         set
         {
-            images = value;
+            if(value != null)
+            {
+                images = value;
+                OnImagePositionUpdate();
+            } 
+            else
+            {
+                images.Clear();
+            }
         }
-    }        
-
-    public void Add(Image image)
+    }       
+    
+    public UIComponent(Transform anchorTransform, Vector2 anchorOffset)
     {
-        if (index < 4)
+        this.anchorTransform = anchorTransform;
+        this.anchorOffset = anchorOffset;
+        images = new List<Image>();
+    }
+
+    public virtual void Add(Image image)
+    {
+        if (images.Count < 4)
         {
-            images[index++] = image;
+            images.Add(image);
+            OnImagePositionUpdate();
         }
     }
 
-    public void SetOffsetIndex(int index)
+    public virtual void Clear()
     {
-        offsetIndex = index;
-    }
-
-    public void DestroyAllImages()
-    {
-        for(int i=0; i<index; ++i)
+        foreach(Image image in images)
         {
-            GameObject.Destroy(images[i].gameObject);
-            images[i] = null;
+            GameObject.Destroy(image.gameObject);
         }
-        index = 0;
+        images.Clear();
     }
 
-    public void OnUIPositionChanging(Transform parent, Vector2 anchorOffset)
+    public virtual void OnImagePositionUpdate()
     {
-        for(int i=0; i < index; i++)
+        for(int i=0; i < images.Count; i++)
         {
-            Vector3 worldToScreenPos = Camera.main.WorldToScreenPoint(parent.position);
-            Vector2 totalOffset = anchorOffset + imageOffsets[OffsetIndex][i] + new Vector2(worldToScreenPos.x, worldToScreenPos.y);
+            Vector3 worldToScreenPos = Camera.main.WorldToScreenPoint(anchorTransform.position);
+            Vector2 totalOffset = anchorOffset + imageOffsets[images.Count - 1][i] + new Vector2(worldToScreenPos.x, worldToScreenPos.y);
             images[i].transform.position = totalOffset;
         }
     }

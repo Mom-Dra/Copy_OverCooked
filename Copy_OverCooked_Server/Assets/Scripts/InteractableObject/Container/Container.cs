@@ -32,7 +32,7 @@ public class Container : InteractableObject
     {
         get
         {
-            if(getObject.TryGet<Tray>(out Tray tray))
+            if(getObject.TryFind<Tray>(out Tray tray))
             {
                 return tray.ContainObjects;
             }
@@ -40,8 +40,9 @@ public class Container : InteractableObject
         }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (getObject != null)
         {
             Put(getObject);
@@ -58,18 +59,28 @@ public class Container : InteractableObject
         return getObject != null;
     }
 
-    public override bool TryGet<T>(out T result, EGetMode getMode = EGetMode.Peek)
+    public override bool TryFind<T>(out T result)
     {
         result = default(T);
-        if (base.TryGet<T>(out T value))
+        if (base.TryFind<T>(out T value))
         {
             result = value;
         } else if (getObject != null)
         {
-            if (getObject.TryGet<T>(out T value2) && (getMode == EGetMode.Peek || CanGet()))
+            if (getObject.TryFind<T>(out T value2))
             {
                 result = value2;
             }
+        }
+        return result != null;
+    }
+
+    public virtual bool TryGet(out InteractableObject result)
+    {
+        result = null;
+        if (CanGet())
+        {
+            result = getObject;
         }
         return result != null;
     }
@@ -78,34 +89,48 @@ public class Container : InteractableObject
     {
         return true;
     }
-
-    public virtual void Remove(InteractableObject interactableObject)
+     
+    public virtual void Remove()
     {
-        if (getObject == interactableObject)
+        if (getObject != null)
         {
             getObject = null;
             containObjects.Clear();
-        } else if (getObject != null && getObject.TryGet<Container>(out Container container))
-        {
-            container.Remove(interactableObject);
+            if (uIComponent.HasImage)
+            {
+                uIComponent.Clear();
+            }
         }
+        //if (getObject == interactableObject)
+        //{
+        //    getObject = null;
+        //    containObjects.Clear();
+        //    if(uIComponent.HasImage)
+        //    {
+        //        uIComponent.Clear();
+        //    }
+        //} else if (getObject != null && getObject.TryFind<Container>(out Container container))
+        //{
+        //    container.Remove(interactableObject);
+        //}
     }
 
-    public virtual bool TryPut(InteractableObject interactableObject)
+    public virtual bool TryPut(SendContainerArgs sendContainerArgs)
     {
-        if (getObject != null && getObject.TryGet<Container>(out Container container))
+        if (getObject != null && getObject.TryFind<Container>(out Container container))
         {
-            return container.TryPut(interactableObject);
+            return container.TryPut(sendContainerArgs);
         }
-        if (!IsFull() && IsValidObject(interactableObject))
+        if (!IsFull() && IsValidObject(sendContainerArgs.Item))
         {
-            Put(interactableObject);
+            sendContainerArgs.OnReceive();
+            Put(sendContainerArgs.Item);
             return true;
         }
         return false;
     }
 
-    protected virtual void Put(InteractableObject interactableObject)
+    public virtual void Put(InteractableObject interactableObject)
     {
         gameObject.DebugName($"Put -> {interactableObject.name}", EDebugColor.Orange);
         Fit(interactableObject);
@@ -117,13 +142,24 @@ public class Container : InteractableObject
         containObjects.Add(interactableObject);
     }
 
-    public override EObjectType GetShownType()
+    public override EObjectType GetTopType()
     {
         if (getObject != null)
         {
-            return getObject.GetShownType();
+            return getObject.GetTopType();
         }
-        return base.GetShownType();
+        return base.GetTopType();
+    }
+
+    public Container GetTopContainer()
+    {
+        if (getObject != null && getObject.TryFind<Tray>(out Tray getTray))
+        {
+            return getTray;
+        } else
+        {
+            return this;
+        }
     }
 
     protected virtual bool IsValidObject(InteractableObject interactableObject)

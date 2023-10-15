@@ -19,8 +19,9 @@ public class Hand : Container
         }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         interactor = GetComponentInChildren<Interactor>();
         player = transform.parent.GetComponent<Player>();
     }
@@ -35,7 +36,6 @@ public class Hand : Container
 
     public void GrabAndPut()
     {
-        Debug.Log("Space");
         InteractableObject triggerObject = interactor.TriggerObject;
         if (triggerObject == null)
         {
@@ -55,14 +55,14 @@ public class Hand : Container
             if (getObject.TryGetComponent<Food>(out Food food))
             {
                 Throw();
-            } else if (getObject.TryGet<Reactable>(out Reactable reactObject))
+            } else if (getObject.TryFind<Reactable>(out Reactable reactObject))
             {
                 reactObject.React(player);
             }
         } else
         {
             InteractableObject triggerObject = interactor.TriggerObject;
-            if (triggerObject != null && triggerObject.TryGet<Reactable>(out Reactable reactObject))
+            if (triggerObject != null && triggerObject.TryFind<Reactable>(out Reactable reactObject))
             {
                 reactObject.React(player);
             }

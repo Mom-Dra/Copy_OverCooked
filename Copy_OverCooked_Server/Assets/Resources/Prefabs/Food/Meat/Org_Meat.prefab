@@ -110,7 +110,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -150,8 +150,9 @@ MonoBehaviour:
   Name: Org_Meat
   Description: 
   eObjectType: 2
-  uIOffset: {x: 0, y: 1, z: 0}
+  uIOffset: {x: 0, y: 1}
   foodState: 0
+  foodUIImage: {fileID: 0}
   currCookDegree: 0
 --- !u!114 &-4231405345991792751
 MonoBehaviour:
@@ -166,3 +167,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serialCode: 13
+  id: 0

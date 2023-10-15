@@ -4,12 +4,14 @@ public class UIStateEvent : Event
 {
     private Cookware cookware;
 
-    public UIStateEvent(Cookware container)
+    public UIStateEvent(Cookware cookware)
     {
-        this.cookware = container;
-        actions.Add(ShowCompleteUI);
-        if (container.Flammablity)
+        this.cookware = cookware;
+        this.cookware.UIComponent.Clear();
+
+        if (cookware.Flammablity)
         {
+            actions.Add(ShowCompleteUI);
             actions.Add(ShowWarningUI);
             actions.Add(ShowOverheatUI);
         }
@@ -19,16 +21,12 @@ public class UIStateEvent : Event
     {
         if (!cookware.HasObject())
             return true;
-        if (cookware.TryGet<Food>(out Food food))
+        if (cookware.TryFind<Food>(out Food food))
         {
             int currDegree = food.CurrCookDegree;
             if (currDegree >= 100)
             {
-                if (cookware.UIComponent.Count > 0)
-                {
-                    cookware.Image = null;
-                }
-                cookware.Image = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Complete);
+                cookware.UIComponent.Add(InstantiateManager.Instance.InstantiateByUIType(cookware, EInGameUIType.Complete));
                 return true;
             }
         }
@@ -40,16 +38,16 @@ public class UIStateEvent : Event
         
         if (!cookware.HasObject())
             return true;
-        if (cookware.TryGet<Food>(out Food food))
+        if (cookware.TryFind<Food>(out Food food))
         {
             int currDegree = food.CurrCookDegree;
             if (currDegree >= 160)
             {
-                if (cookware.UIComponent.Count > 0)
+                if (cookware.UIComponent.HasImage)
                 {
-                    cookware.Image = null;
+                    cookware.UIComponent.Clear();
                 }
-                cookware.Image = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Warning);
+                cookware.UIComponent.Add(InstantiateManager.Instance.InstantiateByUIType(cookware, EInGameUIType.Warning));
                 return true;
             }
         }
@@ -60,19 +58,19 @@ public class UIStateEvent : Event
     {
         if (!cookware.HasObject())
             return true;
-        if (cookware.TryGet<Food>(out Food food))
+        if (cookware.TryFind<Food>(out Food food))
         {
             int currDegree = food.CurrCookDegree;
             if (currDegree >= 200)
             {
-                if (cookware.UIComponent.Count > 0)
+                if (cookware.UIComponent.HasImage)
                 {
-                    cookware.Image = null;
+                    cookware.UIComponent.Clear();
                 }
-                if(cookware.GetObject.TryGet<Tray>(out Tray tray))
+                if(cookware.GetObject.TryFind<Tray>(out Tray tray))
                 {
-                    tray.Image = null;
-                    tray.Image = InstantiateManager.Instance.InstantiateUI(cookware, EInGameUIType.Overheat);
+                    tray.UIComponent.Clear();
+                    tray.UIComponent.Add(InstantiateManager.Instance.InstantiateByUIType(cookware, EInGameUIType.Overheat));
                     cookware.CookwareState = ECookwareState.Overheat;
                 } 
                 else

@@ -236,8 +236,9 @@ MonoBehaviour:
   Name: Chopped_Tomato
   Description: 
   eObjectType: 2
-  uIOffset: {x: 0, y: 1, z: 0}
+  uIOffset: {x: 0, y: 75}
   foodState: 2
+  foodUIImage: {fileID: 7373221552290604581, guid: 3d7db25a2d467d3428329df91a4ac840, type: 3}
   currCookDegree: 0
 --- !u!114 &-7003196966997154167
 MonoBehaviour:
@@ -252,6 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serialCode: 14
+  id: 0
 --- !u!1 &6331454930656662592
 GameObject:
   m_ObjectHideFlags: 0

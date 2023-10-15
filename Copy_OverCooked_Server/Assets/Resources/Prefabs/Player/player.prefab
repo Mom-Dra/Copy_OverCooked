@@ -122,10 +122,12 @@ MonoBehaviour:
   Name: 
   Description: 
   eObjectType: 0
-  IsInteractable: 1
+  uIOffset: {x: 0, y: 1}
   maxContainCount: 1
-  displayOffset: {x: 0, y: 1, z: 0}
+  flammablity: 1
+  displayOffset: {x: 0, y: 0, z: 0}
   getObject: {fileID: 0}
+  containObjects: []
   throwPower: 6
 --- !u!1 &3630446594044350341
 GameObject:
@@ -317,6 +319,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ac3807fe1e6b64cb5cc10ef6aa9a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serialCode: 0
+  id: 0
 --- !u!1 &5416137629786203493
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,9 +439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94b707f0eae9274582509048b28e6c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brightness: 0.4
-  interactableObjects: []
-  ClosestInteractableObject: {fileID: 0}
+  triggerObjectList: []
 --- !u!1001 &2896562893680686731
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -15,17 +15,17 @@ public class InteractableObject : MonoBehaviour
     [SerializeField]
     protected Vector2 uIOffset = new Vector2 (0f, 75f);
 
-    protected UIComponent uIComponent = new UIComponent();
+    protected UIComponent uIComponent;
     protected bool selectable = true;
-
+            
     // Property
     public bool Selectable 
-    { 
+    {      
         get => selectable; 
         set 
-        { 
+        {  
             selectable = value; 
-        } 
+        }  
     }
 
     public UIComponent UIComponent 
@@ -40,33 +40,30 @@ public class InteractableObject : MonoBehaviour
         }
     }
 
-    public virtual Image Image
-    {
-        set
-        {
-            if(value != null)
-            {
-                uIComponent.Add(value);
-                uIComponent.OnUIPositionChanging(transform, uIOffset);
-            } 
-            else
-            {
-                uIComponent.DestroyAllImages();
-            }
-        }
-    }
-
     public Vector3 UIOffset 
     {
         get => uIOffset; 
     }
 
-    public virtual EObjectType GetShownType()
+    public EObjectType ObjectType
+    {
+        get => eObjectType;
+    }
+
+    protected virtual void Awake()
+    {
+        if(uIComponent == null)
+        {
+            uIComponent = new UIComponent(transform, uIOffset);
+        }
+    }
+
+    public virtual EObjectType GetTopType()
     {
         return eObjectType;
     }
 
-    public virtual bool TryGet<T>(out T result, EGetMode getMode = EGetMode.Peek)
+    public virtual bool TryFind<T>(out T result)
     {
         return TryGetComponent<T>(out result);
     }

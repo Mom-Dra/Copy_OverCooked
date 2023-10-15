@@ -4,14 +4,28 @@ public class FoodBox : FixedContainer
 {
     [Header("Food Box")]
     [SerializeField]
-    private Food food;
+    private EObjectSerialCode serialCode;
 
-    public override bool TryGet<T>(out T result, EGetMode getMode = EGetMode.Peek)
+    //public override bool TryFind<T>(out T result)
+    //{
+    //    if (!base.TryFind<T>(out result) && typeof(T) == typeof(Food))
+    //    {
+    //        result = Instantiate(food, transform.position + displayOffset, Quaternion.identity).GetComponent<T>();
+    //    }
+    //    return result != null;
+    //}
+
+    public override bool TryGet(out InteractableObject result)
     {
-        if (!base.TryGet<T>(out result) && typeof(T) == typeof(Food))
+        if (!base.TryGet(out result))
         {
-            result = Instantiate(food, transform.position + displayOffset, Quaternion.identity).GetComponent<T>();
+            result = ObjectPullingManager.Instance.GetPullingObject(serialCode).GetComponent<InteractableObject>();
         }
         return result != null;
+    }
+
+    public override EObjectType GetTopType()
+    {
+        return EObjectType.Food;
     }
 }

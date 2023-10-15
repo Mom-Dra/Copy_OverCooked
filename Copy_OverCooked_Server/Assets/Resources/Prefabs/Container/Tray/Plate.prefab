@@ -151,7 +151,7 @@ MonoBehaviour:
   Description: 
   eObjectType: 1
   uIOffset: {x: 0, y: 75}
-  maxContainCount: 1
+  maxContainCount: 4
   flammablity: 1
   displayOffset: {x: 0, y: 0.2, z: 0}
   getObject: {fileID: 0}

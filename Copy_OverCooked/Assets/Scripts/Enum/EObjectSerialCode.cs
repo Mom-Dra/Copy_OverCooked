@@ -21,5 +21,7 @@ public enum EObjectSerialCode
     Org_Tomato,
     Org_Meat,
     Chopped_Tomato,
-    Grilled_Meat
+    Grilled_Meat,
+    Img_Tomato,
+    Img_Meat
 }

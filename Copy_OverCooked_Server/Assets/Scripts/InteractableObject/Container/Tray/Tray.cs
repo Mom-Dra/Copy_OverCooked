@@ -7,42 +7,13 @@ public class Tray : Container
     [SerializeField]
     private bool PlusBaseUI = true;
 
-    private UIComponent baseUIComponent;
-
-    public override Image Image
+    protected override void Awake()
     {
-        set
+        if (PlusBaseUI)
         {
-            base.Image = value;
-            if (PlusBaseUI)
-            {
-                if (value != null)
-                {
-                    if (baseUIComponent.Count == 1)
-                    {
-                        for (int i = 0; i < maxContainCount - 1; ++i)
-                        {
-                            baseUIComponent.Add(InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.PlusBase));
-                        }
-                    }
-                } 
-                else
-                {
-                    baseUIComponent.DestroyAllImages();
-                    baseUIComponent.Add(InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.PlusBase));
-                }
-            }
+            uIComponent = new BaseUIComponent(transform, uIOffset, maxContainCount);
         }
-    }
-
-    private void Awake()
-    { 
-        if(PlusBaseUI)
-        {
-            uIComponent.SetOffsetIndex(maxContainCount);
-            baseUIComponent = new UIComponent();
-            baseUIComponent.Add(InstantiateManager.Instance.InstantiateUI(this, EInGameUIType.PlusBase));
-        }
+        base.Awake();
     }
 
     private void FixedUpdate()
@@ -51,49 +22,23 @@ public class Tray : Container
         {
             getObject.transform.position = transform.position + displayOffset;
         }
-        if (uIComponent.Count > 0)
+        if (uIComponent.HasImage)
         {
-            uIComponent.OnUIPositionChanging(transform, uIOffset);
-        }
-        if (baseUIComponent.Count > 0)
-        {
-            baseUIComponent.OnUIPositionChanging(transform, uIOffset);
+            uIComponent.OnImagePositionUpdate();
         }
     }
 
-    public override bool TryGet<T>(out T result, EGetMode getMode = EGetMode.Peek)
-    {
-        if(base.TryGet(out result, getMode)){
-            if(getMode == EGetMode.Pop && uIComponent.Count > 0)
-            {
-                foreach (Image image in uIComponent.Images)
-                {
-                    getObject.Image = image;
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    protected override void Put(InteractableObject interactableObject)
+    public override void Put(InteractableObject interactableObject)
     {
         base.Put(interactableObject);
-        if(interactableObject.UIComponent.Count > 0)
+        if(interactableObject.UIComponent.HasImage )
         {
-            foreach(Image image in interactableObject.UIComponent.Images)
-            {
-                Image = image;
-            }
+            interactableObject.UIComponent.Clear();
         }
-    }
-
-    public override void Remove(InteractableObject interactableObject)
-    {
-        base.Remove(interactableObject);
-        if(uIComponent.Count > 0)
+        if(interactableObject.TryGetComponent<NetworkObject>(out NetworkObject networkObject))
         {
-            Image = null;
+            Food food = interactableObject as Food;
+            uIComponent.Add(InstantiateManager.Instance.InstantiateOnCanvas(food.GetFoodImage()));
         }
     }
 }

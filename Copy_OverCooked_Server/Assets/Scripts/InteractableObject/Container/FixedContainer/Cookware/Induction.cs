@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Induction : Cookware
 {
-    public override bool TryPut(InteractableObject interactableObject)
+    public override bool TryPut(SendContainerArgs sendContainerArgs)
     {
-        if (base.TryPut(interactableObject))
+        if (base.TryPut(sendContainerArgs))
         {
-            if (TryGet<Food>(out Food food))
+            if (TryFind<Food>(out Food food))
             {
                 TryCook();
             }
@@ -17,7 +17,7 @@ public class Induction : Cookware
 
     protected override bool IsValidObject(InteractableObject interactableObject)
     {
-        return base.IsValidObject(interactableObject) && interactableObject.TryGetComponent<FryingPan>(out FryingPan value);
+        return base.IsValidObject(interactableObject) && interactableObject.TryFind<FryingPan>(out FryingPan value);
     }
 
     protected override bool CanCook()

@@ -119,16 +119,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a79a55c5fdc06489fe4c36fdbdfaba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
+  Name: TomatoBox
   Description: 
   eObjectType: 0
-  uIOffset: {x: 0, y: 1, z: 0}
+  uIOffset: {x: 0, y: 1}
   maxContainCount: 1
   flammablity: 1
   displayOffset: {x: 0, y: 1, z: 0}
   getObject: {fileID: 0}
   containObjects: []
-  food: {fileID: 2667601602116679972, guid: 94e524b18cd3ec047a6a1c5420844929, type: 3}
+  serialCode: 12
 --- !u!114 &-5854962514607569127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,3 +142,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serialCode: 10
+  id: 0
