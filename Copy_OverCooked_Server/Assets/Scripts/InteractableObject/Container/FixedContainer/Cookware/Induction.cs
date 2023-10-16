@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Induction : Cookware
 {
-    public override bool TryPut(SendContainerArgs sendContainerArgs)
+    public override bool TryPut(SendObjectArgs sendContainerArgs)
     {
         if (base.TryPut(sendContainerArgs))
         {
@@ -15,9 +16,9 @@ public class Induction : Cookware
         return false;
     }
 
-    protected override bool IsValidObject(InteractableObject interactableObject)
+    protected override bool IsValidObject(List<EObjectSerialCode> serialObjects)
     {
-        return base.IsValidObject(interactableObject) && interactableObject.TryFind<FryingPan>(out FryingPan value);
+        return base.IsValidObject(serialObjects);
     }
 
     protected override bool CanCook()

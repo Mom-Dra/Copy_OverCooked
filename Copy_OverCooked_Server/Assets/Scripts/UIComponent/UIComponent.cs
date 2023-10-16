@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
@@ -26,6 +27,7 @@ public class UIComponent
         get => images[0];
     }
 
+    [Obsolete]
     public virtual List<Image> Images
     {
         get
@@ -53,11 +55,20 @@ public class UIComponent
         images = new List<Image>();
     }
 
-    public virtual void Add(Image image)
+    public virtual void Add(EObjectSerialCode serialCode)
     {
         if (images.Count < 4)
         {
-            images.Add(image);
+            Image image = SerialCodeDictionary.Instance.FindBySerialCode(serialCode).GetComponent<Image>();
+            AddInstantiate(image);
+        }
+    }
+
+    public virtual void AddInstantiate(Image image)
+    {
+        if (images.Count < 4)
+        {
+            images.Add(image.InstantiateOnCanvas());
             OnImagePositionUpdate();
         }
     }

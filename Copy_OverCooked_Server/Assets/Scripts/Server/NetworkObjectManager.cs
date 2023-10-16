@@ -6,48 +6,24 @@ using System;
 
 public class NetworkObjectManager : MonobehaviorSingleton<NetworkObjectManager>
 {
-    private static int s_nextId = 0;
-    public Dictionary<int, NetworkObject> networkObjectDic;
+    public Dictionary<int, SerializedObject> networkObjectDic;
 
     private int playerCount = 0;
 
-    public Dictionary<int, NetworkObject>.ValueCollection ObjectDic 
+    public Dictionary<int, SerializedObject>.ValueCollection ObjectDic 
     {
-        get
-        {
-            //try
-            //{
-            //    Debug.Log($"Dic COunt: {networkObjectDic.Count}");
-            //    Debug.Log($"Linq : {networkObjectDic.Values}");
-            //    foreach (KeyValuePair<int, NetworkObject> value in networkObjectDic)
-            //    {
-            //        Debug.Log("Nt OB: " + value.Value);
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-            //    Debug.LogException(e);
-            //}
-            
-            return networkObjectDic.Values;
-        } 
+        get => networkObjectDic.Values;
     }
 
     protected override void Awake()
     {
         base.Awake();
-        networkObjectDic = new Dictionary<int, NetworkObject>();
+        networkObjectDic = new Dictionary<int, SerializedObject>();
     }
 
     public GameObject Instantiate(GameObject gameObject, Vector3 vector3, Quaternion quaternion)
     {
         GameObject instantiateObject = GameObject.Instantiate(gameObject, vector3, quaternion);
-
-        if (!instantiateObject.GetComponent<NetworkObject>())
-        {
-            instantiateObject.AddComponent<NetworkObject>();
-        }
-
         return instantiateObject;
     }
 
@@ -56,19 +32,19 @@ public class NetworkObjectManager : MonobehaviorSingleton<NetworkObjectManager>
         Transform spawnLocation = GameObject.Find("PlayerSpawnPositions").transform.GetChild(playerCount++);
         GameObject player = this.Instantiate(SerialCodeDictionary.Instance.FindBySerialCode(EObjectSerialCode.Player), spawnLocation.position, spawnLocation.rotation);
 
-        int targetId = player.GetComponent<NetworkObject>().Id;
+        int targetId = player.GetComponent<SerializedObject>().Id;
         Debug.Log($" Player Id :{targetId}");
         PacketSend.SpawnPlayer(targetId, clientId);
     }
 
-    public void Add(NetworkObject obj)
+    public void Add(SerializedObject obj)
     {
         //Debug.Log($"Set ID : {obj.gameObject.name} -> {s_nextId}");
         //obj.Id = s_nextId;
         networkObjectDic.Add(obj.Id, obj);
     }
 
-    public NetworkObject GetObjectById(int id)
+    public SerializedObject GetObjectById(int id)
     {
         return networkObjectDic[id];
     }

@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 596f230ca261bd748ac0e41aafdbbf5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 5
+  serialCode: 8
   id: 0
 --- !u!1 &8889395286778988012
 GameObject:

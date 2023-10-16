@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class DynamicNetworkObject : NetworkObject
+public class DynamicNetworkObject : MonoBehaviour
 {
+    private SerializedObject serializedObject;
     private Vector3 prevPosition;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-
+        serializedObject = GetComponent<SerializedObject>();
         prevPosition = transform.position;
     }
 
@@ -15,7 +15,7 @@ public class DynamicNetworkObject : NetworkObject
     {
         if (prevPosition != transform.position)
         {
-            using (Packet packet = new Packet(EActionCode.Transform, id))
+            using (Packet packet = new Packet(EActionCode.Transform, serializedObject.Id))
             {
                 packet.Write(transform.position);
                 packet.Write(transform.rotation);

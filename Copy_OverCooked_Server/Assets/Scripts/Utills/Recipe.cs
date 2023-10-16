@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "Recipe", menuName = "Recipe")]
 #pragma warning disable CS0659 // 형식은 Object.Equals(object o)를 재정의하지만 Object.GetHashCode()를 재정의하지 않습니다.
@@ -13,10 +14,13 @@ public class Recipe : ScriptableObject
     private ECookingMethod cookingMethod;
 
     [SerializeField]
-    private List<Food> ingredients;
+    private List<EObjectSerialCode> ingredients;
 
     [SerializeField]
     private float totalCookDuration;
+
+    [SerializeField]
+    private Image mainImage;
 
     [Header("OutComes")]
     [SerializeField]
@@ -25,14 +29,18 @@ public class Recipe : ScriptableObject
     // Property
     public Food CookedFood { get => cookedFood; }
     public float TotalCookDuration { get => totalCookDuration; }
+    public Image MainImage
+    {
+        get => mainImage;
+    }
 
-    public bool Equal(ECookingMethod cookingMethod, List<InteractableObject> foods)
+    public bool Equal(ECookingMethod cookingMethod, List<EObjectSerialCode> foods)
     {
         if (this.cookingMethod == cookingMethod)
         {
             if (this.ingredients.Count == foods.Count)
             {
-                if (this.ingredients.OrderBy(e => e).SequenceEqual(foods.OrderBy(e => e.GetComponent<Food>())))
+                if (this.ingredients.OrderBy(e => e).SequenceEqual(foods.OrderBy(e => e)))
                 {
                     return true;
                 }

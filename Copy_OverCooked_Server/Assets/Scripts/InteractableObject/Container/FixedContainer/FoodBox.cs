@@ -4,7 +4,7 @@ public class FoodBox : FixedContainer
 {
     [Header("Food Box")]
     [SerializeField]
-    private EObjectSerialCode serialCode;
+    private EObjectSerialCode foodSerialCode;
 
     //public override bool TryFind<T>(out T result)
     //{
@@ -19,7 +19,7 @@ public class FoodBox : FixedContainer
     {
         if (!base.TryGet(out result))
         {
-            result = ObjectPullingManager.Instance.GetPullingObject(serialCode).GetComponent<InteractableObject>();
+            result = ObjectPullingManager.Instance.GetPullingObject(foodSerialCode).GetComponent<InteractableObject>();
         }
         return result != null;
     }

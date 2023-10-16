@@ -23,10 +23,9 @@ public class UIStateEvent : Event
             return true;
         if (cookware.TryFind<Food>(out Food food))
         {
-            int currDegree = food.CurrCookDegree;
-            if (currDegree >= 100)
+            if (food.CurrOverTime > 0)
             {
-                cookware.UIComponent.Add(InstantiateManager.Instance.InstantiateByUIType(cookware, EInGameUIType.Complete));
+                cookware.UIComponent.Add(EObjectSerialCode.Img_Completed);
                 return true;
             }
         }
@@ -40,14 +39,13 @@ public class UIStateEvent : Event
             return true;
         if (cookware.TryFind<Food>(out Food food))
         {
-            int currDegree = food.CurrCookDegree;
-            if (currDegree >= 160)
+            if (food.CurrOverTime >= 60)
             {
                 if (cookware.UIComponent.HasImage)
                 {
                     cookware.UIComponent.Clear();
                 }
-                cookware.UIComponent.Add(InstantiateManager.Instance.InstantiateByUIType(cookware, EInGameUIType.Warning));
+                cookware.UIComponent.Add(EObjectSerialCode.Img_Warning);
                 return true;
             }
         }
@@ -60,8 +58,7 @@ public class UIStateEvent : Event
             return true;
         if (cookware.TryFind<Food>(out Food food))
         {
-            int currDegree = food.CurrCookDegree;
-            if (currDegree >= 200)
+            if (food.CurrOverTime >= 100)
             {
                 if (cookware.UIComponent.HasImage)
                 {
@@ -70,7 +67,7 @@ public class UIStateEvent : Event
                 if(cookware.GetObject.TryFind<Tray>(out Tray tray))
                 {
                     tray.UIComponent.Clear();
-                    tray.UIComponent.Add(InstantiateManager.Instance.InstantiateByUIType(cookware, EInGameUIType.Overheat));
+                    tray.UIComponent.Add(EObjectSerialCode.Img_Overheat);
                     cookware.CookwareState = ECookwareState.Overheat;
                 } 
                 else

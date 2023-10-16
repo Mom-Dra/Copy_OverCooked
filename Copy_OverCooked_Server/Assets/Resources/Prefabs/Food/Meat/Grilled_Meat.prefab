@@ -150,7 +150,7 @@ MonoBehaviour:
   Name: Grilled_Meat
   Description: 
   eObjectType: 2
-  uIOffset: {x: 0, y: 1, z: 0}
+  uIOffset: {x: 0, y: 75}
   foodState: 2
   currCookDegree: 0
 --- !u!114 &2410106073243595991
@@ -165,5 +165,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ac3807fe1e6b64cb5cc10ef6aa9a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 15
+  serialCode: 24
   id: 0

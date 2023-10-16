@@ -9,12 +9,9 @@ public enum EAnimationType
 
 }
 
-public class Player : MonoBehaviour
+public class Player : SerializedObject
 {
     [Header("Info")]
-    [SerializeField]
-    private int Id;
-
     private Rigidbody rigid;
     private Vector3 moveDirection;
 
@@ -42,8 +39,9 @@ public class Player : MonoBehaviour
     private Animator animator;
 
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         rigid = GetComponent<Rigidbody>();
 
         applyDashSpeed = 1f;

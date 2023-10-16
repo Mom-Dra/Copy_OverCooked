@@ -9,7 +9,9 @@ public class Food : InteractableObject
     private EFoodState foodState;
 
     [SerializeField]
-    private int currCookDegree = 0;
+    private int currCookingRate = 0;
+    [SerializeField]
+    private int currOverTime = 0;
 
     // Property
     public EFoodState FoodState 
@@ -17,24 +19,22 @@ public class Food : InteractableObject
         get => foodState; 
     }
 
-    public int CurrCookDegree 
-    { 
-        get => currCookDegree; 
-        set 
-        { 
-            currCookDegree = value; 
-        } 
+    public int CurrCookingRate
+    {
+        get => currCookingRate;
+        set
+        {
+            currCookingRate = value;
+        }
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-        //if(foodState == EFoodState.Cooked)
-        //{
-        //    NetworkObject no = GetComponent<NetworkObject>();
-        //    Image foodImage = SerialCodeDictionary.Instance.FindFoodImageBySerialCode(no.ObjectSerialCode);
-        //    uIComponent.Add(Instantiate(foodImage, transform.position, Quaternion.identity, GameObject.Find("Canvas").transform));
-        //}
+    public int CurrOverTime 
+    { 
+        get => currOverTime; 
+        set 
+        {
+            currOverTime = value; 
+        } 
     }
 
     private void FixedUpdate()
@@ -45,10 +45,9 @@ public class Food : InteractableObject
         }
     }
 
-    public Image GetFoodImage()
-    {
-        NetworkObject no = GetComponent<NetworkObject>();
-        return SerialCodeDictionary.Instance.FindFoodImageBySerialCode(no.ObjectSerialCode);
-    }
+    //public Image GetFoodImage()
+    //{
+    //    return SerialCodeDictionary.Instance.FindFoodImageSerialCode(serialCode);
+    //}
 
 }

@@ -13,11 +13,18 @@ public class PullingPackage
         {
             GameObject pullingObject = SerialCodeDictionary.Instance.FindBySerialCode(serialCode);
             pullingObjects[k] = GameObject.Instantiate(pullingObject, GameObject.Find("Managers").transform.position, Quaternion.identity);
+            pullingObjects[k].SetActive(false);
         }
     }
 
     public GameObject Pulling()
     {
-        return pullingObjects[pullingIndex++];
+        GameObject go = pullingObjects[pullingIndex++];
+        go.SetActive(true);
+        if(pullingIndex >= pullingObjects.Length)
+        {
+            pullingIndex = 0;
+        }
+        return go;
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InteractableObject : MonoBehaviour
+public class InteractableObject : SerializedObject
 {
     [Header("Interactable Object")]
     [SerializeField]
@@ -50,8 +50,9 @@ public class InteractableObject : MonoBehaviour
         get => eObjectType;
     }
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if(uIComponent == null)
         {
             uIComponent = new UIComponent(transform, uIOffset);

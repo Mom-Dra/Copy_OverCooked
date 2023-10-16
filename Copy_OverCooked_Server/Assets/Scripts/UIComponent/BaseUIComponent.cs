@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
@@ -11,16 +12,20 @@ public class BaseUIComponent : UIComponent
     public BaseUIComponent(Transform anchorTransform, Vector2 offset, int maxCount) : base(anchorTransform, offset)
     {
         baseImages = new List<Image>();
-        centerBaseImage = InstantiateManager.Instance.InstantiateByUIType(EInGameUIType.PlusBase);
+
+        Image baseImage = SerialCodeDictionary.Instance.FindBySerialCode(EObjectSerialCode.Img_PlusBase).GetComponent<Image>();
+
+        centerBaseImage = baseImage.InstantiateOnCanvas();
         centerBaseImage.gameObject.SetActive(true);
 
         for (int i = 0; i < maxCount; i++)
         {
-            baseImages.Add(InstantiateManager.Instance.InstantiateByUIType(EInGameUIType.PlusBase));
+            baseImages.Add(baseImage.InstantiateOnCanvas());
         }
         OnImagePositionUpdate();
     }
 
+    [Obsolete]
     public override List<Image> Images 
     {
         get
@@ -60,9 +65,9 @@ public class BaseUIComponent : UIComponent
         }
     }
 
-    public override void Add(Image image)
+    public override void AddInstantiate(Image image)
     {
-        base.Add(image);
+        base.AddInstantiate(image);
         if (images.Count == 1)
         {
             centerBaseImage.gameObject.SetActive(false);

@@ -30,7 +30,7 @@ public class InteractManager : MonobehaviorSingleton<InteractManager> // 우리의 
         } else
         // target이 바닥에 있는 음식인 경우 
         {
-            if (!hand.TryPut(new SendContainerArgs(target, null))) // 오버로딩 필요 
+            if (!hand.TryPut(new SendObjectArgs(target, null))) // 오버로딩 필요 
             {
                 hand.HoldOut();
             }
@@ -49,21 +49,21 @@ public class InteractManager : MonobehaviorSingleton<InteractManager> // 우리의 
             sendContainer = sender.GetTopContainer();
         }
 
-        SendContainerArgs sendContainerArgs = new SendContainerArgs(null, sendContainer);
-
         if (sendContainer.TryGet(out InteractableObject getObject))
         {
-            sendContainerArgs.Item = getObject;
-            if (receiver.TryPut(sendContainerArgs))
+            using (SendObjectArgs sendContainerArgs = new SendObjectArgs(getObject, sendContainer.ContainObjects))
             {
-                Debug.Log($"<color=yellow> OK </color>");
-            } 
-            else if(recvTopType == EObjectType.Food)
-            {
-                if (sender.TryFind<Hand>(out Hand hand))
+                if (receiver.TryPut(sendContainerArgs))
                 {
-                    MoveObject(receiver, hand);
-                } 
+                    sendContainer.Remove();
+                    Debug.Log($"<color=yellow> OK </color>");
+                } else if (recvTopType == EObjectType.Food)
+                {
+                    if (sender.TryFind<Hand>(out Hand hand))
+                    {
+                        MoveObject(receiver, hand);
+                    }
+                }
             }
         }
 

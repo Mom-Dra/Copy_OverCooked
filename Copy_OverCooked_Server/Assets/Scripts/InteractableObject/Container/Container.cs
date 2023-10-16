@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Container : InteractableObject
@@ -15,7 +16,7 @@ public class Container : InteractableObject
     [SerializeField]
     protected InteractableObject getObject;
     [SerializeField]
-    protected List<InteractableObject> containObjects = new List<InteractableObject>();
+    protected List<EObjectSerialCode> containObjects = new List<EObjectSerialCode>();
 
     // Property
     public bool Flammablity 
@@ -25,14 +26,19 @@ public class Container : InteractableObject
 
     public InteractableObject GetObject 
     { 
-        get => getObject; 
+        get => getObject;
+        set
+        {
+            getObject = value;
+            Fit(getObject);
+        }
     }
 
-    public List<InteractableObject> ContainObjects 
+    public List<EObjectSerialCode> ContainObjects 
     {
         get
         {
-            if(getObject.TryFind<Tray>(out Tray tray))
+            if(getObject != null && getObject.TryFind<Tray>(out Tray tray) && tray.HasObject())
             {
                 return tray.ContainObjects;
             }
@@ -45,7 +51,8 @@ public class Container : InteractableObject
         base.Awake();
         if (getObject != null)
         {
-            Put(getObject);
+            Fit(getObject);
+            containObjects.Add(getObject.SerialCode);
         }
     }
 
@@ -101,45 +108,32 @@ public class Container : InteractableObject
                 uIComponent.Clear();
             }
         }
-        //if (getObject == interactableObject)
-        //{
-        //    getObject = null;
-        //    containObjects.Clear();
-        //    if(uIComponent.HasImage)
-        //    {
-        //        uIComponent.Clear();
-        //    }
-        //} else if (getObject != null && getObject.TryFind<Container>(out Container container))
-        //{
-        //    container.Remove(interactableObject);
-        //}
     }
 
-    public virtual bool TryPut(SendContainerArgs sendContainerArgs)
+    public virtual bool TryPut(SendObjectArgs sendContainerArgs)
     {
         if (getObject != null && getObject.TryFind<Container>(out Container container))
         {
             return container.TryPut(sendContainerArgs);
         }
-        if (!IsFull() && IsValidObject(sendContainerArgs.Item))
+        if (!IsFull() && IsValidObject(sendContainerArgs.ContainObjects.Concat(containObjects).ToList()))
         {
-            sendContainerArgs.OnReceive();
-            Put(sendContainerArgs.Item);
+            Put(sendContainerArgs);
             return true;
         }
         return false;
     }
 
-    public virtual void Put(InteractableObject interactableObject)
+    public virtual void Put(SendObjectArgs sendContainerArgs)
     {
-        gameObject.DebugName($"Put -> {interactableObject.name}", EDebugColor.Orange);
-        Fit(interactableObject);
-        interactableObject.Selectable = false;
-        if (containObjects.Count == 0)
+        gameObject.DebugName($"Put -> {sendContainerArgs.Item.name}", EDebugColor.Orange);
+        getObject = sendContainerArgs.Item;
+        Fit(getObject);
+        
+        if(sendContainerArgs.ContainObjects.Count  > 0)
         {
-            getObject = interactableObject;
+            containObjects.AddRange(sendContainerArgs.ContainObjects);
         }
-        containObjects.Add(interactableObject);
     }
 
     public override EObjectType GetTopType()
@@ -162,13 +156,14 @@ public class Container : InteractableObject
         }
     }
 
-    protected virtual bool IsValidObject(InteractableObject interactableObject)
+    protected virtual bool IsValidObject(List<EObjectSerialCode> serialObjects)
     {
         return getObject == null;
     }
 
     protected virtual void Fit(InteractableObject interactableObject)
     {
+        interactableObject.Selectable = false;
         interactableObject.transform.position = transform.position + displayOffset;
         interactableObject.Fix();
     }

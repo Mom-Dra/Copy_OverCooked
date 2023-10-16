@@ -1,7 +1,6 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class NetworkObject : MonoBehaviour
+public class SerializedObject : MonoBehaviour
 {
     private static int s_id;
 
@@ -13,9 +12,9 @@ public class NetworkObject : MonoBehaviour
     // Property
     public int Id { get => id; }
 
-    public EObjectSerialCode ObjectSerialCode 
-    { 
-        get => serialCode; 
+    public EObjectSerialCode SerialCode
+    {
+        get => serialCode;
     }
 
     protected virtual void Awake()

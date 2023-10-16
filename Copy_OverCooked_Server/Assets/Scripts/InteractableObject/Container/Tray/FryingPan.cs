@@ -1,8 +1,10 @@
+using System.Collections.Generic;
+
 public class FryingPan : Tray
 {
-    protected override bool IsValidObject(InteractableObject interactableObject)
+    protected override bool IsValidObject(List<EObjectSerialCode> serialObjects)
     {
-        if (base.IsValidObject(interactableObject) && interactableObject.TryFind<Food>(out Food food))
+        if (base.IsValidObject(serialObjects))
         {
             return true;
         }

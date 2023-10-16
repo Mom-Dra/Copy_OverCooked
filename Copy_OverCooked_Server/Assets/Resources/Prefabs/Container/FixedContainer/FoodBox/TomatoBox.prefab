@@ -128,7 +128,7 @@ MonoBehaviour:
   displayOffset: {x: 0, y: 1, z: 0}
   getObject: {fileID: 0}
   containObjects: []
-  serialCode: 12
+  serialCode: 18
 --- !u!114 &-5854962514607569127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,5 +141,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 596f230ca261bd748ac0e41aafdbbf5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 10
+  serialCode: 5
   id: 0

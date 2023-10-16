@@ -6,53 +6,88 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
 {
     [Header("Serial Code Dictionary")]
     [SerializeField]
-    private List<GameObject> serialCodeList;
+    private Dictionary<EObjectSerialCode, GameObject> serialCodDic = new Dictionary<EObjectSerialCode, GameObject>();
 
-    private Dictionary<int, int> foodImageDictionary = new Dictionary<int, int>();
+    private Dictionary<EObjectSerialCode, EObjectSerialCode> foodImageDictionary = new Dictionary<EObjectSerialCode, EObjectSerialCode>();
 
     protected override void Awake()
     {
         base.Awake();
-
         // Load Prefabs
 
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/Player/player"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/Container/Tray/FryingPan"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/Container/Tray/Plate"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/Container/FixedContainer/Table"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/Container/FixedContainer/Cookware/Induction"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/Container/FixedContainer/Cookware/CuttingBoard"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/Container/FixedContainer/Sink"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/Container/FixedContainer/Trashcan"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/Container/FixedContainer/OrderOutTable"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/Others/FireExtinguisher"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/Container/FixedContainer/FoodBox/TomatoBox"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/Container/FixedContainer/FoodBox/MeatBox"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/Food/Tomato/Org_Tomato"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/Food/Meat/Org_Meat"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/Food/Tomato/Chopped_Tomato"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/Food/Meat/Grilled_Meat"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/UI/FoodImage/Img_Tomato"));
-        serialCodeList.Add(Resources.Load<GameObject>("Prefabs/UI/FoodImage/Img_Meat"));
+        // Player
+        Add(EObjectSerialCode.Player, "Player/player");
+
+        // Fixed Container
+        Add(EObjectSerialCode.Sink, "Container/FixedContainer/Sink");
+        Add(EObjectSerialCode.Trashcan, "Container/FixedContainer/Trashcan");
+        Add(EObjectSerialCode.OrderTable, "Container/FixedContainer/OrderOutTable");
+        Add(EObjectSerialCode.Table, "Container/FixedContainer/Table");
+
+        // FoodBox
+        Add(EObjectSerialCode.TomatoBox, "Container/FixedContainer/FoodBox/TomatoBox");
+        Add(EObjectSerialCode.MeatBox, "Container/FixedContainer/FoodBox/MeatBox");
+
+        // Cookware
+        Add(EObjectSerialCode.CuttingBoard, "Container/FixedContainer/Cookware/CuttingBoard");
+        Add(EObjectSerialCode.Induction, "Container/FixedContainer/Cookware/Induction");
+
+        // Tray
+        Add(EObjectSerialCode.FryingPan, "Container/Tray/FryingPan");
+        Add(EObjectSerialCode.Plate, "Container/Tray/Plate");
+
+        // Others
+        Add(EObjectSerialCode.FireExtinguisher, "Others/FireExtinguisher");
+
+        // Food
+        Add(EObjectSerialCode.Org_Tomato, "Food/Tomato/Org_Tomato");
+        Add(EObjectSerialCode.Org_Meat, "Food/Meat/Org_Meat");
+        Add(EObjectSerialCode.Chopped_Tomato, "Food/Tomato/Chopped_Tomato");
+        Add(EObjectSerialCode.Chopped_Meat, "Food/Meat/Chopped_Meat");
+        Add(EObjectSerialCode.Grilled_Meat, "Food/Meat/Grilled_Meat");
+        Add(EObjectSerialCode.Org_Dough, "Food/Dough/Org_Dough");
+        Add(EObjectSerialCode.Chopped_Dough, "Food/Dough/Chopped_Dough");
+
+        // Image
+        Add(EObjectSerialCode.Img_PlusBase, "UI/Img_PlusBase");
+
+        // State Image
+        Add(EObjectSerialCode.Img_Progress, "UI/StateImage/Img_ProgressBar");
+        Add(EObjectSerialCode.Img_Completed, "UI/StateImage/Img_Completed");
+        Add(EObjectSerialCode.Img_Warning, "UI/StateImage/Img_Warning");
+        Add(EObjectSerialCode.Img_Overheat, "UI/StateImage/Img_Overheat");
+
+        // Food Image
+        Add(EObjectSerialCode.Img_Tomato, "UI/FoodImage/Img_Tomato");
+        Add(EObjectSerialCode.Img_Meat, "UI/FoodImage/Img_Meat");
+        Add(EObjectSerialCode.Img_Dough, "UI/FoodImage/Img_Dough");
 
         MatchSerialCodeToFoodImage();
     }
 
+    private void Add(EObjectSerialCode serialCode, string path)
+    {
+        serialCodDic.Add(serialCode, Resources.Load<GameObject>("Prefabs/"+path));
+    }
+
     private void MatchSerialCodeToFoodImage()
     {
-        foodImageDictionary.Add(12, 16);
-        foodImageDictionary.Add(14, 16);
-        foodImageDictionary.Add(13, 17);
-        foodImageDictionary.Add(15, 17);
+        foodImageDictionary.Add(EObjectSerialCode.Org_Tomato, EObjectSerialCode.Img_Tomato);
+        foodImageDictionary.Add(EObjectSerialCode.Chopped_Tomato, EObjectSerialCode.Img_Tomato);
+        foodImageDictionary.Add(EObjectSerialCode.Org_Meat, EObjectSerialCode.Img_Meat);
+        foodImageDictionary.Add(EObjectSerialCode.Chopped_Meat, EObjectSerialCode.Img_Meat);
+        foodImageDictionary.Add(EObjectSerialCode.Grilled_Meat, EObjectSerialCode.Img_Meat);
+        foodImageDictionary.Add(EObjectSerialCode.Org_Dough, EObjectSerialCode.Img_Dough);
+        foodImageDictionary.Add(EObjectSerialCode.Chopped_Dough, EObjectSerialCode.Img_Dough);
     }
 
     public GameObject FindBySerialCode(EObjectSerialCode serialCode)
     {
-        return serialCodeList[(int)serialCode];
+        return serialCodDic[serialCode];
     }
 
-    public Image FindFoodImageBySerialCode(EObjectSerialCode serialCode)
+    public EObjectSerialCode FindFoodImageSerialCode(EObjectSerialCode serialCode)
     {
-        return serialCodeList[foodImageDictionary[(int)serialCode]].GetComponent<Image>();
+        return foodImageDictionary[serialCode];
     }
 }

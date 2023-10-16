@@ -1,4 +1,6 @@
-public class StaticNetworkObject : NetworkObject
+using UnityEngine;
+
+public class StaticNetworkObject : MonoBehaviour
 {
 
 }
