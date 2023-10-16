@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Player player;
 
+    [SerializeField]
+    private LayerMask layerMask;
+
     public void OnMove(InputValue value) // Move
     {
         Vector2 input = value.Get<Vector2>();

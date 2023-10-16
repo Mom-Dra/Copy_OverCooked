@@ -30,7 +30,6 @@ public class Hand : Container
     {
         getObject.Free();
         getObject.Selectable = true;
-        containObjects.Clear();
         getObject = null;
     }
 

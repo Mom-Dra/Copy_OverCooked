@@ -15,8 +15,6 @@ public class Container : InteractableObject
     [Header("Debug")]
     [SerializeField]
     protected InteractableObject getObject;
-    [SerializeField]
-    protected List<EObjectSerialCode> containObjects = new List<EObjectSerialCode>();
 
     // Property
     public bool Flammablity 
@@ -34,15 +32,18 @@ public class Container : InteractableObject
         }
     }
 
-    public List<EObjectSerialCode> ContainObjects 
+    public Container TopContainer
     {
         get
         {
-            if(getObject != null && getObject.TryFind<Tray>(out Tray tray) && tray.HasObject())
+            if (getObject != null && getObject.TryFind<Tray>(out Tray getTray))
             {
-                return tray.ContainObjects;
+                return getTray;
+            } 
+            else
+            {
+                return this;
             }
-            return containObjects;
         }
     }
 
@@ -51,14 +52,8 @@ public class Container : InteractableObject
         base.Awake();
         if (getObject != null)
         {
-            Fit(getObject);
-            containObjects.Add(getObject.SerialCode);
+            Put(getObject);
         }
-    }
-
-    protected bool IsFull()
-    {
-        return containObjects.Count == maxContainCount;
     }
 
     public bool HasObject()
@@ -87,6 +82,7 @@ public class Container : InteractableObject
         result = null;
         if (CanGet())
         {
+
             result = getObject;
         }
         return result != null;
@@ -99,41 +95,28 @@ public class Container : InteractableObject
      
     public virtual void Remove()
     {
-        if (getObject != null)
-        {
-            getObject = null;
-            containObjects.Clear();
-            if (uIComponent.HasImage)
-            {
-                uIComponent.Clear();
-            }
-        }
+        getObject = null;
     }
 
-    public virtual bool TryPut(SendObjectArgs sendContainerArgs)
+    public virtual bool TryPut(InteractableObject interactableObject)
     {
         if (getObject != null && getObject.TryFind<Container>(out Container container))
         {
-            return container.TryPut(sendContainerArgs);
+            return container.TryPut(interactableObject);
         }
-        if (!IsFull() && IsValidObject(sendContainerArgs.ContainObjects.Concat(containObjects).ToList()))
+        if (IsValidObject(interactableObject))
         {
-            Put(sendContainerArgs);
+            Put(interactableObject);
             return true;
         }
         return false;
     }
 
-    public virtual void Put(SendObjectArgs sendContainerArgs)
+    public virtual void Put(InteractableObject interactableObject)
     {
-        gameObject.DebugName($"Put -> {sendContainerArgs.Item.name}", EDebugColor.Orange);
-        getObject = sendContainerArgs.Item;
+        gameObject.DebugName($"Put -> {interactableObject.name}", EDebugColor.Orange);
+        getObject = interactableObject;
         Fit(getObject);
-        
-        if(sendContainerArgs.ContainObjects.Count  > 0)
-        {
-            containObjects.AddRange(sendContainerArgs.ContainObjects);
-        }
     }
 
     public override EObjectType GetTopType()
@@ -145,18 +128,9 @@ public class Container : InteractableObject
         return base.GetTopType();
     }
 
-    public Container GetTopContainer()
-    {
-        if (getObject != null && getObject.TryFind<Tray>(out Tray getTray))
-        {
-            return getTray;
-        } else
-        {
-            return this;
-        }
-    }
+    
 
-    protected virtual bool IsValidObject(List<EObjectSerialCode> serialObjects)
+    protected virtual bool IsValidObject(InteractableObject serialObjects)
     {
         return getObject == null;
     }

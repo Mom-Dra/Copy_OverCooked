@@ -15,7 +15,6 @@ public class InteractableObject : SerializedObject
     [SerializeField]
     protected Vector2 uIOffset = new Vector2 (0f, 75f);
 
-    protected UIComponent uIComponent;
     protected bool selectable = true;
             
     // Property
@@ -28,18 +27,6 @@ public class InteractableObject : SerializedObject
         }  
     }
 
-    public UIComponent UIComponent 
-    {
-        get 
-        { 
-            return uIComponent; 
-        }
-        set
-        {
-            uIComponent = value;
-        }
-    }
-
     public Vector3 UIOffset 
     {
         get => uIOffset; 
@@ -48,15 +35,6 @@ public class InteractableObject : SerializedObject
     public EObjectType ObjectType
     {
         get => eObjectType;
-    }
-
-    protected override void Awake()
-    {
-        base.Awake();
-        if(uIComponent == null)
-        {
-            uIComponent = new UIComponent(transform, uIOffset);
-        }
     }
 
     public virtual EObjectType GetTopType()

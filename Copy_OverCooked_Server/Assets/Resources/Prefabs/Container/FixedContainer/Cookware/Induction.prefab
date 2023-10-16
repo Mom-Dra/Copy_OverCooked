@@ -223,6 +223,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f3b4210990a2934da9a41dbb1ef55ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serialCode: 30
+  id: 0
   Name: Induction
   Description: 
   eObjectType: 0
@@ -231,8 +233,8 @@ MonoBehaviour:
   flammablity: 1
   displayOffset: {x: 0, y: 1, z: 0}
   getObject: {fileID: 0}
-  containObjects: []
-  cookingMethod: 1
+  containObjects: 
+  cookingMethod: 2
   cookwareState: 0
 --- !u!114 &-4250746294309890776
 MonoBehaviour:
@@ -246,8 +248,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 596f230ca261bd748ac0e41aafdbbf5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 7
-  id: 0
 --- !u!1 &8587979538733561643
 GameObject:
   m_ObjectHideFlags: 0

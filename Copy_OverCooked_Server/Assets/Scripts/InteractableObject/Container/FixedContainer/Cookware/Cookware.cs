@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ public abstract class Cookware : FixedContainer
     private WaitForSeconds workInterval = new WaitForSeconds(0.1f);
     private IEnumerator selectedCoroutine;
 
+    protected Image stateImage;
+
     // Property
     public ECookwareState CookwareState 
     { 
@@ -23,9 +26,48 @@ public abstract class Cookware : FixedContainer
         } 
     }
 
-    public override bool TryPut(SendObjectArgs sendContainerArgs)
+    public Image StateImage
     {
-        if (base.TryPut(sendContainerArgs))
+        get
+        {
+            if (TryFind<Tray>(out Tray tray))
+            {
+                return tray.StateImage;
+            } else
+            {
+                return stateImage;
+            }
+        }
+        set
+        {
+            if(TryFind<Tray>(out Tray tray))
+            {
+                tray.StateImage = value;
+            } 
+            else
+            {
+                stateImage = value;
+                stateImage.transform.position = Camera.main.WorldToScreenPoint(transform.position) + UIOffset;
+            }
+        }
+    }
+
+    private List<Food> Ingredients
+    {
+        get
+        {
+            if(HasObject() && getObject.TryFind<Tray>(out Tray tray))
+            {
+                return tray.Ingredients;
+            }
+            Food food = getObject as Food;
+            return new List<Food> { food };
+        }
+    }
+
+    public override bool TryPut(InteractableObject interactableObject)
+    {
+        if (base.TryPut(interactableObject))
         {
             if (Flammablity && getObject.TryFind<Food>(out Food getFood))
             {
@@ -46,6 +88,10 @@ public abstract class Cookware : FixedContainer
 
     public override void Remove()
     {
+        if(StateImage != null)
+        {
+            Destroy(StateImage.gameObject);
+        }
         base.Remove();
         StopSelectedCoroutine();
         cookwareState = ECookwareState.Idle;
@@ -59,7 +105,7 @@ public abstract class Cookware : FixedContainer
             {
                 if (getFood.CurrCookingRate < 100)
                 {
-                    if (RecipeManager.Instance.TryGetRecipe(cookingMethod, ContainObjects, out Recipe currRecipe))
+                    if (RecipeManager.Instance.TryGetRecipe(cookingMethod, Ingredients, out Recipe currRecipe))
                     {
                         if (selectedCoroutine != null)
                         {
@@ -78,7 +124,7 @@ public abstract class Cookware : FixedContainer
     protected IEnumerator CookCoroutine(Recipe recipe)
     {
         cookwareState = ECookwareState.Cook;
-        Food cookedFood = recipe.CookedFood;
+        Food cookedFood = SerialCodeDictionary.Instance.FindBySerialCode(recipe.CookedFood).GetComponent<Food>();
         getObject.TryFind<Food>(out Food currFood);
         if (currFood == null)
         {
@@ -89,11 +135,12 @@ public abstract class Cookware : FixedContainer
 
         // UI
         //Image progressBar = InstantiateManager.Instance.InstantiateByUIType(this, EInGameUIType.Progress);
-        if (!uIComponent.HasImage)
+        if (StateImage == null)
         {
-            uIComponent.Add(EObjectSerialCode.Img_Progress);
+            Image showImage = SerialCodeDictionary.Instance.FindBySerialCode(EObjectSerialCode.Img_Progress).GetComponent<Image>();
+            StateImage = showImage.InstantiateOnCanvas();
         }
-        Image gauge = uIComponent.FirstImage.transform.GetChild(1).GetComponent<Image>();
+        Image gauge = StateImage.transform.GetChild(1).GetComponent<Image>();
 
         while (currFood.CurrCookingRate <= 100)
         {
@@ -110,17 +157,24 @@ public abstract class Cookware : FixedContainer
 
         Destroy(currFood.gameObject);
 
+        TopContainer.GetObject = instantiateFood;
+
         if(TryFind<Tray>(out Tray tray))
         {
-            tray.GetObject = instantiateFood;
+            if(!tray.UIComponent.HasImage)
+            {
+                foreach (EObjectSerialCode serialCode in instantiateFood.Ingredients)
+                {
+                    tray.UIComponent.Add(serialCode);
+                }
+            }
         } 
         else
         {
-            GetObject = instantiateFood;
-            //instantiateFood.UIComponent.Add(inst);
+            instantiateFood.AddUISelf();
         }
 
-        uIComponent.Clear();
+        GameObject.Destroy(StateImage.gameObject);
 
         if (Flammablity)
         {

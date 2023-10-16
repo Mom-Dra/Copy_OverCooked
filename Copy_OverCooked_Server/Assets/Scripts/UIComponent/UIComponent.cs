@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UIComponent
 {
-    protected static List<Vector2[]> imageOffsets = new List<Vector2[]>(4)
+    public static List<Vector2[]> ImageOffsets = new List<Vector2[]>(4)
     {
         { new Vector2[1]{ new Vector2(0f, 0f)} },
         { new Vector2[2]{ new Vector2(-25f, 0f), new Vector2(25f, 0f),} },
@@ -21,32 +21,6 @@ public class UIComponent
     {
         get => images.Count > 0;
     }
-
-    public Image FirstImage
-    {
-        get => images[0];
-    }
-
-    [Obsolete]
-    public virtual List<Image> Images
-    {
-        get
-        {
-            return images;
-        }
-        set
-        {
-            if(value != null)
-            {
-                images = value;
-                OnImagePositionUpdate();
-            } 
-            else
-            {
-                images.Clear();
-            }
-        }
-    }       
     
     public UIComponent(Transform anchorTransform, Vector2 anchorOffset)
     {
@@ -59,17 +33,17 @@ public class UIComponent
     {
         if (images.Count < 4)
         {
-            Image image = SerialCodeDictionary.Instance.FindBySerialCode(serialCode).GetComponent<Image>();
-            AddInstantiate(image);
-        }
-    }
-
-    public virtual void AddInstantiate(Image image)
-    {
-        if (images.Count < 4)
-        {
-            images.Add(image.InstantiateOnCanvas());
-            OnImagePositionUpdate();
+            EObjectSerialCode? foodImageSC = SerialCodeDictionary.Instance.FindFoodImageSerialCode(serialCode);
+            if (foodImageSC != null)
+            {
+                serialCode = (EObjectSerialCode)foodImageSC;
+            }
+            Debug.Log($"SC : {serialCode}");
+            if (SerialCodeDictionary.Instance.FindBySerialCode(serialCode).TryGetComponent<Image>(out Image image))
+            {
+                images.Add(image.InstantiateOnCanvas());
+                OnImagePositionUpdate();
+            }
         }
     }
 
@@ -87,7 +61,7 @@ public class UIComponent
         for(int i=0; i < images.Count; i++)
         {
             Vector3 worldToScreenPos = Camera.main.WorldToScreenPoint(anchorTransform.position);
-            Vector2 totalOffset = anchorOffset + imageOffsets[images.Count - 1][i] + new Vector2(worldToScreenPos.x, worldToScreenPos.y);
+            Vector2 totalOffset = anchorOffset + ImageOffsets[images.Count - 1][i] + new Vector2(worldToScreenPos.x, worldToScreenPos.y);
             images[i].transform.position = totalOffset;
         }
     }

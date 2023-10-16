@@ -143,6 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58895ab277d963c4d92abdb0691f21fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serialCode: 41
+  id: 0
   Name: FireExtinguisher
   Description: 
   eObjectType: 3
@@ -159,8 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ac3807fe1e6b64cb5cc10ef6aa9a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 12
-  id: 0
 --- !u!1 &2415617226487602855
 GameObject:
   m_ObjectHideFlags: 0

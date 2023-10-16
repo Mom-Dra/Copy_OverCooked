@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c81495e6a00544d87cb5eaff539d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serialCode: 32
+  id: 0
   Name: Oven
   Description: 
   eObjectType: 0
@@ -105,8 +107,8 @@ MonoBehaviour:
   flammablity: 1
   displayOffset: {x: 0, y: 1, z: 0}
   getObject: {fileID: 0}
-  containObjects: []
-  cookingMethod: 4
+  containObjects: 
+  cookingMethod: 5
   cookwareState: 0
 --- !u!114 &-6634845738055142221
 MonoBehaviour:
@@ -120,8 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ac3807fe1e6b64cb5cc10ef6aa9a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 9
-  id: 0
 --- !u!1 &5301098105155492872
 GameObject:
   m_ObjectHideFlags: 0

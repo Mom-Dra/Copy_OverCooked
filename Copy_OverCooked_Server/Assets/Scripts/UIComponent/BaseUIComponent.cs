@@ -25,37 +25,6 @@ public class BaseUIComponent : UIComponent
         OnImagePositionUpdate();
     }
 
-    [Obsolete]
-    public override List<Image> Images 
-    {
-        get
-        {
-            return base.Images;
-        }
-        set
-        {
-            base.Images = value;
-            if(value != null)
-            {
-                if(images.Count > 1)
-                {
-                    centerBaseImage.gameObject.SetActive(false);
-                    SetActiveBaseImages(true);
-                } 
-                else
-                {
-                    SetActiveBaseImages(false);
-                    centerBaseImage.gameObject.SetActive(true);
-                }
-            } 
-            else
-            {
-                SetActiveBaseImages(false);
-                centerBaseImage.gameObject.SetActive(true);
-            }
-        }
-    }
-
 
     private void SetActiveBaseImages(bool active)
     {
@@ -65,9 +34,9 @@ public class BaseUIComponent : UIComponent
         }
     }
 
-    public override void AddInstantiate(Image image)
+    public override void Add(EObjectSerialCode serialCode)
     {
-        base.AddInstantiate(image);
+        base.Add(serialCode);
         if (images.Count == 1)
         {
             centerBaseImage.gameObject.SetActive(false);
@@ -88,19 +57,19 @@ public class BaseUIComponent : UIComponent
         Vector2 parentOffset = new Vector2(worldToScreenPos.x, worldToScreenPos.y);
         for (int i = 0; i < images.Count; i++)
         {
-            Vector2 totalOffset = anchorOffset + imageOffsets[baseImages.Count - 1][i] + parentOffset;
+            Vector2 totalOffset = anchorOffset + ImageOffsets[baseImages.Count - 1][i] + parentOffset;
             images[i].transform.position = totalOffset;
         }
 
         if(centerBaseImage.gameObject.activeSelf)
         {
-            centerBaseImage.transform.position = anchorOffset + imageOffsets[0][0] + parentOffset;
+            centerBaseImage.transform.position = anchorOffset + ImageOffsets[0][0] + parentOffset;
         } 
         else
         {
             for(int i = 0; i < baseImages.Count; i++)
             {
-                Vector2 totalOffset = anchorOffset + imageOffsets[baseImages.Count - 1][i] + parentOffset;
+                Vector2 totalOffset = anchorOffset + ImageOffsets[baseImages.Count - 1][i] + parentOffset;
                 baseImages[i].transform.position = totalOffset;
             }
         }

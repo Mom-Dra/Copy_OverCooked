@@ -19,28 +19,30 @@ public class Recipe : ScriptableObject
     [SerializeField]
     private float totalCookDuration;
 
-    [SerializeField]
-    private Image mainImage;
-
     [Header("OutComes")]
     [SerializeField]
-    private Food cookedFood;
+    private EObjectSerialCode cookedFood;
 
     // Property
-    public Food CookedFood { get => cookedFood; }
-    public float TotalCookDuration { get => totalCookDuration; }
-    public Image MainImage
+    public int IngredientCount
     {
-        get => mainImage;
+        get => ingredients.Count;
     }
+    public EObjectSerialCode CookedFood { get => cookedFood; }
+    public float TotalCookDuration { get => totalCookDuration; }
 
-    public bool Equal(ECookingMethod cookingMethod, List<EObjectSerialCode> foods)
+    public bool Equal(ECookingMethod cookingMethod, List<Food> foods)
     {
+        List<EObjectSerialCode> totalIngredients = new List<EObjectSerialCode>();
+        foreach (Food food in foods)
+        {
+            totalIngredients.AddRange(food.Ingredients);
+        }
         if (this.cookingMethod == cookingMethod)
         {
             if (this.ingredients.Count == foods.Count)
             {
-                if (this.ingredients.OrderBy(e => e).SequenceEqual(foods.OrderBy(e => e)))
+                if (this.ingredients.OrderBy(e => e).SequenceEqual(totalIngredients.OrderBy(e => e)))
                 {
                     return true;
                 }

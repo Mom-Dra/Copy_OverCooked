@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Induction : Cookware
 {
-    public override bool TryPut(SendObjectArgs sendContainerArgs)
+    public override bool TryPut(InteractableObject interactableObject)
     {
-        if (base.TryPut(sendContainerArgs))
+        if (base.TryPut(interactableObject))
         {
             if (TryFind<Food>(out Food food))
             {
@@ -16,9 +16,9 @@ public class Induction : Cookware
         return false;
     }
 
-    protected override bool IsValidObject(List<EObjectSerialCode> serialObjects)
+    protected override bool IsValidObject(InteractableObject interactableObject)
     {
-        return base.IsValidObject(serialObjects);
+        return base.IsValidObject(interactableObject);
     }
 
     protected override bool CanCook()

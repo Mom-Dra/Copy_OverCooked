@@ -6,7 +6,7 @@ public class RecipeManager : MonobehaviorSingleton<RecipeManager>
     [SerializeField]
     private List<Recipe> recipes = new List<Recipe>();
 
-    public bool TryGetRecipe(ECookingMethod eCookingMethod, List<EObjectSerialCode> foods, out Recipe outRecipe)
+    public bool TryGetRecipe(ECookingMethod eCookingMethod, List<Food> foods, out Recipe outRecipe)
     {
         outRecipe = default(Recipe);
         foreach (Recipe recipe in recipes)

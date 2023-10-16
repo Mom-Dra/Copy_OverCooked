@@ -6,23 +6,46 @@ public enum EObjectSerialCode
     Sink,
     Trashcan,
     OrderTable,
-    Table, 
+    Table,
     // Food Box
-    TomatoBox,
-    MeatBox,
-    DoughBox,
-    CheezeBox,
-    FishBox,
+    FoodBox_Bread,
+    FoodBox_Seaweed,
+    FoodBox_Flour,
+    FoodBox_Tortilla,
+    FoodBox_Egg,
+    FoodBox_Tomato,
+    FoodBox_Meat,
+    FoodBox_Chicken,
+    FoodBox_Dough,
+    FoodBox_Cheeze,
+    FoodBox_Cabbage,
+    FoodBox_Pineapple,
+    FoodBox_Cucumber,
+    FoodBox_Onion,
+    FoodBox_Corn,
+    FoodBox_Shrimp,
+    FoodBox_Fish,
+    FoodBox_Carrot,
+    FoodBox_Mushroom,
+    FoodBox_Potato,
+    FoodBox_Sausage,
+    FoodBox_Chocolate,
+    FoodBox_Honey,
+    FoodBox_Rice,
+    FoodBox_Noodle,
+
     // Cookware
     Induction,
     CuttingBoard,
     Oven,
     Mixer,
+    Fryer,
     // Tray
-    FryingPan,
+    Skillet,
     Pot,
     Steamer,
     MixerTray,
+    FryerTray,
     Plate,
     // Other
     FireExtinguisher,
@@ -32,35 +55,36 @@ public enum EObjectSerialCode
     Img_Warning,
     Img_Overheat,
     Img_PlusBase,
+
     // Original Food
-    Org_Bread,
-    Org_Seaweed,
-    Org_Flour,
-    Org_Tortilla,
+    Bread,
+    Seaweed,
+    Flour,
+    Tortilla,
 
-    Org_Egg,
+    Egg,
 
-    Org_Tomato,
-    Org_Meat,
-    Org_Chicken,
-    Org_Dough,
-    Org_Cheeze,
-    Org_Cabbage,
-    Org_Pineapple,
-    Org_Cucumber,
-    Org_Onion,
-    Org_Corn,
-    Org_Shrimp,
-    Org_Fish,
-    Org_Carrot,
-    Org_Mushroom,
-    Org_Potato,
-    Org_Sausage,
-    Org_Chocolate,
-    Org_Honey,
+    Tomato,
+    Meat,
+    Chicken,
+    Dough,
+    Cheeze,
+    Cabbage,
+    Pineapple,
+    Cucumber,
+    Onion,
+    Corn,
+    Shrimp,
+    Fish,
+    Carrot,
+    Mushroom,
+    Potato,
+    Sausage,
+    Chocolate,
+    Honey,
 
-    Org_Rice,
-    Org_Noodle,
+    Rice,
+    Noodle,
 
     // Sushi
     Fish_Sushi,
@@ -85,14 +109,22 @@ public enum EObjectSerialCode
     Cheeze_Meat_Burger,
     Cabbage_Cheeze_Meat_Burger,
     Cabbage_Tomato_Meat_Burger,
-
     // Pizza
     Tomato_Pizza,
     Tomato_Cheeze_Pizza,
     Tomato_Cheeze_Sausage_Pizza,
+    // Pancake
+    Pancake,
+    Chocolate_Pancake,
+    // Cake
+    Honey_Cake,
+    Chocolate_Honey_Cake,
+    Carrot_Honey_Cake,
+    // Dumpling
+    Meat_Dumpling,
+    Carrot_Dumpling,
 
-
-    // Chopped 
+    // Chopped (Cutting Board)
     Chopped_Tomato,
     Chopped_Meat,
     Chopped_Chicken,
@@ -112,14 +144,14 @@ public enum EObjectSerialCode
     Chopped_Chocolate,
     Chopped_Honey,
 
-    // Boiled
+    // Boiled (Pot)
     Boiled_Rice,
     Boiled_Noodle,
 
-    // Steamed
+    // Steamed (Steamer)
     Steamed_Fish,
 
-    // Grilled 
+    // Grilled (Skillet)
     Grilled_Meat,
     Grilled_Tomato,
     Grilled_Chicken,
@@ -127,19 +159,44 @@ public enum EObjectSerialCode
     Grilled_Fish,
     Grilled_Shrimp,
 
-    // Fried 
+    // Fried (Fryer)
     Fried_Potato,
     Fried_Chicken,
 
-    // Baked
+    // Baked (Oven)
     Baked_Dough,
+    Baked_Flour,
 
-    // Mixed
-    Mixed_Egg,
-    Mixed_Flour_Egg,
-    
+    // Mixed (Mixer)
+    Mixed,
+
     // Food Image
+    Img_Bread,
+    Img_Seaweed,
+    Img_Flour,
+    Img_Tortilla,
+
+    Img_Egg,
+
     Img_Tomato,
     Img_Meat,
+    Img_Chicken,
     Img_Dough,
+    Img_Cheeze,
+    Img_Cabbage,
+    Img_Pineapple,
+    Img_Cucumber,
+    Img_Onion,
+    Img_Corn,
+    Img_Shrimp,
+    Img_Fish,
+    Img_Carrot,
+    Img_Mushroom,
+    Img_Potato,
+    Img_Sausage,
+    Img_Chocolate,
+    Img_Honey,
+
+    Img_Rice,
+    Img_Noodle,
 }

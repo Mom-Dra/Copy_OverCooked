@@ -180,6 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9912885418eb67645b39700db7b21b53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serialCode: 31
+  id: 0
   Name: Cutting_Board
   Description: 
   eObjectType: 0
@@ -188,8 +190,8 @@ MonoBehaviour:
   flammablity: 0
   displayOffset: {x: 0, y: 0.6, z: 0}
   getObject: {fileID: 0}
-  containObjects: []
-  cookingMethod: 0
+  containObjects: 
+  cookingMethod: 1
   cookwareState: 0
 --- !u!114 &1479818046633615048
 MonoBehaviour:
@@ -203,8 +205,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 596f230ca261bd748ac0e41aafdbbf5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 8
-  id: 0
 --- !u!1 &8889395286778988012
 GameObject:
   m_ObjectHideFlags: 0

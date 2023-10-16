@@ -147,6 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae89e51d8b678a4ba71c5f1794f515b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serialCode: 40
+  id: 0
   Name: Plate
   Description: 
   eObjectType: 1
@@ -155,7 +157,7 @@ MonoBehaviour:
   flammablity: 1
   displayOffset: {x: 0, y: 0.2, z: 0}
   getObject: {fileID: 0}
-  containObjects: []
+  containObjects: 
   PlusBaseUI: 0
 --- !u!114 &7809751427011346525
 MonoBehaviour:
@@ -169,5 +171,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ac3807fe1e6b64cb5cc10ef6aa9a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 11
-  id: 0

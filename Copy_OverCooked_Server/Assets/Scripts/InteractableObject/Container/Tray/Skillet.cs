@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class Plate : Tray
+public class Skillet : Tray
 {
     protected override bool IsValidObject(InteractableObject interactableObject)
     {

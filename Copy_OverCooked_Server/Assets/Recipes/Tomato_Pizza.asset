@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 018c8a6fbc42ca1439a85f78d163161b, type: 3}
-  m_Name: Chopped_Tomato
+  m_Name: Tomato_Pizza
   m_EditorClassIdentifier: 
-  cookingMethod: 1
-  ingredients: 34000000
-  totalCookDuration: 2
-  cookedFood: 99
+  cookingMethod: 0
+  ingredients: 6300000066000000
+  totalCookDuration: 0
+  cookedFood: 89

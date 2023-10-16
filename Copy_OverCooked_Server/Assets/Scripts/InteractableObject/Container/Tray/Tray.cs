@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,13 +8,45 @@ public class Tray : Container
 {
     [Header("Tray")]
     [SerializeField]
+    private Vector3 stateUIOffset = Vector3.down;
+    [SerializeField]
     private bool PlusBaseUI = true;
+
+    [SerializeField]
+    private List<Food> ingredients = new List<Food>();
+
+    protected UIComponent uIComponent;
+    protected Image stateImage;
+
+    public List<Food> Ingredients
+    {
+        get => ingredients;
+    }
+
+    public UIComponent UIComponent
+    {
+        get => uIComponent;
+    }
+
+    public Image StateImage
+    {
+        get => stateImage;
+        set
+        {
+            stateImage = value;
+            stateImage.transform.position = Camera.main.WorldToScreenPoint(transform.position) + UIOffset;
+        }
+    }
 
     protected override void Awake()
     {
         if (PlusBaseUI)
         {
             uIComponent = new BaseUIComponent(transform, uIOffset, maxContainCount);
+        } 
+        else
+        {
+            uIComponent = new UIComponent(transform, uIOffset);
         }
         base.Awake();
     }
@@ -24,65 +57,81 @@ public class Tray : Container
         {
             getObject.transform.position = transform.position + displayOffset;
         }
-        if (uIComponent.HasImage)
+
+        if (uIComponent != null && uIComponent.HasImage)
         {
             uIComponent.OnImagePositionUpdate();
         }
+
+        if(stateImage != null)
+        {
+            stateImage.transform.position = Camera.main.WorldToScreenPoint(transform.position) + stateUIOffset;
+        }
     }
 
-    public override void Put(SendObjectArgs sendContainerArgs)
+    public override void Put(InteractableObject interactableObject)
     {
-        if(sendContainerArgs.Item.UIComponent.HasImage )
+        if(interactableObject.TryGetComponent<Food>(out Food food))
         {
-            sendContainerArgs.Item.UIComponent.Clear();
-        }
-
-        if(sendContainerArgs.ContainObjects.Count + containObjects.Count == 1)
-        {
-            base.Put(sendContainerArgs);
-            return;
-        }
-
-        if (TryGetCombinedRecipe(sendContainerArgs.ContainObjects.Concat(containObjects).ToList(), out Recipe recipe))
-        {
-            if (recipe.MainImage != null)
+            Debug.Log("Put");
+            if (food.UIComponent.HasImage)
             {
-                uIComponent.Clear();
-                uIComponent.AddInstantiate(recipe.MainImage); 
+                food.UIComponent.Clear();
+            }
+            if (ingredients.Count == 0)
+            {
+                base.Put(food);
+                ingredients.Add(food);
             } 
             else
             {
-                foreach(EObjectSerialCode serialCode in sendContainerArgs.ContainObjects)
+                List<Food> totalFoods = new List<Food> { food };
+                totalFoods.AddRange(ingredients);
+                if (TryGetCombinedRecipe(totalFoods, out Recipe recipe))
                 {
-                    uIComponent.Add(serialCode);
+                    foreach(Food destroyFood in totalFoods)
+                    {
+                        Destroy(destroyFood.gameObject);
+                    }
+                    Food combinedFood = Instantiate(SerialCodeDictionary.Instance.FindBySerialCode(recipe.CookedFood).GetComponent<Food>());
+                    base.Put(combinedFood);
+                    ingredients.Add(combinedFood);
                 }
             }
-            using (SendObjectArgs args = new SendObjectArgs(Instantiate(recipe.CookedFood), sendContainerArgs.ContainObjects))
+            foreach(EObjectSerialCode serialCode in food.Ingredients)
             {
-                base.Put(args);
+                uIComponent.Add(serialCode);
             }
         }
-        //Food food = sendContainerArgs.Item as Food;
-        //uIComponent.Add(InstantiateManager.Instance.InstantiateOnCanvas(food.GetFoodImage()));
     }
 
-    protected override bool IsValidObject(List<EObjectSerialCode> serialObjects)
+    protected override bool IsValidObject(InteractableObject interactableObject)
     {
-        if (base.IsValidObject(serialObjects))
+        if (interactableObject.TryGetComponent<Food>(out Food food))
         {
-            if(serialObjects.Count == 1 )
-            {
+            Debug.Log("IsValid");
+            if (ingredients.Count == 0)
                 return true;
-            }
-            return TryGetCombinedRecipe(serialObjects, out Recipe recipe);
+
+            List<Food> totalFoods = new List<Food> { food };
+            totalFoods.AddRange(ingredients);
+            return TryGetCombinedRecipe(totalFoods, out Recipe recipe);
         }
         return false;
     }
 
-    protected bool TryGetCombinedRecipe(List<EObjectSerialCode> serialObjects, out Recipe recipe)
+    protected bool TryGetCombinedRecipe(List<Food> ingredients, out Recipe recipe)
     {
         recipe = null;
-        RecipeManager.Instance.TryGetRecipe(ECookingMethod.Combine, serialObjects, out recipe);
+        RecipeManager.Instance.TryGetRecipe(ECookingMethod.Combine, ingredients, out recipe);
+        Debug.Log($"Try Get Combine {recipe}");
         return recipe != null;
+    }
+
+    public override void Remove()
+    {
+        base.Remove();
+        ingredients.Clear();
+        uIComponent.Clear();
     }
 }

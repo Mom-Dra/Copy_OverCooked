@@ -6,15 +6,6 @@ public class FoodBox : FixedContainer
     [SerializeField]
     private EObjectSerialCode foodSerialCode;
 
-    //public override bool TryFind<T>(out T result)
-    //{
-    //    if (!base.TryFind<T>(out result) && typeof(T) == typeof(Food))
-    //    {
-    //        result = Instantiate(food, transform.position + displayOffset, Quaternion.identity).GetComponent<T>();
-    //    }
-    //    return result != null;
-    //}
-
     public override bool TryGet(out InteractableObject result)
     {
         if (!base.TryGet(out result))
@@ -28,4 +19,10 @@ public class FoodBox : FixedContainer
     {
         return EObjectType.Food;
     }
+
+    public override void Remove()
+    {
+        base.Remove();
+    }
+
 }
