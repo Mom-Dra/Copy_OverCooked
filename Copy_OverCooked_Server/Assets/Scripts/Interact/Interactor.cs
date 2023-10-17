@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Interactor : MonoBehaviour
 {
@@ -39,8 +40,15 @@ public class Interactor : MonoBehaviour
 
     public void SetClosestObject()
     {
+        InteractableObject prevTriggered = TriggerObject;
         triggerObject = triggerObjectList.OrderBy(item => Vector3.Distance(ConvertYPositionToZero(item.transform.position), ConvertYPositionToZero(transform.position + Vector3.forward)))
         .FirstOrDefault();
+
+        if(prevTriggered != triggerObject)
+        {
+            //prevTriggered?.GlowOff();
+            //triggerObject?.GlowOn();
+        }
     }
 
     private Vector3 ConvertYPositionToZero(Vector3 vector)

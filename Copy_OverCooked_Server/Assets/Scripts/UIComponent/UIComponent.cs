@@ -39,21 +39,24 @@ public class UIComponent
                 serialCode = (EObjectSerialCode)foodImageSC;
             }
             Debug.Log($"SC : {serialCode}");
-            if (SerialCodeDictionary.Instance.FindBySerialCode(serialCode).TryGetComponent<Image>(out Image image))
-            {
-                images.Add(image.InstantiateOnCanvas());
-                OnImagePositionUpdate();
-            }
+            images.Add(SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(serialCode));
+            OnImagePositionUpdate();
+            //if (SerialCodeDictionary.Instance.FindBySerialCode(serialCode).TryGetComponent<Image>(out Image image))
+            //{
+            //}
         }
     }
 
     public virtual void Clear()
     {
-        foreach(Image image in images)
+        if(images != null)
         {
-            GameObject.Destroy(image.gameObject);
+            foreach(Image image in images)
+            {
+                GameObject.Destroy(image.gameObject);
+            }
+            images.Clear();
         }
-        images.Clear();
     }
 
     public virtual void OnImagePositionUpdate()

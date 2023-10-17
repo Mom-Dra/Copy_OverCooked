@@ -56,6 +56,18 @@ public class Container : InteractableObject
         }
     }
 
+    public override void GlowOn()
+    {
+        base.GlowOn();
+        if(HasObject()) getObject.GlowOn();
+    }
+
+    public override void GlowOff()
+    {
+        base.GlowOff();
+        if(HasObject()) getObject.GlowOff();
+    }
+
     public bool HasObject()
     {
         return getObject != null;
@@ -117,6 +129,14 @@ public class Container : InteractableObject
         gameObject.DebugName($"Put -> {interactableObject.name}", EDebugColor.Orange);
         getObject = interactableObject;
         Fit(getObject);
+        if (onGlowShader)
+        {
+            getObject.GlowOn();
+        } 
+        else
+        {
+            getObject.GlowOff();
+        }
     }
 
     public override EObjectType GetTopType()

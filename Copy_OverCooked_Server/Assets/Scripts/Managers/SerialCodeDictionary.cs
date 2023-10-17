@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -98,5 +99,15 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
             return foodImageDictionary[serialCode];
         }
         return null;
+    }
+
+    public T InstantiateBySerialCode<T>(EObjectSerialCode serialCode) 
+    {
+        GameObject go = FindBySerialCode(serialCode);
+        if(typeof(T) == typeof(Image))
+        {
+            return Instantiate(go, GameObject.Find("Canvas").transform).GetComponent<T>();
+        }
+        return Instantiate(go).GetComponent<T>();
     }
 }

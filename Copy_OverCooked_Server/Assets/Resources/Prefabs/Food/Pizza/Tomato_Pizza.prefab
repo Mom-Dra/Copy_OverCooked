@@ -107,7 +107,7 @@ MonoBehaviour:
   eObjectType: 2
   uIOffset: {x: 0, y: 75}
   foodState: 2
-  ingredients: 
+  ingredients: 6300000066000000
   currCookingRate: 0
   currOverTime: 0
 --- !u!114 &2991772026802730507

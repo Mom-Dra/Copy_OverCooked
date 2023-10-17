@@ -13,16 +13,16 @@ public class DynamicNetworkObject : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (prevPosition != transform.position)
-        {
-            using (Packet packet = new Packet(EActionCode.Transform, serializedObject.Id))
-            {
-                packet.Write(transform.position);
-                packet.Write(transform.rotation);
-                packet.Write(transform.localScale);
-                Server.Instance.SendToAllClients(packet);
-            }
-        }
-        prevPosition = transform.position;
+        //if (prevPosition != transform.position)
+        //{
+        //    using (Packet packet = new Packet(EActionCode.Transform, serializedObject.Id))
+        //    {
+        //        packet.Write(transform.position);
+        //        packet.Write(transform.rotation);
+        //        packet.Write(transform.localScale);
+        //        Server.Instance.SendToAllClients(packet);
+        //    }
+        //}
+        //prevPosition = transform.position;
     }
 }

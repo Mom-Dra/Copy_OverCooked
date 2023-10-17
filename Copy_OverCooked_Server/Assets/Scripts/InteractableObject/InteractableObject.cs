@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class InteractableObject : SerializedObject
 {
+    public static readonly float BRIGTNESS = 0.3f;
+
     [Header("Interactable Object")]
     [SerializeField]
     protected string Name;
@@ -16,6 +18,7 @@ public class InteractableObject : SerializedObject
     protected Vector2 uIOffset = new Vector2 (0f, 75f);
 
     protected bool selectable = true;
+    protected bool onGlowShader = false;
             
     // Property
     public bool Selectable 
@@ -45,6 +48,20 @@ public class InteractableObject : SerializedObject
     public virtual bool TryFind<T>(out T result)
     {
         return TryGetComponent<T>(out result);
+    }
+
+    public virtual void GlowOn()
+    {
+        Renderer renderer = GetComponent<Renderer>();
+        renderer.material.SetFloat("_Brightness", BRIGTNESS);
+        onGlowShader = true;
+    }
+
+    public virtual void GlowOff()
+    {
+        Renderer renderer = GetComponent<Renderer>();
+        renderer.material.SetFloat("_Brightness", 0f);
+        onGlowShader = false;
     }
 
     public override bool Equals(object other)

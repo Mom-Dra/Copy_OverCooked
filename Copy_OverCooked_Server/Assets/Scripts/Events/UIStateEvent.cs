@@ -5,8 +5,6 @@ public class UIStateEvent : Event
 {
     private Cookware cookware;
 
-    private Image showImage;
-
     public UIStateEvent(Cookware cookware)
     {
         this.cookware = cookware;
@@ -28,8 +26,7 @@ public class UIStateEvent : Event
             if (food.CurrOverTime > 0)
             {
                 RemoveStateImage();
-                showImage = SerialCodeDictionary.Instance.FindBySerialCode(EObjectSerialCode.Img_Completed).GetComponent<Image>();
-                cookware.StateImage = showImage.InstantiateOnCanvas();
+                cookware.StateImage = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Completed);
                 return true;
             }
         }
@@ -45,8 +42,7 @@ public class UIStateEvent : Event
             if (food.CurrOverTime >= 60)
             {
                 RemoveStateImage();
-                showImage = SerialCodeDictionary.Instance.FindBySerialCode(EObjectSerialCode.Img_Warning).GetComponent<Image>();
-                cookware.StateImage = showImage.InstantiateOnCanvas();
+                cookware.StateImage = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Warning);
                 return true;
             }
         }
@@ -63,8 +59,8 @@ public class UIStateEvent : Event
             if (food.CurrOverTime >= 100)
             {
                 RemoveStateImage();
-                showImage = SerialCodeDictionary.Instance.FindBySerialCode(EObjectSerialCode.Img_Overheat).GetComponent<Image>();
-                cookware.StateImage = showImage.InstantiateOnCanvas();
+                cookware.StateImage = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Overheat);
+                cookware.OnOverheat();
                 return true;
             }
         }

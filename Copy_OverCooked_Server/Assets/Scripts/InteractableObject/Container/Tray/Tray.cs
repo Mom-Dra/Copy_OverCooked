@@ -58,7 +58,7 @@ public class Tray : Container
             getObject.transform.position = transform.position + displayOffset;
         }
 
-        if (uIComponent != null && uIComponent.HasImage)
+        if (uIComponent != null && (PlusBaseUI || uIComponent.HasImage))
         {
             uIComponent.OnImagePositionUpdate();
         }
@@ -73,7 +73,6 @@ public class Tray : Container
     {
         if(interactableObject.TryGetComponent<Food>(out Food food))
         {
-            Debug.Log("Put");
             if (food.UIComponent.HasImage)
             {
                 food.UIComponent.Clear();
@@ -109,7 +108,6 @@ public class Tray : Container
     {
         if (interactableObject.TryGetComponent<Food>(out Food food))
         {
-            Debug.Log("IsValid");
             if (ingredients.Count == 0)
                 return true;
 
@@ -124,7 +122,6 @@ public class Tray : Container
     {
         recipe = null;
         RecipeManager.Instance.TryGetRecipe(ECookingMethod.Combine, ingredients, out recipe);
-        Debug.Log($"Try Get Combine {recipe}");
         return recipe != null;
     }
 

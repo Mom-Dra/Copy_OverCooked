@@ -486,8 +486,9 @@ MonoBehaviour:
   flammablity: 1
   displayOffset: {x: 0, y: 0.2, z: 0}
   getObject: {fileID: 0}
-  containObjects: 
+  stateUIOffset: {x: 0, y: -50, z: 0}
   PlusBaseUI: 1
+  ingredients: []
 --- !u!114 &5052941115193730164
 MonoBehaviour:
   m_ObjectHideFlags: 0

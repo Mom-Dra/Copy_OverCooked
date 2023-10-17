@@ -154,11 +154,12 @@ MonoBehaviour:
   eObjectType: 1
   uIOffset: {x: 0, y: 75}
   maxContainCount: 4
-  flammablity: 1
+  flammablity: 0
   displayOffset: {x: 0, y: 0.2, z: 0}
   getObject: {fileID: 0}
-  containObjects: 
+  stateUIOffset: {x: 0, y: -1, z: 0}
   PlusBaseUI: 0
+  ingredients: []
 --- !u!114 &7809751427011346525
 MonoBehaviour:
   m_ObjectHideFlags: 0

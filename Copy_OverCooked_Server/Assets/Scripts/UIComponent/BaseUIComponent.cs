@@ -9,6 +9,14 @@ public class BaseUIComponent : UIComponent
     private Image centerBaseImage = null;
     private List<Image> baseImages;
 
+    private Vector2 WorldToScreenPoint
+    {
+        get
+        {
+            return Camera.main.WorldToScreenPoint(anchorTransform.position);
+        }
+    }
+
     public BaseUIComponent(Transform anchorTransform, Vector2 offset, int maxCount) : base(anchorTransform, offset)
     {
         baseImages = new List<Image>();
@@ -53,26 +61,24 @@ public class BaseUIComponent : UIComponent
 
     public override void OnImagePositionUpdate()
     {
-        Vector3 worldToScreenPos = Camera.main.WorldToScreenPoint(anchorTransform.position);
-        Vector2 parentOffset = new Vector2(worldToScreenPos.x, worldToScreenPos.y);
-        for (int i = 0; i < images.Count; i++)
-        {
-            Vector2 totalOffset = anchorOffset + ImageOffsets[baseImages.Count - 1][i] + parentOffset;
-            images[i].transform.position = totalOffset;
-        }
+        Vector2 screenPos = WorldToScreenPoint;
 
-        if(centerBaseImage.gameObject.activeSelf)
+        if (centerBaseImage.gameObject.activeSelf)
         {
-            centerBaseImage.transform.position = anchorOffset + ImageOffsets[0][0] + parentOffset;
-        } 
-        else
+            centerBaseImage.transform.position = anchorOffset + ImageOffsets[0][0] + screenPos;
+        } else
         {
-            for(int i = 0; i < baseImages.Count; i++)
+            for (int i = 0; i < baseImages.Count; i++)
             {
-                Vector2 totalOffset = anchorOffset + ImageOffsets[baseImages.Count - 1][i] + parentOffset;
+                Vector2 totalOffset = anchorOffset + ImageOffsets[baseImages.Count - 1][i] + screenPos;
                 baseImages[i].transform.position = totalOffset;
             }
         }
 
+        for (int i = 0; i < images.Count; i++)
+        {
+            Vector2 totalOffset = anchorOffset + ImageOffsets[baseImages.Count - 1][i] + screenPos;
+            images[i].transform.position = totalOffset;
+        }
     }
 }

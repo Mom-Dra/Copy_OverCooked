@@ -64,7 +64,9 @@ public class InteractManager : MonobehaviorSingleton<InteractManager> // ¿ì¸®ÀÇ 
             }
         }
 
-        //switch (topReceiveType)
+        //InteractableObject sendObject = null
+
+        //switch (recvTopType)
         //{
         //    case EObjectType.Empty_Fixed_Container:
 

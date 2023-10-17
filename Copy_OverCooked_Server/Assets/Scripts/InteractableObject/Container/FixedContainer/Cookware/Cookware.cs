@@ -88,7 +88,7 @@ public abstract class Cookware : FixedContainer
 
     public override void Remove()
     {
-        if(StateImage != null)
+        if(StateImage != null && cookwareState == ECookwareState.Complete)
         {
             Destroy(StateImage.gameObject);
         }
@@ -206,6 +206,11 @@ public abstract class Cookware : FixedContainer
             StopCoroutine(selectedCoroutine);
             selectedCoroutine = null;
         }
+    }
+
+    public virtual void OnOverheat()
+    {
+        cookwareState = ECookwareState.Overheat;
     }
 
     protected abstract bool CanCook();
