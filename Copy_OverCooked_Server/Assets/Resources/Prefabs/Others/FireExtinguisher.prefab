@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58895ab277d963c4d92abdb0691f21fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 41
+  serialCode: 17
   id: 0
   Name: FireExtinguisher
   Description: 

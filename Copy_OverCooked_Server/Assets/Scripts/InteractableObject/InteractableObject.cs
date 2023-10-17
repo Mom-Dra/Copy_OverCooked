@@ -45,7 +45,7 @@ public class InteractableObject : SerializedObject
         return eObjectType;
     }
 
-    public virtual bool TryFind<T>(out T result)
+    public virtual bool TryGet<T>(out T result, EGetMode getMode = EGetMode.Peek)
     {
         return TryGetComponent<T>(out result);
     }
@@ -53,14 +53,14 @@ public class InteractableObject : SerializedObject
     public virtual void GlowOn()
     {
         Renderer renderer = GetComponent<Renderer>();
-        renderer.material.SetFloat("_Brightness", BRIGTNESS);
+        //renderer?.material?.SetFloat("_Brightness", BRIGTNESS);
         onGlowShader = true;
     }
 
     public virtual void GlowOff()
     {
         Renderer renderer = GetComponent<Renderer>();
-        renderer.material.SetFloat("_Brightness", 0f);
+        //renderer?.material?.SetFloat("_Brightness", 0f);
         onGlowShader = false;
     }
 

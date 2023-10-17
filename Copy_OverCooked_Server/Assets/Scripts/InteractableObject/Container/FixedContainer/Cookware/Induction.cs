@@ -7,7 +7,7 @@ public class Induction : Cookware
     {
         if (base.TryPut(interactableObject))
         {
-            if (TryFind<Food>(out Food food))
+            if (TryGet<Food>(out Food food))
             {
                 TryCook();
             }

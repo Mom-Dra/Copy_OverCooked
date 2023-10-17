@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1066856724364982319}
   - component: {fileID: 8142875742194864393}
   - component: {fileID: 4241626043140322667}
-  - component: {fileID: 8267273688687782154}
   m_Layer: 0
   m_Name: Trashcan
   m_TagString: Untagged
@@ -157,19 +156,6 @@ MonoBehaviour:
   flammablity: 1
   displayOffset: {x: 0, y: 1, z: 0}
   getObject: {fileID: 0}
-  containObjects: 
---- !u!114 &8267273688687782154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 454764615951547873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 596f230ca261bd748ac0e41aafdbbf5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &586120067588278506
 GameObject:
   m_ObjectHideFlags: 0

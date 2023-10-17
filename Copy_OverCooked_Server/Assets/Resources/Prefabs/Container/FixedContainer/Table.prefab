@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d32af3e1a1de174daae16af3df509f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 4
+  serialCode: 5
   id: 0
   Name: Table
   Description: 
@@ -157,7 +157,6 @@ MonoBehaviour:
   flammablity: 1
   displayOffset: {x: 0, y: 0.6, z: 0}
   getObject: {fileID: 0}
-  containObjects: 
 --- !u!114 &-6989002557386292928
 MonoBehaviour:
   m_ObjectHideFlags: 0

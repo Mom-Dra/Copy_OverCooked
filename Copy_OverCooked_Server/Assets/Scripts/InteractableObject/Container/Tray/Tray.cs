@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Tray : Container
+public class Tray : Container, IFoodUIAttachable, IStateUIAttachable
 {
     [Header("Tray")]
     [SerializeField]
@@ -15,7 +15,8 @@ public class Tray : Container
     [SerializeField]
     private List<Food> ingredients = new List<Food>();
 
-    protected UIComponent uIComponent;
+    protected FoodUIComponent uIComponent;
+    [SerializeField]
     protected Image stateImage;
 
     public List<Food> Ingredients
@@ -23,18 +24,21 @@ public class Tray : Container
         get => ingredients;
     }
 
-    public UIComponent UIComponent
+    public FoodUIComponent FoodUIComponent
     {
         get => uIComponent;
     }
 
-    public Image StateImage
+    public Image StateUI 
     {
         get => stateImage;
         set
         {
             stateImage = value;
-            stateImage.transform.position = Camera.main.WorldToScreenPoint(transform.position) + UIOffset;
+            if(stateImage != null)
+            {
+                stateImage.transform.position = Camera.main.WorldToScreenPoint(transform.position) + stateUIOffset;
+            }
         }
     }
 
@@ -46,7 +50,7 @@ public class Tray : Container
         } 
         else
         {
-            uIComponent = new UIComponent(transform, uIOffset);
+            uIComponent = new FoodUIComponent(transform, uIOffset);
         }
         base.Awake();
     }
@@ -73,17 +77,18 @@ public class Tray : Container
     {
         if(interactableObject.TryGetComponent<Food>(out Food food))
         {
-            if (food.UIComponent.HasImage)
-            {
-                food.UIComponent.Clear();
-            }
             if (ingredients.Count == 0)
             {
+                if (food.FoodUIComponent.HasImage)
+                {
+                    food.FoodUIComponent.Clear();
+                }
                 base.Put(food);
                 ingredients.Add(food);
             } 
             else
             {
+                // Memory_Optimizing
                 List<Food> totalFoods = new List<Food> { food };
                 totalFoods.AddRange(ingredients);
                 if (TryGetCombinedRecipe(totalFoods, out Recipe recipe))
@@ -94,6 +99,7 @@ public class Tray : Container
                     }
                     Food combinedFood = Instantiate(SerialCodeDictionary.Instance.FindBySerialCode(recipe.CookedFood).GetComponent<Food>());
                     base.Put(combinedFood);
+                    ingredients.Clear();
                     ingredients.Add(combinedFood);
                 }
             }
@@ -130,5 +136,30 @@ public class Tray : Container
         base.Remove();
         ingredients.Clear();
         uIComponent.Clear();
+    }
+
+    public void AddIngredientImages()
+    {
+        if (!uIComponent.HasImage)
+        {
+            List<EObjectSerialCode> ingredientList = new List<EObjectSerialCode>();
+            foreach(Food food in ingredients)
+            {
+                ingredientList.AddRange(food.Ingredients);
+            }
+            foreach (EObjectSerialCode serialCode in ingredientList)
+            {
+                uIComponent.Add(serialCode);
+            }
+        }
+    }
+
+    protected override bool CanGet()
+    {
+        if(getObject.TryGet<Food>(out Food food))
+        {
+            return food.FoodState != EFoodState.Burned;
+        }
+        return true;
     }
 }

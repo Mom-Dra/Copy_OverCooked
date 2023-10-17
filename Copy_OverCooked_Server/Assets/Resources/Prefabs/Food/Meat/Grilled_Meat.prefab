@@ -147,13 +147,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6db983855454aa4ebcd2ecff000b6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 120
+  serialCode: 123
   id: 0
   Name: Grilled_Meat
   Description: 
   eObjectType: 2
   uIOffset: {x: 0, y: 75}
   foodState: 2
+  ingredients: 
   currCookingRate: 0
   currOverTime: 0
 --- !u!114 &2410106073243595991

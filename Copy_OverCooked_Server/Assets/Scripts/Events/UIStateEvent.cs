@@ -21,12 +21,12 @@ public class UIStateEvent : Event
     {
         if (!cookware.HasObject())
             return true;
-        if (cookware.TryFind<Food>(out Food food))
+        if (cookware.TryGet<Food>(out Food food))
         {
             if (food.CurrOverTime > 0)
             {
                 RemoveStateImage();
-                cookware.StateImage = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Completed);
+                cookware.StateUIAttachable.StateUI = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Completed);
                 return true;
             }
         }
@@ -37,12 +37,12 @@ public class UIStateEvent : Event
     {
         if (!cookware.HasObject())
             return true;
-        if (cookware.TryFind<Food>(out Food food))
+        if (cookware.TryGet<Food>(out Food food))
         {
             if (food.CurrOverTime >= 60)
             {
                 RemoveStateImage();
-                cookware.StateImage = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Warning);
+                cookware.StateUIAttachable.StateUI = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Warning);
                 return true;
             }
         }
@@ -54,12 +54,12 @@ public class UIStateEvent : Event
         if (!cookware.HasObject())
             return true;
 
-        if (cookware.TryFind<Food>(out Food food))
+        if (cookware.TryGet<Food>(out Food food))
         {
             if (food.CurrOverTime >= 100)
             {
                 RemoveStateImage();
-                cookware.StateImage = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Overheat);
+                
                 cookware.OnOverheat();
                 return true;
             }
@@ -69,9 +69,10 @@ public class UIStateEvent : Event
 
     private void RemoveStateImage()
     {
-        if (cookware.StateImage != null)
+        if (cookware.StateUIAttachable.StateUI != null)
         {
-            GameObject.Destroy(cookware.StateImage.gameObject);
+            GameObject.Destroy(cookware.StateUIAttachable.StateUI.gameObject);
+            cookware.StateUIAttachable.StateUI = null;
         }
     }
 

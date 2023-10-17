@@ -54,14 +54,15 @@ public class Hand : Container
             if (getObject.TryGetComponent<Food>(out Food food))
             {
                 Throw();
-            } else if (getObject.TryFind<Reactable>(out Reactable reactObject))
+            } else if (getObject.TryGet<IReactable>(out IReactable reactObject))
             {
                 reactObject.React(player);
             }
-        } else
+        } 
+        else
         {
             InteractableObject triggerObject = interactor.TriggerObject;
-            if (triggerObject != null && triggerObject.TryFind<Reactable>(out Reactable reactObject))
+            if (triggerObject != null && triggerObject.TryGetComponent<IReactable>(out IReactable reactObject))
             {
                 reactObject.React(player);
             }

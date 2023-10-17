@@ -36,7 +36,7 @@ public class Container : InteractableObject
     {
         get
         {
-            if (getObject != null && getObject.TryFind<Tray>(out Tray getTray))
+            if (getObject != null && getObject.TryGet<Tray>(out Tray getTray))
             {
                 return getTray;
             } 
@@ -73,29 +73,33 @@ public class Container : InteractableObject
         return getObject != null;
     }
 
-    public override bool TryFind<T>(out T result)
+    public override bool TryGet<T>(out T result, EGetMode getMode = EGetMode.Peek)
     {
+        // 버전 2 : 탐색 우선순위가 가장 위에 있는 물체부터
+        // (버전 1, 2 모두 상관없는듯 함 일단은, 주석 코드 지우지 말것)
+        //result = default(T);
+        //if (getObject != null && getObject.TryGet<T>(out T value2, getMode) && (getMode == EGetMode.Peek || CanGet()))
+        //{
+        //    result = value2;
+        //} 
+        //else if (base.TryGet<T>(out T value, getMode))
+        //{ 
+        //    result = value;
+        //}
+
+        //return result != null;
+
+        // 버전 1 : 탐색 우선순위가 가장 밑에 있는 물체부터 
         result = default(T);
-        if (base.TryFind<T>(out T value))
+        if (base.TryGet<T>(out T value, getMode))
         {
             result = value;
         } else if (getObject != null)
         {
-            if (getObject.TryFind<T>(out T value2))
+            if (getObject.TryGet<T>(out T value2, getMode) && (getMode == EGetMode.Peek || CanGet()))
             {
                 result = value2;
             }
-        }
-        return result != null;
-    }
-
-    public virtual bool TryGet(out InteractableObject result)
-    {
-        result = null;
-        if (CanGet())
-        {
-
-            result = getObject;
         }
         return result != null;
     }
@@ -112,7 +116,7 @@ public class Container : InteractableObject
 
     public virtual bool TryPut(InteractableObject interactableObject)
     {
-        if (getObject != null && getObject.TryFind<Container>(out Container container))
+        if (getObject != null && getObject.TryGet<Container>(out Container container))
         {
             return container.TryPut(interactableObject);
         }
@@ -129,11 +133,11 @@ public class Container : InteractableObject
         gameObject.DebugName($"Put -> {interactableObject.name}", EDebugColor.Orange);
         getObject = interactableObject;
         Fit(getObject);
+
         if (onGlowShader)
         {
             getObject.GlowOn();
-        } 
-        else
+        } else
         {
             getObject.GlowOff();
         }
@@ -150,7 +154,7 @@ public class Container : InteractableObject
 
     
 
-    protected virtual bool IsValidObject(InteractableObject serialObjects)
+    protected virtual bool IsValidObject(InteractableObject interactableObject)
     {
         return getObject == null;
     }
@@ -160,5 +164,18 @@ public class Container : InteractableObject
         interactableObject.Selectable = false;
         interactableObject.transform.position = transform.position + displayOffset;
         interactableObject.Fix();
+    }
+
+    protected virtual void ThrowPut(InteractableObject interactableObject)
+    {
+        TryPut(interactableObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.TryGetComponent<Food>(out Food food) && food.Selectable)
+        {
+            ThrowPut(food);
+        }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CuttingBoard : Cookware, Reactable
+public class CuttingBoard : Cookware, IReactable
 {
     public void React(Player player)
     {

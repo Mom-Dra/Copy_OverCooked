@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9912885418eb67645b39700db7b21b53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 31
+  serialCode: 7
   id: 0
   Name: Cutting_Board
   Description: 
@@ -190,9 +190,9 @@ MonoBehaviour:
   flammablity: 0
   displayOffset: {x: 0, y: 0.6, z: 0}
   getObject: {fileID: 0}
-  containObjects: 
   cookingMethod: 1
   cookwareState: 0
+  stateImage: {fileID: 0}
 --- !u!114 &1479818046633615048
 MonoBehaviour:
   m_ObjectHideFlags: 0

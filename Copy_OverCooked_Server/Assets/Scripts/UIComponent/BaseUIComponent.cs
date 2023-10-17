@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
 
-public class BaseUIComponent : UIComponent
+public class BaseUIComponent : FoodUIComponent
 {
     private Image centerBaseImage = null;
     private List<Image> baseImages;

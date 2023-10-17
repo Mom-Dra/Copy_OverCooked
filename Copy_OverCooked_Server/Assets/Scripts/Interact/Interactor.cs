@@ -46,8 +46,8 @@ public class Interactor : MonoBehaviour
 
         if(prevTriggered != triggerObject)
         {
-            //prevTriggered?.GlowOff();
-            //triggerObject?.GlowOn();
+            prevTriggered?.GlowOff();
+            triggerObject?.GlowOn();
         }
     }
 

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Chopped_Tomato
   m_EditorClassIdentifier: 
   cookingMethod: 1
-  ingredients: 34000000
+  ingredients: 35000000
   totalCookDuration: 2
-  cookedFood: 99
+  cookedFood: 102

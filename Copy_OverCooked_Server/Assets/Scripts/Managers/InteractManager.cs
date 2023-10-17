@@ -20,7 +20,8 @@ public class InteractManager : MonobehaviorSingleton<InteractManager> // 快府狼 
         // target捞 Container牢 版快
         {
             int compare = CompareType(hand, target);
-            if (compare > 0 || (compare == 0 && (hand.GetTopType() == EObjectType.Food)))
+            EObjectType handTopType = hand.GetTopType();
+            if (compare > 0 || (compare == 0 && (handTopType == EObjectType.Food || handTopType == EObjectType.Tray)))
             {
                 MoveObject(hand, targetContainer);
             } else
@@ -42,63 +43,74 @@ public class InteractManager : MonobehaviorSingleton<InteractManager> // 快府狼 
         Debug.Log($"<color=yellow> Move {sender.name} -> {receiver.name} </color>");
 
         EObjectType recvTopType = receiver.GetTopType();
+        InteractableObject sendObject = null;
         Container sendContainer = sender;
 
-        if(!receiver.TryFind<FoodBox>(out FoodBox foodBox) && (recvTopType == EObjectType.Tray || recvTopType == EObjectType.Food))
+        switch (recvTopType)
         {
-            sendContainer = sender.TopContainer;
-        }
-
-        if (sendContainer.TryGet(out InteractableObject sendObject))
-        {
-            if (receiver.TryPut(sendObject))
-            {
-                sendContainer.Remove();
-                Debug.Log($"<color=yellow> OK </color>");
-            } else if (recvTopType == EObjectType.Food)
-            {
-                if (sender.TryFind<Hand>(out Hand hand))
+            case EObjectType.Empty_Fixed_Container:
+                if (receiver.SerialCode != EObjectSerialCode.Trashcan && sender.TryGet<Tray>(out Tray tray, EGetMode.Pop))
                 {
-                    MoveObject(receiver, hand);
+                    sendObject = tray;
+                } else if (sender.TryGet<Food>(out Food food, EGetMode.Pop))
+                {
+                    sendObject = food;
+                    sendContainer = sender.TopContainer;
                 }
-            }
+
+                if (sendObject != null)
+                {
+                    if (receiver.TryPut(sendObject))
+                    { 
+                        Debug.Log($"<color=yellow> OK </color>");
+                        if(sender.ObjectType != EObjectType.Tray)
+                        {
+                            sendContainer.Remove();
+                        }
+                    }
+                }
+                break;
+            case EObjectType.Tray:
+                if (sender.TryGet<Food>(out Food food1, EGetMode.Pop))
+                {
+                    sendObject = food1;
+                    sendContainer = sender.TopContainer;
+                }else if(sender.TryGet<Tray>(out Tray tray2))
+                {
+                    sendObject = tray2;
+                }
+
+                if (sendObject != null)
+                {
+                    if (receiver.TryPut(sendObject))
+                    {
+                        Debug.Log($"<color=yellow> OK </color>");
+                        sendContainer.Remove();
+                    }
+                }
+                break;
+            case EObjectType.Food:
+                if (sender.TryGet<Food>(out Food food2, EGetMode.Pop))
+                {
+                    sendObject = food2;
+                    sendContainer = sender.TopContainer;
+                }
+
+                if (sendObject != null)
+                {
+                    if (receiver.TryPut(sendObject))
+                    {
+                        Debug.Log($"<color=yellow> OK </color>");
+                        sendContainer.Remove();
+                    } else
+                    {
+                        if (sender.TryGet<Hand>(out Hand sendHand))
+                        {
+                            MoveObject(receiver, sendHand);
+                        }
+                    }
+                }
+                break;
         }
-
-        //InteractableObject sendObject = null
-
-        //switch (recvTopType)
-        //{
-        //    case EObjectType.Empty_Fixed_Container:
-
-        //        break;
-
-        //    case EObjectType.Tray:
-        //        sendContainer = sender.GetTopContainer();
-        //        break;
-
-        //    case EObjectType.Food:
-        //        if (sender.TryFind<Food>(out Food food2))
-        //        {
-        //            sendObject = food2;
-        //        }
-
-        //        if (sendObject != null)
-        //        {
-        //            if (receiver.TryPut(sendObject))
-        //            {
-        //                Debug.Log($"<color=yellow> OK </color>");
-        //                sender.Remove(sendObject);
-        //            } else
-        //            {
-        //                if (sender.TryFind<Hand>(out Hand hand))
-        //                {
-        //                    MoveObject(receiver, hand);
-        //                }
-        //            }
-        //        }
-        //        break;
-        //}
-
-
     }
 }

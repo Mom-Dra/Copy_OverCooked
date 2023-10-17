@@ -5,7 +5,7 @@ public enum EAnimationType
 {
     Dash,
     Chop,
-
+    Dishwash,
 
 }
 

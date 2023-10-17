@@ -4,9 +4,9 @@ using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIComponent
+public class FoodUIComponent
 {
-    public static List<Vector2[]> ImageOffsets = new List<Vector2[]>(4)
+    protected static readonly List<Vector2[]> ImageOffsets = new List<Vector2[]>(4)
     {
         { new Vector2[1]{ new Vector2(0f, 0f)} },
         { new Vector2[2]{ new Vector2(-25f, 0f), new Vector2(25f, 0f),} },
@@ -22,7 +22,7 @@ public class UIComponent
         get => images.Count > 0;
     }
     
-    public UIComponent(Transform anchorTransform, Vector2 anchorOffset)
+    public FoodUIComponent(Transform anchorTransform, Vector2 anchorOffset)
     {
         this.anchorTransform = anchorTransform;
         this.anchorOffset = anchorOffset;

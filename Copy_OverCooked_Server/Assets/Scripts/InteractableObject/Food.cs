@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
-public class Food : InteractableObject
+public class Food : InteractableObject, IFoodUIAttachable
 {
     [Header("Food")]
     [SerializeField]
@@ -17,7 +17,7 @@ public class Food : InteractableObject
     [SerializeField]
     private int currOverTime = 0;
 
-    private UIComponent uIComponent;
+    private FoodUIComponent uIComponent;
 
     // Property
     public EFoodState FoodState 
@@ -30,7 +30,7 @@ public class Food : InteractableObject
         get => ingredients;
     }
 
-    public UIComponent UIComponent
+    public FoodUIComponent FoodUIComponent
     {
         get => uIComponent;
     }
@@ -56,7 +56,7 @@ public class Food : InteractableObject
     protected override void Awake()
     {
         base.Awake();
-        uIComponent = new UIComponent(transform, UIOffset);
+        uIComponent = new FoodUIComponent(transform, UIOffset);
         if(ingredients.Count == 0)
         {
             ingredients.Add(SerialCode);
@@ -77,12 +77,11 @@ public class Food : InteractableObject
         }
     }
 
-    public void AddUISelf()
+    public void OnBurned()
     {
-        foreach (EObjectSerialCode serialCode in ingredients)
-        {
-            uIComponent.Add(serialCode);
-        }
+        foodState = EFoodState.Burned;
+        Renderer renderer = GetComponent<Renderer>();
+        renderer?.material.SetColor("_Color", Color.black);
     }
 
     private void OnDestroy()
@@ -91,4 +90,11 @@ public class Food : InteractableObject
         uIComponent.Clear();
     }
 
+    public void AddIngredientImages()
+    {
+        foreach (EObjectSerialCode serialCode in ingredients)
+        {
+            uIComponent.Add(serialCode);
+        }
+    }
 }

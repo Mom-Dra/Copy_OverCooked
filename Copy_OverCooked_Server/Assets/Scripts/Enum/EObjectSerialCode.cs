@@ -6,7 +6,31 @@ public enum EObjectSerialCode
     Sink,
     Trashcan,
     OrderTable,
+    PlateHolder,
     Table,
+    // Cookware
+    Induction,
+    CuttingBoard,
+    Oven,
+    Mixer,
+    Fryer,
+    // Tray
+    Skillet,
+    Pot,
+    Steamer,
+    MixerTray,
+    FryerTray,
+    Plate,
+    // Other
+    FireExtinguisher,
+
+    // Image
+    Img_Progress,
+    Img_Completed,
+    Img_Warning,
+    Img_Overheat,
+    Img_PlusBase,
+
     // Food Box
     FoodBox_Bread,
     FoodBox_Seaweed,
@@ -33,28 +57,6 @@ public enum EObjectSerialCode
     FoodBox_Honey,
     FoodBox_Rice,
     FoodBox_Noodle,
-
-    // Cookware
-    Induction,
-    CuttingBoard,
-    Oven,
-    Mixer,
-    Fryer,
-    // Tray
-    Skillet,
-    Pot,
-    Steamer,
-    MixerTray,
-    FryerTray,
-    Plate,
-    // Other
-    FireExtinguisher,
-    // Image
-    Img_Progress,
-    Img_Completed,
-    Img_Warning,
-    Img_Overheat,
-    Img_PlusBase,
 
     // Original Food
     Bread,
@@ -113,6 +115,8 @@ public enum EObjectSerialCode
     Tomato_Pizza,
     Tomato_Cheeze_Pizza,
     Tomato_Cheeze_Sausage_Pizza,
+    Tomato_Pineapple_Cheeze_Pizza,
+    Tomato_Pineaaple_Sausage_Pizza,
     // Pancake
     Pancake,
     Chocolate_Pancake,
@@ -166,6 +170,13 @@ public enum EObjectSerialCode
     // Baked (Oven)
     Baked_Dough,
     Baked_Flour,
+
+    // Just Dough
+    Tomato_Dough,
+    Tomato_Cheeze_Dough,
+    Tomato_Cheeze_Sausage_Dough,
+    Tomato_Pineapple_Cheeze_Dough,
+    Tomato_Pineaaple_Sausage_Dough,
 
     // Mixed (Mixer)
     Mixed,

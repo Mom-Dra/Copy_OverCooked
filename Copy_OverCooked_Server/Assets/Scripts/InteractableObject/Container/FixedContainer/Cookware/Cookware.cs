@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Cookware : FixedContainer
+public abstract class Cookware : FixedContainer, IStateUIAttachable
 {
     [Header("Cookware")]
     [SerializeField]
@@ -14,6 +14,7 @@ public abstract class Cookware : FixedContainer
     private WaitForSeconds workInterval = new WaitForSeconds(0.1f);
     private IEnumerator selectedCoroutine;
 
+    [SerializeField]
     protected Image stateImage;
 
     // Property
@@ -26,29 +27,43 @@ public abstract class Cookware : FixedContainer
         } 
     }
 
-    public Image StateImage
+    public Image StateUI
     {
         get
         {
-            if (TryFind<Tray>(out Tray tray))
-            {
-                return tray.StateImage;
-            } else
-            {
-                return stateImage;
-            }
+            return stateImage;
         }
         set
         {
-            if(TryFind<Tray>(out Tray tray))
+            stateImage = value;
+            if(stateImage != null)
             {
-                tray.StateImage = value;
-            } 
-            else
-            {
-                stateImage = value;
                 stateImage.transform.position = Camera.main.WorldToScreenPoint(transform.position) + UIOffset;
             }
+        }
+    }
+
+    public IFoodUIAttachable FoodUIAttachable
+    {
+        get
+        {
+            if(getObject != null && getObject.TryGet<IFoodUIAttachable>(out IFoodUIAttachable component))
+            {
+                return component;
+            }
+            return null;
+        }
+    }
+    
+    public IStateUIAttachable StateUIAttachable
+    {
+        get
+        {
+            if (getObject != null && getObject.TryGet<IStateUIAttachable>(out IStateUIAttachable component))
+            {
+                return component;
+            }
+            return this;
         }
     }
 
@@ -56,7 +71,7 @@ public abstract class Cookware : FixedContainer
     {
         get
         {
-            if(HasObject() && getObject.TryFind<Tray>(out Tray tray))
+            if(HasObject() && getObject.TryGet<Tray>(out Tray tray))
             {
                 return tray.Ingredients;
             }
@@ -69,7 +84,7 @@ public abstract class Cookware : FixedContainer
     {
         if (base.TryPut(interactableObject))
         {
-            if (Flammablity && getObject.TryFind<Food>(out Food getFood))
+            if (Flammablity && getObject.TryGet<Food>(out Food getFood))
             {
                 if (getFood.CurrOverTime > 0)
                 {
@@ -88,9 +103,10 @@ public abstract class Cookware : FixedContainer
 
     public override void Remove()
     {
-        if(StateImage != null && cookwareState == ECookwareState.Complete)
+        if(StateUIAttachable.StateUI != null && cookwareState == ECookwareState.Complete)
         {
-            Destroy(StateImage.gameObject);
+            Destroy(StateUIAttachable.StateUI.gameObject);
+            StateUIAttachable.StateUI = null;
         }
         base.Remove();
         StopSelectedCoroutine();
@@ -101,7 +117,7 @@ public abstract class Cookware : FixedContainer
     {
         if (cookwareState != ECookwareState.Complete)
         {
-            if (CanCook() && getObject.TryFind<Food>(out Food getFood))
+            if (CanCook() && getObject.TryGet<Food>(out Food getFood))
             {
                 if (getFood.CurrCookingRate < 100)
                 {
@@ -124,9 +140,9 @@ public abstract class Cookware : FixedContainer
     protected IEnumerator CookCoroutine(Recipe recipe)
     {
         cookwareState = ECookwareState.Cook;
+
         Food cookedFood = SerialCodeDictionary.Instance.FindBySerialCode(recipe.CookedFood).GetComponent<Food>();
-        getObject.TryFind<Food>(out Food currFood);
-        if (currFood == null)
+        if (!getObject.TryGet<Food>(out Food currFood))
         {
             throw new System.Exception("Cookware warning : GetObject is not <Food>");
         }
@@ -134,13 +150,13 @@ public abstract class Cookware : FixedContainer
         float totalCookDuration = recipe.TotalCookDuration;
 
         // UI
-        //Image progressBar = InstantiateManager.Instance.InstantiateByUIType(this, EInGameUIType.Progress);
-        if (StateImage == null)
+        IStateUIAttachable stateUIAttachable = StateUIAttachable;
+        if (stateUIAttachable.StateUI == null)
         {
             Image showImage = SerialCodeDictionary.Instance.FindBySerialCode(EObjectSerialCode.Img_Progress).GetComponent<Image>();
-            StateImage = showImage.InstantiateOnCanvas();
+            stateUIAttachable.StateUI = showImage.InstantiateOnCanvas();
         }
-        Image gauge = StateImage.transform.GetChild(1).GetComponent<Image>();
+        Image gauge = stateUIAttachable.StateUI.transform.GetChild(1).GetComponent<Image>();
 
         while (currFood.CurrCookingRate <= 100)
         {
@@ -159,22 +175,14 @@ public abstract class Cookware : FixedContainer
 
         TopContainer.GetObject = instantiateFood;
 
-        if(TryFind<Tray>(out Tray tray))
-        {
-            if(!tray.UIComponent.HasImage)
-            {
-                foreach (EObjectSerialCode serialCode in instantiateFood.Ingredients)
-                {
-                    tray.UIComponent.Add(serialCode);
-                }
-            }
-        } 
-        else
-        {
-            instantiateFood.AddUISelf();
-        }
+        FoodUIAttachable.AddIngredientImages();
 
-        GameObject.Destroy(StateImage.gameObject);
+        if(stateUIAttachable.StateUI != null)
+        {
+            Destroy(stateUIAttachable.StateUI.gameObject);
+            stateUIAttachable.StateUI = null;
+        }
+        
 
         if (Flammablity)
         {
@@ -190,8 +198,9 @@ public abstract class Cookware : FixedContainer
 
     private IEnumerator AddUIStateEvent()
     {
+        cookwareState = ECookwareState.Complete;
         EventManager.Instance.AddEvent(new UIStateEvent(this));
-        getObject.TryFind<Food>(out Food getFood);
+        getObject.TryGet<Food>(out Food getFood);
         while (getFood != null && getFood.CurrOverTime <= 100 && (flammablity || getFood.CurrOverTime < 60))
         {
             getFood.CurrOverTime += 1;
@@ -211,6 +220,15 @@ public abstract class Cookware : FixedContainer
     public virtual void OnOverheat()
     {
         cookwareState = ECookwareState.Overheat;
+
+        FoodUIComponent foodUIComponent = FoodUIAttachable.FoodUIComponent;
+        foodUIComponent.Clear();
+        foodUIComponent.Add(EObjectSerialCode.Img_Overheat);
+
+        if(TryGet<Food>(out Food food))
+        {
+            food.OnBurned();
+        }
     }
 
     protected abstract bool CanCook();

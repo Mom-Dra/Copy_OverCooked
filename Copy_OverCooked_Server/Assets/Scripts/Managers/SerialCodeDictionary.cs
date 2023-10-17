@@ -61,11 +61,15 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
         // Food
         Add(EObjectSerialCode.Tomato, "Food/Tomato/Org_Tomato");
         Add(EObjectSerialCode.Meat, "Food/Meat/Org_Meat");
+        Add(EObjectSerialCode.Dough, "Food/Dough/Org_Dough");
+
         Add(EObjectSerialCode.Chopped_Tomato, "Food/Tomato/Chopped_Tomato");
         Add(EObjectSerialCode.Chopped_Meat, "Food/Meat/Chopped_Meat");
-        Add(EObjectSerialCode.Grilled_Meat, "Food/Meat/Grilled_Meat");
-        Add(EObjectSerialCode.Dough, "Food/Dough/Org_Dough");
         Add(EObjectSerialCode.Chopped_Dough, "Food/Dough/Chopped_Dough");
+
+        Add(EObjectSerialCode.Grilled_Meat, "Food/Meat/Grilled_Meat");
+
+        Add(EObjectSerialCode.Tomato_Dough, "Food/Dough/Tomato_Dough");
 
         // Pizza
         Add(EObjectSerialCode.Tomato_Pizza, "Food/Pizza/Tomato_Pizza");
@@ -82,6 +86,7 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
     private void MatchSerialCodeToFoodImage()
     {
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Tomato, EObjectSerialCode.Img_Tomato);
+        foodImageDictionary.Add(EObjectSerialCode.Grilled_Tomato, EObjectSerialCode.Img_Tomato);
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Meat, EObjectSerialCode.Img_Meat);
         foodImageDictionary.Add(EObjectSerialCode.Grilled_Meat, EObjectSerialCode.Img_Meat);
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Dough, EObjectSerialCode.Img_Dough);
@@ -103,6 +108,7 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
 
     public T InstantiateBySerialCode<T>(EObjectSerialCode serialCode) 
     {
+        // 수정 필요, FoodImage 매핑 안했음 여기서는 
         GameObject go = FindBySerialCode(serialCode);
         if(typeof(T) == typeof(Image))
         {
