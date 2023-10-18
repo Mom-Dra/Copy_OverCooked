@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cookingMethod: 1
   ingredients: 35000000
-  totalCookDuration: 2
+  totalCookDuration: 1
   cookedFood: 102

@@ -103,9 +103,9 @@ public enum EObjectSerialCode
     // Fried Food
     Fried_Chicken_Potato,
     // Tortilla
-    Meat_Tortilla,
-    Mushroom_Tortilla,
-    Chicken_Tortilla,
+    Meat_Tortilla_Topping,
+    Mushroom_Tortilla_Topping,
+    Chicken_Tortilla_Topping,
     // Burger
     Meat_Burger,
     Cheeze_Meat_Burger,
@@ -171,12 +171,41 @@ public enum EObjectSerialCode
     Baked_Dough,
     Baked_Flour,
 
-    // Just Dough
-    Tomato_Dough,
-    Tomato_Cheeze_Dough,
-    Tomato_Cheeze_Sausage_Dough,
-    Tomato_Pineapple_Cheeze_Dough,
-    Tomato_Pineaaple_Sausage_Dough,
+    // Topping On Dough
+    Tomato_Topping,
+    Cheeze_Topping,
+    Sausage_Topping,
+    Pineapple_Topping,
+    Meat_Topping,
+
+    // Topping On 
+
+    // Plating
+    Plating_Bread,
+    Plating_Seaweed,
+    Plating_Flour,
+    Plating_Tortilla,
+    Plating_Egg,
+    Plating_Tomato,
+    Plating_Meat,
+    Plating_Chicken,
+    Plating_Dough,
+    Plating_Cheeze,
+    Plating_Cabbage,
+    Plating_Pineapple,
+    Plating_Cucumber,
+    Plating_Onion,
+    Plating_Corn,
+    Plating_Shrimp,
+    Plating_Fish,
+    Plating_Carrot,
+    Plating_Mushroom,
+    Plating_Potato,
+    Plating_Sausage,
+    Plating_Chocolate,
+    Plating_Honey,
+    Plating_Rice,
+    Plating_Noodle,
 
     // Mixed (Mixer)
     Mixed,

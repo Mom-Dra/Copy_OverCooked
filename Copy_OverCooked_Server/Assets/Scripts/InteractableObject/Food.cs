@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
-public class Food : InteractableObject, IFoodUIAttachable
+public class Food : InteractableObject, IFood, IFoodUIAttachable
 {
     [Header("Food")]
     [SerializeField]
@@ -12,9 +12,7 @@ public class Food : InteractableObject, IFoodUIAttachable
     [SerializeField]
     private List<EObjectSerialCode> ingredients = new List<EObjectSerialCode>();
 
-    [SerializeField]
     private int currCookingRate = 0;
-    [SerializeField]
     private int currOverTime = 0;
 
     private FoodUIComponent uIComponent;
@@ -25,6 +23,10 @@ public class Food : InteractableObject, IFoodUIAttachable
         get => foodState; 
     }
 
+    // 음식의 재료는 각 음식 당 하나밖에 안나올거같은데
+    // 어차피 Ingredients 배열은 Tray에서 관리하니까
+    // Food 내부에서까지 ingredietns 배열을 관리할 필요가 없을거같은데.... (추후 수정)
+    // 일단 냅둠 
     public List<EObjectSerialCode> Ingredients
     {
         get => ingredients;
@@ -51,6 +53,14 @@ public class Food : InteractableObject, IFoodUIAttachable
         {
             currOverTime = value; 
         } 
+    }
+
+    public GameObject GameObject
+    {
+        get
+        {
+            return gameObject;
+        }
     }
 
     protected override void Awake()
@@ -97,4 +107,6 @@ public class Food : InteractableObject, IFoodUIAttachable
             uIComponent.Add(serialCode);
         }
     }
+
+    
 }

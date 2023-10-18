@@ -22,7 +22,7 @@ public class Container : InteractableObject
         get => flammablity; 
     }
 
-    public InteractableObject GetObject 
+    public virtual InteractableObject GetObject 
     { 
         get => getObject;
         set
@@ -36,7 +36,7 @@ public class Container : InteractableObject
     {
         get
         {
-            if (getObject != null && getObject.TryGet<Tray>(out Tray getTray))
+            if (getObject != null && getObject.TryGet<Tray>(out Tray getTray) && !getObject.GetComponent<FoodTray>())
             {
                 return getTray;
             } 

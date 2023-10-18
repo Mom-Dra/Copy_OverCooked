@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Tomato_Pizza
   m_EditorClassIdentifier: 
   cookingMethod: 5
-  ingredients: 6600000069000000
-  totalCookDuration: 3
+  ingredients: 8500000069000000
+  totalCookDuration: 1
   cookedFood: 90

@@ -51,7 +51,7 @@ public class Hand : Container
     {
         if (HasObject())
         {
-            if (getObject.TryGetComponent<Food>(out Food food))
+            if (getObject.TryGetComponent<IFood>(out IFood food))
             {
                 Throw();
             } else if (getObject.TryGet<IReactable>(out IReactable reactObject))

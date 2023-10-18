@@ -49,25 +49,21 @@ public class Plate : Tray
     {
         if(plateState == EPlateState.Clean)
         {
-            return base.IsValidObject(interactableObject);
+            // 코드 중복?
+            if (interactableObject.TryGetComponent<IFood>(out IFood iFood))
+            {
+                if (iFood.FoodState == EFoodState.Burned)
+                    return false;
+
+                if (!HasObject())
+                    return true;
+
+                return TryGetCombinedRecipe(iFood, out Recipe recipe);
+            }
+            return false;
         }
         return interactableObject.TryGet<Plate>(out Plate plate) && plate.PlateState == EPlateState.Dirty;
     }
-
-    //public override bool TryGet<T>(out T result, EGetMode getMode = EGetMode.Peek)
-    //{
-    //    result = default(T);
-    //    if(typeof(T) == typeof(Tray) && plateState == EPlateState.Dirty)
-    //    {
-    //        result = GetComponent<T>();
-    //    } 
-    //    else
-    //    {
-    //        base.TryGet<T>(out result, getMode);
-    //    }
-
-    //    return result != null;
-    //}
 
     public override void Put(InteractableObject interactableObject)
     {
@@ -77,15 +73,15 @@ public class Plate : Tray
         } 
         else
         {
-            StackPlate(interactableObject);
+            Stack(interactableObject);
         }
     }
 
-    public void StackPlate(InteractableObject interactableObject)
+    public void Stack(InteractableObject interactableObject)
     {
-        if (getObject != null && TryGet<Plate>(out Plate plate))
+        if (getObject != null && getObject.TryGet<Plate>(out Plate plate))
         {
-            plate.Put(interactableObject);
+            plate.Stack(interactableObject);
         } else
         {
             GetObject = interactableObject;

@@ -105,8 +105,6 @@ MonoBehaviour:
   uIOffset: {x: 0, y: 75}
   foodState: 2
   ingredients: 6600000069000000
-  currCookingRate: 0
-  currOverTime: 0
 --- !u!114 &2991772026802730507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +178,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6b1275ad998c723419983123aeebe5f7, type: 2}
+  - {fileID: 2100000, guid: fe1147b0177fed14b8f04d2e0abc1408, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

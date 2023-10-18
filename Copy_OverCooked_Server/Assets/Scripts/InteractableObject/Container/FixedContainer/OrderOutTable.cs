@@ -30,7 +30,7 @@ public class OrderOutTable : FixedContainer
         {
             if (plate.HasObject())
             {
-                Debug.Log($"[{Name}] : 林巩 贸府 {plate.GetObject}");
+                Debug.Log($"[{Name}] : 林巩 贸府 {plate.GetObject.Name}");
                 Destroy(plate.GetObject.gameObject);
                 plate.Remove();
             }

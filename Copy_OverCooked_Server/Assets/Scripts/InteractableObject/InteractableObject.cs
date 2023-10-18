@@ -8,8 +8,7 @@ public class InteractableObject : SerializedObject
     public static readonly float BRIGTNESS = 0.3f;
 
     [Header("Interactable Object")]
-    [SerializeField]
-    protected string Name;
+    public string Name;
     [SerializeField]
     protected string Description;
     [SerializeField]

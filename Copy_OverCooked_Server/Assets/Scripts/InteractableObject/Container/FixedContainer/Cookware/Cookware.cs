@@ -67,16 +67,22 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
         }
     }
 
-    private List<Food> Ingredients
+    private List<EObjectSerialCode> Ingredients
     {
         get
         {
             if(HasObject() && getObject.TryGet<Tray>(out Tray tray))
             {
+                Debug.Log($"{tray.Name} ingredients : {tray.Ingredients.Count}");
+                foreach(EObjectSerialCode ser in tray.Ingredients)
+                {
+                    Debug.Log($"in {ser}");
+                }
                 return tray.Ingredients;
             }
-            Food food = getObject as Food;
-            return new List<Food> { food };
+            IFood food = getObject as IFood;
+            Debug.Log($"{getObject.Name} ingredients : {food.Ingredients.Count}");
+            return food.Ingredients;
         }
     }
 
@@ -84,7 +90,7 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
     {
         if (base.TryPut(interactableObject))
         {
-            if (Flammablity && getObject.TryGet<Food>(out Food getFood))
+            if (Flammablity && getObject.TryGet<IFood>(out IFood getFood))
             {
                 if (getFood.CurrOverTime > 0)
                 {
@@ -115,14 +121,19 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
 
     protected bool TryCook()
     {
+        Debug.Log("111");
         if (cookwareState != ECookwareState.Complete)
         {
-            if (CanCook() && getObject.TryGet<Food>(out Food getFood))
+        Debug.Log("222");
+            if (CanCook() && getObject.TryGet<IFood>(out IFood getFood))
             {
+        Debug.Log("333");
                 if (getFood.CurrCookingRate < 100)
                 {
+        Debug.Log("444");
                     if (RecipeManager.Instance.TryGetRecipe(cookingMethod, Ingredients, out Recipe currRecipe))
                     {
+        Debug.Log("555");
                         if (selectedCoroutine != null)
                         {
                             StopCoroutine(selectedCoroutine);
@@ -141,8 +152,8 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
     {
         cookwareState = ECookwareState.Cook;
 
-        Food cookedFood = SerialCodeDictionary.Instance.FindBySerialCode(recipe.CookedFood).GetComponent<Food>();
-        if (!getObject.TryGet<Food>(out Food currFood))
+        IFood cookedFood = SerialCodeDictionary.Instance.FindBySerialCode(recipe.CookedFood).GetComponent<IFood>();
+        if (!getObject.TryGet<IFood>(out IFood currFood))
         {
             throw new System.Exception("Cookware warning : GetObject is not <Food>");
         }
@@ -162,20 +173,22 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
         {
             currFood.CurrCookingRate += (int)((1 / totalCookDuration) * 10);
             gauge.fillAmount = (float)currFood.CurrCookingRate / 100;
-            Debug.Log($"Cooking... <color=yellow>{currFood.name}</color> => <color=orange>{cookedFood.name}</color> <color=green>## {currFood.CurrCookingRate}%</color>");
+            Debug.Log($"Cooking... <color=yellow>{currFood.GameObject.name}</color> => <color=orange>{cookedFood.GameObject.name}</color> <color=green>## {currFood.CurrCookingRate}%</color>");
             yield return workInterval;
         }
 
         cookwareState = ECookwareState.Complete;
 
-        Food instantiateFood = Instantiate(cookedFood, currFood.transform.position, Quaternion.identity);
-        instantiateFood.CurrCookingRate = 0;
+        InteractableObject instantiateFood = Instantiate(cookedFood.GameObject, currFood.GameObject.transform.position, Quaternion.identity).GetComponent<InteractableObject>();
 
-        Destroy(currFood.gameObject);
+        Destroy(currFood.GameObject);
 
         TopContainer.GetObject = instantiateFood;
 
-        FoodUIAttachable.AddIngredientImages();
+        if (!FoodUIAttachable.FoodUIComponent.HasImage)
+        {
+            FoodUIAttachable.AddIngredientImages();
+        }
 
         if(stateUIAttachable.StateUI != null)
         {

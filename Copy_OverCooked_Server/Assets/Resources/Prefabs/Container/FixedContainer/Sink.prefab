@@ -969,7 +969,7 @@ MonoBehaviour:
   uIOffset: {x: 0, y: 1}
   maxContainCount: 4
   flammablity: 0
-  displayOffset: {x: 1, y: 1.2, z: 0}
+  displayOffset: {x: 1, y: 1.1, z: 0}
   getObject: {fileID: 0}
   dishwashingTime: 2
 --- !u!1 &8035984932074540149

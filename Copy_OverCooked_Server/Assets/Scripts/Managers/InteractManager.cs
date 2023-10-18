@@ -52,9 +52,10 @@ public class InteractManager : MonobehaviorSingleton<InteractManager> // 快府狼 
                 if (receiver.SerialCode != EObjectSerialCode.Trashcan && sender.TryGet<Tray>(out Tray tray, EGetMode.Pop))
                 {
                     sendObject = tray;
-                } else if (sender.TryGet<Food>(out Food food, EGetMode.Pop))
+                } else if (sender.TryGet<IFood>(out IFood food, EGetMode.Pop))
                 {
-                    sendObject = food;
+                    //sendObject = food;
+                    sendObject = food.GameObject.GetComponent<InteractableObject>();
                     sendContainer = sender.TopContainer;
                 }
 
@@ -71,9 +72,9 @@ public class InteractManager : MonobehaviorSingleton<InteractManager> // 快府狼 
                 }
                 break;
             case EObjectType.Tray:
-                if (sender.TryGet<Food>(out Food food1, EGetMode.Pop))
+                if (sender.TryGet<IFood>(out IFood food1, EGetMode.Pop))
                 {
-                    sendObject = food1;
+                    sendObject = food1.GameObject.GetComponent<InteractableObject>();
                     sendContainer = sender.TopContainer;
                 }else if(sender.TryGet<Tray>(out Tray tray2))
                 {
@@ -90,9 +91,9 @@ public class InteractManager : MonobehaviorSingleton<InteractManager> // 快府狼 
                 }
                 break;
             case EObjectType.Food:
-                if (sender.TryGet<Food>(out Food food2, EGetMode.Pop))
+                if (sender.TryGet<IFood>(out IFood food2, EGetMode.Pop))
                 {
-                    sendObject = food2;
+                    sendObject = food2.GameObject.GetComponent<InteractableObject>();
                     sendContainer = sender.TopContainer;
                 }
 

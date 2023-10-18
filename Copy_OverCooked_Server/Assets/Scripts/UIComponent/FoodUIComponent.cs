@@ -41,9 +41,14 @@ public class FoodUIComponent
             Debug.Log($"SC : {serialCode}");
             images.Add(SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(serialCode));
             OnImagePositionUpdate();
-            //if (SerialCodeDictionary.Instance.FindBySerialCode(serialCode).TryGetComponent<Image>(out Image image))
-            //{
-            //}
+        }
+    }
+
+    public void AddRange(List<EObjectSerialCode> serialCodeList)
+    {
+        foreach(EObjectSerialCode serialCode in serialCodeList)
+        {
+            Add(serialCode);
         }
     }
 

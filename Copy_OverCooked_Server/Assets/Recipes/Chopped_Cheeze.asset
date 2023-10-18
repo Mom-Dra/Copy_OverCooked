@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 018c8a6fbc42ca1439a85f78d163161b, type: 3}
-  m_Name: Tomato_Dough
+  m_Name: Chopped_Cheeze
   m_EditorClassIdentifier: 
-  cookingMethod: 0
-  ingredients: 6600000069000000
-  totalCookDuration: 0
-  cookedFood: 133
+  cookingMethod: 1
+  ingredients: 39000000
+  totalCookDuration: 1
+  cookedFood: 106

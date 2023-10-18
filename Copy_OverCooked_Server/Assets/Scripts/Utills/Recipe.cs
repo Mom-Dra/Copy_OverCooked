@@ -31,18 +31,13 @@ public class Recipe : ScriptableObject
     public EObjectSerialCode CookedFood { get => cookedFood; }
     public float TotalCookDuration { get => totalCookDuration; }
 
-    public bool Equal(ECookingMethod cookingMethod, List<Food> foods)
+    public bool Equal(ECookingMethod cookingMethod, List<EObjectSerialCode> foods)
     {
-        List<EObjectSerialCode> totalIngredients = new List<EObjectSerialCode>();
-        foreach (Food food in foods)
-        {
-            totalIngredients.AddRange(food.Ingredients);
-        }
         if (this.cookingMethod == cookingMethod)
         {
             if (this.ingredients.Count == foods.Count)
             {
-                if (this.ingredients.OrderBy(e => e).SequenceEqual(totalIngredients.OrderBy(e => e)))
+                if (this.ingredients.OrderBy(e => e).SequenceEqual(foods.OrderBy(e => e)))
                 {
                     return true;
                 }
