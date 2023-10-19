@@ -44,7 +44,6 @@ public class FoodTray : Tray, IFood
             List<EObjectSerialCode> tmp = new List<EObjectSerialCode> { SerialCode };
             foreach (Food food in foods)
             {
-                Debug.Log($"Ingredient in [{Name}] : {food}");
                 tmp.AddRange(food.Ingredients);
             }
             return tmp;

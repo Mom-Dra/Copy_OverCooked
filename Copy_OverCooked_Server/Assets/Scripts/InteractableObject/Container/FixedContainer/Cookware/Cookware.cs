@@ -73,15 +73,9 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
         {
             if(HasObject() && getObject.TryGet<Tray>(out Tray tray))
             {
-                Debug.Log($"{tray.Name} ingredients : {tray.Ingredients.Count}");
-                foreach(EObjectSerialCode ser in tray.Ingredients)
-                {
-                    Debug.Log($"in {ser}");
-                }
                 return tray.Ingredients;
             }
             IFood food = getObject as IFood;
-            Debug.Log($"{getObject.Name} ingredients : {food.Ingredients.Count}");
             return food.Ingredients;
         }
     }
@@ -121,19 +115,14 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
 
     protected bool TryCook()
     {
-        Debug.Log("111");
         if (cookwareState != ECookwareState.Complete)
         {
-        Debug.Log("222");
             if (CanCook() && getObject.TryGet<IFood>(out IFood getFood))
             {
-        Debug.Log("333");
                 if (getFood.CurrCookingRate < 100)
                 {
-        Debug.Log("444");
                     if (RecipeManager.Instance.TryGetRecipe(cookingMethod, Ingredients, out Recipe currRecipe))
                     {
-        Debug.Log("555");
                         if (selectedCoroutine != null)
                         {
                             StopCoroutine(selectedCoroutine);

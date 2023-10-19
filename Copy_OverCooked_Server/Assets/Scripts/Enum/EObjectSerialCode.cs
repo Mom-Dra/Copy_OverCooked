@@ -73,7 +73,7 @@ public enum EObjectSerialCode
     Cheeze,
     Cabbage,
     Pineapple,
-    Cucumber,
+    Cucumber, 
     Onion,
     Corn,
     Shrimp,

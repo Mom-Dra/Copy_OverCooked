@@ -38,7 +38,7 @@ public class FoodUIComponent
             {
                 serialCode = (EObjectSerialCode)foodImageSC;
             }
-            Debug.Log($"SC : {serialCode}");
+            //Debug.Log($"SC : {serialCode}");
             images.Add(SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(serialCode));
             OnImagePositionUpdate();
         }
