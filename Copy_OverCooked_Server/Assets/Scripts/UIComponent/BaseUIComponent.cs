@@ -33,6 +33,12 @@ public class BaseUIComponent : FoodUIComponent
         OnImagePositionUpdate();
     }
 
+    private void SetActiveAll(bool active)
+    {
+        centerBaseImage.gameObject.SetActive(active);
+        SetActiveBaseImages(active);
+    }
+
 
     private void SetActiveBaseImages(bool active)
     {
@@ -49,14 +55,26 @@ public class BaseUIComponent : FoodUIComponent
         {
             centerBaseImage.gameObject.SetActive(false);
             SetActiveBaseImages(true);
+        } 
+        else
+        {
+            baseImages[images.Count-1].gameObject.SetActive(false);  
         }
     }
 
-    public override void Clear()
+    public override void Clear(bool activeAll = false)
     {
         base.Clear();
-        SetActiveBaseImages(false);
-        centerBaseImage.gameObject.SetActive(true);
+        if (activeAll)
+        {
+            SetActiveAll(false);
+        }   
+        else
+        {
+            SetActiveBaseImages(false);
+            centerBaseImage.gameObject.SetActive(true);
+        }
+        
     }
 
     public override void OnImagePositionUpdate()

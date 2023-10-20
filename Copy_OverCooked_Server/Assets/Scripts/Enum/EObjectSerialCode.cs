@@ -239,4 +239,11 @@ public enum EObjectSerialCode
 
     Img_Rice,
     Img_Noodle,
+
+    // Trigger
+    FireTriggerBox,
+
+    // Particle
+    Fire,
+    Water,
 }

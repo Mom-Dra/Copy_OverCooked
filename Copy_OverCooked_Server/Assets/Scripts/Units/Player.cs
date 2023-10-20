@@ -95,6 +95,11 @@ public class Player : SerializedObject
         hand.InteractAndThrow();
     }
 
+    public void CtrlKeyUp()
+    {
+        hand.CtrlKeyUp();
+    }
+
     public void Dash()
     {
         if (isDashable)

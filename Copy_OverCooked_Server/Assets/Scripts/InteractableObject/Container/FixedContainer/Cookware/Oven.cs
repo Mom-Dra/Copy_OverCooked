@@ -19,4 +19,9 @@ public class Oven : Cookware
     {
         return true;
     }
+
+    protected override bool IsValidObject(InteractableObject interactableObject)
+    {
+        return !HasObject() && interactableObject.TryGetComponent<Tray>(out Tray tray);
+    }
 }

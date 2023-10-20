@@ -5,6 +5,8 @@ using UnityEngine;
 public class FoodTray : Tray, IFood
 {
     [SerializeField]
+    private bool isCookable = true;
+    [SerializeField]
     private EFoodState foodState;
 
     private int currCookingRate = 0;
@@ -13,6 +15,12 @@ public class FoodTray : Tray, IFood
     [SerializeField]
     private List<Food> foods = new List<Food>();
 
+    // Property
+    public bool IsCookable
+    {
+        get => isCookable;
+    }
+
     public EFoodState FoodState
     {
         get => foodState;
@@ -20,7 +28,6 @@ public class FoodTray : Tray, IFood
 
     public override InteractableObject GetObject
     {
-        [Obsolete]
         get
         {
             return getObject;
@@ -106,14 +113,21 @@ public class FoodTray : Tray, IFood
 
     protected override bool IsValidObject(InteractableObject interactableObject)
     {
-        return !interactableObject.GetComponent<FoodTray>() && base.IsValidObject(interactableObject);
+        if (!interactableObject.GetComponent<FoodTray>() && interactableObject.TryGetComponent<IFood>(out IFood iFood))
+        {
+            if (iFood.FoodState != EFoodState.Burned && iFood.FoodState == EFoodState.Cooked)
+            {
+                return TryCheckRecipe(ECookingMethod.Combine, iFood, out Recipe recipe);
+            }
+        }
+        return false;
     }
 
     public override void Put(InteractableObject interactableObject)
     {
-        if(interactableObject.TryGetComponent<IFood>(out IFood iFood))
+        if (interactableObject.TryGetComponent(out IFood iFood))
         {
-            PutByRecipe(iFood);
+            PutAndCombine(iFood);
         }
         //if (interactableObject.TryGetComponent<IFood>(out IFood putIFood))
         //{

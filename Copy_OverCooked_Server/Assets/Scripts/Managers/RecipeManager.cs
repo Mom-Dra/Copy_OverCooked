@@ -3,8 +3,14 @@ using UnityEngine;
 
 public class RecipeManager : MonobehaviorSingleton<RecipeManager>
 {
-    [SerializeField]
     private List<Recipe> recipes = new List<Recipe>();
+
+    protected override void Awake()
+    {
+        base.Awake();
+        Recipe[] load_Recipe = Resources.LoadAll<Recipe>("Prefabs/Recipes");
+        recipes.AddRange(load_Recipe);
+    }
 
     public bool TryGetRecipe(ECookingMethod eCookingMethod, List<EObjectSerialCode> foods, out Recipe outRecipe)
     {

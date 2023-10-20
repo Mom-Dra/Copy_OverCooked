@@ -38,7 +38,7 @@ public class FoodUIComponent
             {
                 serialCode = (EObjectSerialCode)foodImageSC;
             }
-            //Debug.Log($"SC : {serialCode}");
+            Debug.Log($"SC : {serialCode}");
             images.Add(SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(serialCode));
             OnImagePositionUpdate();
         }
@@ -52,7 +52,7 @@ public class FoodUIComponent
         }
     }
 
-    public virtual void Clear()
+    public virtual void Clear(bool activeAll = false)
     {
         if(images != null)
         {

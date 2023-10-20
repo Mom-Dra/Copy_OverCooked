@@ -476,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6c85ffa81f21541bd563c635c0baae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 35
+  serialCode: 11
   id: 0
   Name: Skillet
   Description: 
@@ -488,7 +488,7 @@ MonoBehaviour:
   getObject: {fileID: 0}
   stateUIOffset: {x: 0, y: -50, z: 0}
   PlusBaseUI: 1
-  ingredients: []
+  cookingMethod: 2
 --- !u!114 &5052941115193730164
 MonoBehaviour:
   m_ObjectHideFlags: 0

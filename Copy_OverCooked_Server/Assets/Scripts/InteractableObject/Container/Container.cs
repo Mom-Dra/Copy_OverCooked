@@ -16,6 +16,8 @@ public class Container : InteractableObject
     [SerializeField]
     protected InteractableObject getObject;
 
+    
+
     // Property
     public bool Flammablity 
     { 
@@ -50,6 +52,7 @@ public class Container : InteractableObject
     protected override void Awake()
     {
         base.Awake();
+        
         if (getObject != null)
         {
             Put(getObject);
@@ -131,7 +134,7 @@ public class Container : InteractableObject
     public virtual void Put(InteractableObject interactableObject)
     {
         gameObject.DebugName($"Put -> {interactableObject.name}", EDebugColor.Orange);
-        getObject = interactableObject;
+        GetObject = interactableObject;
         Fit(getObject);
 
         if (onGlowShader)
@@ -178,4 +181,6 @@ public class Container : InteractableObject
             ThrowPut(food);
         }
     }
+
+    
 }

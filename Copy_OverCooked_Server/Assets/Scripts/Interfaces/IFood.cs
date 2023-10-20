@@ -5,6 +5,10 @@ using UnityEngine;
 
 public interface IFood
 {
+    public bool IsCookable
+    {
+        get;
+    }
     public EFoodState FoodState
     {
         get;

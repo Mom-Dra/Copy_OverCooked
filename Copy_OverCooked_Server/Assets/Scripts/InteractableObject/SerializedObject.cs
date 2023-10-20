@@ -22,7 +22,7 @@ public class SerializedObject : MonoBehaviour
         id = s_id++;
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         NetworkObjectManager.Instance.Add(this);
     }

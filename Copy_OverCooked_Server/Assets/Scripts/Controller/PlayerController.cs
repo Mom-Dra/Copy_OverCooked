@@ -28,6 +28,11 @@ public class PlayerController : MonoBehaviour
         player.InteractAndThrow();
     }
 
+    public void OnCtrlKeyUp()
+    {
+        player.CtrlKeyUp();
+    }
+
     public void OnDash() // Alt
     {
         player.Dash();

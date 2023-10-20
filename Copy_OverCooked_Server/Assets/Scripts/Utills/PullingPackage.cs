@@ -9,11 +9,17 @@ public class PullingPackage
     {
         pullingObjects = new GameObject[pullingNumber];
 
+        Transform pullingTransform = GameObject.Find("Pulling").transform;
+
+        GameObject pullingFolder =  new GameObject($"{serialCode.ToString()}");
+        pullingFolder.transform.SetParent(pullingTransform);
+
         for (int k = 0; k < pullingNumber; k++)
         {
             GameObject pullingObject = SerialCodeDictionary.Instance.FindBySerialCode(serialCode);
-            pullingObjects[k] = GameObject.Instantiate(pullingObject, GameObject.Find("Managers").transform.position, Quaternion.identity);
+            pullingObjects[k] = GameObject.Instantiate(pullingObject, pullingTransform.position, Quaternion.identity, pullingTransform);
             pullingObjects[k].SetActive(false);
+            pullingObjects[k].transform.SetParent(pullingFolder.transform, false);
         }
     }
 

@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 409dd577cb3a1234bb6842b97b89db97, type: 2}
+  - {fileID: 2100000, guid: 39146eaee29a2d2438c1a4822e1c25e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
   uIOffset: {x: 0, y: 1}
   maxContainCount: 1
   flammablity: 0
-  displayOffset: {x: 0, y: 1, z: 0}
+  displayOffset: {x: 0, y: 0.6, z: 0}
   getObject: {fileID: 0}
   foodSerialCode: 59
 --- !u!114 &7263130446630588031

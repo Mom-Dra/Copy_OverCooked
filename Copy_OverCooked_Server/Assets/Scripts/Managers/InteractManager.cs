@@ -57,6 +57,9 @@ public class InteractManager : MonobehaviorSingleton<InteractManager> // ¿ì¸®ÀÇ 
                     //sendObject = food;
                     sendObject = food.GameObject.GetComponent<InteractableObject>();
                     sendContainer = sender.TopContainer;
+                } else if(sender.TryGet<FireExtinguisher>(out FireExtinguisher fe))
+                {
+                    sendObject = fe;
                 }
 
                 if (sendObject != null)

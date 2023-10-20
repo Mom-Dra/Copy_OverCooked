@@ -8,7 +8,7 @@ public class FoodBox : FixedContainer
 
     public override bool TryGet<T>(out T result, EGetMode getMode)
     {
-        if (!base.TryGet(out result))
+        if (!base.TryGet(out result) && typeof(T) == typeof(IFood))
         {
             result = ObjectPullingManager.Instance.GetPullingObject(foodSerialCode).GetComponent<T>();
         }

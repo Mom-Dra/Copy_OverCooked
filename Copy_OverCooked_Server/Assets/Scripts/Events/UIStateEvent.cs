@@ -59,7 +59,6 @@ public class UIStateEvent : Event
             if (food.CurrOverTime >= 100)
             {
                 RemoveStateImage();
-                
                 cookware.OnOverheat();
                 return true;
             }

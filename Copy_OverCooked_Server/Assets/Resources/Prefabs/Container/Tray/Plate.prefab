@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae89e51d8b678a4ba71c5f1794f515b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 40
+  serialCode: 16
   id: 0
   Name: Plate
   Description: 
@@ -159,8 +159,6 @@ MonoBehaviour:
   getObject: {fileID: 0}
   stateUIOffset: {x: 0, y: -1, z: 0}
   PlusBaseUI: 0
-  ingredients: 
-  stateImage: {fileID: 0}
   plateState: 0
 --- !u!114 &7809751427011346525
 MonoBehaviour:

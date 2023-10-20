@@ -18,6 +18,17 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
     protected Image stateImage;
 
     // Property
+    private ECookingMethod CookingMethod
+    {
+        get
+        {
+            if(HasObject() && getObject.TryGetComponent<ICookableTray>(out ICookableTray cookableTray))
+            {
+                return cookableTray.CookingMethod;
+            }
+            return cookingMethod;
+        }
+    }
     public ECookwareState CookwareState 
     { 
         get => cookwareState; 
@@ -117,11 +128,11 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
     {
         if (cookwareState != ECookwareState.Complete)
         {
-            if (CanCook() && getObject.TryGet<IFood>(out IFood getFood))
+            if (CanCook() && getObject.TryGet<IFood>(out IFood getIFood))
             {
-                if (getFood.CurrCookingRate < 100)
+                if (getIFood.CurrCookingRate < 100)
                 {
-                    if (RecipeManager.Instance.TryGetRecipe(cookingMethod, Ingredients, out Recipe currRecipe))
+                    if (RecipeManager.Instance.TryGetRecipe(CookingMethod, Ingredients, out Recipe currRecipe))
                     {
                         if (selectedCoroutine != null)
                         {
@@ -162,7 +173,7 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
         {
             currFood.CurrCookingRate += (int)((1 / totalCookDuration) * 10);
             gauge.fillAmount = (float)currFood.CurrCookingRate / 100;
-            Debug.Log($"Cooking... <color=yellow>{currFood.GameObject.name}</color> => <color=orange>{cookedFood.GameObject.name}</color> <color=green>## {currFood.CurrCookingRate}%</color>");
+            //Debug.Log($"Cooking... <color=yellow>{currFood.GameObject.name}</color> => <color=orange>{cookedFood.GameObject.name}</color> <color=green>## {currFood.CurrCookingRate}%</color>");
             yield return workInterval;
         }
 
@@ -224,12 +235,16 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
         cookwareState = ECookwareState.Overheat;
 
         FoodUIComponent foodUIComponent = FoodUIAttachable.FoodUIComponent;
-        foodUIComponent.Clear();
-        foodUIComponent.Add(EObjectSerialCode.Img_Overheat);
+        foodUIComponent.Clear(true);
 
         if(TryGet<Food>(out Food food))
         {
             food.OnBurned();
+        }
+
+        if (Flammablity)
+        {
+            fireTriggerBox.Ignite();
         }
     }
 

@@ -1,15 +1,17 @@
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
+using UnityEngine.InputSystem.EnhancedTouch;
+using UnityEngine.UIElements;
 
 public class ObjectPullingManager : MonobehaviorSingleton<ObjectPullingManager>
 {
     [Header("Object Pulling")]
     [SerializeField]
     private int pullingNumber;
-    [SerializeField]
-    private List<EObjectSerialCode> serialCodeForPulling;
 
-    private List<PullingPackage> pullingObjectList = new List<PullingPackage>();
+    private Dictionary<EObjectSerialCode, PullingPackage> pullingObjectList = new Dictionary<EObjectSerialCode, PullingPackage>();
 
     protected override void Awake()
     {
@@ -19,15 +21,15 @@ public class ObjectPullingManager : MonobehaviorSingleton<ObjectPullingManager>
 
     private void ObjectPulling()
     {
-        for (int i = 0; i < serialCodeForPulling.Count; ++i)
+        SerializedObject[] load_Food = Resources.LoadAll<SerializedObject>("Prefabs/Food/Original");
+        foreach (SerializedObject food in load_Food)
         {
-            pullingObjectList.Add(new PullingPackage(pullingNumber, serialCodeForPulling[i]));
+            pullingObjectList.Add(food.SerialCode, new PullingPackage(pullingNumber, food.SerialCode));
         }
     }
 
     public GameObject GetPullingObject(EObjectSerialCode serialCode)
     {
-        int listIndex = serialCodeForPulling.IndexOf(serialCode);
-        return pullingObjectList[listIndex].Pulling();
+        return pullingObjectList[serialCode].Pulling();
     }
 }

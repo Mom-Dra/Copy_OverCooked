@@ -7,6 +7,8 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
 {
     [Header("Food")]
     [SerializeField]
+    private bool isCookable = true;
+    [SerializeField]
     private EFoodState foodState;
 
     [SerializeField]
@@ -18,6 +20,11 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
     private FoodUIComponent uIComponent;
 
     // Property
+    public bool IsCookable
+    {
+        get => isCookable;
+    }
+
     public EFoodState FoodState 
     { 
         get => foodState; 
@@ -90,8 +97,13 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
     public void OnBurned()
     {
         foodState = EFoodState.Burned;
-        Renderer renderer = GetComponent<Renderer>();
-        renderer?.material.SetColor("_Color", Color.black);
+        if (uIComponent.HasImage)
+        {
+            uIComponent.Clear();
+        }
+        uIComponent.Add(EObjectSerialCode.Img_Overheat);
+        //Renderer renderer = GetComponent<Renderer>();
+        //renderer?.material?.SetColor("_Color", Color.black);
     }
 
     private void OnDestroy()

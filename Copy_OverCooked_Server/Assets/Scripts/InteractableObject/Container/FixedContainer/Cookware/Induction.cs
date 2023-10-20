@@ -18,7 +18,7 @@ public class Induction : Cookware
 
     protected override bool IsValidObject(InteractableObject interactableObject)
     {
-        return base.IsValidObject(interactableObject);
+        return !HasObject() && interactableObject.TryGetComponent<Tray>(out Tray tray);
     }
 
     protected override bool CanCook()

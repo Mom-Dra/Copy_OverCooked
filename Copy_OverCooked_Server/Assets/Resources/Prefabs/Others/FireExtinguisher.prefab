@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 6350242575095495046}
   - component: {fileID: 2904311953250218039}
   - component: {fileID: 4863927729737380505}
-  - component: {fileID: 2294295263499564625}
-  - component: {fileID: 5152041168268788787}
+  - component: {fileID: 513172442558957519}
   m_Layer: 0
   m_Name: FireExtinguisher
   m_TagString: Untagged
@@ -131,7 +130,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2294295263499564625
+--- !u!114 &513172442558957519
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,27 +139,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2111102688129036984}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58895ab277d963c4d92abdb0691f21fd, type: 3}
+  m_Script: {fileID: 11500000, guid: b9b48ae2ea51ca24aa51378a56248b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serialCode: 17
   id: 0
-  Name: FireExtinguisher
+  Name: Fire Extinguisher
   Description: 
   eObjectType: 3
   uIOffset: {x: 0, y: 75}
---- !u!114 &5152041168268788787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111102688129036984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46ac3807fe1e6b64cb5cc10ef6aa9a11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2415617226487602855
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,13 +174,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2415617226487602855}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1609, y: 0.499, z: -0.001}
+  m_LocalRotation: {x: -0, y: -0.708151, z: -0, w: 0.706061}
+  m_LocalPosition: {x: 0.04984882, y: 0.49900007, z: 0.10911569}
   m_LocalScale: {x: 0.17149815, y: 0.09904203, z: 0.07554924}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7529910666848623975}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90.169, z: 0}
 --- !u!33 &9171067523710220987
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -270,13 +257,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4362608756464980215}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.034, y: 0.499, z: -0.001}
+  m_LocalRotation: {x: -0, y: -0.708151, z: -0, w: 0.706061}
+  m_LocalPosition: {x: 0.050424315, y: 0.49900007, z: -0.0857835}
   m_LocalScale: {x: 0.22527575, y: 0.0792568, z: 0.053682588}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7529910666848623975}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90.169, z: 0}
 --- !u!33 &3756509246073564698
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -520,7 +507,7 @@ Transform:
   m_GameObject: {fileID: 6127413628974408381}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.008, y: 0.281, z: 0}
+  m_LocalPosition: {x: 0.002, y: 0.281, z: 0.011}
   m_LocalScale: {x: 0.4, y: 0.03431604, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []

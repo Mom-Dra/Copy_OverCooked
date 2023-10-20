@@ -49,27 +49,33 @@ public class Plate : Tray
     {
         if(plateState == EPlateState.Clean)
         {
-            // 코드 중복?
-            if (interactableObject.TryGetComponent<IFood>(out IFood iFood))
+            if (base.IsValidObject(interactableObject) && interactableObject.TryGetComponent<IFood>(out IFood iFood))
             {
-                if (iFood.FoodState == EFoodState.Burned)
-                    return false;
-
-                if (!HasObject())
-                    return true;
-
-                return TryGetCombinedRecipe(iFood, out Recipe recipe);
+                if (!iFood.IsCookable || iFood.FoodState == EFoodState.Cooked)
+                {
+                    return !HasObject() || TryCheckRecipe(ECookingMethod.Combine, iFood, out Recipe recipe);
+                }
             }
             return false;
         }
-        return interactableObject.TryGet<Plate>(out Plate plate) && plate.PlateState == EPlateState.Dirty;
+        else return interactableObject.TryGet<Plate>(out Plate plate) && plate.PlateState == EPlateState.Dirty;
     }
 
     public override void Put(InteractableObject interactableObject)
     {
         if(plateState == EPlateState.Clean)
         {
-            base.Put(interactableObject);
+            if(interactableObject.TryGetComponent(out IFood iFood))
+            {
+                if (!HasObject())
+                {
+                    base.Put(interactableObject);
+                } 
+                else
+                {
+                    PutAndCombine(iFood);
+                }
+            }
         } 
         else
         {

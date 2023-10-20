@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 5259523106032529878}
   - component: {fileID: 8495277152742704664}
   - component: {fileID: 4550205067920828651}
-  - component: {fileID: -3383266458947698417}
+  - component: {fileID: 3590955213879761117}
   m_Layer: 5
   m_Name: Img_ProgressBar
   m_TagString: Untagged
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-3383266458947698417
+--- !u!114 &3590955213879761117
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -237,6 +237,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 9065976031213337670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46ac3807fe1e6b64cb5cc10ef6aa9a11, type: 3}
+  m_Script: {fileID: 11500000, guid: 7aba2ba662a466b4ab4af41043729297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serialCode: 18
+  id: 0

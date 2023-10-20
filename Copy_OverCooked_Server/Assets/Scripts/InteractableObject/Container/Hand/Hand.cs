@@ -16,6 +16,7 @@ public class Hand : Container
         if (getObject != null)
         {
             getObject.transform.position = transform.position + displayOffset;
+            getObject.transform.rotation = transform.rotation;
         }
     }
 
@@ -63,6 +64,20 @@ public class Hand : Container
         {
             InteractableObject triggerObject = interactor.TriggerObject;
             if (triggerObject != null && triggerObject.TryGetComponent<IReactable>(out IReactable reactObject))
+            {
+                reactObject.React(player);
+            }
+        }
+    }
+
+    public void CtrlKeyUp()
+    {
+        if (HasObject())
+        {
+            if (getObject.TryGetComponent<IFood>(out IFood food))
+            {
+                Throw();
+            } else if (getObject.TryGet<IReactable>(out IReactable reactObject))
             {
                 reactObject.React(player);
             }

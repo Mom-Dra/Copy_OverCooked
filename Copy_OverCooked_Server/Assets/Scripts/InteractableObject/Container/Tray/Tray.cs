@@ -89,17 +89,7 @@ public class Tray : Container, IFoodUIAttachable, IStateUIAttachable
 
     protected override bool IsValidObject(InteractableObject interactableObject)
     {
-        if (interactableObject.TryGetComponent<IFood>(out IFood iFood))
-        {
-            if (iFood.FoodState == EFoodState.Burned)
-                return false;
-
-            if (!HasObject())
-                return true;
-
-            return TryGetCombinedRecipe(iFood, out Recipe recipe);
-        }
-        return false;
+        return interactableObject.TryGetComponent<IFood>(out IFood iFood) && iFood.FoodState != EFoodState.Burned;
     }
 
     public override void Put(InteractableObject interactableObject)
@@ -111,27 +101,14 @@ public class Tray : Container, IFoodUIAttachable, IStateUIAttachable
                 putIFood.FoodUIComponent.Clear();
             }
 
-            if (!HasObject())
-            {
-                //base.Put(interactableObject);
-                GetObject = interactableObject;
-                uIComponent.AddRange(putIFood.Ingredients);
-                return;
-            }
-
-            //// 여기까지 했음 
-            //if (HasObject() && getObject.TryGetComponent<FoodTray>(out FoodTray putIFoodTray))
-            //{
-            //    putIFoodTray.Put(interactableObject);
-            //    return;
-            //}
-            PutByRecipe(putIFood);
+            base.Put(interactableObject);
+            uIComponent.AddRange(putIFood.Ingredients);
         }
     }
 
-    protected void PutByRecipe(IFood iFood)
+    protected void PutAndCombine(IFood iFood)
     {
-        if (TryGetCombinedRecipe(iFood, out Recipe recipe))
+        if (TryCheckRecipe(ECookingMethod.Combine, iFood, out Recipe recipe))
         {
             // Plate만의 Prefab 까지 고려할 수 있게 코드 짜야함 
             Food combinedFood = Instantiate(SerialCodeDictionary.Instance.FindBySerialCode(recipe.CookedFood).GetComponent<Food>());
@@ -168,7 +145,7 @@ public class Tray : Container, IFoodUIAttachable, IStateUIAttachable
         }
     }
 
-    protected bool TryGetCombinedRecipe(IFood iFood, out Recipe recipe)
+    protected bool TryCheckRecipe(ECookingMethod cookingMethod, IFood iFood, out Recipe recipe)
     {
         recipe = null;
         List<EObjectSerialCode> ingredients = new List<EObjectSerialCode>();
@@ -176,12 +153,12 @@ public class Tray : Container, IFoodUIAttachable, IStateUIAttachable
         if (TryGet<FoodTray>(out FoodTray foodTray))
         {
             ingredients.Add(foodTray.SerialCode);
-        } else
+        } else if(HasObject())
         {
             ingredients.AddRange(Ingredients);
         }
 
-        RecipeManager.Instance.TryGetRecipe(ECookingMethod.Combine, ingredients, out recipe);
+        RecipeManager.Instance.TryGetRecipe(cookingMethod, ingredients, out recipe);
         return recipe != null;
     }
 
