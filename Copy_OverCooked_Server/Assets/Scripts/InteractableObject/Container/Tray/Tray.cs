@@ -31,9 +31,9 @@ public class Tray : Container
         {
             uIComponent.OnUIPositionChanging();
         }
-        if (baseUIComponent.Index > 0)
-        {
-            baseUIComponent.OnUIPositionChanging();
-        }
+        //if (baseUIComponent.Index > 0)
+        //{
+        //    baseUIComponent.OnUIPositionChanging();
+        //}
     }
 }
