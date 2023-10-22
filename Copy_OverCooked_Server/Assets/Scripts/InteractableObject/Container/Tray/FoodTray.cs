@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoodTray : Tray, IFood
+public class FoodTray : CombinableTray, IFood
 {
     [SerializeField]
     private bool isCookable = true;
@@ -117,7 +117,8 @@ public class FoodTray : Tray, IFood
         {
             if (iFood.FoodState != EFoodState.Burned && iFood.FoodState == EFoodState.Cooked)
             {
-                return TryCheckRecipe(ECookingMethod.Combine, iFood, out Recipe recipe);
+                return base.IsValidObject(interactableObject);
+                //return TryCheckRecipe(ECookingMethod.Combine, iFood, out Recipe recipe);
             }
         }
         return false;

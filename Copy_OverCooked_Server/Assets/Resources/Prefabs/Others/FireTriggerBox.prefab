@@ -43,7 +43,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 80
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -68,5 +68,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serialCode: 189
   id: 0
-  burnAgainTime: 5
+  burnAgainTime: 2
   uIOffset: {x: 0, y: 1, z: 0}

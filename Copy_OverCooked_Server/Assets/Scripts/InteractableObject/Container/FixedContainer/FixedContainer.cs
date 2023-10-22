@@ -8,12 +8,17 @@ public class FixedContainer : Container
     {
         base.Start();
         GameObject _prefab = SerialCodeDictionary.Instance.FindBySerialCode(EObjectSerialCode.FireTriggerBox);
-        fireTriggerBox = Instantiate(_prefab, transform.position + Vector3.up * 2.5f, Quaternion.identity, transform).GetComponent<FireTriggerBox>();
+        fireTriggerBox = Instantiate(_prefab, transform.position + Vector3.up * 2f, Quaternion.identity, transform).GetComponent<FireTriggerBox>();
+    }
+
+    protected override bool IsValidObject(InteractableObject interactableObject)
+    {
+        return base.IsValidObject(interactableObject) && !fireTriggerBox.OnFire;
     }
 
     protected override void ThrowPut(InteractableObject interactableObject)
     {
-        if (!HasObject())
+        if (!HasObject() && !fireTriggerBox.OnFire)
         {
             Put(interactableObject);
         }

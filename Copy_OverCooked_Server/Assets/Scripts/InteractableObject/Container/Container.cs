@@ -71,7 +71,7 @@ public class Container : InteractableObject
         if(HasObject()) getObject.GlowOff();
     }
 
-    public bool HasObject()
+    public virtual bool HasObject()
     {
         return getObject != null;
     }

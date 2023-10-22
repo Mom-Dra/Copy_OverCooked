@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1893396002255082344
+--- !u!1 &4943809478117506207
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,50 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8024642140856387402}
-  - component: {fileID: 1154155975071836037}
-  - component: {fileID: 637601188941671137}
-  - component: {fileID: 296867224139534627}
-  - component: {fileID: 3935827389281180962}
-  - component: {fileID: 4926228850746513820}
-  - component: {fileID: 7809751427011346525}
+  - component: {fileID: 5026921495101711066}
+  - component: {fileID: 6220865500403644839}
+  - component: {fileID: 6279801559461984499}
   m_Layer: 0
-  m_Name: Plate
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8024642140856387402
+--- !u!4 &5026921495101711066
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893396002255082344}
+  m_GameObject: {fileID: 4943809478117506207}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.003, y: 1.08, z: 1.955}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.459, z: 0}
   m_LocalScale: {x: 0.8851, y: 0.016068643, z: 0.8851}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 6079485075394074514}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1154155975071836037
+--- !u!33 &6220865500403644839
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893396002255082344}
+  m_GameObject: {fileID: 4943809478117506207}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &637601188941671137
+--- !u!23 &6279801559461984499
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893396002255082344}
+  m_GameObject: {fileID: 4943809478117506207}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -87,13 +83,73 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &296867224139534627
+--- !u!1 &6865000657952708738
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6079485075394074514}
+  - component: {fileID: 3091360049364563353}
+  - component: {fileID: 696229361770384198}
+  - component: {fileID: 8160552243108323595}
+  m_Layer: 0
+  m_Name: Plate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6079485075394074514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6865000657952708738}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5511754, y: -0.16584796, z: -0.08476886}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5026921495101711066}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3091360049364563353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6865000657952708738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae89e51d8b678a4ba71c5f1794f515b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serialCode: 16
+  id: 0
+  Name: Plate
+  Description: 
+  eObjectType: 1
+  uIOffset: {x: 0, y: 75}
+  maxContainCount: 4
+  flammablity: 0
+  displayOffset: {x: 0, y: 1, z: 0}
+  getObject: {fileID: 0}
+  stateUIOffset: {x: 0, y: -1, z: 0}
+  PlusBaseUI: 0
+  plateState: 0
+--- !u!65 &696229361770384198
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893396002255082344}
+  m_GameObject: {fileID: 6865000657952708738}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -106,17 +162,17 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0000001, y: 1.9999999, z: 1.0000002}
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!54 &3935827389281180962
+  m_Size: {x: 0.9085272, y: 0.050593257, z: 0.9006417}
+  m_Center: {x: -0.0015771091, y: -0.45737284, z: -0.00078855455}
+--- !u!54 &8160552243108323595
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893396002255082344}
+  m_GameObject: {fileID: 6865000657952708738}
   serializedVersion: 4
-  m_Mass: 0.05
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -135,40 +191,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4926228850746513820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893396002255082344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ae89e51d8b678a4ba71c5f1794f515b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serialCode: 16
-  id: 0
-  Name: Plate
-  Description: 
-  eObjectType: 1
-  uIOffset: {x: 0, y: 75}
-  maxContainCount: 4
-  flammablity: 0
-  displayOffset: {x: 0, y: 0.06, z: 0}
-  getObject: {fileID: 0}
-  stateUIOffset: {x: 0, y: -1, z: 0}
-  PlusBaseUI: 0
-  plateState: 0
---- !u!114 &7809751427011346525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893396002255082344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46ac3807fe1e6b64cb5cc10ef6aa9a11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

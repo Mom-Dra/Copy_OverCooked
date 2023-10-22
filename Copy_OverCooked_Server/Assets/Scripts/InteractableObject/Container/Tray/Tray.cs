@@ -106,45 +106,6 @@ public class Tray : Container, IFoodUIAttachable, IStateUIAttachable
         }
     }
 
-    protected void PutAndCombine(IFood iFood)
-    {
-        if (TryCheckRecipe(ECookingMethod.Combine, iFood, out Recipe recipe))
-        {
-            // Plate만의 Prefab 까지 고려할 수 있게 코드 짜야함 
-            Food combinedFood = Instantiate(SerialCodeDictionary.Instance.FindBySerialCode(recipe.CookedFood).GetComponent<Food>());
-
-            if (HasObject() && !getObject.GetComponent<FoodTray>())
-            {
-                Destroy(getObject.gameObject);
-                getObject = null;
-            }
-
-            // FoodTray가 Put 되었을 경우,
-            // FoodTray에 FoodTray가 들어오는 경우의 수는 이미 막아놓았다. 
-            if (iFood.GameObject.TryGetComponent<FoodTray>(out FoodTray foodTray2))
-            {
-                base.Put(foodTray2);
-
-                uIComponent.AddRange(foodTray2.Ingredients);
-
-                foodTray2.GetObject = combinedFood;
-            } 
-            else
-            {
-                if (HasObject() && getObject.TryGetComponent<FoodTray>(out FoodTray foodTray3))
-                {
-                    foodTray3.GetObject = combinedFood;
-                } 
-                else
-                {
-                    GetObject = combinedFood;
-                }
-                Destroy(iFood.GameObject);
-                uIComponent.AddRange(iFood.Ingredients);
-            }
-        }
-    }
-
     protected bool TryCheckRecipe(ECookingMethod cookingMethod, IFood iFood, out Recipe recipe)
     {
         recipe = null;

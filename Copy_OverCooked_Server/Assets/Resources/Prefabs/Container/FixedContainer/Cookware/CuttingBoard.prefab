@@ -188,7 +188,7 @@ MonoBehaviour:
   uIOffset: {x: 0, y: 75}
   maxContainCount: 1
   flammablity: 0
-  displayOffset: {x: 0, y: 0.6, z: 0}
+  displayOffset: {x: 0, y: 1, z: 0}
   getObject: {fileID: 0}
   cookingMethod: 1
   cookwareState: 0

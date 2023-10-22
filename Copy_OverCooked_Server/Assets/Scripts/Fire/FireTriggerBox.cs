@@ -6,7 +6,7 @@ public class FireTriggerBox : SerializedObject
 {
     [Header("Fire")]
     [SerializeField]
-    private float burnAgainTime = 5f;
+    private float burnAgainTime = 1.5f;
     [SerializeField]
     private Vector3 uIOffset = Vector3.up;
 
@@ -15,9 +15,9 @@ public class FireTriggerBox : SerializedObject
     private Image progressBar;
     private Image gauge;
 
-    private WaitForSeconds workInterval = new WaitForSeconds(0.1f);
-    private WaitForSeconds heatInterval = new WaitForSeconds(1f);
-    private WaitForSeconds waitForDisappearImage = new WaitForSeconds(0.5f);
+    private static readonly WaitForSeconds workInterval = new WaitForSeconds(0.1f);
+    private static readonly WaitForSeconds heatInterval = new WaitForSeconds(2f);
+    private static readonly float waitForDisappearImage = 0.5f;
 
     private float extinguishRate = 1f;
     private float overheatRate = 0f;
@@ -84,7 +84,7 @@ public class FireTriggerBox : SerializedObject
     private IEnumerator WaitForDisappearImageCoroutine()
     {
         float time = 0f;
-        while(time < 1.5f)
+        while(time < waitForDisappearImage)
         {
             if (reset)
                 yield break;
@@ -98,7 +98,7 @@ public class FireTriggerBox : SerializedObject
     {
         while(true)
         {
-            Collider[] hits = Physics.OverlapSphere(transform.position, 1f);
+            Collider[] hits = Physics.OverlapSphere(transform.position, 0.5f);
             foreach(Collider hit in hits)
             {
                 if(hit.TryGetComponent<FireTriggerBox>(out FireTriggerBox fireTriggerBox))
@@ -127,7 +127,6 @@ public class FireTriggerBox : SerializedObject
         if (!progressBar.gameObject.activeSelf)
         {
             progressBar.gameObject.SetActive(true);
-            Debug.Log("Progress Active True!");
             StartCoroutine(WaitForBurnCoroutine());
         }
         extinguishRate -= 0.002f;
@@ -142,6 +141,7 @@ public class FireTriggerBox : SerializedObject
     public void Ignite()
     {
         overheatRate = 0f;
+        extinguishRate = 1f;
         firePrefab.gameObject.SetActive(true);
         onFire = true;
         StartCoroutine(MoveFireCoroutine());

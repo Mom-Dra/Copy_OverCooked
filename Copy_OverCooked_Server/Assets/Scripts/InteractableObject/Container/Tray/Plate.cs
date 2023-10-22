@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Plate : Tray
+public class Plate : CombinableTray
 {
     [SerializeField]
     private EPlateState plateState = EPlateState.Clean;
@@ -49,11 +49,12 @@ public class Plate : Tray
     {
         if(plateState == EPlateState.Clean)
         {
-            if (base.IsValidObject(interactableObject) && interactableObject.TryGetComponent<IFood>(out IFood iFood))
+            if (interactableObject.TryGetComponent<IFood>(out IFood iFood))
             {
                 if (!iFood.IsCookable || iFood.FoodState == EFoodState.Cooked)
                 {
-                    return !HasObject() || TryCheckRecipe(ECookingMethod.Combine, iFood, out Recipe recipe);
+                    return !HasObject() || base.IsValidObject(interactableObject);
+                    //return !HasObject() || TryCheckRecipe(ECookingMethod.Combine, iFood, out Recipe recipe);
                 }
             }
             return false;
