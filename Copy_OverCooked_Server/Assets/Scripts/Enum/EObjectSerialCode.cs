@@ -134,28 +134,19 @@ public enum EObjectSerialCode
     Mixed_Honey,
     Mixed_Shrimp,
 
-    // Dish (300 ~ 399)
-    // Sushi
+    // Dish (300 ~ 349)
     Dish_Sushi = 300,
-    // Salad
     Dish_Salad,
-    // Pasta
     Dish_Pasta,
-    // Fried Food
-    Dish_FranchFried,
-    // Tortilla
     Dish_Tortilla_Topping,
-    // Burger
     Dish_Burger,
-    // Pancake
-    Dish_Pancake,
-    // Cake
-    Dish_Cake,
-    // Dumpling
-    Dish_Dumpling,
-    // Pizza
     Dish_Pizza_Topping,
-    Dish_Baked_Pizza,
+
+    // Cooked (350 ~ 399)
+    Tomato_Cheeze_Pizza = 350,
+    Tomato_Cheeze_Sausage_Pizza,
+
+
 
     // Trigger (400 ~ 499)
     FireTriggerBox = 400,
