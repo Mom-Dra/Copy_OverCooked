@@ -26,4 +26,6 @@ public class SerializedObject : MonoBehaviour
     {
         NetworkObjectManager.Instance.Add(this);
     }
+
+    
 }

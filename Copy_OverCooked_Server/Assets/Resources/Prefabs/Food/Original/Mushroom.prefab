@@ -29,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1924251, y: 1.1924251, z: 1.1924251}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3435196395962462498}
   m_Father: {fileID: 0}
@@ -81,8 +81,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.6584395, y: 0.49236596, z: 0.66798395}
-  m_Center: {x: 0.006010075, y: -0.1455048, z: -0.0015879325}
+  m_Size: {x: 0.6669994, y: 0.50948584, z: 0.66798395}
+  m_Center: {x: -0.028228484, y: 0.26107764, z: -0.0015879325}
 --- !u!114 &9078989738900065922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,11 +95,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6db983855454aa4ebcd2ecff000b6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 66
+  serialCode: 118
   id: 0
   Name: Mushroom
   Description: 
-  eObjectType: 2
+  objectType: 2
   uIOffset: {x: 0, y: 75}
   isCookable: 1
   foodState: 0
@@ -295,7 +295,7 @@ Transform:
   m_GameObject: {fileID: 7036324167030676999}
   serializedVersion: 2
   m_LocalRotation: {x: -0.15001306, y: -0.03563911, z: 0.14922926, w: 0.976707}
-  m_LocalPosition: {x: -0.0024580266, y: -0.172, z: -0.012634968}
+  m_LocalPosition: {x: -0.035, y: 0.231, z: -0.013}
   m_LocalScale: {x: 1.0572342, y: 1.0572342, z: 1.0572342}
   m_ConstrainProportionsScale: 0
   m_Children:

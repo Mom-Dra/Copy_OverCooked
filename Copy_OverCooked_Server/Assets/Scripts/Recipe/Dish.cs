@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+# region Comment
 // 현재 문제점
 
 // 1. 완성 음식들은 현재 Recipe 클래스로 모두 구현 가능하다.
@@ -62,12 +63,15 @@ using UnityEngine;
 // 음식이 들어올 때, 현재 가지고 있는 재료들과 추려놓은 Dish들을 비교한다.
 // 현재 재료들 중 임의의 Dish의 필수 재료가 포함되어 있다면,
 // 해당 Dish를 가져오고, 더 이상 Dish를 추려내지 않는다.
+# endregion
 
-
-public class Dish : InteractableObject, IFood, IFoodUIAttachable
+public class Dish : Food
 {
     [SerializeField]
-    private List<EObjectSerialCode> ingredients;
+    private bool stacking = false;
+
+    [SerializeField]
+    private List<EObjectSerialCode> dishIngredients;    
 
     // 완성 음식 선택 가능 
     [SerializeField] 
@@ -76,52 +80,33 @@ public class Dish : InteractableObject, IFood, IFoodUIAttachable
     // 비트 배열을 사용하여, 프리팹을 On, Off 시키며 음식의 모습을 여러 가지로 나타냄
     private Dictionary<int, PrefabToCombine> prefabDictionary = new Dictionary<int, PrefabToCombine>();
 
-    private List<EObjectSerialCode> currIngredients = new List<EObjectSerialCode>();
-
-    private FoodUIComponent uIComponent;
-
-    public bool IsCookable
-    {
-        get => true;
-    }
-
-    public EFoodState FoodState
-    {
-        get => EFoodState.Cooked;
-    }
-
-    public List<EObjectSerialCode> Ingredients
-    {
-        get => currIngredients;
-    }
-
-    public FoodUIComponent FoodUIComponent
-    {
-        get => uIComponent;
-    }
-
-    public int CurrCookingRate { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public int CurrOverTime { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-
-    public GameObject GameObject => throw new System.NotImplementedException();
+    private List<GameObject> activePrefabs = new List<GameObject>();
 
     protected override void Awake()
+    {
+        base.Awake();
+        ingredients.Clear();
+    }
+
+    public void Init() 
     {
         int bits = 0x00;
 
         foreach (PrefabToCombine prefab in prefabToCombines)
         {
-            List<EObjectSerialCode> list = new List<EObjectSerialCode>();
-            list.Add(prefab.mainIngredient);
-
-            bits = SerialCodeToBit(prefab.subIngredients);
+            bits = SerialCodeToBit(prefab.ingredients);
+            if(bits == -1)
+            {
+                throw new System.Exception($"{name}, 조합 음식 중 해당 Dish의 재료에 해당하지 않은 것이 있습니다.");
+            }
             prefabDictionary.Add(bits, prefab);
         }
+        Debug.Log($"{name}, Init");
     }
 
     private void SetActiveAll(bool active)
     {
-        foreach(PrefabToCombine prefab in prefabToCombines)
+        foreach(GameObject prefab in activePrefabs)
         {
             prefab.SetActive(active);
         }
@@ -129,9 +114,9 @@ public class Dish : InteractableObject, IFood, IFoodUIAttachable
 
     private int SerialCodeToBitIndex(EObjectSerialCode serialCode)
     {
-        for(int i=0; i<ingredients.Count; ++i)
+        for(int i=0; i< dishIngredients.Count; ++i)
         {
-            if (ingredients[i] == serialCode)
+            if (dishIngredients[i] == serialCode)
             {
                 return i;
             }
@@ -150,7 +135,7 @@ public class Dish : InteractableObject, IFood, IFoodUIAttachable
             {
                 return -1;
             }
-            bits = (bits | 1) << shift;
+            bits |= 1 << shift;
         }
         return bits;
     }
@@ -162,34 +147,45 @@ public class Dish : InteractableObject, IFood, IFoodUIAttachable
 
     public bool IsValidIngredients(IFood iFood)
     {
+        if(ingredients.Count + iFood.Ingredients.Count > dishIngredients.Count)
+        {
+            return false;
+        }
+        if (stacking)
+        {
+            return prefabDictionary.ContainsKey(SerialCodeToBit(iFood.Ingredients));
+        }
         List<EObjectSerialCode> tmp = new List<EObjectSerialCode>();
         tmp.AddRange(iFood.Ingredients);
-        tmp.AddRange(currIngredients);
+        tmp.AddRange(ingredients);
         return prefabDictionary.ContainsKey(SerialCodeToBit(tmp));
     }
 
     public void Combine(IFood iFood)
     {
+        ingredients.AddRange(iFood.Ingredients);
+
         List<EObjectSerialCode> tmp = new List<EObjectSerialCode>();
         tmp.AddRange(iFood.Ingredients);
-        tmp.AddRange(currIngredients);
+        tmp.AddRange(ingredients);
 
-        SetActiveAll(false);
-        int bit = SerialCodeToBit(tmp);
+        int bit = -1;
+        if (!stacking)
+        {
+            SetActiveAll(false);
+            bit = SerialCodeToBit(tmp);
+        } 
+        else
+        {
+            bit = SerialCodeToBit(iFood.Ingredients);
+        }
+
         if (prefabDictionary.ContainsKey(bit))
         {
             prefabDictionary[bit].SetActive(true);
-            currIngredients.AddRange(iFood.Ingredients);
+            activePrefabs.AddRange(prefabDictionary[bit].prefabs);
         }
-    }
-
-    public void OnBurned()
-    {
         
-    }
-
-    public void AddIngredientImages()
-    {
-        Debug.Log("아직 구현 안했다고");
+        Destroy(iFood.GameObject);
     }
 }

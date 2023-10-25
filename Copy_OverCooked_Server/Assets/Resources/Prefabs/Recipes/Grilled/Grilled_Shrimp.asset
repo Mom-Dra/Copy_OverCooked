@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Grilled_Shrimp
   m_EditorClassIdentifier: 
   cookingMethod: 2
-  ingredients: 70000000
+  ingredients: a0000000
   totalCookDuration: 1
-  cookedFood: 128
+  cookedFood: 215

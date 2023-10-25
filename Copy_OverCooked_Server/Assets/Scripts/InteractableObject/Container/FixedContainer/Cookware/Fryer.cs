@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class Fryer : Cookware
 {
+    [Header("Fryer")]
+    [SerializeField]
+    private Vector3 onCookTrayPos = new Vector3 (0, 0.35f, 0);
+
     public override bool TryPut(InteractableObject interactableObject)
     {
         if (base.TryPut(interactableObject))
@@ -22,5 +26,21 @@ public class Fryer : Cookware
     protected override bool IsValidObject(InteractableObject interactableObject)
     {
         return !HasObject() && interactableObject.TryGetComponent<FryerTray>(out FryerTray fryerTray);
+    }
+
+    public override void OnProgressBegin()
+    {
+        if(getObject.TryGetComponent<FryerTray>(out FryerTray fryerTray))
+        {
+            fryerTray.transform.position = transform.position + onCookTrayPos;
+        }
+    }
+
+    public override void OnProgressEnd()
+    {
+        //if (getObject.TryGetComponent<FryerTray>(out FryerTray fryerTray))
+        //{
+        //    fryerTray.transform.position = transform.position + displayOffset;
+        //}
     }
 }

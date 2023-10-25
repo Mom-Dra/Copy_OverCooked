@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4204783819428444418}
   - component: {fileID: 5801986761670340873}
   - component: {fileID: 638735210536316705}
+  - component: {fileID: 5899687189658895019}
   m_Layer: 9
   m_Name: Hand
   m_TagString: Hand
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2393845365479255702}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.51, z: 1.13}
+  m_LocalPosition: {x: 0, y: 0.331, z: 1.056}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -121,15 +122,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serialCode: 0
   id: 0
-  Name: 
+  Name: Hand
   Description: 
-  eObjectType: 0
+  objectType: 0
   uIOffset: {x: 0, y: 1}
-  maxContainCount: 1
-  flammablity: 1
+  flammablity: 0
   displayOffset: {x: 0, y: 0, z: 0}
   getObject: {fileID: 0}
   throwPower: 6
+--- !u!54 &5899687189658895019
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2393845365479255702}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3630446594044350341
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,7 +292,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
@@ -350,7 +377,7 @@ Transform:
   m_GameObject: {fileID: 5416137629786203493}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.452, z: 0.11}
+  m_LocalPosition: {x: 0, y: -0.16100004, z: 0.13400006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

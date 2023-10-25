@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Fried_Chicken
   m_EditorClassIdentifier: 
   cookingMethod: 7
-  ingredients: 68000000
+  ingredients: 98000000
   totalCookDuration: 1
-  cookedFood: 130
+  cookedFood: 231

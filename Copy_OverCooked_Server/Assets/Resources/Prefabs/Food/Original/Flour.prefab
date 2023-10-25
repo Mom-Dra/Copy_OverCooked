@@ -27,11 +27,10 @@ Transform:
   m_GameObject: {fileID: 1906433992088691126}
   serializedVersion: 2
   m_LocalRotation: {x: -0.36722046, y: -0.36722058, z: 0.6042757, w: 0.60427564}
-  m_LocalPosition: {x: 0, y: -0.357, z: 0}
+  m_LocalPosition: {x: 0, y: 0.105, z: 0}
   m_LocalScale: {x: 0.1852532, y: 0.28819153, z: 0.5988644}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5097200848263548013}
+  m_Children: []
   m_Father: {fileID: 5493724461890357860}
   m_LocalEulerAnglesHint: {x: 0, y: -62.574, z: 90}
 --- !u!33 &1827117216397826913
@@ -112,10 +111,11 @@ Transform:
   m_GameObject: {fileID: 2019002149557243750}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.51, y: -0.859, z: -0.486}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5097200848263548013}
   - {fileID: 7066778572815380091}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -165,8 +165,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.83131295, y: 0.23473132, z: 0.8238731}
-  m_Center: {x: 0.0011818707, y: -0.3486234, z: 0.00053682923}
+  m_Size: {x: 0.83131295, y: 0.23179665, z: 0.8238731}
+  m_Center: {x: 0.0011818707, y: 0.11358182, z: 0.00053682923}
 --- !u!114 &1485833777584687383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,14 +179,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6db983855454aa4ebcd2ecff000b6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 50
+  serialCode: 102
   id: 0
   Name: Flour
   Description: 
-  eObjectType: 2
+  objectType: 2
   uIOffset: {x: 0, y: 75}
   isCookable: 1
-  foodState: 0
+  foodState: 1
   ingredients: 
 --- !u!1 &5761545441307182531
 GameObject:
@@ -214,12 +214,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5761545441307182531}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.000000014901161, w: 1}
-  m_LocalPosition: {x: 0.29689094, y: 0, z: 0}
-  m_LocalScale: {x: 0.5998448, y: 0.70985633, z: 0.63847476}
+  m_LocalRotation: {x: -0.36722046, y: -0.36722058, z: 0.6042757, w: 0.60427564}
+  m_LocalPosition: {x: 0, y: 0.16, z: -0}
+  m_LocalScale: {x: 0.111123174, y: 0.20457457, z: 0.3823598}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7066778572815380091}
+  m_Father: {fileID: 5493724461890357860}
   m_LocalEulerAnglesHint: {x: 0, y: -62.574, z: 90}
 --- !u!33 &3673807709572656100
 MeshFilter:

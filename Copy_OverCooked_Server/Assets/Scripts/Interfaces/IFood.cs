@@ -42,4 +42,7 @@ public interface IFood
     }
 
     public void OnBurned();
+    public void OnPlated();
+    public void OnCooking();
+    public void OnCooked();
 }

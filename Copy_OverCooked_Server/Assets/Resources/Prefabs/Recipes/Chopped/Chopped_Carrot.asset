@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Chopped_Carrot
   m_EditorClassIdentifier: 
   cookingMethod: 1
-  ingredients: 41000000
+  ingredients: 75000000
   totalCookDuration: 1
-  cookedFood: 114
+  cookedFood: 162

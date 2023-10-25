@@ -274,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 2232237940792366464}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.474, z: 0}
+  m_LocalPosition: {x: 0, y: 0.027, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -424,8 +424,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.81041586, y: 0.47806817, z: 0.7956938}
-  m_Center: {x: -0.009913728, y: -0.2540544, z: 0.0012796223}
+  m_Size: {x: 0.81041586, y: 0.4821436, z: 0.7956938}
+  m_Center: {x: -0.009913743, y: 0.24518378, z: 0.0012796223}
 --- !u!23 &8659405758115380341
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -504,22 +504,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 7496076403990453974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13295ae03d0146f42a76eee09a1aacbc, type: 3}
+  m_Script: {fileID: 11500000, guid: 878e0796f8eb6a64a8b7430729d33507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 12
+  serialCode: 2
   id: 0
   Name: Pot
   Description: 
-  eObjectType: 1
+  objectType: 1
   uIOffset: {x: 0, y: 75}
-  maxContainCount: 1
   flammablity: 1
-  displayOffset: {x: 0, y: 1, z: 0}
+  displayOffset: {x: 0, y: -0.1, z: 0}
   getObject: {fileID: 0}
-  stateUIOffset: {x: 0, y: -1, z: 0}
-  PlusBaseUI: 1
+  maxContainCount: 1
   cookingMethod: 3
+  stateImageOffset: {x: 0, y: -75, z: 0}
 --- !u!1 &8657275211639629583
 GameObject:
   m_ObjectHideFlags: 0

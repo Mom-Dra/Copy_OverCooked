@@ -27,11 +27,11 @@ Transform:
   m_GameObject: {fileID: 761778901523076189}
   serializedVersion: 2
   m_LocalRotation: {x: 0.22391874, y: 0.07154893, z: 0.7863348, w: 0.5713307}
-  m_LocalPosition: {x: 0.193, y: 0.11, z: -0.068}
-  m_LocalScale: {x: 0.29062453, y: -0.034265436, z: 0.80882174}
+  m_LocalPosition: {x: 0.13449134, y: 0.1753422, z: -0.07137521}
+  m_LocalScale: {x: 0.22811969, y: -0.026895946, z: 0.6348679}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3618953073095235524}
+  m_Father: {fileID: 8986377735368891753}
   m_LocalEulerAnglesHint: {x: 8.241, y: 26.004, z: 109.904}
 --- !u!33 &1796792267681045296
 MeshFilter:
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8986377735368891753}
   - component: {fileID: 4722441891620533809}
   - component: {fileID: 8266980029882819234}
-  - component: {fileID: 1903576850777411807}
+  - component: {fileID: 1476846638639116551}
   m_Layer: 0
   m_Name: Tortilla
   m_TagString: Untagged
@@ -111,11 +111,13 @@ Transform:
   m_GameObject: {fileID: 2525265122409381045}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.50421, y: -0.58235, z: -0.53}
-  m_LocalScale: {x: 1.274, y: 1.274, z: 1.274}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 3618953073095235524}
+  - {fileID: 3147058230525001942}
+  - {fileID: 2935122635839400039}
+  - {fileID: 7893488813733167040}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &4722441891620533809
@@ -164,9 +166,9 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.6307616, y: 0.30350676, z: 0.7289971}
-  m_Center: {x: 0.0070493952, y: -0.21976928, z: 0.01377038}
---- !u!114 &1903576850777411807
+  m_Size: {x: 0.6368322, y: 0.30267566, z: 0.7289971}
+  m_Center: {x: -0.007415819, y: 0.15471807, z: 0.01377038}
+--- !u!114 &1476846638639116551
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,24 +177,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 2525265122409381045}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a4dd1c0b66ac7a48b00861e162c255e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fa57720c00fcf84dbde13b6a8247554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 51
+  serialCode: 103
   id: 0
   Name: Tortilla
   Description: 
-  eObjectType: 1
+  objectType: 1
   uIOffset: {x: 0, y: 75}
-  maxContainCount: 3
   flammablity: 0
   displayOffset: {x: 0, y: 1, z: 0}
   getObject: {fileID: 0}
-  stateUIOffset: {x: 0, y: -1, z: 0}
-  PlusBaseUI: 0
   isCookable: 0
-  foodState: 0
-  foods: []
+  foodState: 1
 --- !u!1 &4636968660723057718
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,11 +218,11 @@ Transform:
   m_GameObject: {fileID: 4636968660723057718}
   serializedVersion: 2
   m_LocalRotation: {x: 0.073736295, y: 0.22320805, z: -0.0000003979658, w: 0.97197795}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.52522814, y: -0.034265436, z: 0.91356647}
+  m_LocalPosition: {x: -0.017, y: 0.089, z: -0.018}
+  m_LocalScale: {x: 0.412267, y: -0.026895948, z: 0.7170851}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3618953073095235524}
+  m_Father: {fileID: 8986377735368891753}
   m_LocalEulerAnglesHint: {x: 8.241, y: 26.004, z: 1.906}
 --- !u!33 &7146647170300190747
 MeshFilter:
@@ -276,40 +274,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &7707211958334638673
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3618953073095235524}
-  m_Layer: 0
-  m_Name: Anchor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3618953073095235524
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7707211958334638673}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.281, z: 0}
-  m_LocalScale: {x: 0.78492934, y: 0.78492934, z: 0.78492934}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3147058230525001942}
-  - {fileID: 2935122635839400039}
-  - {fileID: 7893488813733167040}
-  m_Father: {fileID: 8986377735368891753}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8551959909118880324
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,11 +301,11 @@ Transform:
   m_GameObject: {fileID: 8551959909118880324}
   serializedVersion: 2
   m_LocalRotation: {x: 0.19051532, y: 0.13770528, z: 0.56938523, w: 0.7877447}
-  m_LocalPosition: {x: -0.17009005, y: 0.098534, z: 0.10653801}
-  m_LocalScale: {x: 0.2906245, y: -0.034265433, z: 0.8088218}
+  m_LocalPosition: {x: -0.15050873, y: 0.16634223, z: 0.065624796}
+  m_LocalScale: {x: 0.2281197, y: -0.026895942, z: 0.63486797}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3618953073095235524}
+  m_Father: {fileID: 8986377735368891753}
   m_LocalEulerAnglesHint: {x: 8.241, y: 26.004, z: 73.625}
 --- !u!33 &3380302411783179057
 MeshFilter:

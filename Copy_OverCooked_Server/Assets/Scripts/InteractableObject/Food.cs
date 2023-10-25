@@ -7,17 +7,25 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
 {
     [Header("Food")]
     [SerializeField]
-    private bool isCookable = true;
+    protected bool isCookable = true;
     [SerializeField]
-    private EFoodState foodState;
+    protected EFoodState foodState;
 
     [SerializeField]
-    private List<EObjectSerialCode> ingredients = new List<EObjectSerialCode>();
+    protected List<EObjectSerialCode> ingredients = new List<EObjectSerialCode>();
 
-    private int currCookingRate = 0;
-    private int currOverTime = 0;
+    protected int currCookingRate = 0;
+    protected int currOverTime = 0;
 
-    private FoodUIComponent uIComponent;
+    protected FoodUIComponent uIComponent;
+
+    protected GameObject originPrefab;
+    protected GameObject platedPrefab;
+
+    private GameObject cookingPrefab;
+    private GameObject cookedPrefab;
+
+    private GameObject activePrefab;
 
     // Property
     public bool IsCookable
@@ -30,11 +38,7 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
         get => foodState; 
     }
 
-    // 음식의 재료는 각 음식 당 하나밖에 안나올거같은데
-    // 어차피 Ingredients 배열은 Tray에서 관리하니까
-    // Food 내부에서까지 ingredietns 배열을 관리할 필요가 없을거같은데.... (추후 수정)
-    // 일단 냅둠 
-    public List<EObjectSerialCode> Ingredients
+    public virtual List<EObjectSerialCode> Ingredients
     {
         get => ingredients;
     }
@@ -70,18 +74,36 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
         }
     }
 
+    public GameObject PlatedPrefab
+    {
+        get => platedPrefab;
+    }
+
     protected override void Awake()
     {
         base.Awake();
+        objectType = EObjectType.Food;
         uIComponent = new FoodUIComponent(transform, UIOffset);
         if(ingredients.Count == 0)
         {
             ingredients.Add(SerialCode);
         }
-        //foreach(EObjectSerialCode serialCode in ingredients)
-        //{
-        //    uIComponent.Add(serialCode);
-        //}
+
+        if(foodState == EFoodState.Prepped)
+        {
+            uIComponent.Add(serialCode);
+        }
+
+        originPrefab = transform.Find("Origin")?.gameObject;
+        platedPrefab = transform.Find("Plated")?.gameObject;
+        cookingPrefab = transform.Find("Cooking")?.gameObject;
+        cookedPrefab = transform.Find("Cooked")?.gameObject;
+
+        platedPrefab?.gameObject.SetActive(false);
+        cookingPrefab?.gameObject.SetActive(false);
+        cookedPrefab?.gameObject.SetActive(false);
+
+        activePrefab = originPrefab;
     }
 
     private void FixedUpdate()
@@ -97,6 +119,7 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
     public void OnBurned()
     {
         foodState = EFoodState.Burned;
+        Debug.Log($"Burn : {name}");
         if (uIComponent.HasImage)
         {
             uIComponent.Clear();
@@ -106,10 +129,44 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
         //renderer?.material?.SetColor("_Color", Color.black);
     }
 
-    private void OnDestroy()
+    public virtual void OnPlated()
     {
-        ingredients.Clear();
-        uIComponent.Clear();
+        if (platedPrefab != null)
+        {
+            activePrefab?.gameObject.SetActive(false);
+            platedPrefab?.gameObject.SetActive(true);
+            activePrefab = platedPrefab;
+        }
+    }
+
+    public void OnCooking()
+    {
+        foodState = EFoodState.Cooking;
+        if(cookingPrefab != null)
+        {
+            activePrefab?.gameObject.SetActive(false);
+            cookingPrefab.gameObject.SetActive(true);
+            activePrefab = cookingPrefab;
+        }else if(cookedPrefab != null)
+        {
+            activePrefab?.gameObject.SetActive(false);
+            cookedPrefab.gameObject.SetActive(true);
+            activePrefab = cookedPrefab;
+        }
+    }
+
+    public void OnCooked()
+    {
+        if (cookedPrefab != null)
+        {
+            foodState = EFoodState.Cooked;
+            if (!cookedPrefab.activeSelf)
+            {
+                activePrefab?.gameObject.SetActive(false);
+                cookedPrefab.gameObject.SetActive(true);
+                activePrefab = cookedPrefab;
+            }
+        }
     }
 
     public void AddIngredientImages()
@@ -120,5 +177,10 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
         }
     }
 
-    
+    private void OnDestroy()
+    {
+        ingredients.Clear();
+        uIComponent.Clear();
+    }
+
 }

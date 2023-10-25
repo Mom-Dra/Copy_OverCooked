@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2358745774413454803}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.058, z: 0}
+  m_LocalPosition: {x: 0, y: 0.247, z: -0}
   m_LocalScale: {x: 0.5442471, y: 0.2967774, z: 0.47549066}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -111,9 +111,9 @@ Transform:
   m_GameObject: {fileID: 8238958202314845808}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.49661, y: -0.48859, z: 0.49}
-  m_LocalScale: {x: 1.4676759, y: 1.5960977, z: 1.4676759}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1.0875001, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5296510099785507617}
   m_Father: {fileID: 0}
@@ -164,8 +164,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.57268006, y: 0.4931011, z: 0.6244889}
-  m_Center: {x: -0.003517816, y: -0.060075864, z: -0.00131346}
+  m_Size: {x: 0.57268006, y: 0.49527174, z: 0.6244889}
+  m_Center: {x: -0.003517816, y: 0.2512587, z: -0.00131346}
 --- !u!114 &3345061135050346398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,11 +178,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6db983855454aa4ebcd2ecff000b6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 58
+  serialCode: 110
   id: 0
   Name: Cabbage
   Description: 
-  eObjectType: 2
+  objectType: 2
   uIOffset: {x: 0, y: 75}
   isCookable: 1
   foodState: 0

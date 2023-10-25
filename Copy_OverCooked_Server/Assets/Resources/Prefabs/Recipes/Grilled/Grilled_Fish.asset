@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Grilled_Fish
   m_EditorClassIdentifier: 
   cookingMethod: 2
-  ingredients: 71000000
+  ingredients: a1000000
   totalCookDuration: 1
-  cookedFood: 127
+  cookedFood: 214

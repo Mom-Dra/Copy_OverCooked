@@ -277,10 +277,11 @@ Transform:
   m_GameObject: {fileID: 4797261712726676506}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.12596945, y: -0.13449636, z: -0.16193326}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4580379384126742998}
   - {fileID: 5299846704783432155}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -296,11 +297,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6db983855454aa4ebcd2ecff000b6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 53
+  serialCode: 105
   id: 0
-  Name: Org_Tomato
+  Name: Tomato
   Description: d
-  eObjectType: 2
+  objectType: 2
   uIOffset: {x: 0, y: 75}
   isCookable: 1
   foodState: 0
@@ -324,8 +325,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7261205, y: 0.8030783, z: 0.73064744}
-  m_Center: {x: 0.123358965, y: 0.050928056, z: 0.16862828}
+  m_Size: {x: 0.74148697, y: 0.8122983, z: 0.7337208}
+  m_Center: {x: -0.004182905, y: 0.40589392, z: 0.0011335611}
 --- !u!54 &4600218322410597816
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -464,11 +465,10 @@ Transform:
   m_GameObject: {fileID: 8707669424365095700}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.122, y: 0.008, z: 0.17}
+  m_LocalPosition: {x: 0, y: 0.36308628, z: 0}
   m_LocalScale: {x: 0.70559627, y: 0.70559627, z: 0.70559627}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4580379384126742998}
+  m_Children: []
   m_Father: {fileID: 357596362323490283}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5542943507100571682
@@ -557,14 +557,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8935137008345988687}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00019403, y: 0.46615, z: -0.0013773}
-  m_LocalScale: {x: 1.8206413, y: 1.8206413, z: 1.8206413}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.00013690685, y: 0.692, z: -0.00097181776}
+  m_LocalScale: {x: 1.2846377, y: 1.2846377, z: 1.2846377}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2218501585554688622}
   - {fileID: 4820808933693546077}
   - {fileID: 635282353844143856}
   - {fileID: 1460166905109939760}
-  m_Father: {fileID: 5299846704783432155}
+  m_Father: {fileID: 357596362323490283}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

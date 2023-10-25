@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6aa6196e7045e48a86921fa2f3da8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 189
+  serialCode: 400
   id: 0
   burnAgainTime: 2
   uIOffset: {x: 0, y: 1, z: 0}

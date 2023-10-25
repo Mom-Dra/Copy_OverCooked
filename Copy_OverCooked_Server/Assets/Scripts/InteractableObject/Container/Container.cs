@@ -5,8 +5,7 @@ using UnityEngine;
 public class Container : InteractableObject
 {
     [Header("Container")]
-    [SerializeField]
-    protected int maxContainCount = 1;
+    
     [SerializeField]
     protected bool flammablity = true; // 가연성 
     [SerializeField]
@@ -15,8 +14,6 @@ public class Container : InteractableObject
     [Header("Debug")]
     [SerializeField]
     protected InteractableObject getObject;
-
-    
 
     // Property
     public bool Flammablity 
@@ -76,7 +73,7 @@ public class Container : InteractableObject
         return getObject != null;
     }
 
-    public override bool TryGet<T>(out T result, EGetMode getMode = EGetMode.Peek)
+    public override bool TryGet<T>(out T result, EGetMode getMode = EGetMode.Peek) // 함수 2개로 분리
     {
         // 버전 2 : 탐색 우선순위가 가장 위에 있는 물체부터
         // (버전 1, 2 모두 상관없는듯 함 일단은, 주석 코드 지우지 말것)
@@ -133,9 +130,9 @@ public class Container : InteractableObject
 
     public virtual void Put(InteractableObject interactableObject)
     {
-        gameObject.DebugName($"Put -> {interactableObject.name}", EDebugColor.Orange);
+        gameObject.DebugName($"Put {Name} -> {interactableObject.name}", EDebugColor.Orange);
         GetObject = interactableObject;
-        Fit(getObject);
+        //Fit(getObject);
 
         if (onGlowShader)
         {
@@ -166,6 +163,7 @@ public class Container : InteractableObject
     {
         interactableObject.Selectable = false;
         interactableObject.transform.position = transform.position + displayOffset;
+        interactableObject.transform.parent = transform;
         interactableObject.Fix();
     }
 

@@ -19,7 +19,7 @@ public class UIStateEvent : Event
 
     private bool ShowCompleteUI()
     {
-        if (!cookware.HasObject())
+        if (IsDisableToEvent())
             return true;
         if (cookware.TryGet<Food>(out Food food))
         {
@@ -35,7 +35,7 @@ public class UIStateEvent : Event
 
     private bool ShowWarningUI()
     {
-        if (!cookware.HasObject())
+        if (IsDisableToEvent())
             return true;
         if (cookware.TryGet<Food>(out Food food))
         {
@@ -51,7 +51,7 @@ public class UIStateEvent : Event
 
     private bool ShowOverheatUI()
     {
-        if (!cookware.HasObject())
+        if (IsDisableToEvent())
             return true;
 
         if (cookware.TryGet<Food>(out Food food))
@@ -64,6 +64,11 @@ public class UIStateEvent : Event
             }
         }
         return false;
+    }
+
+    private bool IsDisableToEvent()
+    {
+        return !cookware.HasObject() || cookware.CookwareState == ECookwareState.Cook;
     }
 
     private void RemoveStateImage()

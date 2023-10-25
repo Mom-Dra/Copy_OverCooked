@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Chopped_Dough
   m_EditorClassIdentifier: 
   cookingMethod: 1
-  ingredients: 38000000
+  ingredients: 6c000000
   totalCookDuration: 1
-  cookedFood: 105
+  cookedFood: 153

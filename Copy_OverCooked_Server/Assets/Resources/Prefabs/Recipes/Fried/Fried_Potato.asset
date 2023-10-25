@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Fried_Potato
   m_EditorClassIdentifier: 
   cookingMethod: 7
-  ingredients: 74000000
+  ingredients: a4000000
   totalCookDuration: 1
-  cookedFood: 129
+  cookedFood: 230

@@ -1,38 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1253953949428102260
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3670686093724959}
-  m_Layer: 0
-  m_Name: Anchor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3670686093724959
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1253953949428102260}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4904836424042027734}
-  - {fileID: 731089214509058725}
-  m_Father: {fileID: 5113414639873198239}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2195851487984655698
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,11 +27,11 @@ Transform:
   m_GameObject: {fileID: 2195851487984655698}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.01, y: -0.201, z: 0}
-  m_LocalScale: {x: 0.49607584, y: -0.16874701, z: 0.49607584}
+  m_LocalPosition: {x: -0.016275987, y: 0.136, z: 0.023}
+  m_LocalScale: {x: 0.807413, y: -0.24104203, z: 0.807413}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3670686093724959}
+  m_Father: {fileID: 5113414639873198239}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8617865430368837983
 MeshFilter:
@@ -143,11 +110,11 @@ Transform:
   m_GameObject: {fileID: 3892555227164835707}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.029999996, y: 0.03299998, z: -0.048}
-  m_LocalScale: {x: 0.4521289, y: -0.18698725, z: 0.4521289}
+  m_LocalPosition: {x: 0.048828017, y: 0.37688476, z: -0.055124797}
+  m_LocalScale: {x: 0.7358849, y: -0.15878013, z: 0.7358849}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3670686093724959}
+  m_Father: {fileID: 5113414639873198239}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9108076358476636064
 MeshFilter:
@@ -227,11 +194,12 @@ Transform:
   m_GameObject: {fileID: 4969178236477171268}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.478, y: -0.796, z: -0.47}
-  m_LocalScale: {x: 1.6707313, y: 1.6707313, z: 1.6707313}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 3670686093724959}
+  - {fileID: 4904836424042027734}
+  - {fileID: 731089214509058725}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5262882619684872585
@@ -280,8 +248,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5386497, y: 0.4297078, z: 0.5394857}
-  m_Center: {x: -0.0010948185, y: -0.08251127, z: -0.014249148}
+  m_Size: {x: 0.87040496, y: 0.47443616, z: 0.890756}
+  m_Center: {x: -0.003046319, y: 0.2412101, z: 0.0052658916}
 --- !u!114 &4322707222633745821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,12 +262,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6db983855454aa4ebcd2ecff000b6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 48
+  serialCode: 100
   id: 0
-  Name: 
+  Name: Bread
   Description: 
-  eObjectType: 2
+  objectType: 2
   uIOffset: {x: 0, y: 75}
   isCookable: 0
-  foodState: 0
+  foodState: 1
   ingredients: 

@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 5507641100913069352}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.137, z: 0}
+  m_LocalPosition: {x: 0, y: 0.196, z: 0}
   m_LocalScale: {x: 0.5428663, y: -0.3775313, z: 0.5732425}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -111,9 +111,9 @@ Transform:
   m_GameObject: {fileID: 6059147207198521615}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.481, y: -0.481, z: 0.499}
-  m_LocalScale: {x: 1.4773, y: 1.4773, z: 1.4773}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8267010594200143614}
   m_Father: {fileID: 0}
@@ -164,8 +164,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5667491, y: 0.3947207, z: 0.5965193}
-  m_Center: {x: -0.00089096295, y: -0.1365739, z: 0.00013270133}
+  m_Size: {x: 0.5667491, y: 0.39235738, z: 0.5965193}
+  m_Center: {x: -0.00089096295, y: 0.19790077, z: 0.00013270133}
 --- !u!114 &4501593270676903731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,12 +178,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6db983855454aa4ebcd2ecff000b6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 71
+  serialCode: 123
   id: 0
   Name: Rice
   Description: 
-  eObjectType: 2
+  objectType: 2
   uIOffset: {x: 0, y: 75}
   isCookable: 1
-  foodState: 0
+  foodState: 1
   ingredients: 

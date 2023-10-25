@@ -5,15 +5,12 @@ using UnityEngine;
 [Serializable]
 public class PrefabToCombine
 {
-    public EObjectSerialCode mainIngredient;
-    public List<EObjectSerialCode> subIngredients;
-
-    public GameObject mainPrefab;
-    public List<GameObject> subPrefabs;
+    public List<EObjectSerialCode> ingredients;
+    public List<GameObject> prefabs;
 
     public void SetActive(bool active)
     {
-        foreach(GameObject prefab in subPrefabs)
+        foreach(GameObject prefab in prefabs)
         {
             if (prefab.gameObject.activeSelf != active)
             {

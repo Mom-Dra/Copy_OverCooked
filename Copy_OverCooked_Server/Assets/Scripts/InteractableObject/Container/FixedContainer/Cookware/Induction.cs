@@ -3,6 +3,16 @@ using UnityEngine;
 
 public class Induction : Cookware
 {
+    private Renderer burnerRenderer;
+    private static Color originBurnerColor;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        burnerRenderer = transform.Find("Burner").GetComponent<Renderer>();
+        originBurnerColor = burnerRenderer.material.color;
+    }
+
     public override bool TryPut(InteractableObject interactableObject)
     {
         if (base.TryPut(interactableObject))
@@ -24,5 +34,15 @@ public class Induction : Cookware
     protected override bool CanCook()
     {
         return true;
+    }
+
+    public override void OnProgressBegin()
+    {
+        burnerRenderer.material.color = Color.red;
+    }
+
+    public override void OnProgressEnd()
+    {
+        burnerRenderer.material.color = originBurnerColor;
     }
 }

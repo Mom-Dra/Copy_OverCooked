@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Chopped_Pineapple
   m_EditorClassIdentifier: 
   cookingMethod: 1
-  ingredients: 3b000000
+  ingredients: 6f000000
   totalCookDuration: 1
-  cookedFood: 108
+  cookedFood: 156

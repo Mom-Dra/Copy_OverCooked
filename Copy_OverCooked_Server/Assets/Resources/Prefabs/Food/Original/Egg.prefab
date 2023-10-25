@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 3100395046251215043}
   serializedVersion: 2
   m_LocalRotation: {x: 0.15610006, y: -0, z: -0, w: 0.9877413}
-  m_LocalPosition: {x: 0, y: -0.01, z: 0}
-  m_LocalScale: {x: 0.39896, y: 0.5882665, z: 0.39896}
+  m_LocalPosition: {x: 0, y: 0.236, z: 0.024}
+  m_LocalScale: {x: 0.3143286, y: 0.46347752, z: 0.3143286}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8923341922957335020}
@@ -111,7 +111,7 @@ Transform:
   m_GameObject: {fileID: 5064426973988069006}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.49535, y: -0.501, z: -0.495}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.620074, y: 1.620074, z: 1.620074}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -164,8 +164,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.4093507, y: 0.5802384, z: 0.44073054}
-  m_Center: {x: -0.0015822287, y: -0.00872631, z: 0.00047784552}
+  m_Size: {x: 0.3454896, y: 0.46993294, z: 0.3768695}
+  m_Center: {x: -0.0015822103, y: 0.23510697, z: 0.032408398}
 --- !u!114 &8089805630677188714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,12 +178,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6db983855454aa4ebcd2ecff000b6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 52
+  serialCode: 104
   id: 0
   Name: Egg
   Description: 
-  eObjectType: 2
+  objectType: 2
   uIOffset: {x: 0, y: 75}
   isCookable: 1
-  foodState: 0
+  foodState: 1
   ingredients: 

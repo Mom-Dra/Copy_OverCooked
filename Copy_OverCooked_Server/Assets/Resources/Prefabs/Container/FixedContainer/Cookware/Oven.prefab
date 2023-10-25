@@ -56,8 +56,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.0114546, z: 1}
-  m_Center: {x: 0, y: 0.5057272, z: 0}
+  m_Size: {x: 1, y: 1.7389143, z: 1}
+  m_Center: {x: 0, y: 0.8660861, z: 0}
 --- !u!54 &5149533677261485975
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -97,19 +97,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c81495e6a00544d87cb5eaff539d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 8
+  serialCode: 42
   id: 0
   Name: Oven
   Description: 
-  eObjectType: 0
+  objectType: 0
   uIOffset: {x: 0, y: 75}
-  maxContainCount: 1
   flammablity: 1
   displayOffset: {x: 0, y: 1, z: 0}
   getObject: {fileID: 0}
+  totalCookDuration: 4
   cookingMethod: 5
   cookwareState: 0
-  stateImage: {fileID: 0}
 --- !u!114 &-6634845738055142221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 5301098105155492872}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.87, z: 0}
+  m_LocalPosition: {x: 0, y: 1.3, z: 0}
   m_LocalScale: {x: 0.80555, y: 0.80555, z: 0.80555}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -232,7 +231,7 @@ Transform:
   m_GameObject: {fileID: 8456270599483804028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

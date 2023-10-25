@@ -107,8 +107,7 @@ MeshRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: dde39725c67ff2646962642c45840198, type: 2}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -142,11 +141,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b48ae2ea51ca24aa51378a56248b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 17
+  serialCode: 20
   id: 0
-  Name: Fire Extinguisher
+  Name: FireExtinguisher
   Description: 
-  eObjectType: 3
+  objectType: 3
   uIOffset: {x: 0, y: 75}
 --- !u!1 &2415617226487602855
 GameObject:

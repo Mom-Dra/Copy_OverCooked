@@ -2,38 +2,33 @@
 public enum EObjectSerialCode
 {
     // Player
-    Player,
-    // Fixed Container
-    Sink,
-    Trashcan,
-    OrderTable,
-    PlateHolder,
-    Table,
-    // Cookware
-    Induction,
-    CuttingBoard,
-    Oven,
-    Mixer,
-    Fryer,
-    // Tray
-    Skillet,
+    Player = 0,
+    
+    // Tray (1 ~ 19)
+    Skillet = 1,
     Pot,
     Steamer,
     MixerTray,
     FryerTray,
     Plate,
-    // Other
-    FireExtinguisher,
+    // Other (20 ~ 29)
+    FireExtinguisher = 20,
 
-    // Image
-    Img_Progress,
-    Img_Completed,
-    Img_Warning,
-    Img_Overheat,
-    Img_PlusBase,
+    // Fixed Container (30 ~ 39)
+    Sink = 30,
+    Trashcan,
+    OrderTable,
+    PlateHolder,
+    Table,
+    // Cookware (40 ~ 49)
+    Induction = 40,
+    CuttingBoard,
+    Oven,
+    Mixer,
+    Fryer,
 
-    // Food Box
-    FoodBox_Bread,
+    // Food Box (50 ~ 99)
+    FoodBox_Bread = 50,
     FoodBox_Seaweed,
     FoodBox_Flour,
     FoodBox_Tortilla,
@@ -59,8 +54,8 @@ public enum EObjectSerialCode
     FoodBox_Rice,
     FoodBox_Noodle,
 
-    // Original Food
-    Bread,
+    // Original Food (100 ~ 149)
+    Bread = 100,
     Seaweed,
     Flour,
     Tortilla,
@@ -89,48 +84,8 @@ public enum EObjectSerialCode
     Rice,
     Noodle,
 
-    // Sushi
-    Fish_Sushi,
-    Cucumber_Sushi,
-    Fish_Cucumber_Sushi,
-    // Salad
-    Tomato_Salad,
-    Tomato_Cucumber_Salad,
-    // Pasta
-    Tomato_Pasta,
-    Meat_Pasta,
-    Fish_Shrimp_Pasta,
-    Mushroom_Pasta,
-    // Fried Food
-    Fried_Chicken_Potato,
-    // Tortilla
-    Meat_Tortilla_Topping,
-    Mushroom_Tortilla_Topping,
-    Chicken_Tortilla_Topping,
-    // Burger
-    Meat_Burger,
-    Cheeze_Meat_Burger,
-    Cabbage_Cheeze_Meat_Burger,
-    Cabbage_Tomato_Meat_Burger,
-    // Pizza
-    Tomato_Pizza,
-    Tomato_Cheeze_Pizza,
-    Tomato_Cheeze_Sausage_Pizza,
-    Tomato_Pineapple_Cheeze_Pizza,
-    Tomato_Pineaaple_Sausage_Pizza,
-    // Pancake
-    Pancake,
-    Chocolate_Pancake,
-    // Cake
-    Honey_Cake,
-    Chocolate_Honey_Cake,
-    Carrot_Honey_Cake,
-    // Dumpling
-    Meat_Dumpling,
-    Carrot_Dumpling,
-
-    // Chopped (Cutting Board)
-    Chopped_Tomato,
+    // Chopped (Cutting Board) (150 ~ 169)
+    Chopped_Tomato = 150,
     Chopped_Meat,
     Chopped_Chicken,
     Chopped_Dough,
@@ -149,70 +104,75 @@ public enum EObjectSerialCode
     Chopped_Chocolate,
     Chopped_Honey,
 
-    // Boiled (Pot)
-    Boiled_Rice,
+    // Boiled (Pot) (170 ~ 189)
+    Boiled_Rice = 170,
     Boiled_Noodle,
 
-    // Steamed (Steamer)
-    Steamed_Fish,
+    // Steamed (Steamer) (190 ~ 209)
+    Steamed_Fish = 190,
 
-    // Grilled (Skillet)
-    Grilled_Meat,
+    // Grilled (Skillet) (210 ~ 229)
+    Grilled_Meat = 210,
     Grilled_Tomato,
     Grilled_Chicken,
     Grilled_Mushroom,
     Grilled_Fish,
     Grilled_Shrimp,
 
-    // Fried (Fryer)
-    Fried_Potato,
+    // Fried (Fryer) (230 ~ 249)
+    Fried_Potato = 230,
     Fried_Chicken,
 
-    // Baked (Oven)
-    Baked_Dough,
-    Baked_Flour,
+    // Baked (Oven) (250 ~ 269) 
+    Baked_Flour = 250,
 
-    // Topping On Dough
-    Tomato_Topping,
-    Cheeze_Topping,
-    Sausage_Topping,
-    Pineapple_Topping,
-    Meat_Topping,
+    // Mixed (Mixer) (270 ~ 289)
+    Mixed = 270,
+    Mixed_Flour,
+    Mixed_Egg,
+    Mixed_Chocolate,
+    Mixed_Honey,
+    Mixed_Shrimp,
 
-    // Topping On 
+    // Dish (300 ~ 399)
+    // Sushi
+    Dish_Sushi = 300,
+    // Salad
+    Dish_Salad,
+    // Pasta
+    Dish_Pasta,
+    // Fried Food
+    Dish_FranchFried,
+    // Tortilla
+    Dish_Tortilla_Topping,
+    // Burger
+    Dish_Burger,
+    // Pancake
+    Dish_Pancake,
+    // Cake
+    Dish_Cake,
+    // Dumpling
+    Dish_Dumpling,
+    // Pizza
+    Dish_Pizza_Topping,
+    Dish_Baked_Pizza,
 
-    // Plating
-    Plating_Bread,
-    Plating_Seaweed,
-    Plating_Flour,
-    Plating_Tortilla,
-    Plating_Egg,
-    Plating_Tomato,
-    Plating_Meat,
-    Plating_Chicken,
-    Plating_Dough,
-    Plating_Cheeze,
-    Plating_Cabbage,
-    Plating_Pineapple,
-    Plating_Cucumber,
-    Plating_Onion,
-    Plating_Corn,
-    Plating_Shrimp,
-    Plating_Fish,
-    Plating_Carrot,
-    Plating_Mushroom,
-    Plating_Potato,
-    Plating_Sausage,
-    Plating_Chocolate,
-    Plating_Honey,
-    Plating_Rice,
-    Plating_Noodle,
+    // Trigger (400 ~ 499)
+    FireTriggerBox = 400,
 
-    // Mixed (Mixer)
-    Mixed,
+    // Particle (500 ~ 999)
+    Fire = 500,
+    Water,
 
-    // Food Image
-    Img_Bread,
+    // Image (1000 ~ 1099)
+    Img_Progress = 1000,
+    Img_Completed,
+    Img_Warning,
+    Img_Overheat,
+    Img_PlusBase,
+
+    // Food Image (1100 ~ )
+    Img_Bread = 1100,
     Img_Seaweed,
     Img_Flour,
     Img_Tortilla,
@@ -240,11 +200,4 @@ public enum EObjectSerialCode
 
     Img_Rice,
     Img_Noodle,
-
-    // Trigger
-    FireTriggerBox,
-
-    // Particle
-    Fire,
-    Water,
 }

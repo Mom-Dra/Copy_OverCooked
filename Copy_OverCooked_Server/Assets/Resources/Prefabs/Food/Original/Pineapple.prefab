@@ -277,9 +277,9 @@ Transform:
   m_GameObject: {fileID: 6339851822500197558}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.528, y: -0.56938, z: -0.541}
-  m_LocalScale: {x: 1.3712, y: 1.3712, z: 1.3712}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4234059555120598158}
   m_Father: {fileID: 0}
@@ -330,8 +330,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.48936012, y: 0.6908818, z: 0.5461717}
-  m_Center: {x: -0.00032180076, y: -0.009266779, z: 0.022592213}
+  m_Size: {x: 0.48936012, y: 0.6997977, z: 0.5461717}
+  m_Center: {x: -0.00032180076, y: 0.35184953, z: 0.022592213}
 --- !u!114 &6789524691854536219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,11 +344,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6db983855454aa4ebcd2ecff000b6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 59
+  serialCode: 111
   id: 0
   Name: Pineapple
   Description: 
-  eObjectType: 2
+  objectType: 2
   uIOffset: {x: 0, y: 75}
   isCookable: 1
   foodState: 0
@@ -380,7 +380,7 @@ Transform:
   m_GameObject: {fileID: 7049688670345458554}
   serializedVersion: 2
   m_LocalRotation: {x: -0.53729963, y: 0, z: 0, w: 0.8433914}
-  m_LocalPosition: {x: 0, y: -0.085, z: -4.6498e-10}
+  m_LocalPosition: {x: 0, y: 0.272, z: -0.008}
   m_LocalScale: {x: 0.4724104, y: 0.4724104, z: 0.5370284}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Chopped_Sausage
   m_EditorClassIdentifier: 
   cookingMethod: 1
-  ingredients: 44000000
+  ingredients: 78000000
   totalCookDuration: 1
-  cookedFood: 117
+  cookedFood: 165

@@ -191,8 +191,8 @@ Transform:
   m_GameObject: {fileID: 2753639849417071768}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.13421461, w: 0.9909523}
-  m_LocalPosition: {x: 0.032, y: -0.224, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.035, y: 0.117, z: 0}
+  m_LocalScale: {x: 1.3712, y: 1.3712, z: 1.3712}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6146533321964507963}
@@ -563,9 +563,9 @@ Transform:
   m_GameObject: {fileID: 7032149967092166709}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.423, y: -0.5211, z: -0.473}
-  m_LocalScale: {x: 1.6290702, y: 1.6290702, z: 1.6290702}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7638466896887684726}
   m_Father: {fileID: 0}
@@ -616,8 +616,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5528385, y: 0.27838233, z: 0.4877833}
-  m_Center: {x: -0.0017770858, y: -0.16359545, z: -0.014972268}
+  m_Size: {x: 0.7612746, y: 0.39434004, z: 0.6720503}
+  m_Center: {x: -0.012349935, y: 0.19848764, z: -0.025544945}
 --- !u!114 &1332852034164534209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,11 +630,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6db983855454aa4ebcd2ecff000b6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 63
+  serialCode: 115
   id: 0
   Name: Shrimp
   Description: 
-  eObjectType: 2
+  objectType: 2
   uIOffset: {x: 0, y: 75}
   isCookable: 1
   foodState: 0

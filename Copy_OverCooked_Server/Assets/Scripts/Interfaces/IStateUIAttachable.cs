@@ -1,3 +1,4 @@
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,4 +9,7 @@ public interface IStateUIAttachable
         get;
         set;
     }
+
+    public void OnProgressBegin();
+    public void OnProgressEnd();
 }

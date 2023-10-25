@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class RecipeManager : MonobehaviorSingleton<RecipeManager>
 {
+    [SerializeField]
     private List<Recipe> recipes = new List<Recipe>();
 
     protected override void Awake()
@@ -24,5 +26,17 @@ public class RecipeManager : MonobehaviorSingleton<RecipeManager>
             }
         }
         return outRecipe != null;
+    }
+
+    public bool FindCookedFood(ECookingMethod cookingMethod, EObjectSerialCode cookedFood)
+    {
+        foreach (Recipe recipe in recipes)
+        {
+            if (recipe.Equal(cookingMethod, cookedFood))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

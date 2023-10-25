@@ -117,8 +117,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3213020485664566146}
   - {fileID: 4640682572638394999}
+  - {fileID: 3213020485664566146}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5320969170728805736
@@ -223,19 +223,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f3b4210990a2934da9a41dbb1ef55ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 6
+  serialCode: 40
   id: 0
   Name: Induction
   Description: 
-  eObjectType: 0
+  objectType: 0
   uIOffset: {x: -30, y: -10}
-  maxContainCount: 1
   flammablity: 1
-  displayOffset: {x: 0, y: 1, z: 0}
+  displayOffset: {x: 0, y: 0.9, z: 0}
   getObject: {fileID: 0}
+  totalCookDuration: 4
   cookingMethod: 2
   cookwareState: 0
-  stateImage: {fileID: 0}
 --- !u!114 &-4250746294309890776
 MonoBehaviour:
   m_ObjectHideFlags: 0

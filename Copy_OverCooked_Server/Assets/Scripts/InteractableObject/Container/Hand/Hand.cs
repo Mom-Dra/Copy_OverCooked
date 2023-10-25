@@ -11,15 +11,6 @@ public class Hand : Container
     private Player player;
     private Interactor interactor;
 
-    private void FixedUpdate()
-    {
-        if (getObject != null)
-        {
-            getObject.transform.position = transform.position + displayOffset;
-            getObject.transform.rotation = transform.rotation;
-        }
-    }
-
     protected override void Awake()
     {
         base.Awake();
@@ -27,9 +18,19 @@ public class Hand : Container
         player = transform.parent.GetComponent<Player>();
     }
 
+    //private void FixedUpdate()
+    //{
+    //    if (getObject != null)
+    //    {
+    //        getObject.transform.position = transform.position + displayOffset;
+    //        getObject.transform.rotation = transform.rotation;
+    //    }
+    //}
+
     public void HoldOut()
     {
         getObject.Free();
+        getObject.transform.parent = null;
         getObject.Selectable = true;
         getObject = null;
     }
@@ -74,10 +75,7 @@ public class Hand : Container
     {
         if (HasObject())
         {
-            if (getObject.TryGetComponent<IFood>(out IFood food))
-            {
-                Throw();
-            } else if (getObject.TryGet<IReactable>(out IReactable reactObject))
+            if (getObject.TryGet<IReactable>(out IReactable reactObject))
             {
                 reactObject.React(player);
             }

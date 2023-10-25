@@ -3,18 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 모든 조리 도구의 상위 클래스 
 public abstract class Cookware : FixedContainer, IStateUIAttachable
 {
     [Header("Cookware")]
+    [SerializeField]
+    protected float totalCookDuration = 5f;
     [SerializeField]
     protected ECookingMethod cookingMethod;
     [SerializeField]
     protected ECookwareState cookwareState = ECookwareState.Idle;
 
+    // 단위 시간 당 요리 시간 
     private WaitForSeconds workInterval = new WaitForSeconds(0.1f);
-    private IEnumerator selectedCoroutine;
 
-    [SerializeField]
+    // 현재 선택된 코루틴
+    // 요리하는 코루틴과 StateUI 실행시키는 코루틴, 2가지가 있음 
+    protected IEnumerator selectedCoroutine;
+
     protected Image stateImage;
 
     // Property
@@ -22,13 +28,14 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
     {
         get
         {
-            if(HasObject() && getObject.TryGetComponent<ICookableTray>(out ICookableTray cookableTray))
+            if(HasObject() && getObject.TryGetComponent<CookableTray>(out CookableTray cookableTray))
             {
                 return cookableTray.CookingMethod;
             }
             return cookingMethod;
         }
     }
+
     public ECookwareState CookwareState 
     { 
         get => cookwareState; 
@@ -103,6 +110,13 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
                     {
                         StopCoroutine(selectedCoroutine);
                     }
+
+                    if (!Equals(StateUIAttachable))
+                    {
+                        StateUIAttachable.OnProgressBegin();
+                    }
+
+                    OnProgressBegin();
                     selectedCoroutine = AddUIStateEvent();
                     StartCoroutine(selectedCoroutine);
                 }
@@ -119,8 +133,8 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
             Destroy(StateUIAttachable.StateUI.gameObject);
             StateUIAttachable.StateUI = null;
         }
-        base.Remove();
         StopSelectedCoroutine();
+        base.Remove();
         cookwareState = ECookwareState.Idle;
     }
 
@@ -132,33 +146,34 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
             {
                 if (getIFood.CurrCookingRate < 100)
                 {
-                    if (RecipeManager.Instance.TryGetRecipe(CookingMethod, Ingredients, out Recipe currRecipe))
+                    if(getIFood.CurrCookingRate == 0)
                     {
-                        if (selectedCoroutine != null)
+                        if (RecipeManager.Instance.TryGetRecipe(CookingMethod, Ingredients, out Recipe currRecipe))
                         {
-                            StopCoroutine(selectedCoroutine);
-                        }
-                        selectedCoroutine = CookCoroutine(currRecipe);
-                        StartCoroutine(selectedCoroutine);
-                        return true;
+                            if (selectedCoroutine != null)
+                            {
+                                StopCoroutine(selectedCoroutine);
+                            }
+
+                            Destroy(getIFood.GameObject);
+                            GameObject cookedPrefab = SerialCodeDictionary.Instance.FindBySerialCode(currRecipe.CookedFood);
+                            getIFood = Instantiate(cookedPrefab).GetComponent<IFood>();
+
+                            TopContainer.GetObject = getIFood.GameObject.GetComponent<InteractableObject>();
+                        }else return false;
                     }
-                }
+                    selectedCoroutine = CookCoroutine(getIFood);
+                    StartCoroutine(selectedCoroutine);
+                    return true;
+                } 
             }
         }
         return false;
     }
 
-    protected IEnumerator CookCoroutine(Recipe recipe)
+    protected IEnumerator CookCoroutine(IFood cookingFood)
     {
         cookwareState = ECookwareState.Cook;
-
-        IFood cookedFood = SerialCodeDictionary.Instance.FindBySerialCode(recipe.CookedFood).GetComponent<IFood>();
-        if (!getObject.TryGet<IFood>(out IFood currFood))
-        {
-            throw new System.Exception("Cookware warning : GetObject is not <Food>");
-        }
-
-        float totalCookDuration = recipe.TotalCookDuration;
 
         // UI
         IStateUIAttachable stateUIAttachable = StateUIAttachable;
@@ -169,21 +184,31 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
         }
         Image gauge = stateUIAttachable.StateUI.transform.GetChild(1).GetComponent<Image>();
 
-        while (currFood.CurrCookingRate <= 100)
+        if(!Equals(stateUIAttachable))
         {
-            currFood.CurrCookingRate += (int)((1 / totalCookDuration) * 10);
-            gauge.fillAmount = (float)currFood.CurrCookingRate / 100;
-            //Debug.Log($"Cooking... <color=yellow>{currFood.GameObject.name}</color> => <color=orange>{cookedFood.GameObject.name}</color> <color=green>## {currFood.CurrCookingRate}%</color>");
+            stateUIAttachable.OnProgressBegin();
+        }
+        OnProgressBegin();
+        cookingFood.OnCooking();
+
+        while (cookingFood.CurrCookingRate <= 100)
+        {
+            cookingFood.CurrCookingRate += (int)((1 / totalCookDuration) * 10);
+            gauge.fillAmount = (float)cookingFood.CurrCookingRate / 100;
             yield return workInterval;
         }
+        cookingFood.CurrCookingRate = 0;
+
+        //if (!Equals(stateUIAttachable))
+        //{
+        //    stateUIAttachable.OnProgressEnd();
+        //}
+        //OnProgressEnd();
+        cookingFood.OnCooked();
 
         cookwareState = ECookwareState.Complete;
 
-        InteractableObject instantiateFood = Instantiate(cookedFood.GameObject, currFood.GameObject.transform.position, Quaternion.identity).GetComponent<InteractableObject>();
-
-        Destroy(currFood.GameObject);
-
-        TopContainer.GetObject = instantiateFood;
+        //AttachFoodImage();
 
         if (!FoodUIAttachable.FoodUIComponent.HasImage)
         {
@@ -223,6 +248,11 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
 
     public void StopSelectedCoroutine()
     {
+        if (!Equals(StateUIAttachable))
+        {
+            StateUIAttachable.OnProgressEnd();
+        }
+        OnProgressEnd();
         if (selectedCoroutine != null)
         {
             StopCoroutine(selectedCoroutine);
@@ -230,14 +260,14 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
         }
     }
 
-    public virtual void OnOverheat()
+    public void OnOverheat()
     {
         cookwareState = ECookwareState.Overheat;
 
         FoodUIComponent foodUIComponent = FoodUIAttachable.FoodUIComponent;
         foodUIComponent.Clear(true);
 
-        if(TryGet<Food>(out Food food))
+        if(TryGet<IFood>(out IFood food))
         {
             food.OnBurned();
         }
@@ -246,7 +276,11 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
         {
             fireTriggerBox.Ignite();
         }
-    }
+    } 
 
     protected abstract bool CanCook();
+
+    public abstract void OnProgressBegin();
+
+    public abstract void OnProgressEnd();
 }

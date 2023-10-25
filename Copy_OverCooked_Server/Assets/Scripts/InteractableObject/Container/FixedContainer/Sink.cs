@@ -12,9 +12,11 @@ public class Sink : FixedContainer, IStateUIAttachable, IReactable
 
     [Header("Sink")]
     [SerializeField]
-    private float dishwashingTime = 2f;
+    private float washingTime = 2f;
     [SerializeField]
     private Stack<Plate> dirtyPlateStack = new Stack<Plate>();
+
+    private GameObject hasDirtyPlatePrefab;
 
     private Image stateImage;
 
@@ -60,13 +62,27 @@ public class Sink : FixedContainer, IStateUIAttachable, IReactable
         {
             Plate plate = dirtyPlateStack.Pop();
             plate.gameObject.SetActive(true);
+            if (dirtyPlateStack.Count == 0)
+            {
+                hasDirtyPlatePrefab.gameObject.SetActive(false);
+            }
             return plate;
         }
         set
         {
             value.gameObject.SetActive(false);
             dirtyPlateStack.Push(value);
+            if(dirtyPlateStack.Count > 0)
+            {
+                hasDirtyPlatePrefab.gameObject.SetActive(true);
+            }
         }
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        hasDirtyPlatePrefab = transform.Find("HasDirtyPlate").gameObject;
     }
 
     public void React(Player player)
@@ -74,12 +90,12 @@ public class Sink : FixedContainer, IStateUIAttachable, IReactable
         if (dirtyPlateStack.Count > 0)
         {
             EventManager.Instance.AddEvent(new DishwashingEvent(player, this));
-            selectedCoroutine = DishwashingCoroutine();
+            selectedCoroutine = WashingCoroutine();
             StartCoroutine(selectedCoroutine);
         }
     }
 
-    private IEnumerator DishwashingCoroutine()
+    private IEnumerator WashingCoroutine()
     {
         if (stateImage == null)
         {
@@ -89,10 +105,10 @@ public class Sink : FixedContainer, IStateUIAttachable, IReactable
 
         float currWashingTime = 0f;
 
-        while(currWashingTime  < dishwashingTime)
+        while(currWashingTime  < washingTime)
         {
             currWashingTime += 0.1f;
-            gauge.fillAmount = currWashingTime / dishwashingTime;
+            gauge.fillAmount = currWashingTime / washingTime;
             yield return waitForTick;
         }
 
@@ -110,7 +126,7 @@ public class Sink : FixedContainer, IStateUIAttachable, IReactable
         } 
         else
         {
-            selectedCoroutine = DishwashingCoroutine();
+            selectedCoroutine = WashingCoroutine();
             StartCoroutine(selectedCoroutine);
         }
     }
@@ -169,5 +185,15 @@ public class Sink : FixedContainer, IStateUIAttachable, IReactable
         {
             base.Remove();
         }
+    }
+
+    public void OnProgressBegin()
+    {
+        
+    }
+
+    public void OnProgressEnd()
+    {
+        
     }
 }

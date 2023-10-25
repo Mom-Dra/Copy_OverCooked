@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,6 +32,15 @@ public class Recipe : ScriptableObject
     public EObjectSerialCode CookedFood { get => cookedFood; }
     public float TotalCookDuration { get => totalCookDuration; }
 
+    [ContextMenu("Set Recipe")]
+    private void SetRecipeIngredients()
+    {
+        cookedFood = (EObjectSerialCode)Enum.Parse(typeof(EObjectSerialCode), name);
+        string[] split = name.Split('_');
+        ingredients.Clear();
+        ingredients.Add((EObjectSerialCode)Enum.Parse(typeof(EObjectSerialCode), split[1]));
+    }
+
     public bool Equal(ECookingMethod cookingMethod, List<EObjectSerialCode> foods)
     {
         if (this.cookingMethod == cookingMethod)
@@ -41,6 +51,18 @@ public class Recipe : ScriptableObject
                 {
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    public bool Equal(ECookingMethod cookingMethod, EObjectSerialCode cookedFood)
+    {
+        if (this.cookingMethod == cookingMethod)
+        {
+            if (this.cookedFood == cookedFood)
+            {
+                return true;
             }
         }
         return false;

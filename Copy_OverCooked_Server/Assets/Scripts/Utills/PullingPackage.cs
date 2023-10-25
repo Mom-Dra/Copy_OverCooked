@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class PullingPackage
@@ -14,12 +15,12 @@ public class PullingPackage
         GameObject pullingFolder =  new GameObject($"{serialCode.ToString()}");
         pullingFolder.transform.SetParent(pullingTransform);
 
+        GameObject pullingObject = SerialCodeDictionary.Instance.FindBySerialCode(serialCode);
         for (int k = 0; k < pullingNumber; k++)
         {
-            GameObject pullingObject = SerialCodeDictionary.Instance.FindBySerialCode(serialCode);
             pullingObjects[k] = GameObject.Instantiate(pullingObject, pullingTransform.position, Quaternion.identity, pullingTransform);
-            pullingObjects[k].SetActive(false);
             pullingObjects[k].transform.SetParent(pullingFolder.transform, false);
+            pullingObjects[k].SetActive(false);
         }
     }
 

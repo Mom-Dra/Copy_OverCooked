@@ -3,7 +3,17 @@ using UnityEngine;
 
 public class DishManager : MonobehaviorSingleton<DishManager>
 {
+    [SerializeField]
     private List<Dish> dishList = new List<Dish>();
+
+    protected override void Awake()
+    {
+        base.Awake();
+        foreach (Dish dish in dishList)
+        {
+            dish.Init();
+        }
+    }
 
     public bool TryGetDish(List<EObjectSerialCode> ingredients, out Dish result)
     {
@@ -12,7 +22,9 @@ public class DishManager : MonobehaviorSingleton<DishManager>
         {
             if (dish.IsValidRecipe(ingredients))
             {
-                result = Instantiate(dish);
+                result = dish;
+                //result = Instantiate(dish);
+                //result.Init();
                 break;
             }
         }

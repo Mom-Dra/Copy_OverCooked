@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1151237116071333066}
   serializedVersion: 2
   m_LocalRotation: {x: 0.6235246, y: 0.33349222, z: -0.33349222, w: 0.6235246}
-  m_LocalPosition: {x: 0, y: -0.354, z: 0}
+  m_LocalPosition: {x: 0, y: 0.135, z: 0}
   m_LocalScale: {x: 0.2727131, y: 0.52362347, z: 0.23826039}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -111,7 +111,7 @@ Transform:
   m_GameObject: {fileID: 5833294063107786957}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.501, y: -0.543, z: -0.506}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -164,8 +164,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.9150474, y: 0.2582716, z: 0.6952758}
-  m_Center: {x: 0.00095307827, y: -0.35492682, z: -0.0015576482}
+  m_Size: {x: 0.9150474, y: 0.27125624, z: 0.6952758}
+  m_Center: {x: 0.00095307827, y: 0.13632478, z: -0.0015576482}
 --- !u!114 &2871954057327673295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,11 +178,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6db983855454aa4ebcd2ecff000b6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 60
+  serialCode: 112
   id: 0
   Name: Cucumber
   Description: 
-  eObjectType: 2
+  objectType: 2
   uIOffset: {x: 0, y: 75}
   isCookable: 1
   foodState: 0

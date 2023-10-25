@@ -24,4 +24,14 @@ public class Oven : Cookware
     {
         return !HasObject() && interactableObject.TryGetComponent<Tray>(out Tray tray);
     }
+
+    public override void OnProgressBegin()
+    {
+
+    }
+
+    public override void OnProgressEnd()
+    {
+
+    }
 }

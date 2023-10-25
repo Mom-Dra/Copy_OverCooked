@@ -28,9 +28,9 @@ Transform:
   m_GameObject: {fileID: 843199860841574884}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.491, y: -0.49097, z: -0.494}
-  m_LocalScale: {x: 1.2475, y: 1.2475, z: 1.2475}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5791213888759201032}
   m_Father: {fileID: 0}
@@ -81,8 +81,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.73944664, y: 0.37156215, z: 0.5942773}
-  m_Center: {x: -0.00008423487, y: -0.20918465, z: 0.0018196977}
+  m_Size: {x: 0.7394467, y: 0.37396008, z: 0.5942773}
+  m_Center: {x: -0.00008423487, y: 0.18995517, z: 0.0018196977}
 --- !u!114 &3536975694939992744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,11 +95,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6db983855454aa4ebcd2ecff000b6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 68
+  serialCode: 120
   id: 0
   Name: Sausage
   Description: 
-  eObjectType: 2
+  objectType: 2
   uIOffset: {x: 0, y: 75}
   isCookable: 1
   foodState: 0
@@ -130,13 +130,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5870465024970038252}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.60991883, y: 0.35776958, z: -0.35776946, w: 0.6099188}
-  m_LocalPosition: {x: 0, y: -0.209, z: 0}
+  m_LocalRotation: {x: -0.60992056, y: -0.35776663, z: -0.35776663, w: 0.60992056}
+  m_LocalPosition: {x: -0, y: 0.187, z: 0}
   m_LocalScale: {x: 0.3369552, y: -0.39003214, z: 0.3558096}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5206275301605997756}
-  m_LocalEulerAnglesHint: {x: 89.972, y: 0, z: -60.79}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -60.79}
 --- !u!33 &5765609468367605844
 MeshFilter:
   m_ObjectHideFlags: 0

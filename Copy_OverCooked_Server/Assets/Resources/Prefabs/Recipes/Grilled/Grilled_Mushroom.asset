@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Grilled_Mushroom
   m_EditorClassIdentifier: 
   cookingMethod: 2
-  ingredients: 73000000
+  ingredients: a3000000
   totalCookDuration: 1
-  cookedFood: 126
+  cookedFood: 213

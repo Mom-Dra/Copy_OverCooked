@@ -32,7 +32,6 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
     {
         serialCodDic.Add(serialCode, prefab);
     }
-    
 
     private void MatchSerialCodeToFoodImage()
     {
@@ -51,7 +50,6 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
         //Tomato,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Tomato, EObjectSerialCode.Img_Tomato);
         foodImageDictionary.Add(EObjectSerialCode.Grilled_Tomato, EObjectSerialCode.Img_Tomato);
-        foodImageDictionary.Add(EObjectSerialCode.Tomato_Topping, EObjectSerialCode.Img_Tomato);
         //Meat,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Meat, EObjectSerialCode.Img_Meat);
         foodImageDictionary.Add(EObjectSerialCode.Grilled_Meat, EObjectSerialCode.Img_Meat);
@@ -61,16 +59,13 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
         foodImageDictionary.Add(EObjectSerialCode.Grilled_Chicken, EObjectSerialCode.Img_Chicken);
         //Dough,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Dough, EObjectSerialCode.Img_Dough);
-        foodImageDictionary.Add(EObjectSerialCode.Baked_Dough, EObjectSerialCode.Img_Dough);
         //Cheeze,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Cheeze, EObjectSerialCode.Img_Cheeze);
-        foodImageDictionary.Add(EObjectSerialCode.Cheeze_Topping, EObjectSerialCode.Img_Cheeze);
         //Cabbage,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Cabbage, EObjectSerialCode.Img_Cabbage);
         //Pineapple,
         foodImageDictionary.Add(EObjectSerialCode.Pineapple, EObjectSerialCode.Img_Pineapple);
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Pineapple, EObjectSerialCode.Img_Pineapple);
-        foodImageDictionary.Add(EObjectSerialCode.Pineapple_Topping, EObjectSerialCode.Img_Pineapple);
         //Cucumber, 
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Cucumber, EObjectSerialCode.Img_Cucumber);
         //Onion,
@@ -82,9 +77,9 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
         //Fish,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Fish, EObjectSerialCode.Img_Fish);
         foodImageDictionary.Add(EObjectSerialCode.Grilled_Fish, EObjectSerialCode.Img_Fish);
+        foodImageDictionary.Add(EObjectSerialCode.Steamed_Fish, EObjectSerialCode.Img_Fish);
         //Carrot,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Carrot, EObjectSerialCode.Img_Carrot);
-        foodImageDictionary.Add(EObjectSerialCode.Plating_Carrot, EObjectSerialCode.Img_Carrot);
         //Mushroom,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Mushroom, EObjectSerialCode.Img_Mushroom);
         foodImageDictionary.Add(EObjectSerialCode.Grilled_Mushroom, EObjectSerialCode.Img_Mushroom);
@@ -93,7 +88,6 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
         foodImageDictionary.Add(EObjectSerialCode.Fried_Potato, EObjectSerialCode.Img_Potato);
         //Sausage,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Sausage, EObjectSerialCode.Img_Sausage);
-        foodImageDictionary.Add(EObjectSerialCode.Sausage_Topping, EObjectSerialCode.Img_Sausage);
         //Chocolate,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Chocolate, EObjectSerialCode.Img_Chocolate);
         //Honey,

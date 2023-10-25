@@ -5,10 +5,8 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class InteractManager : MonobehaviorSingleton<InteractManager> // 快府狼 脚 
+public class InteractManager : MonobehaviorSingleton<InteractManager> 
 {
-    private Dictionary<Player, InteractableObject> connectionList = new Dictionary<Player, InteractableObject>();
-
     private int CompareType(InteractableObject host, InteractableObject guest)
     {
         return host.GetTopType() - guest.GetTopType();
@@ -52,12 +50,14 @@ public class InteractManager : MonobehaviorSingleton<InteractManager> // 快府狼 
                 if (receiver.SerialCode != EObjectSerialCode.Trashcan && sender.TryGet<Tray>(out Tray tray, EGetMode.Pop))
                 {
                     sendObject = tray;
-                } else if (sender.TryGet<IFood>(out IFood food, EGetMode.Pop))
+                }
+                else if (sender.TryGet<IFood>(out IFood food, EGetMode.Pop))
                 {
                     //sendObject = food;
                     sendObject = food.GameObject.GetComponent<InteractableObject>();
                     sendContainer = sender.TopContainer;
-                } else if(sender.TryGet<FireExtinguisher>(out FireExtinguisher fe))
+                }
+                else if(sender.TryGet<FireExtinguisher>(out FireExtinguisher fe))
                 {
                     sendObject = fe;
                 }
