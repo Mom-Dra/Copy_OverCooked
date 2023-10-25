@@ -24,7 +24,7 @@ public interface IFood
         get ;
     }
 
-    public int CurrCookingRate
+    public float CurrCookingRate
     {
         get;
         set;

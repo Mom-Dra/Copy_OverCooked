@@ -9,7 +9,7 @@ public class FoodTray : CombinableTray, IFood
     [SerializeField]
     private EFoodState foodState;
 
-    private int currCookingRate = 0;
+    private float currCookingRate = 0;
     private int currOverTime = 0;
 
     private Dish dish;
@@ -43,7 +43,7 @@ public class FoodTray : CombinableTray, IFood
         }
     }
 
-    public int CurrCookingRate
+    public float CurrCookingRate
     {
         get
         { 
@@ -80,6 +80,11 @@ public class FoodTray : CombinableTray, IFood
         base.Awake();
         GetObject = dish = GetComponentInChildren<Dish>(true);
         dish.Init();
+
+        if (foodState == EFoodState.Prepped)
+        {
+            uIComponent.Add(serialCode);
+        }
 
         cookingPrefab = transform.Find("Cooking")?.gameObject;
         cookedPrefab = transform.Find("Cooked")?.gameObject;

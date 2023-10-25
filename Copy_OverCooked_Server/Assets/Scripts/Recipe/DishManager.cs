@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class DishManager : MonobehaviorSingleton<DishManager>
 {
-    [SerializeField]
     private List<Dish> dishList = new List<Dish>();
 
     protected override void Awake()
     {
         base.Awake();
+
+        Dish[] _loadPrefab = Resources.LoadAll<Dish>("Prefabs/Dish");
+        dishList.AddRange( _loadPrefab );
+
         foreach (Dish dish in dishList)
         {
             dish.Init();

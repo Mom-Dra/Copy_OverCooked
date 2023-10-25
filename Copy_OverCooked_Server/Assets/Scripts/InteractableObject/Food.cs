@@ -14,7 +14,8 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
     [SerializeField]
     protected List<EObjectSerialCode> ingredients = new List<EObjectSerialCode>();
 
-    protected int currCookingRate = 0;
+    [SerializeField]
+    protected float currCookingRate = 0;
     protected int currOverTime = 0;
 
     protected FoodUIComponent uIComponent;
@@ -48,7 +49,7 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
         get => uIComponent;
     }
 
-    public int CurrCookingRate
+    public float CurrCookingRate
     {
         get => currCookingRate;
         set

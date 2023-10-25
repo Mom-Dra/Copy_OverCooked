@@ -8,26 +8,27 @@ public class Mixer : Cookware
         {
             if (TryGet<Food>(out Food mixed))
             {
+                currTotalCookDuration = 5 + mixed.Ingredients.Count * 2f;
                 if (cookwareState == ECookwareState.Idle)
                 {
-                    selectedCoroutine = CookCoroutine(mixed);
+                    selectedCoroutine = CookCoroutine(mixed, false);
                     StartCoroutine(selectedCoroutine);
-                }
-                else if(cookwareState == ECookwareState.Cook && interactableObject.TryGetComponent<IFood>(out IFood iFood))
+                } 
+                else if(interactableObject.TryGetComponent<IFood>(out IFood iFood))
                 {
-                    // 조리 시간 조정 
-                    mixed.CurrCookingRate = (mixed.CurrCookingRate < iFood.CurrCookingRate) ? mixed.CurrCookingRate : iFood.CurrCookingRate;
-                }
-                else if (cookwareState == ECookwareState.Complete)
-                {
-                    StopSelectedCoroutine();
-                    if(StateUIAttachable.StateUI != null)
+                    if (cookwareState == ECookwareState.Complete)
                     {
-                        Destroy(StateUIAttachable.StateUI.gameObject);
-                        StateUIAttachable.StateUI = null;
+                        StopSelectedCoroutine();
+                        if (StateUIAttachable.StateUI != null)
+                        {
+                            Destroy(StateUIAttachable.StateUI.gameObject);
+                            StateUIAttachable.StateUI = null;
+                        }
+                        selectedCoroutine = CookCoroutine(mixed, false);
+                        StartCoroutine(selectedCoroutine);
                     }
-                    StartCoroutine(CookCoroutine(mixed));
                 }
+                
             }
             return true;
         }
@@ -52,5 +53,11 @@ public class Mixer : Cookware
     public override void OnProgressEnd()
     {
 
+    }
+
+    public override void Remove()
+    {
+        base.Remove();
+        currTotalCookDuration = totalCookDuration;
     }
 }

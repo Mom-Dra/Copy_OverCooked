@@ -648,7 +648,7 @@ GameObject:
   - component: {fileID: -5254814613029030559}
   - component: {fileID: 6984015482738360249}
   m_Layer: 0
-  m_Name: Dish_PizzaTopping
+  m_Name: Dish_Pizza_Topping
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -685,7 +685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914638bff21f4b9459bfd371198017e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialCode: 309
+  serialCode: 305
   id: 0
   Name: Dish_Pizza_Topping
   Description: 
@@ -694,6 +694,7 @@ MonoBehaviour:
   isCookable: 1
   foodState: 3
   ingredients: 
+  maxIngredientCount: 4
   stacking: 1
   dishIngredients: 960000009a0000009c000000a5000000
   prefabToCombines:

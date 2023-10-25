@@ -23,6 +23,8 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
 
     protected Image stateImage;
 
+    protected float currTotalCookDuration;
+
     // Property
     private ECookingMethod CookingMethod
     {
@@ -162,6 +164,7 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
                             TopContainer.GetObject = getIFood.GameObject.GetComponent<InteractableObject>();
                         }else return false;
                     }
+                    currTotalCookDuration = totalCookDuration;
                     selectedCoroutine = CookCoroutine(getIFood);
                     StartCoroutine(selectedCoroutine);
                     return true;
@@ -171,7 +174,7 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
         return false;
     }
 
-    protected IEnumerator CookCoroutine(IFood cookingFood)
+    protected IEnumerator CookCoroutine(IFood cookingFood, bool resetCurrCookTime = true)
     {
         cookwareState = ECookwareState.Cook;
 
@@ -191,13 +194,15 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
         OnProgressBegin();
         cookingFood.OnCooking();
 
-        while (cookingFood.CurrCookingRate <= 100)
+        while (cookingFood.CurrCookingRate <= currTotalCookDuration)
         {
-            cookingFood.CurrCookingRate += (int)((1 / totalCookDuration) * 10);
-            gauge.fillAmount = (float)cookingFood.CurrCookingRate / 100;
+            cookingFood.CurrCookingRate += 0.1f;
+            gauge.fillAmount = (float)cookingFood.CurrCookingRate / currTotalCookDuration;
             yield return workInterval;
         }
-        cookingFood.CurrCookingRate = 0;
+
+        if(resetCurrCookTime)
+            cookingFood.CurrCookingRate = 0;
 
         //if (!Equals(stateUIAttachable))
         //{

@@ -67,6 +67,10 @@ using UnityEngine;
 
 public class Dish : Food
 {
+    [Header("Dish")]
+    [SerializeField]
+    private int maxIngredientCount = 4;
+
     [SerializeField]
     private bool stacking = false;
 
@@ -147,7 +151,7 @@ public class Dish : Food
 
     public bool IsValidIngredients(IFood iFood)
     {
-        if(ingredients.Count + iFood.Ingredients.Count > dishIngredients.Count)
+        if(ingredients.Count + iFood.Ingredients.Count > maxIngredientCount)
         {
             return false;
         }

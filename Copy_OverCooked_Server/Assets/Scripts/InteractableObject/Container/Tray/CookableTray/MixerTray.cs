@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MixerTray : CookableTray
 {
@@ -55,6 +56,28 @@ public class MixerTray : CookableTray
             }
             
             uIComponent.AddRange(iFood.Ingredients);
+            //AddCookDuration(iFood);
+            mixed.CurrOverTime = 0;
+            
+            if(mixed.CurrCookingRate > 0)
+            {
+                if (stateImage != null && stateImage.TryGetComponent<SerializedObject>(out SerializedObject so))
+                {
+                    if (so.SerialCode != EObjectSerialCode.Img_Progress)
+                    {
+                        Destroy(stateImage.gameObject);
+                        StateUI = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Progress);
+                    }
+                } else
+                {
+                    StateUI = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Progress);
+                }
+                Image gauge = stateImage.transform.GetChild(1).GetComponent<Image>();
+                gauge.fillAmount = mixed.CurrCookingRate / (5 + mixed.Ingredients.Count * 2f);
+            }
+            
+
+            //
             ChangeMixedColor(interactableObject);
 
             Destroy(iFood.GameObject);
@@ -65,6 +88,12 @@ public class MixerTray : CookableTray
     {
         base.Remove();
         mixed = null;
+    }
+
+    private void AddCookDuration(IFood iFood)
+    {
+        mixed.CurrCookingRate = (mixed.CurrCookingRate < iFood.CurrCookingRate) ? mixed.CurrCookingRate : iFood.CurrCookingRate;
+        mixed.CurrOverTime = 0;
     }
 
     private void ChangeMixedColor(InteractableObject io)

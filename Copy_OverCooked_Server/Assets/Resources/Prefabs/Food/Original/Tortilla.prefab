@@ -118,6 +118,7 @@ Transform:
   - {fileID: 3147058230525001942}
   - {fileID: 2935122635839400039}
   - {fileID: 7893488813733167040}
+  - {fileID: 1911611992462807832}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &4722441891620533809
@@ -187,7 +188,7 @@ MonoBehaviour:
   objectType: 1
   uIOffset: {x: 0, y: 75}
   flammablity: 0
-  displayOffset: {x: 0, y: 1, z: 0}
+  displayOffset: {x: 0, y: 0, z: 0}
   getObject: {fileID: 0}
   isCookable: 0
   foodState: 1
@@ -357,3 +358,69 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &5357799895815359770
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8986377735368891753}
+    m_Modifications:
+    - target: {fileID: 5827044823326809602, guid: f902ecda13545e642af2d5b9ca0dfd8b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5827044823326809602, guid: f902ecda13545e642af2d5b9ca0dfd8b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5827044823326809602, guid: f902ecda13545e642af2d5b9ca0dfd8b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5827044823326809602, guid: f902ecda13545e642af2d5b9ca0dfd8b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5827044823326809602, guid: f902ecda13545e642af2d5b9ca0dfd8b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5827044823326809602, guid: f902ecda13545e642af2d5b9ca0dfd8b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5827044823326809602, guid: f902ecda13545e642af2d5b9ca0dfd8b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5827044823326809602, guid: f902ecda13545e642af2d5b9ca0dfd8b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5827044823326809602, guid: f902ecda13545e642af2d5b9ca0dfd8b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5827044823326809602, guid: f902ecda13545e642af2d5b9ca0dfd8b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6124955355669424812, guid: f902ecda13545e642af2d5b9ca0dfd8b, type: 3}
+      propertyPath: m_Name
+      value: Dish_Tortilla_Topping
+      objectReference: {fileID: 0}
+    - target: {fileID: 6124955355669424812, guid: f902ecda13545e642af2d5b9ca0dfd8b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f902ecda13545e642af2d5b9ca0dfd8b, type: 3}
+--- !u!4 &1911611992462807832 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5827044823326809602, guid: f902ecda13545e642af2d5b9ca0dfd8b, type: 3}
+  m_PrefabInstance: {fileID: 5357799895815359770}
+  m_PrefabAsset: {fileID: 0}

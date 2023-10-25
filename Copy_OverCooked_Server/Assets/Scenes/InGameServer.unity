@@ -662,6 +662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd18f8ff4099c94199e35b1722d41e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recipes: []
 --- !u!114 &191021299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -711,8 +712,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa08031f32b1464d8e7b49a8095ae19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dishList:
-  - {fileID: 7548771316577294852, guid: 02f018ffef0f5f84db4918e5e438bc14, type: 3}
 --- !u!1001 &199582340
 PrefabInstance:
   m_ObjectHideFlags: 0

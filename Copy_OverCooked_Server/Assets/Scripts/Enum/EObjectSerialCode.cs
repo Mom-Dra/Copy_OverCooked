@@ -59,9 +59,7 @@ public enum EObjectSerialCode
     Seaweed,
     Flour,
     Tortilla,
-
     Egg,
-
     Tomato,
     Meat,
     Chicken,
@@ -80,7 +78,6 @@ public enum EObjectSerialCode
     Sausage,
     Chocolate,
     Honey,
-
     Rice,
     Noodle,
 
@@ -125,6 +122,7 @@ public enum EObjectSerialCode
 
     // Baked (Oven) (250 ~ 269) 
     Baked_Flour = 250,
+    Baked_Dough,
 
     // Mixed (Mixer) (270 ~ 289)
     Mixed = 270,
@@ -133,19 +131,39 @@ public enum EObjectSerialCode
     Mixed_Chocolate,
     Mixed_Honey,
     Mixed_Shrimp,
+    Mixed_Meat,
+    Mixed_Carrot,
 
     // Dish (300 ~ 349)
     Dish_Sushi = 300,
     Dish_Salad,
     Dish_Pasta,
     Dish_Tortilla_Topping,
-    Dish_Burger,
+    Dish_Burger_Topping,
     Dish_Pizza_Topping,
 
     // Cooked (350 ~ 399)
-    Tomato_Cheeze_Pizza = 350,
-    Tomato_Cheeze_Sausage_Pizza,
+    // Fried
+    Dish_Fried = 350,
 
+    // Pizza (Base : <Bake> + Dough)
+    Tomato_Cheeze_Pizza,
+    Tomato_Cheeze_Sausage_Pizza,
+    Tomato_Pineapple_Cheeze_Pizza,
+    Tomato_Pineapple_Sausage_Pizza,
+
+    // Dumpling (Base : <Steam> + Flour + Meat)
+    Dumpling,
+    Carrot_Dumpling,
+
+    // Pancake (Base : <Grill> + Flour + Egg)
+    Pancake,
+    Chocolate_Pancake,
+
+    // Cake (Base : <Bake> + Flour + Egg + Honey)
+    Cake,
+    Chocolate_Cake,
+    Carrot_Cake,
 
 
     // Trigger (400 ~ 499)
