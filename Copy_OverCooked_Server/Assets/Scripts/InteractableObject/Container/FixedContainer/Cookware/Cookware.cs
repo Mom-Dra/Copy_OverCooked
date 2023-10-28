@@ -26,16 +26,9 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
     protected float currTotalCookDuration;
 
     // Property
-    private ECookingMethod CookingMethod
+    protected virtual ECookingMethod CookingMethod
     {
-        get
-        {
-            if(HasObject() && getObject.TryGetComponent<CookableTray>(out CookableTray cookableTray))
-            {
-                return cookableTray.CookingMethod;
-            }
-            return cookingMethod;
-        }
+        get => cookingMethod;
     }
 
     public ECookwareState CookwareState 
@@ -104,23 +97,26 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
     {
         if (base.TryPut(interactableObject))
         {
-            if (Flammablity && getObject.TryGet<IFood>(out IFood getFood))
+            if (Flammablity && TryGet<IFood>(out IFood getFood))
             {
-                if (getFood.CurrOverTime > 0)
+                if(getFood.CookingMethod == CookingMethod)
                 {
-                    if (selectedCoroutine != null)
+                    if (getFood.CurrOverTime > 0)
                     {
-                        StopCoroutine(selectedCoroutine);
-                    }
+                        if (selectedCoroutine != null)
+                        {
+                            StopCoroutine(selectedCoroutine);
+                        }
 
-                    if (!Equals(StateUIAttachable))
-                    {
-                        StateUIAttachable.OnProgressBegin();
-                    }
+                        if (!Equals(StateUIAttachable))
+                        {
+                            StateUIAttachable.OnProgressBegin();
+                        }
 
-                    OnProgressBegin();
-                    selectedCoroutine = AddUIStateEvent();
-                    StartCoroutine(selectedCoroutine);
+                        OnProgressBegin();
+                        selectedCoroutine = AddUIStateEvent();
+                        StartCoroutine(selectedCoroutine);
+                    }
                 }
             }
             return true;
@@ -128,7 +124,7 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
         return false;
     }
 
-    public override void Remove()
+    public override void Remove(InteractableObject interactableObject)
     {
         if(StateUIAttachable.StateUI != null && cookwareState == ECookwareState.Complete)
         {
@@ -136,7 +132,7 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
             StateUIAttachable.StateUI = null;
         }
         StopSelectedCoroutine();
-        base.Remove();
+        base.Remove(interactableObject);
         cookwareState = ECookwareState.Idle;
     }
 
@@ -144,31 +140,34 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
     {
         if (cookwareState != ECookwareState.Complete)
         {
-            if (CanCook() && getObject.TryGet<IFood>(out IFood getIFood))
+            if (CanCook() && TryGet<IFood>(out IFood getIFood))
             {
-                if (getIFood.CurrCookingRate < 100)
+                if(getIFood.CookingMethod != CookingMethod)
                 {
-                    if(getIFood.CurrCookingRate == 0)
+                    if (RecipeManager.Instance.TryGetRecipe(CookingMethod, Ingredients, out Recipe currRecipe))
                     {
-                        if (RecipeManager.Instance.TryGetRecipe(CookingMethod, Ingredients, out Recipe currRecipe))
-                        {
-                            if (selectedCoroutine != null)
-                            {
-                                StopCoroutine(selectedCoroutine);
-                            }
+                        Destroy(getIFood.GameObject);
+                        GameObject cookedPrefab = SerialCodeDictionary.Instance.FindBySerialCode(currRecipe.CookedFood);
+                        getIFood = Instantiate(cookedPrefab).GetComponent<IFood>();
 
-                            Destroy(getIFood.GameObject);
-                            GameObject cookedPrefab = SerialCodeDictionary.Instance.FindBySerialCode(currRecipe.CookedFood);
-                            getIFood = Instantiate(cookedPrefab).GetComponent<IFood>();
+                        TopContainer.GetObject = getIFood.GameObject.GetComponent<InteractableObject>();
+                    } else
+                        return false;
+                }
+                else if (getIFood.CurrCookingRate >= 100)
+                {
+                    return false;
+                }
 
-                            TopContainer.GetObject = getIFood.GameObject.GetComponent<InteractableObject>();
-                        }else return false;
-                    }
-                    currTotalCookDuration = totalCookDuration;
-                    selectedCoroutine = CookCoroutine(getIFood);
-                    StartCoroutine(selectedCoroutine);
-                    return true;
-                } 
+                if (selectedCoroutine != null)
+                {
+                    StopCoroutine(selectedCoroutine);
+                }
+
+                currTotalCookDuration = totalCookDuration;
+                selectedCoroutine = CookCoroutine(getIFood);
+                StartCoroutine(selectedCoroutine);
+                return true;
             }
         }
         return false;
@@ -201,19 +200,12 @@ public abstract class Cookware : FixedContainer, IStateUIAttachable
             yield return workInterval;
         }
 
-        if(resetCurrCookTime)
-            cookingFood.CurrCookingRate = 0;
+        //if(resetCurrCookTime)
+        //    cookingFood.CurrCookingRate = 0;
 
-        //if (!Equals(stateUIAttachable))
-        //{
-        //    stateUIAttachable.OnProgressEnd();
-        //}
-        //OnProgressEnd();
         cookingFood.OnCooked();
 
         cookwareState = ECookwareState.Complete;
-
-        //AttachFoodImage();
 
         if (!FoodUIAttachable.FoodUIComponent.HasImage)
         {

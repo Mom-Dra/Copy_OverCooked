@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class FoodTray : CombinableTray, IFood
@@ -8,6 +9,8 @@ public class FoodTray : CombinableTray, IFood
     private bool isCookable = true;
     [SerializeField]
     private EFoodState foodState;
+    [SerializeField]
+    private ECookingMethod cookingMethod;
 
     private float currCookingRate = 0;
     private int currOverTime = 0;
@@ -27,6 +30,11 @@ public class FoodTray : CombinableTray, IFood
     public EFoodState FoodState
     {
         get => foodState;
+    }
+
+    public ECookingMethod CookingMethod
+    {
+        get => cookingMethod;
     }
 
     public override List<EObjectSerialCode> Ingredients
@@ -78,8 +86,7 @@ public class FoodTray : CombinableTray, IFood
     protected override void Awake()
     {
         base.Awake();
-        GetObject = dish = GetComponentInChildren<Dish>(true);
-        dish.Init();
+        
 
         if (foodState == EFoodState.Prepped)
         {
@@ -88,6 +95,14 @@ public class FoodTray : CombinableTray, IFood
 
         cookingPrefab = transform.Find("Cooking")?.gameObject;
         cookedPrefab = transform.Find("Cooked")?.gameObject;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        GetObject = dish = GetComponentInChildren<Dish>(true);
+        dish.Init();
+        dish.Combine(this, false);
     }
 
     public override EObjectType GetTopType()

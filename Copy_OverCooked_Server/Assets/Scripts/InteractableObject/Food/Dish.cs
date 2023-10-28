@@ -90,6 +90,7 @@ public class Dish : Food
     {
         base.Awake();
         ingredients.Clear();
+        Debug.Log($"{name} Clear : {ingredients.Count}");
     }
 
     public void Init() 
@@ -105,7 +106,6 @@ public class Dish : Food
             }
             prefabDictionary.Add(bits, prefab);
         }
-        Debug.Log($"{name}, Init");
     }
 
     private void SetActiveAll(bool active)
@@ -147,6 +147,19 @@ public class Dish : Food
     public bool IsValidRecipe(List<EObjectSerialCode> ingredients)
     {
         return prefabDictionary.ContainsKey(SerialCodeToBit(ingredients));
+        //int count = 0;
+        //foreach(EObjectSerialCode serial in ingredients)
+        //{
+        //    foreach(EObjectSerialCode serial2 in dishIngredients)
+        //    {
+        //        if (serial == serial2)
+        //        {
+        //            ++count;
+        //            break;
+        //        }
+        //    }
+        //}
+        //return count == ingredients.Count;
     }
 
     public bool IsValidIngredients(IFood iFood)
@@ -157,6 +170,7 @@ public class Dish : Food
         }
         if (stacking)
         {
+            Debug.Log(prefabDictionary.ContainsKey(SerialCodeToBit(iFood.Ingredients)));
             return prefabDictionary.ContainsKey(SerialCodeToBit(iFood.Ingredients));
         }
         List<EObjectSerialCode> tmp = new List<EObjectSerialCode>();
@@ -165,31 +179,29 @@ public class Dish : Food
         return prefabDictionary.ContainsKey(SerialCodeToBit(tmp));
     }
 
-    public void Combine(IFood iFood)
+    public void Combine(IFood iFood, bool destory = true)
     {
         ingredients.AddRange(iFood.Ingredients);
-
-        List<EObjectSerialCode> tmp = new List<EObjectSerialCode>();
-        tmp.AddRange(iFood.Ingredients);
-        tmp.AddRange(ingredients);
-
-        int bit = -1;
-        if (!stacking)
+        foreach(EObjectSerialCode ic in ingredients)
         {
-            SetActiveAll(false);
-            bit = SerialCodeToBit(tmp);
-        } 
-        else
-        {
-            bit = SerialCodeToBit(iFood.Ingredients);
+            Debug.Log($"Combine SC : {ic}");
         }
+
+        //List<EObjectSerialCode> tmp = new List<EObjectSerialCode>();
+        //tmp.AddRange(iFood.Ingredients);
+        //tmp.AddRange(ingredients);
+
+        SetActiveAll(false);
+        int bit = SerialCodeToBit(ingredients);
+
 
         if (prefabDictionary.ContainsKey(bit))
         {
             prefabDictionary[bit].SetActive(true);
             activePrefabs.AddRange(prefabDictionary[bit].prefabs);
         }
-        
-        Destroy(iFood.GameObject);
+
+        if(destory)
+            Destroy(iFood.GameObject);
     }
 }

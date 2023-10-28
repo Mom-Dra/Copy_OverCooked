@@ -17,12 +17,20 @@ public class Oven : Cookware
 
     protected override bool CanCook()
     {
-        return true;
+        return TryGet<Tray>(out Tray tray);
     }
 
     protected override bool IsValidObject(InteractableObject interactableObject)
     {
         return !HasObject() && interactableObject.TryGetComponent<Tray>(out Tray tray);
+    }
+
+    protected override void ThrowPut(InteractableObject interactableObject)
+    {
+        if (!TryCook())
+        {
+            base.ThrowPut(interactableObject);
+        }
     }
 
     public override void OnProgressBegin()

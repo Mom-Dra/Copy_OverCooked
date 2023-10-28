@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.046902925, y: 0.16, z: -0.001}
-  m_LocalScale: {x: 0.43005267, y: 0.299822, z: 0.9176903}
+  m_LocalScale: {x: 0.43005267, y: 0.299822, z: 0.802979}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8999916825354586950}
@@ -186,4 +186,6 @@ MonoBehaviour:
   uIOffset: {x: 0, y: 75}
   isCookable: 1
   foodState: 0
+  cookingMethod: 0
   ingredients: 
+  currCookingRate: 0

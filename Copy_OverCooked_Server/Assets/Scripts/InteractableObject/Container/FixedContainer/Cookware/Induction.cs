@@ -6,6 +6,11 @@ public class Induction : Cookware
     private Renderer burnerRenderer;
     private static Color originBurnerColor;
 
+    protected override ECookingMethod CookingMethod
+    {
+        get => getObject.GetComponent<CookableTray>().CookingMethod;
+    }
+
     protected override void Awake()
     {
         base.Awake();
@@ -17,10 +22,7 @@ public class Induction : Cookware
     {
         if (base.TryPut(interactableObject))
         {
-            if (TryGet<Food>(out Food food))
-            {
-                TryCook();
-            }
+            TryCook();
             return true;
         }
         return false;
@@ -33,7 +35,15 @@ public class Induction : Cookware
 
     protected override bool CanCook()
     {
-        return true;
+        return TryGet<CookableTray>(out CookableTray tray);
+    }
+
+    protected override void ThrowPut(InteractableObject interactableObject)
+    {
+        if (!TryCook())
+        {
+            base.ThrowPut(interactableObject);
+        }
     }
 
     public override void OnProgressBegin()

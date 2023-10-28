@@ -336,7 +336,9 @@ MonoBehaviour:
   uIOffset: {x: 0, y: 75}
   isCookable: 1
   foodState: 0
+  cookingMethod: 1
   ingredients: 
+  currCookingRate: 0
 --- !u!1 &8108740276783907528
 GameObject:
   m_ObjectHideFlags: 0

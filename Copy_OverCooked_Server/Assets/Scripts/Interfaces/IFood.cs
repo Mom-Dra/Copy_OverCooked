@@ -14,6 +14,11 @@ public interface IFood
         get;
     }
 
+    public ECookingMethod CookingMethod
+    { 
+        get; 
+    }
+
     public List<EObjectSerialCode> Ingredients
     {
         get;

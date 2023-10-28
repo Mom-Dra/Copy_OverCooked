@@ -28,14 +28,17 @@ public class OrderOutTable : FixedContainer
     {
         if (interactableObject.TryGetComponent<Plate>(out Plate plate))
         {
-            if (plate.HasObject())
+            if (plate.HasObject() && plate.GetObject.TryGetComponent<IFood>(out IFood iFood))
             {
-                Debug.Log($"[{Name}] : 林巩 贸府 {plate.GetObject.Name}");
+                Debug.Log($"[{Name}] : 林巩 贸府 {iFood.GameObject.name}");
+                MissionManager.Instance.Submit(iFood.Ingredients);
                 Destroy(plate.GetObject.gameObject);
-                plate.Remove();
+                plate.RemoveSelf();
             }
+            Fit(plate);
             plate.gameObject.SetActive(false);
             StartCoroutine(ReturnPlateCoroutine(plate));
+
         }
     }
 

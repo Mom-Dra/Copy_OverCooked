@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.6235246, y: 0.33349222, z: -0.33349222, w: 0.6235246}
   m_LocalPosition: {x: 0, y: 0.135, z: 0}
-  m_LocalScale: {x: 0.2727131, y: 0.52362347, z: 0.23826039}
+  m_LocalScale: {x: 0.23772673, y: 0.45281386, z: 0.23826039}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9009515711263530927}
@@ -164,8 +164,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.9150474, y: 0.27125624, z: 0.6952758}
-  m_Center: {x: 0.00095307827, y: 0.13632478, z: -0.0015576482}
+  m_Size: {x: 0.7929961, y: 0.27125624, z: 0.60809624}
+  m_Center: {x: 0.0053120553, y: 0.13632478, z: 0.002801299}
 --- !u!114 &2871954057327673295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,4 +186,6 @@ MonoBehaviour:
   uIOffset: {x: 0, y: 75}
   isCookable: 1
   foodState: 0
+  cookingMethod: 0
   ingredients: 
+  currCookingRate: 0

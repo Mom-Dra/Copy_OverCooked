@@ -69,7 +69,7 @@ public class InteractManager : MonobehaviorSingleton<InteractManager>
                         Debug.Log($"<color=yellow> OK </color>");
                         if(sender.ObjectType != EObjectType.Tray)
                         {
-                            sendContainer.Remove();
+                            sender.Remove(sendObject);
                         }
                     }
                 }
@@ -89,7 +89,7 @@ public class InteractManager : MonobehaviorSingleton<InteractManager>
                     if (receiver.TryPut(sendObject))
                     {
                         Debug.Log($"<color=yellow> OK </color>");
-                        sendContainer.Remove();
+                        sender.Remove(sendObject);
                     }
                 }
                 break;
@@ -105,7 +105,7 @@ public class InteractManager : MonobehaviorSingleton<InteractManager>
                     if (receiver.TryPut(sendObject))
                     {
                         Debug.Log($"<color=yellow> OK </color>");
-                        sendContainer.Remove();
+                        sender.Remove(sendObject);
                     } else
                     {
                         if (sender.TryGet<Hand>(out Hand sendHand))

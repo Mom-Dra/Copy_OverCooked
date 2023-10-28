@@ -28,6 +28,14 @@ public class Fryer : Cookware
         return !HasObject() && interactableObject.TryGetComponent<FryerTray>(out FryerTray fryerTray);
     }
 
+    protected override void ThrowPut(InteractableObject interactableObject)
+    {
+        if (!TryCook())
+        {
+            base.ThrowPut(interactableObject);
+        }
+    }
+
     public override void OnProgressBegin()
     {
         if(getObject.TryGetComponent<FryerTray>(out FryerTray fryerTray))

@@ -1,11 +1,7 @@
+using System;
 using System.Collections.Generic;
-using System.Threading;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
 {
@@ -41,10 +37,12 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
         foodImageDictionary.Add(EObjectSerialCode.Seaweed, EObjectSerialCode.Img_Seaweed);
         //Flour,
         foodImageDictionary.Add(EObjectSerialCode.Flour, EObjectSerialCode.Img_Flour);
+        foodImageDictionary.Add(EObjectSerialCode.Mixed_Flour, EObjectSerialCode.Img_Flour);
         //Tortilla,
         foodImageDictionary.Add(EObjectSerialCode.Tortilla, EObjectSerialCode.Img_Tortilla);
         //Egg,
         foodImageDictionary.Add(EObjectSerialCode.Egg, EObjectSerialCode.Img_Egg);
+        foodImageDictionary.Add(EObjectSerialCode.Mixed_Egg, EObjectSerialCode.Img_Egg);
 
 
         //Tomato,
@@ -53,6 +51,7 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
         //Meat,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Meat, EObjectSerialCode.Img_Meat);
         foodImageDictionary.Add(EObjectSerialCode.Grilled_Meat, EObjectSerialCode.Img_Meat);
+        foodImageDictionary.Add(EObjectSerialCode.Mixed_Meat, EObjectSerialCode.Img_Meat);
         //Chicken,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Chicken, EObjectSerialCode.Img_Chicken);
         foodImageDictionary.Add(EObjectSerialCode.Fried_Chicken, EObjectSerialCode.Img_Chicken);
@@ -80,6 +79,7 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
         foodImageDictionary.Add(EObjectSerialCode.Steamed_Fish, EObjectSerialCode.Img_Fish);
         //Carrot,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Carrot, EObjectSerialCode.Img_Carrot);
+        foodImageDictionary.Add(EObjectSerialCode.Mixed_Carrot, EObjectSerialCode.Img_Carrot);
         //Mushroom,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Mushroom, EObjectSerialCode.Img_Mushroom);
         foodImageDictionary.Add(EObjectSerialCode.Grilled_Mushroom, EObjectSerialCode.Img_Mushroom);
@@ -90,8 +90,10 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Sausage, EObjectSerialCode.Img_Sausage);
         //Chocolate,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Chocolate, EObjectSerialCode.Img_Chocolate);
+        foodImageDictionary.Add(EObjectSerialCode.Mixed_Chocolate, EObjectSerialCode.Img_Chocolate);
         //Honey,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Honey, EObjectSerialCode.Img_Honey);
+        foodImageDictionary.Add(EObjectSerialCode.Mixed_Honey, EObjectSerialCode.Img_Honey);
 
         //Rice,
         foodImageDictionary.Add(EObjectSerialCode.Rice, EObjectSerialCode.Img_Rice);
@@ -125,5 +127,17 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
             return Instantiate(go, GameObject.Find("Canvas").transform).GetComponent<T>();
         }
         return Instantiate(go).GetComponent<T>();
+    }
+
+    public EObjectSerialCode FindSerialCodeByCookingMethod(ECookingMethod cookingMethod)
+    {
+        string cookingMethjodToString = "Img_" + cookingMethod.ToString();
+        return (EObjectSerialCode)Enum.Parse(typeof(EObjectSerialCode), cookingMethjodToString, true);
+    }
+
+    public Image InstantiateByCookingMethod(ECookingMethod cookingMethod)
+    {
+        EObjectSerialCode serial = FindSerialCodeByCookingMethod(cookingMethod);
+        return InstantiateBySerialCode<Image>(serial);
     }
 }

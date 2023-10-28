@@ -29,9 +29,11 @@ public class CombinableTray : Tray, IFoodUIAttachable
             if (getObject.TryGet<Dish>(out Dish dish))
             {
                 return dish.IsValidIngredients(iFood);
-            } else
+            } 
+            else
             {
                 tmp.AddRange(Ingredients);
+                Debug.Log(DishManager.Instance.TryGetDish(tmp, out Dish resdsult));
                 return DishManager.Instance.TryGetDish(tmp, out Dish result);
             }
         }

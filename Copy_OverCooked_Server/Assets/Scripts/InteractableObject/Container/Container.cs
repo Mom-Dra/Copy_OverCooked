@@ -109,9 +109,16 @@ public class Container : InteractableObject
         return true;
     }
      
-    public virtual void Remove()
+    public virtual void Remove(InteractableObject interactableObject)
     {
-        getObject = null;
+        if (getObject == interactableObject)
+        {
+            getObject = null;
+        } 
+        else if (getObject != null && getObject.TryGetComponent<Container>(out Container container))
+        {
+            container.Remove(interactableObject);
+        }
     }
 
     public virtual bool TryPut(InteractableObject interactableObject)

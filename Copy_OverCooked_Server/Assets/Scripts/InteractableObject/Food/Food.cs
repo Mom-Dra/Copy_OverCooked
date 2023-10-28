@@ -10,6 +10,8 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
     protected bool isCookable = true;
     [SerializeField]
     protected EFoodState foodState;
+    [SerializeField]
+    protected ECookingMethod cookingMethod;
 
     [SerializeField]
     protected List<EObjectSerialCode> ingredients = new List<EObjectSerialCode>();
@@ -37,6 +39,11 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
     public EFoodState FoodState 
     { 
         get => foodState; 
+    }
+
+    public ECookingMethod CookingMethod
+    {
+        get => cookingMethod;
     }
 
     public virtual List<EObjectSerialCode> Ingredients
@@ -158,9 +165,9 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
 
     public void OnCooked()
     {
+        foodState = EFoodState.Cooked;
         if (cookedPrefab != null)
         {
-            foodState = EFoodState.Cooked;
             if (!cookedPrefab.activeSelf)
             {
                 activePrefab?.gameObject.SetActive(false);

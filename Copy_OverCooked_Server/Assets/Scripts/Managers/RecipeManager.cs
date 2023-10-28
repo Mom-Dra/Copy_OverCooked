@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class RecipeManager : MonobehaviorSingleton<RecipeManager>
 {
-    [SerializeField]
     private List<Recipe> recipes = new List<Recipe>();
 
     protected override void Awake()

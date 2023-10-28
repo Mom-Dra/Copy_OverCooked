@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Chocolate_Pancake
   m_EditorClassIdentifier: 
   cookingMethod: 2
-  ingredients: 790000000f01000010010000
+  ingredients: 110100000f01000010010000
   totalCookDuration: 0
   cookedFood: 358

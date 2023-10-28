@@ -292,8 +292,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.81205094, y: 0.23210213, z: 1.2556809}
-  m_Center: {x: -0.0030218363, y: 0.12399493, z: -0.021916032}
+  m_Size: {x: 0.81205094, y: 0.23210213, z: 0.9251535}
+  m_Center: {x: -0.0030218363, y: 0.12399493, z: 0.005937293}
 --- !u!114 &5459943901223524774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,7 +314,9 @@ MonoBehaviour:
   uIOffset: {x: 0, y: 75}
   isCookable: 1
   foodState: 0
+  cookingMethod: 0
   ingredients: 
+  currCookingRate: 0
 --- !u!114 &-4231405345991792751
 MonoBehaviour:
   m_ObjectHideFlags: 0

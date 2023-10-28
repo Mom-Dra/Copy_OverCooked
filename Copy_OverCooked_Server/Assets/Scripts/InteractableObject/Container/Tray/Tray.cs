@@ -44,7 +44,7 @@ public class Tray : Container
 
     protected override bool IsValidObject(InteractableObject interactableObject)
     {
-        return interactableObject.TryGetComponent<IFood>(out IFood iFood) && iFood.FoodState != EFoodState.Burned;
+        return interactableObject.TryGetComponent<IFood>(out IFood iFood) && iFood.FoodState != EFoodState.Burned && iFood.FoodState != EFoodState.Cooking;
     }
 
     public override void Put(InteractableObject interactableObject)
@@ -60,9 +60,9 @@ public class Tray : Container
         }
     }
 
-    public override void Remove()
+    public override void Remove(InteractableObject interactableObject)
     {
-        base.Remove();
+        base.Remove(interactableObject);
         uIComponent.Clear();
     }
 

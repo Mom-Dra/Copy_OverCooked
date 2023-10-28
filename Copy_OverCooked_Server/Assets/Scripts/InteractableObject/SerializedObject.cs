@@ -1,3 +1,5 @@
+using System;
+using System.Xml.Linq;
 using UnityEngine;
 
 public class SerializedObject : MonoBehaviour
@@ -27,5 +29,15 @@ public class SerializedObject : MonoBehaviour
         NetworkObjectManager.Instance.Add(this);
     }
 
-    
+    public override bool Equals(object other)
+    {
+        SerializedObject so = other as SerializedObject;
+        return id == so.Id;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(base.GetHashCode(), id);
+    }
+
 }

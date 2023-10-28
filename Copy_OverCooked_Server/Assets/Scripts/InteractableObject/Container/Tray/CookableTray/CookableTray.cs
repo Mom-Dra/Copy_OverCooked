@@ -78,9 +78,9 @@ public abstract class CookableTray : Tray, IStateUIAttachable, IFoodUIAttachable
         return recipe != null;
     }
 
-    public override void Remove()
+    public override void Remove(InteractableObject interactableObject)
     {
-        base.Remove();
+        base.Remove(interactableObject);
         if(stateImage != null)
         {
             Destroy(stateImage.gameObject);

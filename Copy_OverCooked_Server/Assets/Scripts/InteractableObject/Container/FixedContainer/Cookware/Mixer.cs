@@ -6,9 +6,9 @@ public class Mixer : Cookware
     {
         if (base.TryPut(interactableObject))
         {
-            if (TryGet<Food>(out Food mixed))
+            if (TryGet<Mixed>(out Mixed mixed))
             {
-                currTotalCookDuration = 5 + mixed.Ingredients.Count * 2f;
+                currTotalCookDuration = 7 + mixed.Ingredients.Count * 4f;
                 if (cookwareState == ECookwareState.Idle)
                 {
                     selectedCoroutine = CookCoroutine(mixed, false);
@@ -37,12 +37,20 @@ public class Mixer : Cookware
 
     protected override bool CanCook()
     {
-        return true;
+        return TryGet<MixerTray>(out MixerTray tray);
     }
 
     protected override bool IsValidObject(InteractableObject interactableObject)
     {
         return !HasObject() && interactableObject.TryGetComponent<MixerTray>(out MixerTray tray);
+    }
+
+    protected override void ThrowPut(InteractableObject interactableObject)
+    {
+        if (!TryCook())
+        {
+            base.ThrowPut(interactableObject);
+        }
     }
 
     public override void OnProgressBegin()
@@ -55,9 +63,9 @@ public class Mixer : Cookware
 
     }
 
-    public override void Remove()
+    public override void Remove(InteractableObject interactableObject)
     {
-        base.Remove();
+        base.Remove(interactableObject);
         currTotalCookDuration = totalCookDuration;
     }
 }

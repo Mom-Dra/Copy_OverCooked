@@ -173,12 +173,21 @@ public enum EObjectSerialCode
     Fire = 500,
     Water,
 
-    // Image (1000 ~ 1099)
+    // Image (1000 ~ 1049)
     Img_Progress = 1000,
     Img_Completed,
     Img_Warning,
     Img_Overheat,
     Img_PlusBase,
+    
+    // CookingMethod Image (1050 ~ 1099)
+    Img_Chop,
+    Img_Grill,
+    Img_Boil,
+    Img_Fry,
+    Img_Steam,
+    Img_Mix,
+    Img_Bake,
 
     // Food Image (1100 ~ )
     Img_Bread = 1100,

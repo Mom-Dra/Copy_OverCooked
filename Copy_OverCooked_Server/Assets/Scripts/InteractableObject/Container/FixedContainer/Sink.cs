@@ -24,6 +24,8 @@ public class Sink : FixedContainer, IStateUIAttachable, IReactable
 
     private Stack<Plate> cleanPlateStack = new Stack<Plate>();
 
+    private float currWashingTime = 0f;
+
     private Container PutContainer
     {
         get
@@ -103,7 +105,6 @@ public class Sink : FixedContainer, IStateUIAttachable, IReactable
         }
         Image gauge = stateImage.transform.GetChild(1).GetComponent<Image>();
 
-        float currWashingTime = 0f;
 
         while(currWashingTime  < washingTime)
         {
@@ -111,6 +112,8 @@ public class Sink : FixedContainer, IStateUIAttachable, IReactable
             gauge.fillAmount = currWashingTime / washingTime;
             yield return waitForTick;
         }
+
+        currWashingTime = 0f;
 
         Plate popPlate = DirtyPlate;
 
@@ -157,8 +160,8 @@ public class Sink : FixedContainer, IStateUIAttachable, IReactable
             {
                 prevPlate = currPlate;
                 currPlate = currPlate.GetObject as Plate;
-                prevPlate.Remove();
-                DirtyPlate = currPlate;
+                prevPlate.RemoveSelf();
+                DirtyPlate = currPlate; 
             }
         }
     }
@@ -166,7 +169,7 @@ public class Sink : FixedContainer, IStateUIAttachable, IReactable
     public override bool TryGet<T>(out T result, EGetMode getMode = EGetMode.Peek)
     {
         result = default(T);
-        if (cleanPlateStack.Count > 0)
+        if (HasObject())
         {
             result = cleanPlateStack.Peek().GetComponent<T>();
         }
@@ -174,16 +177,13 @@ public class Sink : FixedContainer, IStateUIAttachable, IReactable
         return result != null;
     }
 
-    public override void Remove()
+    public override void Remove(InteractableObject interactableObject)
     {
+        base.Remove(interactableObject);
         cleanPlateStack.Pop();
-        if(cleanPlateStack.Count > 0)
+        if (cleanPlateStack.Count > 0)
         {
-            cleanPlateStack.Peek().Remove();
-        } 
-        else
-        {
-            base.Remove();
+            cleanPlateStack.Peek().RemoveSelf();
         }
     }
 

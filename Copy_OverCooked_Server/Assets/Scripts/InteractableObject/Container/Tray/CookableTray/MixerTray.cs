@@ -10,15 +10,15 @@ public class MixerTray : CookableTray
     [SerializeField]
     private float rotateRate = 0.4f;
 
-    private Food mixedPrefab;
-    private Food mixed;
+    private Mixed mixedPrefab;
+    private Mixed mixed;
 
     private IEnumerator rotateCoroutine;
 
     protected override void Awake()
     {
         base.Awake();
-        mixedPrefab = SerialCodeDictionary.Instance.FindBySerialCode(EObjectSerialCode.Mixed).GetComponent<Food>();
+        mixedPrefab = SerialCodeDictionary.Instance.FindBySerialCode(EObjectSerialCode.Mixed).GetComponent<Mixed>();
         rotateCoroutine = RotateCoroutine();
     }
 
@@ -28,8 +28,10 @@ public class MixerTray : CookableTray
         {
             if(iFood.FoodState != EFoodState.Burned)
             {
-                return RecipeManager.Instance.TryGetRecipe(CookingMethod, iFood.Ingredients, out Recipe recipe) 
-                    && (mixed == null || mixed.Ingredients.Count < maxContainCount);                                                                                       
+                if(iFood.CookingMethod == CookingMethod || RecipeManager.Instance.TryGetRecipe(CookingMethod, iFood.Ingredients, out Recipe recipe))
+                {
+                    return (mixed == null || mixed.Ingredients.Count + iFood.Ingredients.Count <= maxContainCount);
+                }                                                                                  
             }
         }
         return false;
@@ -37,29 +39,42 @@ public class MixerTray : CookableTray
 
     public override void Put(InteractableObject interactableObject)
     {
-        if(interactableObject.TryGetComponent<IFood>(out IFood iFood))
+        if (interactableObject.TryGetComponent<IFood>(out IFood iFood))
         {
-            
-            if (mixed == null)
-            {
-                GetObject = mixed = Instantiate(mixedPrefab);
-                mixed.Ingredients.Clear();
-            }
-
-            //
-            // Mixed 색상 혼합 코드 작성해야함
-            //
-            if (RecipeManager.Instance.TryGetRecipe(CookingMethod, iFood.Ingredients, out Recipe recipe))
-            {
-                List<EObjectSerialCode> tmp = new List<EObjectSerialCode>{recipe.CookedFood};
-                mixed.Ingredients.AddRange(tmp);
-            }
-            
             uIComponent.AddRange(iFood.Ingredients);
-            //AddCookDuration(iFood);
-            mixed.CurrOverTime = 0;
+
+            if (interactableObject.TryGetComponent<Mixed>(out Mixed putMixed))
+            {
+                if (mixed == null)
+                {
+                    GetObject = mixed = putMixed;
+                } 
+                else
+                {
+                    mixed.CurrCookingRate += putMixed.CurrCookingRate;
+                    mixed.Ingredients.AddRange(putMixed.Ingredients);
+                    mixed.CurrOverTime = 0;
+                    Destroy(putMixed.GameObject);
+                }
+            } 
+            else 
+            {
+                if (mixed == null)
+                {
+                    GetObject = mixed = Instantiate(mixedPrefab);
+                    mixed.Ingredients.Clear();
+                }
+
+                if (RecipeManager.Instance.TryGetRecipe(CookingMethod, iFood.Ingredients, out Recipe recipe))
+                {
+                    List<EObjectSerialCode> tmp = new List<EObjectSerialCode> { recipe.CookedFood };
+                    mixed.Ingredients.AddRange(tmp);
+                    mixed.CurrOverTime = 0;
+                    Destroy(iFood.GameObject);
+                }
+            }
             
-            if(mixed.CurrCookingRate > 0)
+            if (mixed.CurrCookingRate > 0 && mixed.CurrOverTime == 0)
             {
                 if (stateImage != null && stateImage.TryGetComponent<SerializedObject>(out SerializedObject so))
                 {
@@ -73,20 +88,20 @@ public class MixerTray : CookableTray
                     StateUI = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Progress);
                 }
                 Image gauge = stateImage.transform.GetChild(1).GetComponent<Image>();
-                gauge.fillAmount = mixed.CurrCookingRate / (5 + mixed.Ingredients.Count * 2f);
+                gauge.fillAmount = mixed.CurrCookingRate / (7 + mixed.Ingredients.Count * 4f);
             }
-            
+
 
             //
             ChangeMixedColor(interactableObject);
 
-            Destroy(iFood.GameObject);
+            
         }
     }
 
-    public override void Remove()
+    public override void Remove(InteractableObject interactableObject)
     {
-        base.Remove();
+        base.Remove(interactableObject);
         mixed = null;
     }
 

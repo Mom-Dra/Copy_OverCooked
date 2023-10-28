@@ -50,16 +50,20 @@ public class BaseUIComponent : FoodUIComponent
 
     public override void Add(EObjectSerialCode serialCode)
     {
-        base.Add(serialCode);
-        if (images.Count == 1)
+        if (images.Count == 0)
         {
             centerBaseImage.gameObject.SetActive(false);
             SetActiveBaseImages(true);
         } 
         else
         {
-            baseImages[images.Count-1].gameObject.SetActive(false);  
+            if(images.Count > baseImages.Count)
+            {
+                SetActiveBaseImages(false);
+            }
+            else baseImages[images.Count-1].gameObject.SetActive(false);  
         }
+        base.Add(serialCode);
     }
 
     public override void Clear(bool activeAll = false)
@@ -80,23 +84,29 @@ public class BaseUIComponent : FoodUIComponent
     public override void OnImagePositionUpdate()
     {
         Vector2 screenPos = WorldToScreenPoint;
+        int offsetIndex = (images.Count > baseImages.Count) ? images.Count - 1 : baseImages.Count - 1;
 
         if (centerBaseImage.gameObject.activeSelf)
         {
             centerBaseImage.transform.position = anchorOffset + ImageOffsets[0][0] + screenPos;
-        } else
+        } 
+        else
         {
-            for (int i = 0; i < baseImages.Count; i++)
+            if(images.Count <= baseImages.Count)
             {
-                Vector2 totalOffset = anchorOffset + ImageOffsets[baseImages.Count - 1][i] + screenPos;
-                baseImages[i].transform.position = totalOffset;
+                for (int i = 0; i < baseImages.Count; i++)
+                {
+                    Vector2 totalOffset = anchorOffset + screenPos + ImageOffsets[baseImages.Count - 1][i];
+                    baseImages[i].transform.position = totalOffset;
+                }
             }
         }
 
         for (int i = 0; i < images.Count; i++)
         {
-            Vector2 totalOffset = anchorOffset + ImageOffsets[baseImages.Count - 1][i] + screenPos;
+            Vector2 totalOffset = anchorOffset + screenPos + ImageOffsets[offsetIndex][i];
             images[i].transform.position = totalOffset;
         }
+        
     }
 }

@@ -88,14 +88,7 @@ public class InteractableObject : SerializedObject
         onGlowShader = false;
     }
 
-    public override bool Equals(object other)
-    {
-        InteractableObject io = other as InteractableObject;
-        return Name.Equals(io.Name) && objectType == io.objectType;
-    }
+    
 
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(base.GetHashCode(), name);
-    }
+    
 }

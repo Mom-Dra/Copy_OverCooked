@@ -8,4 +8,5 @@ public enum ECookingMethod
     Bake,
     Steam,
     Fry,
+    NONE = default,
 }

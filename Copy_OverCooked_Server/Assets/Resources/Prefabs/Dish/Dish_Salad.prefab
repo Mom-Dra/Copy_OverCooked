@@ -973,20 +973,31 @@ MonoBehaviour:
   uIOffset: {x: 0, y: 75}
   isCookable: 1
   foodState: 3
+  cookingMethod: 0
   ingredients: 
+  currCookingRate: 0
   maxIngredientCount: 3
-  stacking: 1
+  stacking: 0
   dishIngredients: 9b000000960000009d000000
   prefabToCombines:
-  - ingredients: 9b000000
+  - ingredients: 9b00000096000000
     prefabs:
     - {fileID: 6310022455236324246}
-  - ingredients: 9d000000
+    - {fileID: 3647715997365019588}
+  - ingredients: 9b0000009d000000
     prefabs:
+    - {fileID: 6310022455236324246}
     - {fileID: 8123705660443230023}
-  - ingredients: 96000000
+  - ingredients: 9b0000009d00000096000000
+    prefabs:
+    - {fileID: 6310022455236324246}
+    - {fileID: 3647715997365019588}
+    - {fileID: 8123705660443230023}
+  - ingredients: 960000009d000000
     prefabs:
     - {fileID: 3647715997365019588}
+    - {fileID: 8123705660443230023}
+    - {fileID: 0}
 --- !u!1 &6310022455236324246
 GameObject:
   m_ObjectHideFlags: 0

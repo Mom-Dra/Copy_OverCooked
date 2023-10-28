@@ -20,9 +20,9 @@ public class FoodBox : FixedContainer
     //    return EObjectType.Food;
     //}
 
-    public override void Remove()
+    public override void Remove(InteractableObject interactableObject)
     {
-        base.Remove();
+        base.Remove(interactableObject);
     }
 
 }

@@ -52,7 +52,7 @@ public class Plate : CombinableTray
     {
         if(plateState == EPlateState.Clean)
         {
-            if (interactableObject.TryGetComponent<IFood>(out IFood iFood))
+            if (interactableObject.TryGetComponent<IFood>(out IFood iFood) && iFood.CookingMethod != ECookingMethod.Mix)
             {
                 if (!iFood.IsCookable || iFood.FoodState == EFoodState.Cooked)
                 {
@@ -99,8 +99,9 @@ public class Plate : CombinableTray
         }
     }
 
-    public override void Remove()
+    public void RemoveSelf()
     {
-        base.Remove();
+        getObject = null;
+        uIComponent.Clear();
     }
 }
