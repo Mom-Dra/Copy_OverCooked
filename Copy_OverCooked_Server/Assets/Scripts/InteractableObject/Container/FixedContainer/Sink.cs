@@ -6,7 +6,7 @@ using System.Collections;
 using UnityEngine.Analytics;
 using Unity.VisualScripting.Dependencies.NCalc;
 
-public class Sink : FixedContainer, IStateUIAttachable, IReactable
+public class Sink : FixedContainer, IProgressUIAttachable, IReactable
 {
     private static readonly WaitForSeconds waitForTick = new WaitForSeconds(0.1f);
 
@@ -34,7 +34,7 @@ public class Sink : FixedContainer, IStateUIAttachable, IReactable
         }
     }
 
-    public Image StateUI
+    public Image ProgressImage
     {
         get
         {
@@ -64,16 +64,19 @@ public class Sink : FixedContainer, IStateUIAttachable, IReactable
         {
             Plate plate = dirtyPlateStack.Pop();
             plate.gameObject.SetActive(true);
+
             if (dirtyPlateStack.Count == 0)
             {
                 hasDirtyPlatePrefab.gameObject.SetActive(false);
             }
+
             return plate;
         }
         set
         {
             value.gameObject.SetActive(false);
             dirtyPlateStack.Push(value);
+
             if(dirtyPlateStack.Count > 0)
             {
                 hasDirtyPlatePrefab.gameObject.SetActive(true);
@@ -101,7 +104,7 @@ public class Sink : FixedContainer, IStateUIAttachable, IReactable
     {
         if (stateImage == null)
         {
-            StateUI = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Progress);
+            ProgressImage = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Progress);
         }
         Image gauge = stateImage.transform.GetChild(1).GetComponent<Image>();
 

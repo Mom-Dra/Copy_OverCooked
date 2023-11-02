@@ -6582,7 +6582,7 @@ MonoBehaviour:
   displayOffset: {x: 0, y: 0.05, z: 0}
   getObject: {fileID: 0}
   maxContainCount: 1
-  cookingMethod: 7
+  cookingMethod: 8
   stateImageOffset: {x: 0, y: -75, z: 0}
 --- !u!1 &6430709073263056701
 GameObject:

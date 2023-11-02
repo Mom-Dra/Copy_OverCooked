@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018c8a6fbc42ca1439a85f78d163161b, type: 3}
   m_Name: Mixed_Meat
   m_EditorClassIdentifier: 
-  cookingMethod: 4
+  cookingMethod: 5
   ingredients: 97000000
   totalCookDuration: 0
   cookedFood: 276

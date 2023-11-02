@@ -53,14 +53,16 @@ public class MissionManager : MonobehaviorSingleton<MissionManager>
 
     private IEnumerator MissionCoroutine()
     {
+        int randomIndex = -1;
         while (true)
         {
             if (missionBoardList.Count < maxMissionCount)
             {
-                int randomIndex = Random.Range(0, missionList.Length);
+                randomIndex = Random.Range(0, missionList.Length);
                 AddMission(missionList[randomIndex]);
                 yield return missionInterval;
             }
+            yield return null;
         }
     }
 
@@ -158,6 +160,7 @@ public class MissionManager : MonobehaviorSingleton<MissionManager>
             targetTransform.anchoredPosition = Vector3.Lerp(startPos, destPos, percentageComplete);
             yield return null;
         }
+        targetTransform.anchoredPosition = destPos;
     }
 
     

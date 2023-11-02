@@ -1,5 +1,6 @@
 public enum ECookingMethod
 {
+    NONE = default,
     Combine,
     Chop,
     Grill,
@@ -8,5 +9,4 @@ public enum ECookingMethod
     Bake,
     Steam,
     Fry,
-    NONE = default,
 }

@@ -8548,9 +8548,10 @@ MonoBehaviour:
   uIOffset: {x: 0, y: 75}
   isCookable: 1
   foodState: 3
+  cookingMethod: 1
   ingredients: 
+  currCookingRate: 0
   maxIngredientCount: 4
-  stacking: 0
   dishIngredients: ab000000d3000000d2000000d7000000d6000000d5000000
   prefabToCombines:
   - ingredients: ab000000d3000000

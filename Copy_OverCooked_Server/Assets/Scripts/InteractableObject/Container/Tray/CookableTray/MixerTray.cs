@@ -76,18 +76,18 @@ public class MixerTray : CookableTray
             
             if (mixed.CurrCookingRate > 0 && mixed.CurrOverTime == 0)
             {
-                if (stateImage != null && stateImage.TryGetComponent<SerializedObject>(out SerializedObject so))
+                if (progressImage != null && progressImage.TryGetComponent<SerializedObject>(out SerializedObject so))
                 {
                     if (so.SerialCode != EObjectSerialCode.Img_Progress)
                     {
-                        Destroy(stateImage.gameObject);
-                        StateUI = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Progress);
+                        Destroy(progressImage.gameObject);
+                        ProgressImage = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Progress);
                     }
                 } else
                 {
-                    StateUI = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Progress);
+                    ProgressImage = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Progress);
                 }
-                Image gauge = stateImage.transform.GetChild(1).GetComponent<Image>();
+                Image gauge = progressImage.transform.GetChild(1).GetComponent<Image>();
                 gauge.fillAmount = mixed.CurrCookingRate / (7 + mixed.Ingredients.Count * 4f);
             }
 

@@ -42,7 +42,6 @@ public class InteractManager : MonobehaviorSingleton<InteractManager>
 
         EObjectType recvTopType = receiver.GetTopType();
         InteractableObject sendObject = null;
-        Container sendContainer = sender;
 
         switch (recvTopType)
         {
@@ -55,9 +54,8 @@ public class InteractManager : MonobehaviorSingleton<InteractManager>
                 {
                     //sendObject = food;
                     sendObject = food.GameObject.GetComponent<InteractableObject>();
-                    sendContainer = sender.TopContainer;
                 }
-                else if(sender.TryGet<FireExtinguisher>(out FireExtinguisher fe))
+                else if(sender.TryGet<FireExtinguisher>(out FireExtinguisher fe, EGetMode.Pop))
                 {
                     sendObject = fe;
                 }
@@ -67,6 +65,7 @@ public class InteractManager : MonobehaviorSingleton<InteractManager>
                     if (receiver.TryPut(sendObject))
                     { 
                         Debug.Log($"<color=yellow> OK </color>");
+                        // 여기 수정해야 할 것 같은데 
                         if(sender.ObjectType != EObjectType.Tray)
                         {
                             sender.Remove(sendObject);
@@ -78,7 +77,6 @@ public class InteractManager : MonobehaviorSingleton<InteractManager>
                 if (sender.TryGet<IFood>(out IFood food1, EGetMode.Pop))
                 {
                     sendObject = food1.GameObject.GetComponent<InteractableObject>();
-                    sendContainer = sender.TopContainer;
                 }else if(sender.TryGet<Tray>(out Tray tray2))
                 {
                     sendObject = tray2;
@@ -97,7 +95,6 @@ public class InteractManager : MonobehaviorSingleton<InteractManager>
                 if (sender.TryGet<IFood>(out IFood food2, EGetMode.Pop))
                 {
                     sendObject = food2.GameObject.GetComponent<InteractableObject>();
-                    sendContainer = sender.TopContainer;
                 }
 
                 if (sendObject != null)

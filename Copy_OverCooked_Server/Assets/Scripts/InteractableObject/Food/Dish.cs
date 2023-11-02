@@ -71,8 +71,10 @@ public class Dish : Food
     [SerializeField]
     private int maxIngredientCount = 4;
 
-    [SerializeField]
-    private bool stacking = false;
+    // stacking 포함된 주석들 일단 지우지 말 것. 
+    // 아마 추후 다시 사용할 기능
+    //[SerializeField] 
+    //private bool stacking = false;
 
     [SerializeField]
     private List<EObjectSerialCode> dishIngredients;    
@@ -85,13 +87,6 @@ public class Dish : Food
     private Dictionary<int, PrefabToCombine> prefabDictionary = new Dictionary<int, PrefabToCombine>();
 
     private List<GameObject> activePrefabs = new List<GameObject>();
-
-    protected override void Awake()
-    {
-        base.Awake();
-        ingredients.Clear();
-        Debug.Log($"{name} Clear : {ingredients.Count}");
-    }
 
     public void Init() 
     {
@@ -144,6 +139,8 @@ public class Dish : Food
         return bits;
     }
 
+    // 이거 아마 그냥 없애고
+    // 아래의 IsValidIngredient로 대체해도 될듯 
     public bool IsValidRecipe(List<EObjectSerialCode> ingredients)
     {
         return prefabDictionary.ContainsKey(SerialCodeToBit(ingredients));
@@ -162,30 +159,32 @@ public class Dish : Food
         //return count == ingredients.Count;
     }
 
-    public bool IsValidIngredients(IFood iFood)
+    public bool IsValidIngredients(List<EObjectSerialCode> combineIngredients)
     {
-        if(ingredients.Count + iFood.Ingredients.Count > maxIngredientCount)
+        if(ingredients.Count + combineIngredients.Count > maxIngredientCount)
         {
             return false;
         }
-        if (stacking)
-        {
-            Debug.Log(prefabDictionary.ContainsKey(SerialCodeToBit(iFood.Ingredients)));
-            return prefabDictionary.ContainsKey(SerialCodeToBit(iFood.Ingredients));
-        }
+        //if (stacking)
+        //{
+        //    Debug.Log(prefabDictionary.ContainsKey(SerialCodeToBit(iFood.Ingredients)));
+        //    return prefabDictionary.ContainsKey(SerialCodeToBit(iFood.Ingredients));
+        //}
+
         List<EObjectSerialCode> tmp = new List<EObjectSerialCode>();
-        tmp.AddRange(iFood.Ingredients);
+        tmp.AddRange(combineIngredients);
         tmp.AddRange(ingredients);
+
         return prefabDictionary.ContainsKey(SerialCodeToBit(tmp));
     }
 
-    public void Combine(IFood iFood, bool destory = true)
+    public void Combine(List<EObjectSerialCode> combineIngredients)
     {
-        ingredients.AddRange(iFood.Ingredients);
-        foreach(EObjectSerialCode ic in ingredients)
-        {
-            Debug.Log($"Combine SC : {ic}");
-        }
+        ingredients.AddRange(combineIngredients);
+        //foreach(EObjectSerialCode ic in ingredients)
+        //{
+        //    Debug.Log($"Combine SC : {ic}");
+        //}
 
         //List<EObjectSerialCode> tmp = new List<EObjectSerialCode>();
         //tmp.AddRange(iFood.Ingredients);
@@ -200,8 +199,5 @@ public class Dish : Food
             prefabDictionary[bit].SetActive(true);
             activePrefabs.AddRange(prefabDictionary[bit].prefabs);
         }
-
-        if(destory)
-            Destroy(iFood.GameObject);
     }
 }

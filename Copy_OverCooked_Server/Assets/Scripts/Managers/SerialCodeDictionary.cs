@@ -38,6 +38,7 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
         //Flour,
         foodImageDictionary.Add(EObjectSerialCode.Flour, EObjectSerialCode.Img_Flour);
         foodImageDictionary.Add(EObjectSerialCode.Mixed_Flour, EObjectSerialCode.Img_Flour);
+        foodImageDictionary.Add(EObjectSerialCode.Baked_Flour, EObjectSerialCode.Img_Flour);
         //Tortilla,
         foodImageDictionary.Add(EObjectSerialCode.Tortilla, EObjectSerialCode.Img_Tortilla);
         //Egg,
@@ -58,6 +59,7 @@ public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
         foodImageDictionary.Add(EObjectSerialCode.Grilled_Chicken, EObjectSerialCode.Img_Chicken);
         //Dough,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Dough, EObjectSerialCode.Img_Dough);
+        foodImageDictionary.Add(EObjectSerialCode.Baked_Dough, EObjectSerialCode.Img_Dough);
         //Cheeze,
         foodImageDictionary.Add(EObjectSerialCode.Chopped_Cheeze, EObjectSerialCode.Img_Cheeze);
         //Cabbage,

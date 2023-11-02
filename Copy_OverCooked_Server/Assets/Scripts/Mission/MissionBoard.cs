@@ -30,7 +30,11 @@ public class MissionBoard : Image
         for(int i = 0; i < ingredients.Length; i++)
         {
             EObjectSerialCode? sc = SerialCodeDictionary.Instance.FindFoodImageSerialCode(mission.ingredients[i]);
-            Debug.Log($"org sc : {mission.ingredients[i]}, output sc: {sc}");
+            //Debug.Log($"org sc : {mission.ingredients[i]}, output sc: {sc}");
+            if(sc == null)
+            {
+                throw new System.Exception($"{mission.ingredients[i]} => {sc} is Null");
+            }
             ingredients[i] = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>((EObjectSerialCode)sc);
             ingredients[i].transform.SetParent(transform);
             ingredients[i].transform.position = transform.position + new Vector3(imageOffset[ingredients.Length - 1][i], 0f, 0f);

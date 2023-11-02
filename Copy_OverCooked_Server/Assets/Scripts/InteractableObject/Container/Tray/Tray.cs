@@ -44,18 +44,17 @@ public class Tray : Container
 
     protected override bool IsValidObject(InteractableObject interactableObject)
     {
-        return interactableObject.TryGetComponent<IFood>(out IFood iFood) && iFood.FoodState != EFoodState.Burned && iFood.FoodState != EFoodState.Cooking;
+        return interactableObject.TryGetComponent<IFood>(out IFood iFood) && iFood.FoodState != EFoodState.Burned;
     }
 
     public override void Put(InteractableObject interactableObject)
     {
         if(interactableObject.TryGetComponent<IFood>(out IFood putIFood))
         {
-            if (putIFood.FoodUIComponent.HasImage)
-            {
-                putIFood.FoodUIComponent.Clear();
-            }
+            putIFood.FoodUIComponent.Clear();
+            
             base.Put(interactableObject);
+
             uIComponent.AddRange(putIFood.Ingredients);
         }
     }

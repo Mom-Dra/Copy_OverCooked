@@ -19,32 +19,40 @@ public class CombinableTray : Tray, IFoodUIAttachable
 
     protected override bool IsValidObject(InteractableObject interactableObject)
     {
-        if (!HasObject())
-            return true;
-
         if (interactableObject.TryGetComponent<IFood>(out IFood iFood))
         {
+            if (iFood.FoodState == EFoodState.Burned || iFood.FoodState == EFoodState.Cooking)
+                return false;
+
+            if (!HasObject())
+                return true;
+
             List<EObjectSerialCode> tmp = new List<EObjectSerialCode>();
             tmp.AddRange(iFood.Ingredients);
+
             if (getObject.TryGet<Dish>(out Dish dish))
             {
-                return dish.IsValidIngredients(iFood);
+                if (interactableObject.GetComponent<Dish>())
+                {
+                    return false;
+                }
+                return dish.IsValidIngredients(tmp);
             } 
             else
             {
                 tmp.AddRange(Ingredients);
-                Debug.Log(DishManager.Instance.TryGetDish(tmp, out Dish resdsult));
+
                 return DishManager.Instance.TryGetDish(tmp, out Dish result);
             }
         }
         return false;
     }
 
-    public void PutDish(IFood iFood)
+    public void CombineToDish(IFood iFood)
     {
         if (getObject.TryGet<Dish>(out Dish dish))
         {
-            dish.Combine(iFood);
+            dish.Combine(iFood.Ingredients);
         } 
         else
         {
@@ -58,17 +66,24 @@ public class CombinableTray : Tray, IFoodUIAttachable
                 uIComponent.Clear();
                 Dish putDish = Instantiate(dish);
                 putDish.Init();
-                if(getObject.TryGetComponent<IFood>(out IFood getIFood))
+
+                List<EObjectSerialCode> tmp2 = new List<EObjectSerialCode>();
+                tmp2.AddRange(iFood.Ingredients);
+
+                if(HasObject() && getObject.TryGetComponent<Food>(out Food getFood))
                 {
-                    putDish.Combine(getIFood);
-                    uIComponent.AddRange(getIFood.Ingredients);
+                    tmp2.AddRange(getFood.Ingredients);
+
+                    uIComponent.AddRange(getFood.Ingredients);
+                    Destroy(getFood.GameObject);
                 }
 
                 GetObject = putDish;
 
-                putDish.Combine(iFood);
+                putDish.Combine(tmp2);
             }
         }
         uIComponent.AddRange(iFood.Ingredients);
+        Destroy(iFood.GameObject);
     }
 }

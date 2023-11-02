@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class CookableTray : Tray, IStateUIAttachable, IFoodUIAttachable
+public abstract class CookableTray : Tray, IProgressUIAttachable, IFoodUIAttachable
 {
     [Header("Cookable Tray")]
     [SerializeField]
@@ -12,7 +12,7 @@ public abstract class CookableTray : Tray, IStateUIAttachable, IFoodUIAttachable
     [SerializeField]
     protected Vector3 stateImageOffset = new Vector3(0f, -75f, 0f);
 
-    protected Image stateImage;
+    protected Image progressImage;
 
     public ECookingMethod CookingMethod
     {
@@ -20,15 +20,15 @@ public abstract class CookableTray : Tray, IStateUIAttachable, IFoodUIAttachable
     }
      
 
-    public Image StateUI
+    public Image ProgressImage
     {
-        get => stateImage;
+        get => progressImage;
         set
         {
-            stateImage = value;
-            if (stateImage != null)
+            progressImage = value;
+            if (progressImage != null)
             {
-                stateImage.transform.position = Camera.main.WorldToScreenPoint(transform.position) + stateImageOffset;
+                progressImage.transform.position = Camera.main.WorldToScreenPoint(transform.position) + stateImageOffset;
             }
         }
     }
@@ -46,9 +46,9 @@ public abstract class CookableTray : Tray, IStateUIAttachable, IFoodUIAttachable
             uIComponent.OnImagePositionUpdate();
         }
 
-        if(stateImage != null)
+        if(progressImage != null)
         {
-            stateImage.transform.position = Camera.main.WorldToScreenPoint(transform.position) + stateImageOffset;
+            progressImage.transform.position = Camera.main.WorldToScreenPoint(transform.position) + stateImageOffset;
         }
     }
 
@@ -56,6 +56,10 @@ public abstract class CookableTray : Tray, IStateUIAttachable, IFoodUIAttachable
     {
         if (base.IsValidObject(interactableObject) && interactableObject.TryGetComponent<IFood>(out IFood iFood))
         {
+            if(iFood.FoodState == EFoodState.Cooking && iFood.CookingMethod != cookingMethod)
+            {
+                return false;
+            }
             return TryCheckRecipe(cookingMethod, iFood, out Recipe recipe) || RecipeManager.Instance.FindCookedFood(cookingMethod, interactableObject.SerialCode);
         }
         return false;
@@ -81,10 +85,10 @@ public abstract class CookableTray : Tray, IStateUIAttachable, IFoodUIAttachable
     public override void Remove(InteractableObject interactableObject)
     {
         base.Remove(interactableObject);
-        if(stateImage != null)
+        if(progressImage != null)
         {
-            Destroy(stateImage.gameObject);
-            stateImage = null;
+            Destroy(progressImage.gameObject);
+            progressImage = null;
         }
     }
 

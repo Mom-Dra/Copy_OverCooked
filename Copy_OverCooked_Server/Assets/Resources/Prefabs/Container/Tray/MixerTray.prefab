@@ -567,6 +567,6 @@ MonoBehaviour:
   displayOffset: {x: 0, y: 0.05, z: 0}
   getObject: {fileID: 0}
   maxContainCount: 4
-  cookingMethod: 4
+  cookingMethod: 5
   stateImageOffset: {x: 0, y: -75, z: 0}
   rotateRate: 0.4

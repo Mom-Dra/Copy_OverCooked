@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cookedFoodImage: {fileID: 1831241951672939810, guid: 7cbe056a08783c24ea7752afa5174e1c, type: 3}
   ingredients: a1000000aa00000065000000
-  cookingMethods: 03000000
+  cookingMethods: 04000000

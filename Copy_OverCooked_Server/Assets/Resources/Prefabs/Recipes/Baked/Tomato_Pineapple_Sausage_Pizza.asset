@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018c8a6fbc42ca1439a85f78d163161b, type: 3}
   m_Name: Tomato_Pineapple_Sausage_Pizza
   m_EditorClassIdentifier: 
-  cookingMethod: 5
+  cookingMethod: 6
   ingredients: 99000000960000009c000000a5000000
   totalCookDuration: 0
   cookedFood: 354

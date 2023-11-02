@@ -276,7 +276,7 @@ MonoBehaviour:
   displayOffset: {x: 0, y: 0.6, z: 0}
   getObject: {fileID: 0}
   totalCookDuration: 3
-  cookingMethod: 7
+  cookingMethod: 8
   cookwareState: 0
   onCookTrayPos: {x: 0, y: 0.35, z: 0}
 --- !u!1 &5700399441148403624

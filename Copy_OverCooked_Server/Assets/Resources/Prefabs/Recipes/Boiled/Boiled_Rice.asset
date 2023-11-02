@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018c8a6fbc42ca1439a85f78d163161b, type: 3}
   m_Name: Boiled_Rice
   m_EditorClassIdentifier: 
-  cookingMethod: 3
+  cookingMethod: 4
   ingredients: 7b000000
   totalCookDuration: 1
   cookedFood: 170

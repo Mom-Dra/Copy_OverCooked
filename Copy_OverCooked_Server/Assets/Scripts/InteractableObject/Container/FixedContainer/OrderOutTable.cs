@@ -16,11 +16,8 @@ public class OrderOutTable : FixedContainer
         if(interactableObject.TryGetComponent<Plate>(out Plate plate))
         {
             return true;
-        } 
-        else
-        {
-            Debug.Log($"[{Name}] : 접시가 필요합니다!");
         }
+        Debug.Log($"[{Name}] : 접시가 필요합니다!");
         return false;
     }
 
@@ -35,6 +32,7 @@ public class OrderOutTable : FixedContainer
                 Destroy(plate.GetObject.gameObject);
                 plate.RemoveSelf();
             }
+
             Fit(plate);
             plate.gameObject.SetActive(false);
             StartCoroutine(ReturnPlateCoroutine(plate));

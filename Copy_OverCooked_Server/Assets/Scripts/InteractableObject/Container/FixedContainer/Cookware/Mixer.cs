@@ -11,7 +11,7 @@ public class Mixer : Cookware
                 currTotalCookDuration = 7 + mixed.Ingredients.Count * 4f;
                 if (cookwareState == ECookwareState.Idle)
                 {
-                    selectedCoroutine = CookCoroutine(mixed, false);
+                    selectedCoroutine = CookCoroutine(mixed);
                     StartCoroutine(selectedCoroutine);
                 } 
                 else if(interactableObject.TryGetComponent<IFood>(out IFood iFood))
@@ -19,12 +19,12 @@ public class Mixer : Cookware
                     if (cookwareState == ECookwareState.Complete)
                     {
                         StopSelectedCoroutine();
-                        if (StateUIAttachable.StateUI != null)
+                        if (ProgressUIAttachable.ProgressImage != null)
                         {
-                            Destroy(StateUIAttachable.StateUI.gameObject);
-                            StateUIAttachable.StateUI = null;
+                            Destroy(ProgressUIAttachable.ProgressImage.gameObject);
+                            ProgressUIAttachable.ProgressImage = null;
                         }
-                        selectedCoroutine = CookCoroutine(mixed, false);
+                        selectedCoroutine = CookCoroutine(mixed);
                         StartCoroutine(selectedCoroutine);
                     }
                 }

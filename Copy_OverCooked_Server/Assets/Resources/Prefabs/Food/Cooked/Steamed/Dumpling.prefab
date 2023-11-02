@@ -219,7 +219,7 @@ MonoBehaviour:
   uIOffset: {x: 0, y: 75}
   isCookable: 1
   foodState: 2
-  cookingMethod: 6
+  cookingMethod: 7
   ingredients: 0f01000014010000
   currCookingRate: 0
 --- !u!1 &6966892898089721692

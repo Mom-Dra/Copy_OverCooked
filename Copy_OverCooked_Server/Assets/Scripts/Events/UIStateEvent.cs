@@ -26,7 +26,7 @@ public class UIStateEvent : Event
             if (food.CurrOverTime > 0)
             {
                 RemoveStateImage();
-                cookware.StateUIAttachable.StateUI = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Completed);
+                cookware.StateImage = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Completed);
                 return true;
             }
         }
@@ -42,7 +42,7 @@ public class UIStateEvent : Event
             if (food.CurrOverTime >= 60)
             {
                 RemoveStateImage();
-                cookware.StateUIAttachable.StateUI = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Warning);
+                cookware.StateImage = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Warning);
                 return true;
             }
         }
@@ -73,10 +73,10 @@ public class UIStateEvent : Event
 
     private void RemoveStateImage()
     {
-        if (cookware.StateUIAttachable.StateUI != null)
+        if (cookware.StateImage != null)
         {
-            GameObject.Destroy(cookware.StateUIAttachable.StateUI.gameObject);
-            cookware.StateUIAttachable.StateUI = null;
+            GameObject.Destroy(cookware.StateImage.gameObject);
+            cookware.StateImage = null;
         }
     }
 

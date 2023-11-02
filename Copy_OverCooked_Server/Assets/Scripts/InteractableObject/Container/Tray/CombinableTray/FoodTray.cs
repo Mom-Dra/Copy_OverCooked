@@ -42,8 +42,8 @@ public class FoodTray : CombinableTray, IFood
         get
         {
             // Memory_Optimizing
-            List<EObjectSerialCode> tmp = new List<EObjectSerialCode> { SerialCode };
-            if(dish.Ingredients.Count > 0)
+            List<EObjectSerialCode> tmp = new List<EObjectSerialCode> { serialCode };
+            if (dish.Ingredients.Count > 0)
             {
                 tmp.AddRange(dish.Ingredients);
             }
@@ -102,7 +102,7 @@ public class FoodTray : CombinableTray, IFood
         base.Start();
         GetObject = dish = GetComponentInChildren<Dish>(true);
         dish.Init();
-        dish.Combine(this, false);
+        //dish.Combine(this);
     }
 
     public override EObjectType GetTopType()
@@ -127,18 +127,12 @@ public class FoodTray : CombinableTray, IFood
     {
         if (interactableObject.TryGetComponent(out IFood iFood))
         {
-            PutDish(iFood);
+            CombineToDish(iFood);
         }
     }
 
     protected override void OnDestroy()
     {
-        //base.OnDestroy();
-        //foreach(Food food in foods)
-        //{
-        //    Destroy(food.gameObject);
-        //}
-        //foods.Clear();
         uIComponent.Clear();
     }
 

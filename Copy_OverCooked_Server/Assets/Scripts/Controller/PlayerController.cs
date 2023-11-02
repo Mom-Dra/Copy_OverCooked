@@ -2,15 +2,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-
+// 결국 이건 서버측 코드에서 필요 없음
+// 어차피 키보드 Input은 클라이언트에서 보내줄 것이기 때문 
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Controller")]
+    
     [SerializeField]
     private Player player;
-
-    [SerializeField]
-    private LayerMask layerMask;
 
     public void OnMove(InputValue value) // Move
     {

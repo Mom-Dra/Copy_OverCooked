@@ -735,5 +735,5 @@ MonoBehaviour:
   displayOffset: {x: 0, y: 0.35, z: 0}
   getObject: {fileID: 0}
   maxContainCount: 4
-  cookingMethod: 6
+  cookingMethod: 7
   stateImageOffset: {x: 0, y: -75, z: 0}

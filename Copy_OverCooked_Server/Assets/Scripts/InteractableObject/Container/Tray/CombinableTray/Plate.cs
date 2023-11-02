@@ -78,7 +78,7 @@ public class Plate : CombinableTray
                 } 
                 else
                 {
-                    PutDish(iFood);
+                    CombineToDish(iFood);
                 }
             }
         } 

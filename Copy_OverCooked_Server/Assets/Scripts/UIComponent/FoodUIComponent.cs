@@ -4,6 +4,7 @@ using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.UI;
 
+[Serializable]
 public class FoodUIComponent
 {
     protected static readonly List<Vector2[]> ImageOffsets = new List<Vector2[]>(4)
@@ -13,6 +14,7 @@ public class FoodUIComponent
         { new Vector2[3]{ new Vector2(-25f, 50f), new Vector2(25f, 50f), new Vector2(-25f, 0f),} },
         { new Vector2[4]{ new Vector2(-25f, 50f), new Vector2(25f, 50f), new Vector2(-25f, 0f), new Vector2(25f, 0f)} }
     };
+    [SerializeField]
     protected List<Image> images;
     protected Transform anchorTransform;
     protected Vector2 anchorOffset;
@@ -38,7 +40,7 @@ public class FoodUIComponent
             {
                 serialCode = (EObjectSerialCode)foodImageSC;
             }
-            //Debug.Log($"SC : {serialCode}");
+            //Debug.Log($"SC : {serialCode}, Attached : {anchorTransform.name}");
             images.Add(SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(serialCode));
             OnImagePositionUpdate();
         }
@@ -58,7 +60,8 @@ public class FoodUIComponent
         {
             foreach(Image image in images)
             {
-                GameObject.Destroy(image.gameObject);
+                if(image != null)
+                    GameObject.Destroy(image.gameObject);
             }
             images.Clear();
         }

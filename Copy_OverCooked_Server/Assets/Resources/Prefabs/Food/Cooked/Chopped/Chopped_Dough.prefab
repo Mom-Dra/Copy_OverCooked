@@ -306,7 +306,7 @@ MonoBehaviour:
   getObject: {fileID: 0}
   isCookable: 1
   foodState: 3
-  cookingMethod: 1
+  cookingMethod: 2
 --- !u!1 &6398501628191218393
 GameObject:
   m_ObjectHideFlags: 0

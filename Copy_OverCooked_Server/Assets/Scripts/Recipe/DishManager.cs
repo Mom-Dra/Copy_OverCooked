@@ -9,7 +9,7 @@ public class DishManager : MonobehaviorSingleton<DishManager>
     {
         base.Awake();
 
-        Dish[] _loadPrefab = Resources.LoadAll<Dish>("Prefabs/Dish");
+        Dish[] _loadPrefab = Resources.LoadAll<Dish>("Prefabs/Dish/Load");
         dishList.AddRange( _loadPrefab );
 
         foreach (Dish dish in dishList)

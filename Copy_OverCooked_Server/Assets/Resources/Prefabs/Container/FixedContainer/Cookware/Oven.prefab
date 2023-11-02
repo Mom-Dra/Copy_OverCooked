@@ -107,7 +107,7 @@ MonoBehaviour:
   displayOffset: {x: 0, y: 1, z: 0}
   getObject: {fileID: 0}
   totalCookDuration: 4
-  cookingMethod: 5
+  cookingMethod: 6
   cookwareState: 0
 --- !u!114 &-6634845738055142221
 MonoBehaviour:

@@ -10,10 +10,7 @@ public class Fryer : Cookware
     {
         if (base.TryPut(interactableObject))
         {
-            if (TryGet<Food>(out Food food))
-            {
-                TryCook();
-            }
+            TryCook();
             return true;
         }
         return false;

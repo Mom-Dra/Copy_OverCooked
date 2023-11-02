@@ -92,9 +92,10 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
         base.Awake();
         objectType = EObjectType.Food;
         uIComponent = new FoodUIComponent(transform, UIOffset);
-        if(ingredients.Count == 0)
+
+        if(ingredients.Count == 0 && cookingMethod != ECookingMethod.Combine)
         {
-            ingredients.Add(SerialCode);
+            ingredients.Add(serialCode);
         }
 
         if(foodState == EFoodState.Prepped)

@@ -2,9 +2,9 @@ using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UI;
 
-public interface IStateUIAttachable
+public interface IProgressUIAttachable
 {
-    public Image StateUI
+    public Image ProgressImage
     {
         get;
         set;
