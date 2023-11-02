@@ -290,7 +290,7 @@ public abstract class Cookware : FixedContainer, IProgressUIAttachable
             food.OnBurned();
         }
 
-        if (Flammablity)
+        if (Flammablity && SettingManager.Instance.fireEnabled)
         {
             fireTriggerBox.Ignite();
         }

@@ -20,7 +20,11 @@ public class UIStateEvent : Event
     private bool ShowCompleteUI()
     {
         if (IsDisableToEvent())
+        {
+            RemoveStateImage();
             return true;
+        }
+
         if (cookware.TryGet<Food>(out Food food))
         {
             if (food.CurrOverTime > 0)
@@ -36,7 +40,11 @@ public class UIStateEvent : Event
     private bool ShowWarningUI()
     {
         if (IsDisableToEvent())
+        {
+            RemoveStateImage();
             return true;
+        }
+
         if (cookware.TryGet<Food>(out Food food))
         {
             if (food.CurrOverTime >= 60)
@@ -52,7 +60,10 @@ public class UIStateEvent : Event
     private bool ShowOverheatUI()
     {
         if (IsDisableToEvent())
+        {
+            RemoveStateImage();
             return true;
+        }
 
         if (cookware.TryGet<Food>(out Food food))
         {

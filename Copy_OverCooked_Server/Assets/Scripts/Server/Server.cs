@@ -18,11 +18,14 @@ public class Server : MonobehaviorSingleton<Server>
     protected override void Awake()
     {
         base.Awake();
-        tcpListener.Start();
-        tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
-        PacketHandle.Init();
+        if (SettingManager.Instance.serverEnabled)
+        {
+            tcpListener.Start();
+            tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
+            PacketHandle.Init();
 
-        Debug.Log("서버가 시작되었습니다.");
+            Debug.Log("서버가 시작되었습니다.");
+        }
     }
 
     private void TCPConnectCallback(IAsyncResult result)

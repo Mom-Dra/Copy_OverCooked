@@ -5,10 +5,6 @@ using UnityEngine.UIElements;
 
 public class Interactor : MonoBehaviour
 {
-    [Header("Trigger")]
-    //[SerializeField]
-    //private float brightness = 0.4f;
-
     [Header("Debug")]
     [SerializeField]
     private List<InteractableObject> triggerObjectList = new List<InteractableObject>();
@@ -46,8 +42,8 @@ public class Interactor : MonoBehaviour
 
         if(prevTriggered != triggerObject)
         {
-            //prevTriggered?.GlowOff();
-            //triggerObject?.GlowOn();
+            prevTriggered?.GlowOff();
+            triggerObject?.GlowOn();
         }
     }
 

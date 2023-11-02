@@ -22,7 +22,10 @@ public static class Utill
 
     public static void DebugName(this GameObject gameObject, string message = "", EDebugColor color = EDebugColor.Yellow)
     {
-        Debug.Log($"<color={color.ToString().ToLower()}>[{gameObject.name}] : {message} </color>");
+        if(SettingManager.Instance.logEnabled)
+        {
+            Debug.Log($"<color={color.ToString().ToLower()}>[{gameObject.name}] : {message} </color>");
+        }
     }
 
     public static void Fix(this InteractableObject interactableObject)

@@ -48,7 +48,10 @@ public class MissionManager : MonobehaviorSingleton<MissionManager>
 
     private void Start()
     {
-        StartCoroutine(MissionCoroutine());
+        if (SettingManager.Instance.missionEnabled)
+        {
+            StartCoroutine(MissionCoroutine());
+        }
     }
 
     private IEnumerator MissionCoroutine()

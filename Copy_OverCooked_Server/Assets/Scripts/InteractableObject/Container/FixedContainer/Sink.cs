@@ -150,9 +150,19 @@ public class Sink : FixedContainer, IProgressUIAttachable, IReactable
         return interactableObject.TryGet<Plate>(out Plate plate) && plate.PlateState == EPlateState.Dirty;
     }
 
+    public override bool TryPut(InteractableObject interactableObject)
+    {
+        if (IsValidObject(interactableObject))
+        {
+            Put(interactableObject);
+            return true;
+        }
+        return false;
+    }
+
     public override void Put(InteractableObject interactableObject)
     {
-        if(interactableObject.TryGet(out Plate plate))
+        if (interactableObject.TryGet(out Plate plate))
         {
             Plate currPlate = plate;
             Plate prevPlate = null;

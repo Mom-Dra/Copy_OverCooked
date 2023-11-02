@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class SerialCodeDictionary : MonobehaviorSingleton<SerialCodeDictionary>
 {
-    [Header("Serial Code Dictionary")]
-    [SerializeField]
     private Dictionary<EObjectSerialCode, GameObject> serialCodDic = new Dictionary<EObjectSerialCode, GameObject>();
 
     private Dictionary<EObjectSerialCode, EObjectSerialCode> foodImageDictionary = new Dictionary<EObjectSerialCode, EObjectSerialCode>();

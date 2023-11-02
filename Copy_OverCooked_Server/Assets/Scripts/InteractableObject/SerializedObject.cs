@@ -8,8 +8,8 @@ public class SerializedObject : MonoBehaviour
 
     [SerializeField]
     protected EObjectSerialCode serialCode;
-    [SerializeField]
-    protected int id; // For Debug
+    [SerializeField] // For Debug
+    protected int id; 
 
     // Property
     public int Id { get => id; }

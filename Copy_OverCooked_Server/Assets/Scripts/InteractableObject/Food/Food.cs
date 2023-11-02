@@ -128,14 +128,12 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
     public void OnBurned()
     {
         foodState = EFoodState.Burned;
-        Debug.Log($"Burn : {name}");
         if (uIComponent.HasImage)
         {
             uIComponent.Clear();
         }
         uIComponent.Add(EObjectSerialCode.Img_Overheat);
-        //Renderer renderer = GetComponent<Renderer>();
-        //renderer?.material?.SetColor("_Color", Color.black);
+        SetColorInRenderers(Color.black);
     }
 
     public virtual void OnPlated()

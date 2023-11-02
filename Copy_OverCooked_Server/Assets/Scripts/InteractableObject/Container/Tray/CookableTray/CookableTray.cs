@@ -54,7 +54,7 @@ public abstract class CookableTray : Tray, IProgressUIAttachable, IFoodUIAttacha
 
     protected override bool IsValidObject(InteractableObject interactableObject)
     {
-        if (base.IsValidObject(interactableObject) && interactableObject.TryGetComponent<IFood>(out IFood iFood))
+        if (!HasObject() && base.IsValidObject(interactableObject) && interactableObject.TryGetComponent<IFood>(out IFood iFood))
         {
             if(iFood.FoodState == EFoodState.Cooking && iFood.CookingMethod != cookingMethod)
             {

@@ -2052,9 +2052,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1909479988}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!4 &624728497
 Transform:
   m_ObjectHideFlags: 0

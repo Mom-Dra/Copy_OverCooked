@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InteractableObject : SerializedObject
 {
-    public static readonly float BRIGTNESS = 0.3f;
-
     [Header("Interactable Object")]
     public string Name;
     [SerializeField]
@@ -15,6 +15,8 @@ public class InteractableObject : SerializedObject
     protected EObjectType objectType;
     [SerializeField]
     protected Vector2 uIOffset = new Vector2 (0f, 75f);
+
+    protected Renderer[] renderers;
 
     protected bool selectable = true;
     protected bool onGlowShader = false;
@@ -63,6 +65,25 @@ public class InteractableObject : SerializedObject
         }
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        List<Renderer> getRendererList = new List<Renderer>();
+        Renderer myRenderer = GetComponent<Renderer>();
+        if(myRenderer != null)
+        {
+            getRendererList.Add(myRenderer);
+        }
+        Renderer[] getRenderers = GetComponentsInChildren<Renderer>();
+
+        if(getRenderers != null)
+        {
+            getRendererList.AddRange(getRenderers);
+        }
+
+        renderers = getRendererList.ToArray();
+    }
+
     public virtual EObjectType GetTopType()
     {
         return objectType;
@@ -76,19 +97,37 @@ public class InteractableObject : SerializedObject
 
     public virtual void GlowOn()
     {
-        Renderer renderer = GetComponent<Renderer>();
-        //renderer?.material?.SetFloat("_Brightness", BRIGTNESS);
+        SetBrightnessInRenderers(SettingManager.Instance.brigtness);
         onGlowShader = true;
     }
 
     public virtual void GlowOff()
     {
-        Renderer renderer = GetComponent<Renderer>();
-        //renderer?.material?.SetFloat("_Brightness", 0f);
+        SetBrightnessInRenderers(0f);
         onGlowShader = false;
     }
 
-    
+    protected void SetBrightnessInRenderers(float amount)
+    {
+        if(renderers != null)
+        {
+            foreach(Renderer renderer in renderers)
+            {
+                renderer.material.SetFloat("_Brightness", amount);
+            }
+        }
+    }
 
-    
+    protected void SetColorInRenderers(Color color)
+    {
+        if(renderers != null)
+        {
+            foreach (Renderer renderer in renderers)
+            {
+                renderer.material.SetColor("_Color", color);
+            }
+        }
+    }
+
+
 }
