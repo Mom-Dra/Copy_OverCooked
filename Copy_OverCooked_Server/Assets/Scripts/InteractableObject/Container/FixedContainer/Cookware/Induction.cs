@@ -33,18 +33,20 @@ public class Induction : Cookware
         return !HasObject() && interactableObject.TryGetComponent<Tray>(out Tray tray);
     }
 
+    public override void Remove(InteractableObject interactableObject)
+    {
+        if (interactableObject.TryGetComponent<CookableTray>(out CookableTray cookableTray))
+        {
+            cookableTray.ParentCookware = null;
+        }
+        base.Remove(interactableObject);
+    }
+
     protected override bool CanCook()
     {
         return TryGet<CookableTray>(out CookableTray tray);
     }
 
-    protected override void ThrowPut(InteractableObject interactableObject)
-    {
-        if (!TryCook())
-        {
-            base.ThrowPut(interactableObject);
-        }
-    }
 
     public override void OnProgressBegin()
     {

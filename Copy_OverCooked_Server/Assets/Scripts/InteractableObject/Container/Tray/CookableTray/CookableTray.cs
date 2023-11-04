@@ -12,13 +12,24 @@ public abstract class CookableTray : Tray, IProgressUIAttachable, IFoodUIAttacha
     [SerializeField]
     protected Vector3 stateImageOffset = new Vector3(0f, -75f, 0f);
 
+    protected Cookware parentCookware;
+
     protected Image progressImage;
 
     public ECookingMethod CookingMethod
     {
         get => cookingMethod; 
     }
-     
+
+    public Cookware ParentCookware
+    {
+        set
+        {
+            parentCookware = value;
+        }
+    }
+
+
 
     public Image ProgressImage
     {
@@ -90,6 +101,11 @@ public abstract class CookableTray : Tray, IProgressUIAttachable, IFoodUIAttacha
             Destroy(progressImage.gameObject);
             progressImage = null;
         }
+    }
+
+    protected override void ThrowPut(InteractableObject interactableObject)
+    {
+        parentCookware.TryPut(interactableObject);
     }
 
     public abstract void OnProgressBegin();

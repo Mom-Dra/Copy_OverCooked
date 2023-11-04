@@ -8,7 +8,7 @@ public class Interactor : MonoBehaviour
     [Header("Debug")]
     [SerializeField]
     private List<InteractableObject> triggerObjectList = new List<InteractableObject>();
-
+    [SerializeField]
     private InteractableObject triggerObject;
 
     // Property
@@ -36,9 +36,15 @@ public class Interactor : MonoBehaviour
 
     public void SetClosestObject()
     {
-        InteractableObject prevTriggered = TriggerObject;
-        triggerObject = triggerObjectList.OrderBy(item => Vector3.Distance(ConvertYPositionToZero(item.transform.position), ConvertYPositionToZero(transform.position + Vector3.forward)))
-        .FirstOrDefault();
+        InteractableObject prevTriggered = triggerObject;
+        if(triggerObjectList.Count > 0)
+        {
+            triggerObject = triggerObjectList.OrderBy(item => Vector3.Distance(ConvertYPositionToZero(item.transform.position), ConvertYPositionToZero(transform.position + Vector3.forward)))
+            .FirstOrDefault();
+        } else
+        {
+            triggerObject = null;
+        }
 
         if(prevTriggered != triggerObject)
         {

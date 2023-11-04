@@ -53,10 +53,7 @@ public class Hand : Container
     {
         if (HasObject())
         {
-            if (getObject.TryGetComponent<IFood>(out IFood food))
-            {
-                Throw();
-            } else if (getObject.TryGet<IReactable>(out IReactable reactObject))
+            if (getObject.TryGet<IReactable>(out IReactable reactObject))
             {
                 reactObject.React(player);
             }
@@ -75,7 +72,11 @@ public class Hand : Container
     {
         if (HasObject())
         {
-            if (getObject.TryGet<IReactable>(out IReactable reactObject))
+            if (getObject.TryGetComponent<IFood>(out IFood food))
+            {
+                Throw();
+            } 
+            else if (getObject.TryGet<IReactable>(out IReactable reactObject))
             {
                 reactObject.React(player);
             }
@@ -86,6 +87,6 @@ public class Hand : Container
     {
         InteractableObject throwObject = getObject;
         HoldOut();
-        throwObject.GetComponent<Rigidbody>().AddForce(transform.forward * throwPower, ForceMode.Impulse);
+        throwObject.GetComponent<Rigidbody>().AddForce(((transform.up * 0.15f) + transform.forward) * throwPower, ForceMode.Impulse);
     }
 }

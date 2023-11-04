@@ -110,6 +110,8 @@ public abstract class Cookware : FixedContainer, IProgressUIAttachable
         }
     }
 
+
+
     public override bool TryPut(InteractableObject interactableObject)
     {
         if (base.TryPut(interactableObject))
@@ -136,13 +138,14 @@ public abstract class Cookware : FixedContainer, IProgressUIAttachable
         return false;
     }
 
+    public override void Put(InteractableObject interactableObject)
+    {
+        base.Put(interactableObject);
+        SetParentCookware(interactableObject);
+    }
+
     public override void Remove(InteractableObject interactableObject)
     {
-        //if(StateUIAttachable.ProgressImage != null && cookwareState == ECookwareState.Complete)
-        //{
-        //    Destroy(StateUIAttachable.ProgressImage.gameObject);
-        //    StateUIAttachable.ProgressImage = null;
-        //}
         StopSelectedCoroutine();
         base.Remove(interactableObject);
 
@@ -295,6 +298,14 @@ public abstract class Cookware : FixedContainer, IProgressUIAttachable
             fireTriggerBox.Ignite();
         }
     } 
+
+    protected void SetParentCookware(InteractableObject interactableObject)
+    {
+        if (interactableObject.TryGetComponent<CookableTray>(out CookableTray cookableTray))
+        {
+            cookableTray.ParentCookware = this;
+        }
+    }
 
     protected abstract bool CanCook();
 

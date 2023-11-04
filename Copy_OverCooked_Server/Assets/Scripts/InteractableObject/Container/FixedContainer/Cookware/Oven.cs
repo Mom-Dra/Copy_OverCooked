@@ -25,12 +25,13 @@ public class Oven : Cookware
         return !HasObject() && interactableObject.TryGetComponent<Tray>(out Tray tray);
     }
 
-    protected override void ThrowPut(InteractableObject interactableObject)
+    public override void Remove(InteractableObject interactableObject)
     {
-        if (!TryCook())
+        if (interactableObject.TryGetComponent<CookableTray>(out CookableTray cookableTray))
         {
-            base.ThrowPut(interactableObject);
+            cookableTray.ParentCookware = null;
         }
+        base.Remove(interactableObject);
     }
 
     public override void OnProgressBegin()

@@ -20,7 +20,7 @@ public class FixedContainer : Container
     {
         if (!HasObject() && !fireTriggerBox.OnFire)
         {
-            Put(interactableObject);
+            TryPut(interactableObject);
         }
     }
 }

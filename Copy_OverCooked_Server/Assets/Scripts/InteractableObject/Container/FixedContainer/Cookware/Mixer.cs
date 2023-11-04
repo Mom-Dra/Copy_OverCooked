@@ -45,14 +45,6 @@ public class Mixer : Cookware
         return !HasObject() && interactableObject.TryGetComponent<MixerTray>(out MixerTray tray);
     }
 
-    protected override void ThrowPut(InteractableObject interactableObject)
-    {
-        if (!TryCook())
-        {
-            base.ThrowPut(interactableObject);
-        }
-    }
-
     public override void OnProgressBegin()
     {
 
@@ -65,6 +57,10 @@ public class Mixer : Cookware
 
     public override void Remove(InteractableObject interactableObject)
     {
+        if (interactableObject.TryGetComponent<CookableTray>(out CookableTray cookableTray))
+        {
+            cookableTray.ParentCookware = null;
+        }
         base.Remove(interactableObject);
         currTotalCookDuration = totalCookDuration;
     }

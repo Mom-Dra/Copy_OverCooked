@@ -176,12 +176,13 @@ public class Container : InteractableObject
 
     protected virtual void ThrowPut(InteractableObject interactableObject)
     {
+        Debug.Log($"{name}, ThrowPut : {interactableObject}");
         TryPut(interactableObject);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.TryGetComponent<Food>(out Food food) && food.Selectable)
+        if (collision.transform.TryGetComponent<Food>(out Food food) && food.Selectable)
         {
             ThrowPut(food);
         }
