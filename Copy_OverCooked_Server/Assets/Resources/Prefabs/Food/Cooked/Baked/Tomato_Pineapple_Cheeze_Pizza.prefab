@@ -468,10 +468,11 @@ MonoBehaviour:
   Description: 
   objectType: 2
   uIOffset: {x: 0, y: 75}
+  inclusiveInteractor: {fileID: 0}
   isCookable: 1
   foodState: 3
   cookingMethod: 6
-  ingredients: 99000000960000009c0000009a000000
+  ingredients: fb000000960000009c0000009a000000
   currCookingRate: 0
 --- !u!1 &4263988896413403657
 GameObject:

@@ -27,6 +27,11 @@ public abstract class Cookware : FixedContainer, IProgressUIAttachable
     protected float currTotalCookDuration;
 
     // Property
+    public float TotalCookDuration
+    {
+        get => totalCookDuration;
+    }
+
     protected virtual ECookingMethod CookingMethod
     {
         get => cookingMethod;

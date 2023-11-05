@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class InteractableObject : SerializedObject
@@ -15,6 +16,10 @@ public class InteractableObject : SerializedObject
     protected EObjectType objectType;
     [SerializeField]
     protected Vector2 uIOffset = new Vector2 (0f, 75f);
+
+    // 이거 일단 이렇게 하고 추후 수정 
+    // 
+    public Interactor inclusiveInteractor;
 
     protected Renderer[] renderers;
 
@@ -126,6 +131,14 @@ public class InteractableObject : SerializedObject
             {
                 renderer.material.SetColor("_Color", color);
             }
+        }
+    }
+
+    protected virtual void OnDestroy()
+    {
+        if(inclusiveInteractor != null)
+        {
+            inclusiveInteractor.RemoveOnDestroy(this);
         }
     }
 

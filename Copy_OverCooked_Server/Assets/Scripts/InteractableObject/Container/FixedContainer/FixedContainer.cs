@@ -2,7 +2,17 @@ using UnityEngine;
 
 public class FixedContainer : Container
 {
+    [Header("Fixed Container")]
+    [SerializeField]
+    protected bool flammablity = true; // °¡¿¬¼º 
+
     protected FireTriggerBox fireTriggerBox;
+
+    // Property
+    public bool Flammablity
+    {
+        get => flammablity;
+    }
 
     protected override void Start()
     {

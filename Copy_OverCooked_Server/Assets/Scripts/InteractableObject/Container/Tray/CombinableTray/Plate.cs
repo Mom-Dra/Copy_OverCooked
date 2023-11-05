@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Plate : CombinableTray
 {
+    [Header("Plate")]
     [SerializeField]
     private EPlateState plateState = EPlateState.Clean;
 
-    private Renderer plateRenderer;
     private Color cleanColor;
+
 
     public EPlateState PlateState
     {
@@ -29,23 +30,19 @@ public class Plate : CombinableTray
     protected override void Awake()
     {
         base.Awake();
-        plateRenderer = GetComponent<Renderer>();
-        if(plateRenderer != null )
-        { 
-            cleanColor = plateRenderer.material.color;
-        }
+        cleanColor = renderers[0].material.color;
     }
 
     private void OnPlateStateChanging(EPlateState plateState)
     {
-        //if(plateState == EPlateState.Clean)
-        //{
-        //    plateRenderer.material.color = cleanColor;
-        //} 
-        //else
-        //{
-        //    plateRenderer.material.color = Color.gray;
-        //}
+        if (plateState == EPlateState.Clean)
+        {
+            SetColorInRenderers(cleanColor);
+        } 
+        else
+        {
+            SetColorInRenderers(Color.gray);
+        }
     }
 
     protected override bool IsValidObject(InteractableObject interactableObject)

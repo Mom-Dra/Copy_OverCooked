@@ -23,15 +23,6 @@ public class Tray : Container
         get => uIComponent;
     }
 
-    //private void FixedUpdate()
-    //{
-    //    if (getObject != null)
-    //    {
-    //        getObject.transform.position = transform.position + displayOffset;
-    //        getObject.transform.rotation = transform.rotation;
-    //    }
-    //}
-
     public override bool TryPut(InteractableObject interactableObject)
     {
         if (IsValidObject(interactableObject))
@@ -70,7 +61,7 @@ public class Tray : Container
         uIComponent.AddRange(Ingredients);
     }
 
-    protected virtual void OnDestroy()
+    protected override void OnDestroy()
     {
         if (HasObject())
         {

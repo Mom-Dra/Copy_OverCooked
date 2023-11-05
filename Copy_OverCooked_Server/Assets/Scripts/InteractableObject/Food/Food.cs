@@ -184,8 +184,9 @@ public class Food : InteractableObject, IFood, IFoodUIAttachable
         }
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
+        base.OnDestroy();
         ingredients.Clear();
         uIComponent.Clear();
     }

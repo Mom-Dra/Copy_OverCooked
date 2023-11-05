@@ -186,10 +186,11 @@ MonoBehaviour:
   Description: 
   objectType: 0
   uIOffset: {x: 0, y: 75}
-  flammablity: 0
+  inclusiveInteractor: {fileID: 0}
   displayOffset: {x: 0, y: 1.1, z: 0}
   getObject: {fileID: 0}
-  totalCookDuration: 1
+  flammablity: 0
+  totalCookDuration: 6
   cookingMethod: 2
   cookwareState: 0
 --- !u!114 &1479818046633615048

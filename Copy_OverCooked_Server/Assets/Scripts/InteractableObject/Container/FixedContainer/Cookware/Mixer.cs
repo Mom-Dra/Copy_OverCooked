@@ -8,7 +8,7 @@ public class Mixer : Cookware
         {
             if (TryGet<Mixed>(out Mixed mixed))
             {
-                currTotalCookDuration = 7 + mixed.Ingredients.Count * 4f;
+                currTotalCookDuration = totalCookDuration + mixed.Ingredients.Count * 4f;
                 if (cookwareState == ECookwareState.Idle)
                 {
                     selectedCoroutine = CookCoroutine(mixed);

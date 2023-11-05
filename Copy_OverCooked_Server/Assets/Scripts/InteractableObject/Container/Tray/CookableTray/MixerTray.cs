@@ -88,7 +88,7 @@ public class MixerTray : CookableTray
                     ProgressImage = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Progress);
                 }
                 Image gauge = progressImage.transform.GetChild(1).GetComponent<Image>();
-                gauge.fillAmount = mixed.CurrCookingRate / (7 + mixed.Ingredients.Count * 4f);
+                gauge.fillAmount = mixed.CurrCookingRate / (parentCookware.TotalCookDuration + mixed.Ingredients.Count * 4f);
             }
 
 

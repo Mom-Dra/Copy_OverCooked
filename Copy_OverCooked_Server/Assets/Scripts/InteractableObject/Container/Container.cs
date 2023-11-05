@@ -6,8 +6,7 @@ public class Container : InteractableObject
 {
     [Header("Container")]
     
-    [SerializeField]
-    protected bool flammablity = true; // °¡¿¬¼º 
+    
     [SerializeField]
     protected Vector3 displayOffset = Vector3.up;
 
@@ -15,11 +14,7 @@ public class Container : InteractableObject
     [SerializeField]
     protected InteractableObject getObject;
 
-    // Property
-    public bool Flammablity 
-    { 
-        get => flammablity; 
-    }
+    
 
     public virtual InteractableObject GetObject 
     { 
