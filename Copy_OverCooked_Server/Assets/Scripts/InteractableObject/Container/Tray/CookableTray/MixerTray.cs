@@ -83,7 +83,8 @@ public class MixerTray : CookableTray
                         Destroy(progressImage.gameObject);
                         ProgressImage = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Progress);
                     }
-                } else
+                } 
+                else
                 {
                     ProgressImage = SerialCodeDictionary.Instance.InstantiateBySerialCode<Image>(EObjectSerialCode.Img_Progress);
                 }
