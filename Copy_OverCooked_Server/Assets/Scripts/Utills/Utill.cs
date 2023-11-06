@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum EDebugColor
@@ -10,6 +11,8 @@ public enum EDebugColor
 
 public static class Utill
 {
+    private static float BLEND_RATIO = 0.5f;
+
     public static void AddComponentToChild(GameObject parent, GameObject child)
     {
         child.transform.SetParent(parent.transform);
@@ -46,12 +49,34 @@ public static class Utill
         }
     }
 
-    public static void Convert(ref InteractableObject interactableObject, InteractableObject toObject)
+    public static Color SubtractiveMixColor(this Color color1, Color color2)
     {
-        InteractableObject destroyObject = interactableObject;
-        interactableObject = GameObject.Instantiate(toObject, interactableObject.transform.position, Quaternion.identity); // new 
-        interactableObject.GetComponent<Rigidbody>().isKinematic = destroyObject.GetComponent<Rigidbody>().isKinematic;
-        interactableObject.Selectable = destroyObject.Selectable;
-        GameObject.Destroy(destroyObject.gameObject);
+        Color blendedColor = new Color(
+            Mathf.Lerp(color1.r, color2.r, BLEND_RATIO),
+            Mathf.Lerp(color1.g, color2.g, BLEND_RATIO),
+            Mathf.Lerp(color1.b, color2.b, BLEND_RATIO),
+            Mathf.Lerp(color1.a, color2.a, BLEND_RATIO)
+        );
+        return blendedColor;
+    }
+
+    public static List<T> GetComponentsInAllChildren<T>(this GameObject parent) where T : Component
+    {
+        List<T> componentList = new List<T> ();
+        if(parent.TryGetComponent<T>(out T component))
+        {
+            componentList.Add(component);
+        }
+
+        if(parent.transform.childCount > 0)
+        {
+            GameObject child = null;
+            for(int i = 0; i < parent.transform.childCount; i++)
+            {
+                child = parent.transform.GetChild(i).gameObject;
+                componentList.AddRange(child.GetComponentsInAllChildren<T>());
+            }
+        }
+        return componentList;
     }
 }

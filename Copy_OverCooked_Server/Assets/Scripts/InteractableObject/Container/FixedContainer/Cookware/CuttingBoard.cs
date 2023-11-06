@@ -25,8 +25,7 @@ public class CuttingBoard : Cookware, IReactable
 
     protected override bool CanGet()
     {
-        IFood getFood = getObject as IFood;
-        return cookwareState != ECookwareState.Cook || (cookwareState == ECookwareState.Cook && getFood.CurrCookingRate < 5);
+        return cookwareState != ECookwareState.Cook;
     }
 
     public override void Put(InteractableObject interactableObject)

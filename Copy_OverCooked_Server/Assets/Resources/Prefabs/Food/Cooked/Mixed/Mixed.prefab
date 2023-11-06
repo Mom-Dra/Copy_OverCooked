@@ -101,6 +101,7 @@ MonoBehaviour:
   Description: 
   objectType: 2
   uIOffset: {x: 0, y: 75}
+  inclusiveInteractor: {fileID: 0}
   isCookable: 1
   foodState: 2
   cookingMethod: 5

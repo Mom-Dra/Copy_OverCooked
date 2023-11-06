@@ -73,20 +73,21 @@ public class InteractableObject : SerializedObject
     protected override void Awake()
     {
         base.Awake();
-        List<Renderer> getRendererList = new List<Renderer>();
-        Renderer myRenderer = GetComponent<Renderer>();
-        if(myRenderer != null)
-        {
-            getRendererList.Add(myRenderer);
-        }
-        Renderer[] getRenderers = GetComponentsInChildren<Renderer>();
+        renderers = gameObject.GetComponentsInAllChildren<Renderer>().ToArray();
+        //List<Renderer> getRendererList = new List<Renderer>();
+        //Renderer myRenderer = GetComponent<Renderer>();
+        //if(myRenderer != null)
+        //{
+        //    getRendererList.Add(myRenderer);
+        //}
+        //Renderer[] getRenderers = GetComponentsInChildren<Renderer>();
 
-        if(getRenderers != null)
-        {
-            getRendererList.AddRange(getRenderers);
-        }
+        //if(getRenderers != null)
+        //{
+        //    getRendererList.AddRange(getRenderers);
+        //}
 
-        renderers = getRendererList.ToArray();
+        //renderers = getRendererList.ToArray();
     }
 
     public virtual EObjectType GetTopType()
@@ -132,6 +133,11 @@ public class InteractableObject : SerializedObject
                 renderer.material.SetColor("_Color", color);
             }
         }
+    }
+
+    public Renderer GetFirstRenderer()
+    {
+        return renderers[0];
     }
 
     protected virtual void OnDestroy()

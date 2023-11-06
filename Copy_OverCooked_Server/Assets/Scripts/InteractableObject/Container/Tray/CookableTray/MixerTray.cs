@@ -39,6 +39,7 @@ public class MixerTray : CookableTray
 
     public override void Put(InteractableObject interactableObject)
     {
+        Color putColor = interactableObject.GetFirstRenderer().material.color;
         if (interactableObject.TryGetComponent<IFood>(out IFood iFood))
         {
             uIComponent.AddRange(iFood.Ingredients);
@@ -70,6 +71,8 @@ public class MixerTray : CookableTray
                     List<EObjectSerialCode> tmp = new List<EObjectSerialCode> { recipe.CookedFood };
                     mixed.Ingredients.AddRange(tmp);
                     mixed.CurrOverTime = 0;
+
+                    interactableObject.Selectable = false;
                     Destroy(iFood.GameObject);
                 }
             }
@@ -91,12 +94,7 @@ public class MixerTray : CookableTray
                 Image gauge = progressImage.transform.GetChild(1).GetComponent<Image>();
                 gauge.fillAmount = mixed.CurrCookingRate / (parentCookware.TotalCookDuration + mixed.Ingredients.Count * 4f);
             }
-
-
-            //
-            ChangeMixedColor(interactableObject);
-
-            
+            ChangeMixedColor(putColor);
         }
     }
 
@@ -106,15 +104,11 @@ public class MixerTray : CookableTray
         mixed = null;
     }
 
-    private void AddCookDuration(IFood iFood)
-    {
-        mixed.CurrCookingRate = (mixed.CurrCookingRate < iFood.CurrCookingRate) ? mixed.CurrCookingRate : iFood.CurrCookingRate;
-        mixed.CurrOverTime = 0;
-    }
-
-    private void ChangeMixedColor(InteractableObject io)
+    private void ChangeMixedColor(Color color)
     {
         // 현재 Mixed 색상과 새로 들어온 음식의 색상을 합침 
+        Renderer mixedRenderer = mixed.GetFirstRenderer();
+        mixedRenderer.material.color = mixedRenderer.material.color.SubtractiveMixColor(color);
     }
 
     public override void OnProgressBegin()

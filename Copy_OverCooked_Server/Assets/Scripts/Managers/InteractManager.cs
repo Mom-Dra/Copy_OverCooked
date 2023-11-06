@@ -38,7 +38,7 @@ public class InteractManager : MonobehaviorSingleton<InteractManager>
 
     public void MoveObject(Container sender, Container receiver)
     {
-        Debug.Log($"<color=yellow> Move {sender.name} -> {receiver.name} </color>");
+        //Debug.Log($"<color=yellow> Move {sender.name} -> {receiver.name} </color>");
 
         EObjectType recvTopType = receiver.GetTopType();
         InteractableObject sendObject = null;
@@ -64,7 +64,7 @@ public class InteractManager : MonobehaviorSingleton<InteractManager>
                 {
                     if (receiver.TryPut(sendObject))
                     { 
-                        Debug.Log($"<color=yellow> OK </color>");
+                        //Debug.Log($"<color=yellow> OK </color>");
                         // 여기 수정해야 할 것 같은데 
                         if(sender.ObjectType != EObjectType.Tray)
                         {
