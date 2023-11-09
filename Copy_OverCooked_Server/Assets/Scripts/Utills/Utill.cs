@@ -13,7 +13,7 @@ public static class Utill
 {
     private static float BLEND_RATIO = 0.5f;
 
-    public static void AddComponentToChild(GameObject parent, GameObject child)
+    public static void AddComponentToChild(this GameObject parent, GameObject child)
     {
         child.transform.SetParent(parent.transform);
     }
@@ -47,6 +47,18 @@ public static class Utill
         {
             rigidbody.isKinematic = false;
         }
+    }
+
+    public static string SetAnimationClip(this GameObject gameObject, AnimationClip animationClip)
+    {
+        if (!gameObject.TryGetComponent<Animation>(out Animation anim))
+        {
+            anim = gameObject.AddComponent<Animation>();
+        } 
+
+        string clipName = animationClip.ToString();
+        anim.AddClip(animationClip, clipName);
+        return clipName;
     }
 
     public static Color SubtractiveMixColor(this Color color1, Color color2)

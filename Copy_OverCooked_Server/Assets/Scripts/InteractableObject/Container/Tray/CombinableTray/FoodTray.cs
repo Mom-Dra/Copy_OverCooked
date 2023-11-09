@@ -154,7 +154,8 @@ public class FoodTray : CombinableTray, IFood
             activePrefab?.gameObject.SetActive(false);
             cookingPrefab.gameObject.SetActive(true);
             activePrefab = cookingPrefab;
-        } else if (cookedPrefab != null)
+        } 
+        else if (cookedPrefab != null)
         {
             activePrefab?.gameObject.SetActive(false);
             cookedPrefab.gameObject.SetActive(true);

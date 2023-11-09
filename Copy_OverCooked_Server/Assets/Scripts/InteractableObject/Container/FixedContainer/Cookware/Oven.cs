@@ -8,7 +8,13 @@ public class Oven : Cookware
         {
             if (TryGet<IFood>(out IFood food))
             {
-                TryCook();
+                if (TryCook())
+                {
+                    if (!FoodUIAttachable.FoodUIComponent.HasImage)
+                    {
+                        FoodUIAttachable.AddIngredientImages();
+                    }
+                }
             }
             return true;
         }
@@ -17,12 +23,13 @@ public class Oven : Cookware
 
     protected override bool CanCook()
     {
-        return TryGet<Tray>(out Tray tray);
+        return TryGet<IFood>(out IFood tray);
     }
 
     protected override bool IsValidObject(InteractableObject interactableObject)
     {
-        return !HasObject() && interactableObject.TryGetComponent<Tray>(out Tray tray);
+        return !HasObject() && interactableObject.TryGetComponent<Tray>(out Tray tray)
+            || RecipeManager.Instance.FindCookedFood(cookingMethod, interactableObject.SerialCode);
     }
 
     public override void Remove(InteractableObject interactableObject)

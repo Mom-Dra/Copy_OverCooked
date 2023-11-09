@@ -152,9 +152,11 @@ MonoBehaviour:
   Description: 
   objectType: 0
   uIOffset: {x: 0, y: 1}
-  flammablity: 1
+  inclusiveInteractor: {fileID: 0}
   displayOffset: {x: 0, y: 1, z: 0}
   getObject: {fileID: 0}
+  flammablity: 1
+  slowDestroyGO: {fileID: 8909786512477394848, guid: 668ff2c4a2e93fb439ac073c2db8f79b, type: 3}
 --- !u!1 &586120067588278506
 GameObject:
   m_ObjectHideFlags: 0

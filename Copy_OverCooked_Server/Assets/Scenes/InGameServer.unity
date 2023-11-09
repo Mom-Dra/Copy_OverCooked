@@ -811,7 +811,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serverEnabled: 0
-  logEnabled: 0
+  logEnabled: 1
   brigtness: 0.2
   missionEnabled: 1
   fireEnabled: 1
