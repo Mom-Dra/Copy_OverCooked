@@ -3,13 +3,13 @@ using System.Linq;
 using System.Net.Sockets;
 using UnityEngine;
 
-public class ClientHandler
+public class TCPClientHandler
 {
     private TcpClient tcpClient;
     private int clientId;
     private byte[] buffer;
 
-    public ClientHandler(TcpClient tcpClient, int clientId)
+    public TCPClientHandler(TcpClient tcpClient, int clientId)
     {
         this.tcpClient = tcpClient;
         this.clientId = clientId;

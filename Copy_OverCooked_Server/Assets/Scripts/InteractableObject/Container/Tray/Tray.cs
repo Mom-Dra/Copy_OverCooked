@@ -40,10 +40,10 @@ public class Tray : Container
 
     public override void Put(InteractableObject interactableObject)
     {
-        if(interactableObject.TryGetComponent<IFood>(out IFood putIFood))
+        if (interactableObject.TryGetComponent<IFood>(out IFood putIFood))
         {
             putIFood.FoodUIComponent.Clear();
-            
+
             base.Put(interactableObject);
 
             uIComponent.AddRange(putIFood.Ingredients);

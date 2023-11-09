@@ -2,39 +2,40 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using UnityEngine;
 
 
 public class Server : MonobehaviorSingleton<Server>
 {
     [SerializeField]
-    private int clientNumberForDebug  = 0; // Just Debug
+    private int clientNumberForDebug = 0; // Just Debug
 
     private TcpListener tcpListener = new TcpListener(IPAddress.Any, 9999);
     private int s_nextId;
-    private Dictionary<int, ClientHandler> clientDic = new Dictionary<int, ClientHandler>();
+    private Dictionary<int, TCPClientHandler> clientDic = new Dictionary<int, TCPClientHandler>();
 
+    private UdpClient udpClient = new UdpClient(9999);
 
     protected override void Awake()
     {
         base.Awake();
-        if (SettingManager.Instance.serverEnabled)
-        {
-            tcpListener.Start();
-            tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
-            PacketHandle.Init();
+        tcpListener.Start();
+        tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
+        PacketHandle.Init();
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµÇ¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 
-            Debug.Log("¼­¹ö°¡ ½ÃÀÛµÇ¾ú½À´Ï´Ù.");
-        }
+        UDP();
     }
 
+    #region TCP
     private void TCPConnectCallback(IAsyncResult result)
     {
         NetworkDebug.Log($"Hello [{s_nextId}] User!");
         TcpClient client = tcpListener.EndAcceptTcpClient(result);
         NetworkStream networkStream = client.GetStream();
 
-        ClientHandler clientHandler = new ClientHandler(client, s_nextId);
+        TCPClientHandler clientHandler = new TCPClientHandler(client, s_nextId);
         clientDic.Add(s_nextId, clientHandler);
         clientNumberForDebug++;
 
@@ -60,11 +61,26 @@ public class Server : MonobehaviorSingleton<Server>
 
     public void SendToAllClients(Packet packet)
     {
-        foreach (ClientHandler clientHandler in clientDic.Values)
+        foreach (TCPClientHandler clientHandler in clientDic.Values)
         {
             clientHandler.Send(packet);
         }
     }
+
+    #endregion
+
+    private void UDP()
+    {
+        //udpClient.BeginReceive();
+
+        IPEndPoint remoteEP = new IPEndPoint(IPAddress.Any, 0);
+
+        byte[] data = udpClient.Receive(ref remoteEP);
+        string message = Encoding.UTF8.GetString(data);
+
+        Debug.Log($"From Client: {message}");
+    }
+
 
     private void OnApplicationQuit()
     {

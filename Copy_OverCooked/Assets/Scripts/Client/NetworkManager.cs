@@ -20,6 +20,8 @@ public class NetworkManager : MonobehaviorSingleton<NetworkManager>
     //Property
     public int ClientId { get; }
 
+    UdpClient udpClient = new UdpClient();
+
     protected override void Awake()
     {
         base.Awake();
@@ -85,5 +87,23 @@ public class NetworkManager : MonobehaviorSingleton<NetworkManager>
     {
         Debug.Log($"<color=yellow> {packet} </color>");
         tcpClient.GetStream().Write(packet.ToByteArray());
+    }
+
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            Debug.Log("데이터를 전송했습니다");
+            UDP();
+        }
+    }
+
+    private void UDP()
+    {
+        string msg = "HelloWorld!@!@!@";
+        byte[] data = Encoding.UTF8.GetBytes(msg);
+
+        udpClient.Send(data, data.Length, "127.0.0.1", 9999);
     }
 }
