@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombinableTray : Tray, IFoodUIAttachable
+public abstract class CombinableTray : Tray
 {
     protected override void Awake()
     {

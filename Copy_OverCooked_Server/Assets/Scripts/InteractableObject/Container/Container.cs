@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Container : InteractableObject
+public abstract class Container : InteractableObject
 {
     [Header("Container")]
     

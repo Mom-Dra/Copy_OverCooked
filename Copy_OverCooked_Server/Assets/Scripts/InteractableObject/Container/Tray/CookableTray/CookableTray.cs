@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class CookableTray : Tray, IProgressUIAttachable, IFoodUIAttachable
+public abstract class CookableTray : Tray, IProgressUIAttachable
 {
     [Header("Cookable Tray")]
     [SerializeField]

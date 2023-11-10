@@ -1,11 +1,7 @@
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Tray : Container
+public abstract class Tray : Container, IFoodUIAttachable
 {
     [Header("Tray")]
     protected FoodUIComponent uIComponent;

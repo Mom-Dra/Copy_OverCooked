@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class InteractableObject : SerializedObject
+public abstract class InteractableObject : SerializedObject
 {
     [Header("Interactable Object")]
     public string Name;

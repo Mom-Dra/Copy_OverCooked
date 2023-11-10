@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FixedContainer : Container
+public abstract class FixedContainer : Container
 {
     [Header("Fixed Container")]
     [SerializeField]
